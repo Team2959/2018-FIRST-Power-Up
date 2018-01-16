@@ -17,6 +17,7 @@
 class Robot : public frc::TimedRobot
 {
 public:
+	// Add all subsystem definition here as static public variables
 	static std::unique_ptr<OI> oi;
 
 public:

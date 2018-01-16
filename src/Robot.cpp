@@ -9,6 +9,7 @@
 #include <LiveWindow/LiveWindow.h>
 #include <SmartDashboard/SmartDashboard.h>
 
+// Create the unique static pointers for each subsystem
 std::unique_ptr<OI> Robot::oi;
 
 void Robot::RobotInit()
