@@ -5,8 +5,7 @@
  *      Author: CW
  */
 
-#ifndef SRC_COMMANDS_DRIVEWITHJOYSTICK_H_
-#define SRC_COMMANDS_DRIVEWITHJOYSTICK_H_
+#pragma once
 
 #include <Commands/Command.h>
 
@@ -19,5 +18,3 @@ public:
 	void Execute() override;
 	bool IsFinished() override;
 };
-
-#endif /* SRC_COMMANDS_DRIVEWITHJOYSTICK_H_ */

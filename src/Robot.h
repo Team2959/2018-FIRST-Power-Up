@@ -7,12 +7,11 @@
 
 #pragma once
 
-#include <Commands/Command.h>
-#include <Commands/Scheduler.h>
-#include <SmartDashboard/SendableChooser.h>
 #include <TimedRobot.h>
-#include <OI.h>
 #include <memory>
+#include <Commands/Command.h>
+#include <SmartDashboard/SendableChooser.h>
+#include <OI.h>
 #include <Subsystems/DriveTrain.h>
 
 class Robot : public frc::TimedRobot

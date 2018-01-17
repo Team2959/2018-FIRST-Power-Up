@@ -25,7 +25,7 @@ void Robot::RobotInit()
 	// news. Don't move it.
 	oi.reset(new OI());
 
-	//SmartDashboard::PutData(DriveTrainSubsystem.get());
+	SmartDashboard::PutData(DriveTrainSubsystem.get());
 
 	//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
 	//m_chooser.AddObject("My Auto", &m_myAuto);
@@ -64,6 +64,9 @@ void Robot::DisabledPeriodic()
  */
 void Robot::AutonomousInit()
 {
+	// Add code to read switch/scale state from Field Management System
+	// https://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/826278-2018-game-data-details
+
 	std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
 	if (autoSelected == "My Auto")
 	{
