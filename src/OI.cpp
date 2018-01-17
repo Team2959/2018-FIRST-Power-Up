@@ -12,3 +12,7 @@ OI::OI()
 	DriverJoystick.reset(new frc::Joystick(0));
 }
 
+std::shared_ptr<frc::Joystick> OI::GetDriverJoystick()
+{
+	return DriverJoystick;
+}

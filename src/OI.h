@@ -17,4 +17,6 @@ private:
 
 public:
 	OI();
+
+	std::shared_ptr<frc::Joystick> GetDriverJoystick();
 };

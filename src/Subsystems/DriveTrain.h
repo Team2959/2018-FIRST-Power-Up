@@ -5,12 +5,12 @@
  *      Author: CW
  */
 
-#ifndef SRC_SUBSYSTEMS_DRIVETRAIN_H_
-#define SRC_SUBSYSTEMS_DRIVETRAIN_H_
+#pragma once
 
 #include <Commands/Subsystem.h>
 #include "ctre/Phoenix.h"
 #include <memory>
+#include <WPILib.h>
 
 class DriveTrain: public frc::Subsystem
 {
@@ -23,6 +23,6 @@ private:
 public:
 	DriveTrain();
 	virtual ~DriveTrain();
-};
 
-#endif /* SRC_SUBSYSTEMS_DRIVETRAIN_H_ */
+	void XDrive(std::shared_ptr<frc::Joystick>);
+};

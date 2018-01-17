@@ -1,8 +1,8 @@
 /*
  * Robot.h
  *
- *  Created on: Jan 15, 2018
- *      Author:
+ *  Created on: Jan 16, 2018
+ *      Author: CW
  */
 
 #pragma once
@@ -13,11 +13,13 @@
 #include <TimedRobot.h>
 #include <OI.h>
 #include <memory>
+#include <Subsystems/DriveTrain.h>
 
 class Robot : public frc::TimedRobot
 {
 public:
 	// Add all subsystem definition here as static public variables
+	static std::unique_ptr<DriveTrain> DriveTrainSubsystem;
 	static std::unique_ptr<OI> oi;
 
 public:
@@ -42,4 +44,3 @@ private:
 	//MyAutoCommand m_myAuto;
 	frc::SendableChooser<frc::Command*> m_chooser;
 };
-
