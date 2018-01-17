@@ -7,7 +7,14 @@
 
 #pragma once
 
-class OI {
+#include <memory>
+#include <WPILib.h>
+
+class OI
+{
+private:
+	std::shared_ptr<frc::Joystick> DriverJoystick;
+
 public:
 	OI();
 };
