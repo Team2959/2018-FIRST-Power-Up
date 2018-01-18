@@ -24,5 +24,8 @@ public:
 	DriveTrain();
 	virtual ~DriveTrain();
 
+	void InitDefaultCommand() override;
+
 	void XDrive(std::shared_ptr<frc::Joystick>);
+	void XDrive();
 };
