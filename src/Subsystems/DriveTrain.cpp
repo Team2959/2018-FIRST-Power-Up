@@ -22,21 +22,17 @@ DriveTrain::~DriveTrain()
 {
 }
 
-void DriveTrain::XDrive(std::shared_ptr<frc::Joystick>)
-{
-	// use the joystick to drive!!
-}
-
 void DriveTrain::InitDefaultCommand()
 {
 	SetDefaultCommand(new DriveWithJoystick());
+}
+
+void DriveTrain::XDrive(std::shared_ptr<frc::Joystick>)
+{
+	// use the joystick to drive!!
 }
 
 void DriveTrain::XDrive(double magnitude, double angle, double rotation)
 {
 
 }
-
-
-
-

@@ -7,13 +7,10 @@
 
 void Foo()
 {
-		double LFMS(double mfinal, doub)
 }
 
 double ScaleByFactor(double input, double scaleFactor)
 {
 	return input * scaleFactor;
 }
-
-
 

@@ -27,5 +27,5 @@ public:
 	void InitDefaultCommand() override;
 
 	void XDrive(std::shared_ptr<frc::Joystick>);
-	void XDrive();
+	void XDrive(double magnitude, double angle, double rotation);
 };
