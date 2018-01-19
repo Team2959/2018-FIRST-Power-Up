@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <math.h>
+
 void Foo();
 
 double ScaleByFactor(double input, double scaleFactor);

@@ -19,7 +19,14 @@ DriveWithJoystick::~DriveWithJoystick()
 
 void DriveWithJoystick::Execute()
 {
-	Robot::DriveTrainSubsystem->XDrive(Robot::oi->GetDriverJoystick());
+	double xAxis = Robot::oi->GetDriverJoystick()->GetAxis(frc::Joystick::AxisType::kXAxis);
+	double yAxis = Robot::oi->GetDriverJoystick()->GetAxis(frc::Joystick::AxisType::kYAxis);
+	double rotation = Robot::oi->GetDriverJoystick()->GetAxis(frc::Joystick::AxisType::kTwistAxis);
+
+	double magnitude = 0;
+	double totalAngle = 0;
+
+	Robot::DriveTrainSubsystem->XDrive(magnitude, totalAngle, rotation);
 }
 
 bool DriveWithJoystick::IsFinished()
