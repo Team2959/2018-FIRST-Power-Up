@@ -10,6 +10,9 @@
 #include <WPILib.h>
 #include "Commands/DriveWithJoystick.h"
 
+const double Pi = 3.1415926535;
+const double QuarterPi = Pi / 4.0;
+
 DriveTrain::DriveTrain() : Subsystem("DriveTrain")
 {
 	m_FrontLeftMotor.reset(new WPI_TalonSRX(Front_LEFT_DRIVE_MOTOR_CAN));
@@ -32,7 +35,7 @@ void DriveTrain::XDrive(std::shared_ptr<frc::Joystick>)
 	// use the joystick to drive!!
 }
 
-void DriveTrain::XDrive(double magnitude, double angle, double rotation)
+void DriveTrain::XDrive(double magnitude, double totalAngle, double rotation)
 {
-
+	double theta = totalAngle % QuarterPi;
 }
