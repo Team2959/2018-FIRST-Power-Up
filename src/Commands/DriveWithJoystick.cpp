@@ -21,9 +21,14 @@ DriveWithJoystick::~DriveWithJoystick()
 
 void DriveWithJoystick::Execute()
 {
-	double xAxis = Robot::oi->GetDriverJoystick()->GetAxis(frc::Joystick::AxisType::kXAxis);
-	double yAxis = Robot::oi->GetDriverJoystick()->GetAxis(frc::Joystick::AxisType::kYAxis);
-	double rotation = Robot::oi->GetDriverJoystick()->GetAxis(frc::Joystick::AxisType::kTwistAxis);
+	// maybe forgo our own calculations, for these existing functions
+//	double jDirectionR = Robot::oi->GetDriverJoystick()->GetDirectionRadians();
+//	double jDirectionD = Robot::oi->GetDriverJoystick()->GetDirectionDegrees();
+//	double jMagnitude = Robot::oi->GetDriverJoystick()->GetMagnitude();
+
+	double xAxis = Robot::oi->GetDriverJoystick()->GetX();
+	double yAxis = Robot::oi->GetDriverJoystick()->GetY();
+	double rotation = Robot::oi->GetDriverJoystick()->GetTwist();
 
 	double magnitude = fmax(abs(yAxis), abs(xAxis));
 
