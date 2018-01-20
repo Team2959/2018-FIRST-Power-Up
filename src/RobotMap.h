@@ -19,3 +19,5 @@ constexpr int Front_LEFT_DRIVE_MOTOR_CAN = 1;
 constexpr int Front_Right_DRIVE_MOTOR_CAN = 2;
 constexpr int Back_Right_DRIVE_MOTOR_CAN = 3;
 constexpr int Back_Left_DRIVE_MOTOR_CAN = 4;
+
+const double Pi = 3.1415926535;

@@ -10,7 +10,6 @@
 #include <WPILib.h>
 #include "Commands/DriveWithJoystick.h"
 
-const double Pi = 3.1415926535;
 const double QuarterPi = Pi / 4.0;
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain")

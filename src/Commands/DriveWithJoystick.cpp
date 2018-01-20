@@ -7,6 +7,8 @@
 
 #include <Commands/DriveWithJoystick.h>
 #include "Robot.h"
+#include "RobotMap.h"
+#include <math.h>
 
 DriveWithJoystick::DriveWithJoystick() : Command("DriveWithJoystick")
 {
@@ -23,10 +25,35 @@ void DriveWithJoystick::Execute()
 	double yAxis = Robot::oi->GetDriverJoystick()->GetAxis(frc::Joystick::AxisType::kYAxis);
 	double rotation = Robot::oi->GetDriverJoystick()->GetAxis(frc::Joystick::AxisType::kTwistAxis);
 
-	double magnitude = 0;
-	double totalAngle = 0;
+	double magnitude = max(abs(yAxis), abs(xAxis));
 
-	Robot::DriveTrainSubsystem->XDrive(magnitude, totalAngle, rotation);
+	double beta = 0;
+	if (magnitude > 0)
+	{
+		double alpha = asin(yAxis / magnitude);
+		if (xAxis >= 0 && yAxis >= 0)
+		{
+			// Quadrant I
+			beta = alpha;
+		}
+		else if (xAxis < 0 && yAxis >= 0)
+		{
+			// Quadrant 2
+			beta = Pi - alpha;
+		}
+		else if (xAxis < 0 && yAxis < 0)
+		{
+			// Quadrant 3
+			beta = Pi + alpha;
+		}
+		else
+		{
+			// Quadrant 4
+			beta = Pi + Pi - alpha;
+		}
+	}
+
+	Robot::DriveTrainSubsystem->XDrive(magnitude, beta, rotation);
 }
 
 bool DriveWithJoystick::IsFinished()
