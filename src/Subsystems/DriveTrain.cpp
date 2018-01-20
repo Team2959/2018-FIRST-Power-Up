@@ -70,10 +70,10 @@ void DriveTrain::XDrive(double magnitude, double totalAngle, double rotation)
 	double motorB = mFinal * cos(calculationAnlge);
 
 	// In quadrants 2 & 4, need to reverse the sign of B
-	evenOdd = trunc(calculationAnlge / HalfPi);
-	SmartDashboard::PutNumber("Even odd", evenOdd);
-	if (evenOdd % 2 == 1)
-		motorB = -motorB;
+//	evenOdd = trunc(calculationAnlge / HalfPi);
+//	SmartDashboard::PutNumber("Even odd", evenOdd);
+//	if (evenOdd % 2 == 1)
+//		motorB = -motorB;
 
 	double motorC = -motorA;
 	double motorD = -motorB;
