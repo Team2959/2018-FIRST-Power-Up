@@ -9,6 +9,7 @@
 #include "Robot.h"
 #include "RobotMap.h"
 #include <math.h>
+#include <SmartDashboard/SmartDashboard.h>
 
 DriveWithJoystick::DriveWithJoystick() : Command("DriveWithJoystick")
 {
@@ -34,7 +35,7 @@ void DriveWithJoystick::Execute()
 	double yAxis = Robot::oi->GetDriverJoystick()->GetY();
 	double rotation = Robot::oi->GetDriverJoystick()->GetTwist();
 
-	double magnitude = fmax(abs(yAxis), abs(xAxis));
+	double magnitude = fmax(fabs(yAxis), fabs(xAxis));
 
 	double beta = 0;
 	if (magnitude > 0)
@@ -61,6 +62,10 @@ void DriveWithJoystick::Execute()
 			beta = 2 * Pi  - alpha;
 		}
 	}
+
+	SmartDashboard::PutNumber("Magnitude", magnitude);
+	SmartDashboard::PutNumber("Total Angle", beta);
+	SmartDashboard::PutNumber("Rotation", rotation);
 
 	Robot::DriveTrainSubsystem->XDrive(magnitude, beta, rotation);
 }

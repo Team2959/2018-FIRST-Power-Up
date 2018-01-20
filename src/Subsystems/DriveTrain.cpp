@@ -10,6 +10,7 @@
 #include <WPILib.h>
 #include "Commands/DriveWithJoystick.h"
 #include <math.h>
+#include <SmartDashboard/SmartDashboard.h>
 
 const double QuarterPi = Pi / 4.0;
 const double MaxRPM = 4000.0;
@@ -20,6 +21,16 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain")
 	m_BackLeftMotor.reset(new WPI_TalonSRX(Back_Left_DRIVE_MOTOR_CAN));
 	m_FrontRightMotor.reset(new WPI_TalonSRX(Front_Right_DRIVE_MOTOR_CAN));
 	m_BackRightMotor.reset(new WPI_TalonSRX(Back_Right_DRIVE_MOTOR_CAN));
+
+	m_FrontLeftMotor.get()->SetName("DriveTrain", "Front Left");
+	m_FrontRightMotor.get()->SetName("DriveTrain", "Front Right");
+	m_BackRightMotor.get()->SetName("DriveTrain", "Rear Right");
+	m_BackLeftMotor.get()->SetName("DriveTrain", "Rear Left");
+
+	SmartDashboard::PutData(m_FrontLeftMotor.get());
+	SmartDashboard::PutData(m_FrontRightMotor.get());
+	SmartDashboard::PutData(m_BackRightMotor.get());
+	SmartDashboard::PutData(m_BackLeftMotor.get());
 
 	// Need more motor initialization when adding encoders
 	//   ConfigSelectedFeedbackSensor
@@ -64,10 +75,10 @@ void DriveTrain::XDrive(double magnitude, double totalAngle, double rotation)
 	motorD = motorD + rotation;
 
 	// Finds the maximum of 1 or motorA, motorB, motorC, and motorD
-	double maxCalcMagnitude = fmax(1.0, abs(motorA));
-	maxCalcMagnitude = fmax(maxCalcMagnitude, abs(motorB));
-	maxCalcMagnitude = fmax(maxCalcMagnitude, abs(motorC));
-	maxCalcMagnitude = fmax(maxCalcMagnitude, abs(motorD));
+	double maxCalcMagnitude = fmax(1.0, fabs(motorA));
+	maxCalcMagnitude = fmax(maxCalcMagnitude, fabs(motorB));
+	maxCalcMagnitude = fmax(maxCalcMagnitude, fabs(motorC));
+	maxCalcMagnitude = fmax(maxCalcMagnitude, fabs(motorD));
 
 	// Scaling motor outputs by the maxCalcMagnitude
 	motorA = motorA / maxCalcMagnitude;
