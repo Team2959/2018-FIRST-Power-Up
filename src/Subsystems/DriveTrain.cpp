@@ -10,7 +10,6 @@
 #include <WPILib.h>
 #include "Commands/DriveWithJoystick.h"
 #include <math.h>
-const double Pi = 3.1415926535;
 const double QuarterPi = Pi / 4.0;
 const double MaxRPM = 4000.0;
 
