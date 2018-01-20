@@ -32,42 +32,20 @@ void DriveWithJoystick::Execute()
 //		Robot::oi->GetDriverJoystick()->GetTwist());
 
 	double xAxis = Robot::oi->GetDriverJoystick()->GetX();
-	double yAxis = Robot::oi->GetDriverJoystick()->GetY();
+	double yAxis = -Robot::oi->GetDriverJoystick()->GetY();
 	double rotation = Robot::oi->GetDriverJoystick()->GetTwist();
 
 	double magnitude = fmax(fabs(yAxis), fabs(xAxis));
 
-	double beta = 0;
-	if (magnitude > 0)
-	{
-		double alpha = asin(yAxis / magnitude);
-		if (xAxis >= 0 && yAxis >= 0)
-		{
-			// Quadrant I
-			beta = alpha;
-		}
-		else if (xAxis < 0 && yAxis >= 0)
-		{
-			// Quadrant 2
-			beta = Pi - alpha;
-		}
-		else if (xAxis < 0 && yAxis < 0)
-		{
-			// Quadrant 3
-			beta = Pi + alpha;
-		}
-		else
-		{
-			// Quadrant 4
-			beta = 2 * Pi  - alpha;
-		}
-	}
+	double angle = atan2(yAxis,xAxis);
+	if (angle < 0)
+		angle = angle + Pi*2;
 
 	SmartDashboard::PutNumber("Magnitude", magnitude);
-	SmartDashboard::PutNumber("Total Angle", beta);
+	SmartDashboard::PutNumber("Total Angle", angle);
 	SmartDashboard::PutNumber("Rotation", rotation);
 
-	Robot::DriveTrainSubsystem->XDrive(magnitude, beta, rotation);
+	Robot::DriveTrainSubsystem->XDrive(magnitude, angle, rotation);
 }
 
 bool DriveWithJoystick::IsFinished()

@@ -53,9 +53,10 @@ void DriveTrain::XDrive(double magnitude, double totalAngle, double rotation)
 	// fmod does floating point (real number) modulus
 	double theta = fmod(totalAngle, QuarterPi);
 	// trunc returns the integral part of the number
-	int evenOdd = (int)trunc(totalAngle / QuarterPi) % 2;
-	if (evenOdd == 0)
+	int evenOdd = trunc(totalAngle / QuarterPi);
+	if (evenOdd % 2 == 0)
 		theta = QuarterPi - theta;
+	SmartDashboard::PutNumber("Final Theta", theta);
 
 	// We do not have to worry about divide by zero,
 	// because theta is limited to 0 to Pi/4,
@@ -63,10 +64,13 @@ void DriveTrain::XDrive(double magnitude, double totalAngle, double rotation)
 	// set Mfinal = maginitude * 1 / cos(theta)
 	double mFinal = magnitude / cos(theta);
 
-	double motorA = -1 * mFinal * sin(totalAngle - QuarterPi);
-	double motorB = mFinal * cos(totalAngle - QuarterPi);
+	double motorA = mFinal * sin(totalAngle - QuarterPi);
+	double motorB = -1 * mFinal * cos(totalAngle - QuarterPi);
 	double motorC = -motorA;
 	double motorD = -motorB;
+
+	SmartDashboard::PutNumber("Motor A pre rotation", motorA);
+	SmartDashboard::PutNumber("Motor B pre rotation", motorB);
 
 	// Factor in rotation component
 	motorA = motorA + rotation;
@@ -74,17 +78,25 @@ void DriveTrain::XDrive(double magnitude, double totalAngle, double rotation)
 	motorC = motorC + rotation;
 	motorD = motorD + rotation;
 
+	SmartDashboard::PutNumber("Motor A with rotation", motorA);
+	SmartDashboard::PutNumber("Motor B with rotation", motorB);
+
 	// Finds the maximum of 1 or motorA, motorB, motorC, and motorD
 	double maxCalcMagnitude = fmax(1.0, fabs(motorA));
 	maxCalcMagnitude = fmax(maxCalcMagnitude, fabs(motorB));
 	maxCalcMagnitude = fmax(maxCalcMagnitude, fabs(motorC));
 	maxCalcMagnitude = fmax(maxCalcMagnitude, fabs(motorD));
 
+	SmartDashboard::PutNumber("Max magnitude", maxCalcMagnitude);
+
 	// Scaling motor outputs by the maxCalcMagnitude
 	motorA = motorA / maxCalcMagnitude;
 	motorB = motorB / maxCalcMagnitude;
 	motorC = motorC / maxCalcMagnitude;
 	motorD = motorD / maxCalcMagnitude;
+
+	SmartDashboard::PutNumber("Motor A final", motorA);
+	SmartDashboard::PutNumber("Motor B final", motorB);
 
 	// send value (-1..1) to motors
 	// temporary, until encoders are added and send with velocity
