@@ -48,7 +48,8 @@ void DriveTrain::XDrive(double magnitude, double totalAngle, double rotation)
 
 	// We do not have to worry about divide by zero,
 	// because theta is limited to 0 to Pi/4,
-	// which gives us a range of 1.0 to ~0.707
+	// which gives cos(theta) a range of 1.0 to ~0.707
+	// set Mfinal = maginitude * 1 / cos(theta)
 	double mFinal = magnitude / cos(theta);
 
 	double motorA = -1 * mFinal * sin(totalAngle - QuarterPi);
@@ -56,6 +57,7 @@ void DriveTrain::XDrive(double magnitude, double totalAngle, double rotation)
 	double motorC = -motorA;
 	double motorD = -motorB;
 
+	// Factor in rotation component
 	motorA = motorA + rotation;
 	motorB = motorB + rotation;
 	motorC = motorC + rotation;
@@ -73,6 +75,8 @@ void DriveTrain::XDrive(double magnitude, double totalAngle, double rotation)
 	motorC = motorC / maxCalcMagnitude;
 	motorD = motorD / maxCalcMagnitude;
 
+	// send value (-1..1) to motors
+	// temporary, until encoders are added and send with velocity
 	m_FrontLeftMotor->Set(motorA);
 	m_FrontRightMotor->Set(motorB);
 	m_BackRightMotor->Set(motorC);

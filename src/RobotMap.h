@@ -7,6 +7,8 @@
 
 #pragma once
 
+constexpr double Pi = 3.1415926535;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -19,5 +21,3 @@ constexpr int Front_LEFT_DRIVE_MOTOR_CAN = 1;
 constexpr int Front_Right_DRIVE_MOTOR_CAN = 2;
 constexpr int Back_Right_DRIVE_MOTOR_CAN = 3;
 constexpr int Back_Left_DRIVE_MOTOR_CAN = 4;
-
-constexpr double Pi = 3.1415926535;

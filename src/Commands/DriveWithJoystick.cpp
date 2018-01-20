@@ -22,9 +22,13 @@ DriveWithJoystick::~DriveWithJoystick()
 void DriveWithJoystick::Execute()
 {
 	// maybe forgo our own calculations, for these existing functions
-//	double jDirectionR = Robot::oi->GetDriverJoystick()->GetDirectionRadians();
-//	double jDirectionD = Robot::oi->GetDriverJoystick()->GetDirectionDegrees();
-//	double jMagnitude = Robot::oi->GetDriverJoystick()->GetMagnitude();
+		//	double jDirectionR = Robot::oi->GetDriverJoystick()->GetDirectionRadians();
+		//	double jDirectionD = Robot::oi->GetDriverJoystick()->GetDirectionDegrees();
+		//	double jMagnitude = Robot::oi->GetDriverJoystick()->GetMagnitude();
+//	Robot::DriveTrainSubsystem->XDrive(
+//		Robot::oi->GetDriverJoystick()->GetMagnitude(),
+//		Robot::oi->GetDriverJoystick()->GetDirectionRadians(),
+//		Robot::oi->GetDriverJoystick()->GetTwist());
 
 	double xAxis = Robot::oi->GetDriverJoystick()->GetX();
 	double yAxis = Robot::oi->GetDriverJoystick()->GetY();
