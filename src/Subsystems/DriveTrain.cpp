@@ -13,6 +13,7 @@
 #include <SmartDashboard/SmartDashboard.h>
 
 const double QuarterPi = Pi / 4.0;
+const double HalfPi = Pi / 2.0;
 const double MaxRPM = 4000.0;
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain")
@@ -64,8 +65,16 @@ void DriveTrain::XDrive(double magnitude, double totalAngle, double rotation)
 	// set Mfinal = maginitude * 1 / cos(theta)
 	double mFinal = magnitude / cos(theta);
 
-	double motorA = mFinal * sin(totalAngle - QuarterPi);
-	double motorB = -1 * mFinal * cos(totalAngle - QuarterPi);
+	double calculationAnlge = totalAngle - QuarterPi;
+	double motorA = -1* mFinal * sin(calculationAnlge);
+	double motorB = mFinal * cos(calculationAnlge);
+
+	// In quadrants 2 & 4, need to reverse the sign of B
+	evenOdd = trunc(calculationAnlge / HalfPi);
+	SmartDashboard::PutNumber("Even odd", evenOdd);
+	if (evenOdd % 2 == 1)
+		motorB = -motorB;
+
 	double motorC = -motorA;
 	double motorD = -motorB;
 
