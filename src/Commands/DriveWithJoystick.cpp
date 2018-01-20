@@ -25,7 +25,7 @@ void DriveWithJoystick::Execute()
 	double yAxis = Robot::oi->GetDriverJoystick()->GetAxis(frc::Joystick::AxisType::kYAxis);
 	double rotation = Robot::oi->GetDriverJoystick()->GetAxis(frc::Joystick::AxisType::kTwistAxis);
 
-	double magnitude = max(abs(yAxis), abs(xAxis));
+	double magnitude = std::max(abs(yAxis), abs(xAxis));
 
 	double beta = 0;
 	if (magnitude > 0)
