@@ -65,15 +65,9 @@ void DriveTrain::XDrive(double magnitude, double totalAngle, double rotation)
 	// set Mfinal = maginitude * 1 / cos(theta)
 	double mFinal = magnitude / cos(theta);
 
-	double calculationAnlge = totalAngle - QuarterPi;
-	double motorA = -1* mFinal * sin(calculationAnlge);
-	double motorB = mFinal * cos(calculationAnlge);
-
-	// In quadrants 2 & 4, need to reverse the sign of B
-//	evenOdd = trunc(calculationAnlge / HalfPi);
-//	SmartDashboard::PutNumber("Even odd", evenOdd);
-//	if (evenOdd % 2 == 1)
-//		motorB = -motorB;
+	double calculationAngle = totalAngle - QuarterPi;
+	double motorA = mFinal * cos(calculationAngle);
+	double motorB = -1* mFinal * sin(calculationAngle);
 
 	double motorC = -motorA;
 	double motorD = -motorB;
