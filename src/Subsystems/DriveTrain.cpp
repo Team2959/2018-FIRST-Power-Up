@@ -81,9 +81,6 @@ void DriveTrain::XDrive(double magnitude, double totalAngle, double rotation)
 	motorC = motorC + rotation;
 	motorD = motorD + rotation;
 
-	SmartDashboard::PutNumber("Motor A with rotation", motorA);
-	SmartDashboard::PutNumber("Motor B with rotation", motorB);
-
 	// Finds the maximum of 1 or motorA, motorB, motorC, and motorD
 	double maxCalcMagnitude = fmax(1.0, fabs(motorA));
 	maxCalcMagnitude = fmax(maxCalcMagnitude, fabs(motorB));
@@ -92,11 +89,14 @@ void DriveTrain::XDrive(double magnitude, double totalAngle, double rotation)
 
 	SmartDashboard::PutNumber("Max magnitude", maxCalcMagnitude);
 
-	// Scaling motor outputs by the maxCalcMagnitude
-	motorA = motorA / maxCalcMagnitude;
-	motorB = motorB / maxCalcMagnitude;
-	motorC = motorC / maxCalcMagnitude;
-	motorD = motorD / maxCalcMagnitude;
+	if (maxCalcMagnitude > 1.0)
+	{
+		// Scaling motor outputs by the maxCalcMagnitude
+		motorA = motorA / maxCalcMagnitude;
+		motorB = motorB / maxCalcMagnitude;
+		motorC = motorC / maxCalcMagnitude;
+		motorD = motorD / maxCalcMagnitude;
+	}
 
 	SmartDashboard::PutNumber("Motor A final", motorA);
 	SmartDashboard::PutNumber("Motor B final", motorB);
