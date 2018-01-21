@@ -7,8 +7,12 @@
 
 #include "OI.h"
 
-#include <WPILib.h>
+OI::OI()
+{
+	DriverJoystick.reset(new frc::Joystick(0));
+}
 
-OI::OI() {
-	// Process operator interface input here.
+std::shared_ptr<frc::Joystick> OI::GetDriverJoystick()
+{
+	return DriverJoystick;
 }

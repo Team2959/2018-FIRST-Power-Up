@@ -7,6 +7,8 @@
 
 #pragma once
 
+constexpr double Pi = 3.1415926535;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -14,12 +16,8 @@
  * floating around.
  */
 
-// For example to map the left and right motors, you could define the
-// following variables to use with your drivetrain subsystem.
-// constexpr int kLeftMotor = 1;
-// constexpr int kRightMotor = 2;
-
-// If you are using multiple modules, make sure to define both the port
-// number and the module. For example you with a rangefinder:
-// constexpr int kRangeFinderPort = 1;
-// constexpr int kRangeFinderModule = 1;
+// Can Mapping
+constexpr int Front_LEFT_DRIVE_MOTOR_CAN = 1;
+constexpr int Front_Right_DRIVE_MOTOR_CAN = 2;
+constexpr int Back_Right_DRIVE_MOTOR_CAN = 3;
+constexpr int Back_Left_DRIVE_MOTOR_CAN = 4;
