@@ -8,9 +8,14 @@
 #pragma once
 
 #include <Commands/Command.h>
+#include <Utilities/JoystickConditioning.h>
 
 class DriveWithJoystick: public frc::Command
 {
+private:
+	JoystickConditioning m_conditioningMagnitude{};
+	JoystickConditioning m_conditioningTwist {};
+
 public:
 	DriveWithJoystick();
 	virtual ~DriveWithJoystick();
