@@ -57,7 +57,6 @@ void DriveTrain::XDrive(double magnitude, double totalAngle, double rotation)
 	int evenOdd = trunc(totalAngle / QuarterPi);
 	if (evenOdd % 2 == 0)
 		theta = QuarterPi - theta;
-	SmartDashboard::PutNumber("Final Theta", theta);
 
 	// We do not have to worry about divide by zero,
 	// because theta is limited to 0 to Pi/4,
@@ -72,9 +71,6 @@ void DriveTrain::XDrive(double magnitude, double totalAngle, double rotation)
 	double motorC = -motorA;
 	double motorD = -motorB;
 
-	SmartDashboard::PutNumber("Motor A pre rotation", motorA);
-	SmartDashboard::PutNumber("Motor B pre rotation", motorB);
-
 	// Factor in rotation component
 	motorA = motorA + rotation;
 	motorB = motorB + rotation;
@@ -86,8 +82,6 @@ void DriveTrain::XDrive(double magnitude, double totalAngle, double rotation)
 	maxCalcMagnitude = fmax(maxCalcMagnitude, fabs(motorB));
 	maxCalcMagnitude = fmax(maxCalcMagnitude, fabs(motorC));
 	maxCalcMagnitude = fmax(maxCalcMagnitude, fabs(motorD));
-
-	SmartDashboard::PutNumber("Max magnitude", maxCalcMagnitude);
 
 	if (maxCalcMagnitude > 1.0)
 	{
