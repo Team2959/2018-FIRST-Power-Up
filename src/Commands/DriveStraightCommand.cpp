@@ -9,15 +9,9 @@
 #include "Robot.h"
 #include "RobotMap.h"
 
-
 DriveStraightCommand::DriveStraightCommand(double driveTime) : TimedCommand("DriveStraight", driveTime)
 {
 	Requires(Robot::DriveTrainSubsystem.get());
-}
-
-DriveStraightCommand::~DriveStraightCommand()
-{
-	// TODO Auto-generated destructor stub
 }
 
 void DriveStraightCommand::Initialize()
@@ -34,6 +28,3 @@ void DriveStraightCommand::Interrupted()
 {
 	End();
 }
-
-//frc::Command* m_autonomousCommand = nullptr;
-//frc::SendableChooser<frc::Command*> m_chooser;

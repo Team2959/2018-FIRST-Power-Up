@@ -2,11 +2,10 @@
  * DriveStraightCommand.h
  *
  *  Created on: Jan 24, 2018
- *      Author: Tracy
+ *      Author: Andrew
  */
 
-#ifndef SRC_COMMANDS_DRIVESTRAIGHTCOMMAND_H_
-#define SRC_COMMANDS_DRIVESTRAIGHTCOMMAND_H_
+#pragma once
 
 #include <Commands/TimedCommand.h>
 
@@ -14,12 +13,10 @@ class DriveStraightCommand: public frc::TimedCommand
 {
 public:
 	DriveStraightCommand(double driveTime = 0);
-	virtual ~DriveStraightCommand();
+	~DriveStraightCommand() override = default;
 
 	void Initialize() override;
 	bool IsFinished() override;
 	void End() override;
 	void Interrupted() override;
 };
-
-#endif /* SRC_COMMANDS_DRIVESTRAIGHTCOMMAND_H_ */
