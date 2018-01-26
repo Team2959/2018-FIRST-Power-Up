@@ -16,7 +16,6 @@ public:
 	~DriveStraightCommand() override = default;
 
 	void Initialize() override;
-	bool IsFinished() override;
 	void End() override;
 	void Interrupted() override;
 };

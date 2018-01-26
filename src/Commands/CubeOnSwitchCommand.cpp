@@ -2,17 +2,16 @@
  * CubeOnSwitchCommand.cpp
  *
  *  Created on: Jan 25, 2018
- *      Author: Tracy
+ *      Author: Andrew
  */
 
 #include <Commands/CubeOnSwitchCommand.h>
 
-CubeOnSwitchCommand::~CubeOnSwitchCommand() {
-	// TODO Auto-generated destructor stub
+CubeOnSwitchCommand::CubeOnSwitchCommand() : Command("CubeOnSwitchCommand")
+{
 }
 
-CubeOnSwitchCommand::CubeOnSwitchCommand() {
-	// TODO Auto-generated constructor stub
-
+bool CubeOnSwitchCommand::IsFinished()
+{
+	return false;
 }
-

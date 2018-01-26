@@ -5,13 +5,15 @@
  *      Author: Tracy
  */
 
-#ifndef SRC_COMMANDS_CUBEONSWITCHCOMMAND_H_
-#define SRC_COMMANDS_CUBEONSWITCHCOMMAND_H_
+#pragma once
 
-class CubeOnSwitchCommand {
+#include <Commands/Command.h>
+
+class CubeOnSwitchCommand: public frc::Command
+{
 public:
-	virtual ~CubeOnSwitchCommand();
 	CubeOnSwitchCommand();
-};
+	~CubeOnSwitchCommand() override = default;
 
-#endif /* SRC_COMMANDS_CUBEONSWITCHCOMMAND_H_ */
+	bool IsFinished() override;
+};

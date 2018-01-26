@@ -17,10 +17,6 @@ DriveWithJoystick::DriveWithJoystick() : Command("DriveWithJoystick")
 	Requires(Robot::DriveTrainSubsystem.get());
 }
 
-DriveWithJoystick::~DriveWithJoystick()
-{
-}
-
 void DriveWithJoystick::Execute()
 {
 	double xAxis = Robot::oi->GetDriverJoystick()->GetX();

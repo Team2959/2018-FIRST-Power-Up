@@ -42,6 +42,6 @@ private:
 	// doesn't have undefined behavior and potentially crash.
 	frc::Command* m_autonomousCommand = nullptr;
 	MyAutoCommand m_defaultAuto;
-	DriveStraightCommand m_driveStraightAuto { 3.0 };  // do for three seconds
+	DriveStraightCommand m_driveStraightAuto { 3.0 };  // drive straight for three seconds
 	frc::SendableChooser<frc::Command*> m_chooser;
 };

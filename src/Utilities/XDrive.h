@@ -24,6 +24,10 @@ public:
 	XDrive();
 	~XDrive() override = default;
 
+	// Drive robot via XDrive
+	// Magnitude is 0 .. 1 for how fast to move
+	// Total Angle is 0 .. 2 * Pi in radians for direction
+	// Rotation is -1 .. 1
 	void Drive(double magnitude, double totalAngle, double rotation);
 
 	void StopMotor() override;

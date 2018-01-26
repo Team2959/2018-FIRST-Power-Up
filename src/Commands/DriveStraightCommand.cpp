@@ -28,8 +28,3 @@ void DriveStraightCommand::Interrupted()
 {
 	End();
 }
-
-bool DriveStraightCommand::IsFinished()
-{
-	return frc::TimedCommand::IsFinished();
-}

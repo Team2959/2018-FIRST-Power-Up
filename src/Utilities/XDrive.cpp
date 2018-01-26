@@ -9,7 +9,6 @@
 #include "SmartDashboard/SendableBuilder.h"
 #include "RobotMap.h"
 #include <math.h>
-#include <SmartDashboard/SmartDashboard.h>
 
 const double MaxRPM = 4000.0;
 
@@ -82,9 +81,6 @@ void XDrive::Drive(double magnitude, double totalAngle, double rotation)
 		motorC = motorC / maxCalcMagnitude;
 		motorD = motorD / maxCalcMagnitude;
 	}
-
-//	SmartDashboard::PutNumber("Motor A final", motorA);
-//	SmartDashboard::PutNumber("Motor B final", motorB);
 
 	// send value (-1..1) to motors
 	// temporary, until encoders are added and send with velocity
