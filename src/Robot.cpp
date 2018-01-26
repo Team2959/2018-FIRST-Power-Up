@@ -27,8 +27,12 @@ void Robot::RobotInit()
 
 	SmartDashboard::PutData(DriveTrainSubsystem.get());
 
-	m_chooser.AddDefault("Default Auto", &m_defaultAuto);
-	m_chooser.AddObject("Drive Straight", &m_driveStraightAuto);
+	// After subsystem creations, now create autonomous commands
+	m_defaultAuto.reset(new MyAutoCommand());
+	m_driveStraightAuto.reset(new DriveStraightCommand(3.0));
+
+	m_chooser.AddDefault("Default Auto", m_defaultAuto.get());
+	m_chooser.AddObject("Drive Straight", m_driveStraightAuto.get());
 	frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
 	CameraServer::GetInstance()->StartAutomaticCapture();
