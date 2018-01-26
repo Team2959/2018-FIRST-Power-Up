@@ -41,7 +41,7 @@ void DriveWithJoystick::Execute()
 	SmartDashboard::PutNumber("Total Angle", angle);
 	SmartDashboard::PutNumber("Rotation", rotation);
 
-	Robot::DriveTrainSubsystem->XDrive(magnitude, angle, rotation);
+	Robot::DriveTrainSubsystem->Drive(magnitude, angle, rotation);
 }
 
 bool DriveWithJoystick::IsFinished()

@@ -9,6 +9,7 @@
 
 constexpr double Pi = 3.1415926535;
 constexpr double HalfPi = Pi / 2.0;
+constexpr double QuarterPi = Pi / 4.0;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into

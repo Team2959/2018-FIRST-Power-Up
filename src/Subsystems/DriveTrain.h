@@ -8,23 +8,19 @@
 #pragma once
 
 #include <Commands/Subsystem.h>
-#include "ctre/Phoenix.h"
 #include <memory>
-#include <WPILib.h>
+#include "Utilities/XDrive.h"
 
 class DriveTrain: public frc::Subsystem
 {
 private:
-	std::shared_ptr<WPI_TalonSRX> m_FrontLeftMotor;
-	std::shared_ptr<WPI_TalonSRX> m_BackLeftMotor;
-	std::shared_ptr<WPI_TalonSRX> m_FrontRightMotor;
-	std::shared_ptr<WPI_TalonSRX> m_BackRightMotor;
+	std::shared_ptr<XDrive> m_xDrive;
 
 public:
 	DriveTrain();
-	virtual ~DriveTrain();
+	~DriveTrain() override = default;
 
 	void InitDefaultCommand() override;
 
-	void XDrive(double magnitude, double totalAngle, double rotation);
+	void Drive(double magnitude, double totalAngle, double rotation);
 };
