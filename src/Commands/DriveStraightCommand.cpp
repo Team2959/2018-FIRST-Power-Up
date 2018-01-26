@@ -16,12 +16,12 @@ DriveStraightCommand::DriveStraightCommand(double driveTime) : TimedCommand("Dri
 
 void DriveStraightCommand::Initialize()
 {
-	Robot::DriveTrainSubsystem->XDrive(1, HalfPi, 0);
+	Robot::DriveTrainSubsystem->Drive(1, HalfPi, 0);
 }
 
 void DriveStraightCommand::End()
 {
-	Robot::DriveTrainSubsystem->XDrive(0, 0, 0);
+	Robot::DriveTrainSubsystem->Drive(0, 0, 0);
 }
 
 void DriveStraightCommand::Interrupted()
