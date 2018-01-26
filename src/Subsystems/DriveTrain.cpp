@@ -13,7 +13,6 @@
 #include <SmartDashboard/SmartDashboard.h>
 
 const double QuarterPi = Pi / 4.0;
-const double HalfPi = Pi / 2.0;
 const double MaxRPM = 4000.0;
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain")
