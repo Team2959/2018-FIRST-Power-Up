@@ -10,7 +10,7 @@
 #include "RobotMap.h"
 #include <math.h>
 
-const double MaxRPM = 4000.0;
+const double MaxRPM = 400.0;
 
 XDrive::XDrive()
 {
@@ -18,6 +18,22 @@ XDrive::XDrive()
 	m_backLeftMotor.reset(new WPI_TalonSRX(Back_Left_DRIVE_MOTOR_CAN));
 	m_frontRightMotor.reset(new WPI_TalonSRX(Front_Right_DRIVE_MOTOR_CAN));
 	m_backRightMotor.reset(new WPI_TalonSRX(Back_Right_DRIVE_MOTOR_CAN));
+
+	m_frontLeftMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 0);
+	m_frontLeftMotor->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_5Ms, 0);
+	m_frontLeftMotor->ConfigVelocityMeasurementWindow(1,0);
+
+	m_backLeftMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 0);
+	m_backLeftMotor->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_5Ms, 0);
+	m_backLeftMotor->ConfigVelocityMeasurementWindow(1,0);
+
+	m_frontRightMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 0);
+	m_frontRightMotor->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_5Ms, 0);
+	m_frontRightMotor->ConfigVelocityMeasurementWindow(1,0);
+
+	m_backRightMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 0);
+	m_backRightMotor->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_5Ms, 0);
+	m_backRightMotor->ConfigVelocityMeasurementWindow(1,0);
 
 	m_frontLeftMotor.get()->SetName("DriveTrain", "Front Left");
 	m_frontRightMotor.get()->SetName("DriveTrain", "Front Right");
@@ -84,22 +100,22 @@ void XDrive::Drive(double magnitude, double totalAngle, double rotation)
 
 	// send value (-1..1) to motors
 	// temporary, until encoders are added and send with velocity
-	m_frontLeftMotor->Set(motorA);
-	m_frontRightMotor->Set(motorB);
-	m_backRightMotor->Set(motorC);
-	m_backLeftMotor->Set(motorD);
+	//m_frontLeftMotor->Set(motorA);
+	//m_frontRightMotor->Set(motorB);
+	//m_backRightMotor->Set(motorC);
+	//m_backLeftMotor->Set(motorD);
 
 	// Convert 500 RPM to units/ 100ms
 	//  4096 [Units/Rev] * 500 [RPM] / 600 [100 ms/min]
 	//    e.g Target Velocity = motorA * 500 * 4096 / 600
 
 	// scaling to Units per 100ms and sending to the motors
-//	m_FrontLeftMotor->Set(ControlMode::Velocity, motorA * MaxRPM);
-//	m_FrontRightMotor->Set(ControlMode::Velocity, motorB * MaxRPM);
-//	m_BackRightMotor->Set(ControlMode::Velocity, motorC * MaxRPM);
-//	m_BackLeftMotor->Set(ControlMode::Velocity, motorD * MaxRPM);
+	m_frontLeftMotor->Set(ControlMode::Velocity, motorA * MaxRPM);
+	m_frontRightMotor->Set(ControlMode::Velocity, motorB * MaxRPM);
+	m_backRightMotor->Set(ControlMode::Velocity, motorC * MaxRPM);
+	m_backLeftMotor->Set(ControlMode::Velocity, motorD * MaxRPM);
 
-	  m_safetyHelper.Feed();
+	m_safetyHelper.Feed();
 }
 
 void XDrive::StopMotor()
