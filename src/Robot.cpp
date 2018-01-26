@@ -27,8 +27,8 @@ void Robot::RobotInit()
 
 	SmartDashboard::PutData(DriveTrainSubsystem.get());
 
-	//m_chooser.AddDefault("Default Auto", &m_defaultAuto);
-	//m_chooser.AddObject("My Auto", &m_myAuto);
+	m_chooser.AddDefault("Default Auto", &m_defaultAuto);
+	m_chooser.AddObject("Drive Straight", &m_driveStraightAuto);
 	frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
 	CameraServer::GetInstance()->StartAutomaticCapture();
@@ -69,21 +69,21 @@ void Robot::AutonomousInit()
 	// Add code to read switch/scale state from Field Management System
 	// https://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/826278-2018-game-data-details
 
-	std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
-	if (autoSelected == "My Auto")
-	{
-		//m_autonomousCommand = &m_myAuto;
-	}
-	else
-	{
-		//m_autonomousCommand = &m_defaultAuto;
-	}
+//	std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
+//	if (autoSelected == "Drive Straight")
+//	{
+//		m_autonomousCommand = &m_driveStraightAuto;
+//	}
+//	else
+//	{
+//		m_autonomousCommand = &m_defaultAuto;
+//	}
 
-	//m_autonomousCommand = m_chooser.GetSelected();
+	m_autonomousCommand = m_chooser.GetSelected();
 
-	//if (m_autonomousCommand != nullptr)
+	if (m_autonomousCommand != nullptr)
 	{
-		//m_autonomousCommand->Start();
+		m_autonomousCommand->Start();
 	}
 }
 

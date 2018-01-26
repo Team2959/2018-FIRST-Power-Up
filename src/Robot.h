@@ -13,6 +13,8 @@
 #include <SmartDashboard/SendableChooser.h>
 #include <OI.h>
 #include <Subsystems/DriveTrain.h>
+#include <Commands/DriveStraightCommand.h>
+#include <Commands/MyAutoCommand.h>
 
 class Robot : public frc::TimedRobot
 {
@@ -39,7 +41,7 @@ private:
 	// Have it null by default so that if testing teleop it
 	// doesn't have undefined behavior and potentially crash.
 	frc::Command* m_autonomousCommand = nullptr;
-	//ExampleCommand m_defaultAuto;
-	//MyAutoCommand m_myAuto;
+	MyAutoCommand m_defaultAuto;
+	DriveStraightCommand m_driveStraightAuto { 3.0 };  // do for three seconds
 	frc::SendableChooser<frc::Command*> m_chooser;
 };
