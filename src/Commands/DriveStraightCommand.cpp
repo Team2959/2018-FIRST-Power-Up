@@ -14,7 +14,7 @@ DriveStraightCommand::DriveStraightCommand(double driveTime) : TimedCommand("Dri
 	Requires(Robot::DriveTrainSubsystem.get());
 }
 
-void DriveStraightCommand::Initialize()
+void DriveStraightCommand::Execute()
 {
 	Robot::DriveTrainSubsystem->Drive(1, HalfPi, 0);
 }
