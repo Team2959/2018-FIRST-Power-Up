@@ -136,10 +136,19 @@ void XDrive::InitSendable(frc::SendableBuilder& builder)
 {
 	builder.SetSmartDashboardType("XDrive");
 
-//  builder.AddDoubleProperty("Left Motor Speed",
-//                            [=]() { return m_leftMotor.Get(); },
-//                            [=](double value) { m_leftMotor.Set(value); });
-//  builder.AddDoubleProperty("Right Motor Speed",
-//                            [=]() { return -m_rightMotor.Get(); },
-//                            [=](double value) { m_rightMotor.Set(-value); });
+	builder.AddDoubleProperty("Front Left Motor Speed",
+							[=]() { return m_frontLeftMotor->Get(); },
+							[=](double value) { m_frontLeftMotor->Set(ControlMode::Velocity, value); });
+
+	builder.AddDoubleProperty("Front Right Motor Speed",
+							[=]() { return m_frontRightMotor->Get(); },
+							[=](double value) { m_frontRightMotor->Set(ControlMode::Velocity, value); });
+
+	builder.AddDoubleProperty("Back Right Motor Speed",
+							[=]() { return m_backRightMotor->Get(); },
+							[=](double value) { m_backRightMotor->Set(ControlMode::Velocity, value); });
+
+	builder.AddDoubleProperty("Back Left Motor Speed",
+							[=]() { return m_backLeftMotor->Get(); },
+							[=](double value) { m_backLeftMotor->Set(ControlMode::Velocity, value); });
 }
