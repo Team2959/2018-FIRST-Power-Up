@@ -19,6 +19,11 @@ XDrive::XDrive()
 	m_frontRightMotor.reset(new WPI_TalonSRX(Front_Right_DRIVE_MOTOR_CAN));
 	m_backRightMotor.reset(new WPI_TalonSRX(Back_Right_DRIVE_MOTOR_CAN));
 
+	m_frontLeftMotor->Set(ControlMode::Velocity, 0);
+	m_frontRightMotor->Set(ControlMode::Velocity, 0);
+	m_backLeftMotor->Set(ControlMode::Velocity, 0);
+	m_backRightMotor->Set(ControlMode::Velocity, 0);
+
 	m_frontLeftMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 0);
 	m_frontLeftMotor->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_5Ms, 0);
 	m_frontLeftMotor->ConfigVelocityMeasurementWindow(1,0);
