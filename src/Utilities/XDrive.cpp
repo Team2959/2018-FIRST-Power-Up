@@ -27,18 +27,22 @@ XDrive::XDrive()
 	m_frontLeftMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 0);
 	m_frontLeftMotor->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_5Ms, 0);
 	m_frontLeftMotor->ConfigVelocityMeasurementWindow(1,0);
+	m_frontLeftMotor->SetSensorPhase(true);
 
 	m_backLeftMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 0);
 	m_backLeftMotor->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_5Ms, 0);
 	m_backLeftMotor->ConfigVelocityMeasurementWindow(1,0);
+	m_backLeftMotor->SetSensorPhase(true);
 
 	m_frontRightMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 0);
 	m_frontRightMotor->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_5Ms, 0);
 	m_frontRightMotor->ConfigVelocityMeasurementWindow(1,0);
+	m_frontRightMotor->SetSensorPhase(true);
 
 	m_backRightMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 0);
 	m_backRightMotor->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_5Ms, 0);
 	m_backRightMotor->ConfigVelocityMeasurementWindow(1,0);
+	m_backRightMotor->SetSensorPhase(true);
 
 	m_frontLeftMotor.get()->SetName("DriveTrain", "Front Left");
 	m_frontRightMotor.get()->SetName("DriveTrain", "Front Right");
