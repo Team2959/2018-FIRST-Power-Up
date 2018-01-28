@@ -18,10 +18,10 @@ uint16_t Spi::GetNextWordToWrite()
 {
 	const uint8_t	SyncByte{ 0x5A };		// Sync byte with no data payload following
 	const uint8_t	SyncDataByte{ 0x5B };	// Sync byte with data payload following
-	if (_writeQueue.empty())				// If no data to write
+	if (_writeBuffer.empty())				// If no data to write
 		return (SyncByte | (0x00 << 8));	// Write a sync byte (low) and zero (high)
-	uint16_t result{ static_cast<uint16_t>(SyncDataByte | (_writeQueue.front() << 8)) };	// Write data sync byte (low) and data (high)
-	_writeQueue.pop();						// Remove the byte we are writing
+	uint16_t result{ static_cast<uint16_t>(SyncDataByte | (_writeBuffer.front() << 8)) };	// Write data sync byte (low) and data (high)
+	_writeBuffer.pop_front();				// Remove the byte we are writing
 	return result;							// Done
 }
 
@@ -50,6 +50,6 @@ size_t Spi::Read(uint8_t* buffer, size_t count)
 // Write bytes
 size_t Spi::Write(const uint8_t* buffer, size_t count)
 {
-	copy(buffer, buffer + count, back_inserter(_writeQueue));	// Copy to the write queue
+	copy(buffer, buffer + count, back_inserter(_writeBuffer));	// Copy to the write buffer
 	return count;												// Done
 }

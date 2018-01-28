@@ -11,7 +11,7 @@
 
 #pragma once
 
-#include <queue>
+#include <deque>
 #include <SPI.h>
 #include "Channel.h"
 
@@ -28,6 +28,6 @@ namespace PixyCam
 		uint16_t GetNextWordToWrite();										// Get the next word to write so that we can read a word
 
 		frc::SPI			_spi;											// Library provided SPI object
-		std::queue<uint8_t>	_writeQueue;									// Bytes to write
+		std::deque<uint8_t>	_writeBuffer;									// Bytes to write
 	};
 }
