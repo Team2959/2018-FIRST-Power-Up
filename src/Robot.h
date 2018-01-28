@@ -41,7 +41,7 @@ private:
 	// Have it null by default so that if testing teleop it
 	// doesn't have undefined behavior and potentially crash.
 	frc::Command* m_autonomousCommand = nullptr;
-	MyAutoCommand m_defaultAuto;
-	DriveStraightCommand m_driveStraightAuto { 3.0 };  // do for three seconds
+	std::unique_ptr<MyAutoCommand> m_defaultAuto;
+	std::unique_ptr<DriveStraightCommand> m_driveStraightAuto;
 	frc::SendableChooser<frc::Command*> m_chooser;
 };

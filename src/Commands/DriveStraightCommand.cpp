@@ -14,22 +14,17 @@ DriveStraightCommand::DriveStraightCommand(double driveTime) : TimedCommand("Dri
 	Requires(Robot::DriveTrainSubsystem.get());
 }
 
-void DriveStraightCommand::Initialize()
+void DriveStraightCommand::Execute()
 {
-	Robot::DriveTrainSubsystem->XDrive(1, HalfPi, 0);
+	Robot::DriveTrainSubsystem->Drive(1, HalfPi, 0);
 }
 
 void DriveStraightCommand::End()
 {
-	Robot::DriveTrainSubsystem->XDrive(0, 0, 0);
+	Robot::DriveTrainSubsystem->Drive(0, 0, 0);
 }
 
 void DriveStraightCommand::Interrupted()
 {
 	End();
-}
-
-bool DriveStraightCommand::IsFinished()
-{
-	return frc::TimedCommand::IsFinished();
 }

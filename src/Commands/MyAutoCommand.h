@@ -9,9 +9,11 @@
 
 #include <Commands/Command.h>
 
-class MyAutoCommand : public frc::Command {
+class MyAutoCommand : public frc::Command
+{
 public:
 	MyAutoCommand();
+
 	void Initialize() override;
 	void Execute() override;
 	bool IsFinished() override;

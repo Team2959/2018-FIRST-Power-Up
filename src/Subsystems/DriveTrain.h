@@ -8,23 +8,23 @@
 #pragma once
 
 #include <Commands/Subsystem.h>
-#include "ctre/Phoenix.h"
 #include <memory>
-#include <WPILib.h>
+#include "Utilities/XDrive.h"
 
 class DriveTrain: public frc::Subsystem
 {
 private:
-	std::shared_ptr<WPI_TalonSRX> m_FrontLeftMotor;
-	std::shared_ptr<WPI_TalonSRX> m_BackLeftMotor;
-	std::shared_ptr<WPI_TalonSRX> m_FrontRightMotor;
-	std::shared_ptr<WPI_TalonSRX> m_BackRightMotor;
+	std::shared_ptr<XDrive> m_xDrive;
 
 public:
 	DriveTrain();
-	virtual ~DriveTrain();
+	~DriveTrain() override = default;
 
 	void InitDefaultCommand() override;
 
-	void XDrive(double magnitude, double totalAngle, double rotation);
+	// Drive robot via XDrive
+	// Magnitude is 0 .. 1 for how fast to move
+	// Total Angle is 0 .. 2 * Pi in radians for direction
+	// Rotation is -1 .. 1
+	void Drive(double magnitude, double totalAngle, double rotation);
 };

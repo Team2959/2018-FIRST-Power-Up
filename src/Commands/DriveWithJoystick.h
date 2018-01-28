@@ -18,7 +18,7 @@ private:
 
 public:
 	DriveWithJoystick();
-	virtual ~DriveWithJoystick();
+	~DriveWithJoystick() override = default;
 
 	void Execute() override;
 	bool IsFinished() override;

@@ -15,8 +15,7 @@ public:
 	DriveStraightCommand(double driveTime = 0);
 	~DriveStraightCommand() override = default;
 
-	void Initialize() override;
-	bool IsFinished() override;
+	void Execute() override;
 	void End() override;
 	void Interrupted() override;
 };

@@ -17,10 +17,6 @@ DriveWithJoystick::DriveWithJoystick() : Command("DriveWithJoystick")
 	Requires(Robot::DriveTrainSubsystem.get());
 }
 
-DriveWithJoystick::~DriveWithJoystick()
-{
-}
-
 void DriveWithJoystick::Execute()
 {
 	double xAxis = Robot::oi->GetDriverJoystick()->GetX();
@@ -41,7 +37,7 @@ void DriveWithJoystick::Execute()
 	SmartDashboard::PutNumber("Total Angle", angle);
 	SmartDashboard::PutNumber("Rotation", rotation);
 
-	Robot::DriveTrainSubsystem->XDrive(magnitude, angle, rotation);
+	Robot::DriveTrainSubsystem->Drive(magnitude, angle, rotation);
 }
 
 bool DriveWithJoystick::IsFinished()
