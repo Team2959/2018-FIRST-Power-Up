@@ -35,6 +35,7 @@ XDrive::XDrive()
 	m_frontLeftMotor->Config_kF(0, 0.275, 0);
 	m_frontLeftMotor->Config_kP(0, 0.45, 0);
 	m_frontLeftMotor->Config_kI(0, 0.0045, 0);
+	m_frontLeftMotor->Config_IntegralZone(0, 300, 0);
 
 	m_backLeftMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 0);
 	m_backLeftMotor->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_5Ms, 0);
@@ -43,6 +44,7 @@ XDrive::XDrive()
 	m_backLeftMotor->Config_kF(0, 0.275, 0);
 	m_backLeftMotor->Config_kP(0, 0.45, 0);
 	m_backLeftMotor->Config_kI(0, 0.0045, 0);
+	m_backLeftMotor->Config_IntegralZone(0, 300, 0);
 
 	m_frontRightMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 0);
 	m_frontRightMotor->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_5Ms, 0);
@@ -51,6 +53,7 @@ XDrive::XDrive()
 	m_frontRightMotor->Config_kF(0, 0.275, 0);
 	m_frontRightMotor->Config_kP(0, 0.45, 0);
 	m_frontRightMotor->Config_kI(0, 0.0045, 0);
+	m_frontRightMotor->Config_IntegralZone(0, 300, 0);
 
 	m_backRightMotor->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 0);
 	m_backRightMotor->ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_5Ms, 0);
@@ -59,6 +62,7 @@ XDrive::XDrive()
 	m_backRightMotor->Config_kF(0, 0.275, 0);
 	m_backRightMotor->Config_kP(0, 0.45, 0);
 	m_backRightMotor->Config_kI(0, 0.0045, 0);
+	m_backRightMotor->Config_IntegralZone(0, 300, 0);
 
 	m_frontLeftMotor.get()->SetName("DriveTrain", "Front Left");
 	m_frontRightMotor.get()->SetName("DriveTrain", "Front Right");
