@@ -6,10 +6,14 @@
 /*----------------------------------------------------------------------------*/
 
 #include "OI.h"
+#include <SmartDashboard/SmartDashboard.h>
+#include "Commands/TestPixyCam.h"
 
 OI::OI()
 {
 	DriverJoystick.reset(new frc::Joystick(0));
+
+	//frc::SmartDashboard::PutData("Pixy Cam", new TestPixyCam());
 }
 
 std::shared_ptr<frc::Joystick> OI::GetDriverJoystick()
