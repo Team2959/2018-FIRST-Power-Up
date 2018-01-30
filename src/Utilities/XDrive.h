@@ -11,6 +11,7 @@
 #include <memory>
 #include <llvm/raw_ostream.h>
 #include "ctre/Phoenix.h"
+#include <string>
 
 class XDrive: public frc::RobotDriveBase
 {
@@ -34,4 +35,7 @@ public:
 	void GetDescription(llvm::raw_ostream& desc) const override;
 
 	void InitSendable(frc::SendableBuilder& builder) override;
+
+private:
+	void CreateAndConfigureMotorController(std::shared_ptr<WPI_TalonSRX> motor, int canId, string name);
 };
