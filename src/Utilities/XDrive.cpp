@@ -28,7 +28,7 @@ XDrive::XDrive()
 	SetName("XDrive", instances);
 }
 
-void XDrive::CreateAndConfigureMotorController(std::shared_ptr<WPI_TalonSRX> motor, int canId, string name)
+void XDrive::CreateAndConfigureMotorController(std::shared_ptr<WPI_TalonSRX> motor, int canId, std::string name)
 {
 	motor.reset(new WPI_TalonSRX(canId));
 

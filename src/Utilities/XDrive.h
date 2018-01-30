@@ -37,5 +37,5 @@ public:
 	void InitSendable(frc::SendableBuilder& builder) override;
 
 private:
-	void CreateAndConfigureMotorController(std::shared_ptr<WPI_TalonSRX> motor, int canId, string name);
+	void CreateAndConfigureMotorController(std::shared_ptr<WPI_TalonSRX> motor, int canId, std::string name);
 };
