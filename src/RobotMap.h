@@ -23,3 +23,10 @@ constexpr int Front_LEFT_DRIVE_MOTOR_CAN = 1;
 constexpr int Front_Right_DRIVE_MOTOR_CAN = 2;
 constexpr int Back_Right_DRIVE_MOTOR_CAN = 3;
 constexpr int Back_Left_DRIVE_MOTOR_CAN = 4;
+
+//PWM Mappings
+constexpr int CLIMB_LEFT_MOTOR = 1;
+constexpr int CLIMB_RIGHT_MOTOR = 2;
+
+// DIO Mappings
+constexpr int CLIMB_TOP_LIMIT_SWITCH = 4;
