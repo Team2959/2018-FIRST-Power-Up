@@ -11,15 +11,13 @@ FoldArmsUp::FoldArmsUp() : Command("FoldArmsUp")
 {
 	Requires(Robot::CubeArmsSubsystem.get());
 }
-void FoldArmsUp::Execute()
 
+void FoldArmsUp::Initialize()
 {
-		//make Solenoids go out
+	//make Solenoids go out
 }
 
-
-
-	bool FoldArmsUp::IsFinished()
-	{
-return true;
+bool FoldArmsUp::IsFinished()
+{
+	return true;
 }
