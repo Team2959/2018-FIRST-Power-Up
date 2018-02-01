@@ -106,7 +106,7 @@ void XDrive::Drive(double magnitude, double totalAngle, double rotation)
 
 	m_safetyHelper.Feed();
 
-	double current = time.Get();
+	double current = m_time.Get();
 	double diff = current - previous;
 	previous = current;
 	double flm = m_frontLeftMotor->GetSelectedSensorVelocity(0) *(0.0025566346646476);
@@ -117,10 +117,6 @@ void XDrive::Drive(double magnitude, double totalAngle, double rotation)
 	frmDistance += ((frmPrevSpeed + frm) /2.0)*diff;
 	brmDistance += ((brmPrevSpeed + brm) /2.0)*diff;
 	blmDistance += ((blmPrevSpeed + blm) /2.0)*diff;
-
-
-
-
 }
 
 void XDrive::StopMotor()
@@ -157,5 +153,3 @@ void XDrive::InitSendable(frc::SendableBuilder& builder)
 							[=]() { return m_backLeftMotor->Get(); },
 							[=](double value) { m_backLeftMotor->Set(ControlMode::Velocity, value); });
 }
-
-
