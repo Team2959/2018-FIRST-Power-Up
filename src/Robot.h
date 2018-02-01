@@ -13,14 +13,17 @@
 #include <SmartDashboard/SendableChooser.h>
 #include <OI.h>
 #include <Subsystems/DriveTrain.h>
+#include <Subsystems/CubeArms.h>
 #include <Commands/DriveStraightCommand.h>
 #include <Commands/MyAutoCommand.h>
+
 
 class Robot : public frc::TimedRobot
 {
 public:
 	// Add all subsystem definition here as static public variables
 	static std::unique_ptr<DriveTrain> DriveTrainSubsystem;
+	static std::unique_ptr<CubeArms> CubeArmsSubsystem;
 	static std::unique_ptr<OI> oi;
 
 public:

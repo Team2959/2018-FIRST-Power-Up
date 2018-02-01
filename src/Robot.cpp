@@ -11,12 +11,14 @@
 
 // Create the unique static pointers for each subsystem
 std::unique_ptr<DriveTrain> Robot::DriveTrainSubsystem;
+std::unique_ptr<CubeArms> Robot::CubeArmsSubsystem;
 std::unique_ptr<OI> Robot::oi;
 
 void Robot::RobotInit()
 {
 	// Initialize subsystems!
 	DriveTrainSubsystem.reset(new DriveTrain());
+	CubeArmsSubsystem.reset(new CubeArms());
 
 	// This MUST be here. If the OI creates Commands (which it very likely
 	// will), constructing it during the construction of CommandBase (from
