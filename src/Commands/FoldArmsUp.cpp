@@ -6,8 +6,10 @@
  */
 
 #include <Commands/FoldArmsUp.h>
+#include "Robot.h"
+#include "Subsystems/CubeArms.h"
 
-FoldArmsUp::FoldArmsUp() : Command("FoldArmsUp")
+FoldArmsUp::FoldArmsUp() : frc::Command("FoldArmsUp")
 {
 	Requires(Robot::CubeArmsSubsystem.get());
 }

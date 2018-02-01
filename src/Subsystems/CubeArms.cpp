@@ -11,10 +11,6 @@ CubeArms::CubeArms() : Subsystem("CubeArms")
 {
 }
 
-CubeArms::~CubeArms()
-{
-}
-
 void CubeArms::FoldUp()
 {
 	m_foldArms.Set(frc::DoubleSolenoid::Value::kForward);

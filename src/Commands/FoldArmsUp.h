@@ -13,7 +13,7 @@ class FoldArmsUp: public frc::Command
 {
 public:
 	FoldArmsUp();
-	virtual ~FoldArmsUp();
+	~FoldArmsUp() override = default;
 
 	void Initialize() override;
 	bool IsFinished() override;

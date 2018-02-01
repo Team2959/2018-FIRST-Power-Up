@@ -5,13 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include <Commands/DropHooksDownCommand.h>
 #include "OI.h"
 #include <SmartDashboard/SmartDashboard.h>
 #include "Commands/TestPixyCam.h"
+#include <Commands/RaiseHooksUpToRungCommand.h>
+
 
 OI::OI()
 {
 	DriverJoystick.reset(new frc::Joystick(0));
+	ButtonBox.reset(new frc::Joystick(1));
+
+	RaiseHooksUpButton.reset(new frc::JoystickButton(ButtonBox, 1));
+	DropHooksDownButton.reset(new frc::JoystickButton(ButtonBox, 2));
+
+	RaiseHooksUpButton->WhenPressed(new RaiseHooksUpToRungCommand());
 
 	//frc::SmartDashboard::PutData("Pixy Cam", new TestPixyCam());
 }

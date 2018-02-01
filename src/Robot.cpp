@@ -8,6 +8,7 @@
 #include "Robot.h"
 #include <LiveWindow/LiveWindow.h>
 #include <SmartDashboard/SmartDashboard.h>
+#include <WPILib.h>
 
 // Create the unique static pointers for each subsystem
 std::unique_ptr<DriveTrain> Robot::DriveTrainSubsystem;
@@ -39,7 +40,7 @@ void Robot::RobotInit()
 	m_chooser.AddObject("Drive Straight", m_driveStraightAuto.get());
 	frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
-	CameraServer::GetInstance()->StartAutomaticCapture();
+	//CameraServer::GetInstance()->StartAutomaticCapture();
 }
 
 /**

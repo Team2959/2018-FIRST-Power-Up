@@ -22,7 +22,13 @@ private:
 
 public:
 	Climb();
-	virtual ~Climb();
+	~Climb() override = default;
+
+	void RaiseHooksUp();
+
+	void StopHooks();
+
+	bool AtTop();
 };
 
 #endif /* SRC_SUBSYSTEMS_CLIMB_H_ */

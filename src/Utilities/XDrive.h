@@ -21,7 +21,7 @@ private:
 	std::shared_ptr<WPI_TalonSRX> m_backLeftMotor;
 	std::shared_ptr<WPI_TalonSRX> m_frontRightMotor;
 	std::shared_ptr<WPI_TalonSRX> m_backRightMotor;
-	frc:: Timer time();
+	frc::Timer m_time;
 	double previous;
 	double flmDistance = 0;
 	double frmDistance = 0;
