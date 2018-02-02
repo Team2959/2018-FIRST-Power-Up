@@ -6,9 +6,9 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Robot.h"
-#include <LiveWindow/LiveWindow.h>
+#include <Commands/Scheduler.h>
 #include <SmartDashboard/SmartDashboard.h>
-#include <WPILib.h>
+#include <CameraServer.h>
 
 // Create the unique static pointers for each subsystem
 std::unique_ptr<DriveTrain> Robot::DriveTrainSubsystem;
@@ -30,7 +30,9 @@ void Robot::RobotInit()
 	// news. Don't move it.
 	oi.reset(new OI());
 
-	SmartDashboard::PutData(DriveTrainSubsystem.get());
+	frc::SmartDashboard::PutData(DriveTrainSubsystem.get());
+	frc::SmartDashboard::PutData(CubeArmsSubsystem.get());
+	frc::SmartDashboard::PutData(ClimbSubsystem.get());
 
 	// After subsystem creations, now create autonomous commands
 	m_defaultAuto.reset(new MyAutoCommand());
@@ -40,7 +42,7 @@ void Robot::RobotInit()
 	m_chooser.AddObject("Drive Straight", m_driveStraightAuto.get());
 	frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
-	//CameraServer::GetInstance()->StartAutomaticCapture();
+	CameraServer::GetInstance()->StartAutomaticCapture();
 }
 
 /**
