@@ -11,6 +11,7 @@
 ******************************************************************************/
 
 #include <array>
+#include <iostream>
 #include "Camera.h"
 
 using namespace PixyCam;
@@ -34,17 +35,21 @@ bool Camera::Write(const initializer_list<uint8_t>& buffer) { return _channel.Wr
 // Get blocks for a frame
 vector<Block> Camera::ReadFrameBlocks()
 {
+	cout << "Camera::ReadFrameBlocks - Begin\n";
 	if (!SyncStartOfFrame())												// If we can't sync to start of frame
 		return vector<Block>();												// Done.  Return empty vector
+	cout << "Camera::ReadFrameBlocks - Frame Sync Detected\n";
 	array<uint16_t, 2>	words;												// Will hold words for reading
 	if (!ReadWord(words[0]) || (words[0] != BlockSync))						// If we can't read the frame sync word
 		return vector<Block>();												// Done.  Return empty vector
+	cout << "Camera::ReadFrameBlocks - Frame Sync Read\n";
 	vector<Block>	blocks;													// Will hold the blocks that we read
 	// Continue the while forever...will drop out when we can't peek at the initial bytes, if we find a start of frame, or if we can't read a block word
 	while (true)
 	{
 		if (!PeekWords(words) || IsStartOfFrame(words))						// If we can't peek the next two words, or the next two words are start of frame
 			return blocks;													// Then we are done
+		cout << "Camera::ReadFrameBlocks - Block Sync " << std::hex << words[0] << '\n';
 		switch (words[0])													// See what kind of block
 		{
 		case BlockSync:														// If a standard block

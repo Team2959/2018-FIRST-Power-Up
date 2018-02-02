@@ -23,7 +23,7 @@ namespace PixyCam
 			// correctly destroy those objects when they hold a base Channel pointer.
 			virtual ~Channel() = default;
 
-			// The remaining funcitons are abstract virtual...this class doesn't
+			// The remaining functions are abstract virtual...this class doesn't
 			// implement them, but depends on descendant classes to provide these
 			// specific to that serial transfer method.
 

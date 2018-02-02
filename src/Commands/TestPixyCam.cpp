@@ -5,28 +5,31 @@
  *      Author: JWB
  */
 
-#include <cstdio>
+#include <iostream>
+#include <memory>
 #include <SmartDashboard/SmartDashboard.h>
 #include "TestPixyCam.h"
 #include "../PixyCam/Spi.h"
+#include "../PixyCam/I2C.h"
 
 using namespace frc;
 using namespace PixyCam;
+using namespace std;
 
-std::unique_ptr<PixyCam::Camera>	TestPixyCam::_camera{std::make_unique<Camera>(std::make_unique<Spi>(SPI::kOnboardCS0))};
+std::unique_ptr<PixyCam::Camera>	TestPixyCam::_camera{std::make_unique<Camera>(std::make_unique<PixyCam::I2C>(frc::I2C::kOnboard,0))};
 
 TestPixyCam::TestPixyCam() : Command("TestPixyCam")
 {
-	printf("TestPixyCam::TestPixyCam\n");
+	cout << "TestPixyCam::TestPixyCam\n";
 }
 
 void TestPixyCam::Execute()
 {
-	printf("TestPixyCam::Execute1\n");
+	cout << "TestPixyCam::Execute - Start\n";
 	auto	blocks{ _camera->ReadFrameBlocks() };
-	printf("TestPixyCam::Execute2\n");
 
 	SmartDashboard::PutNumber("BlockCount", blocks.size());
+	cout << "TestPixyCam::Execute - End\n";
 }
 
 bool TestPixyCam::IsFinished()

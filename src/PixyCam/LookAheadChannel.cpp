@@ -22,7 +22,7 @@ size_t LookAheadChannel::Peek(uint8_t* buffer, size_t count)
 	// Read fragments sequentially until our _inputBuffer is big enough
 	while (_inputBuffer.size() < count)	
 	{
-		array<uint8_t, 16>	fragment;									// Will hold the fragment
+		array<uint8_t, 16>		fragment;								// Will hold the fragment
 		auto					fragmentRead{ _source->Read(fragment.data(), min(count - _inputBuffer.size(),fragment.size())) };	// Read the fragment
 		if (fragmentRead <= 0)											// If no fragment data read
 			break;														// Drop out
