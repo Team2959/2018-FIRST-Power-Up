@@ -5,8 +5,7 @@
  *      Author: Andrew
  */
 
-#ifndef CUBEARMS_H_
-#define CUBEARMS_H_
+#pragma once
 
 #include <Commands/Subsystem.h>
 #include <DoubleSolenoid.h>
@@ -19,10 +18,8 @@ private:
 
 public:
 	CubeArms();
-	virtual ~CubeArms();
+	~CubeArms() override = default;
 
 	void FoldUp();
 	void FoldDown();
 };
-
-#endif /* CUBEARMS_H_ */

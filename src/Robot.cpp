@@ -6,12 +6,14 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Robot.h"
-#include <LiveWindow/LiveWindow.h>
+#include <Commands/Scheduler.h>
 #include <SmartDashboard/SmartDashboard.h>
+#include <CameraServer.h>
 
 // Create the unique static pointers for each subsystem
 std::unique_ptr<DriveTrain> Robot::DriveTrainSubsystem;
 std::unique_ptr<CubeArms> Robot::CubeArmsSubsystem;
+std::unique_ptr<Climb> Robot::ClimbSubsystem;
 std::unique_ptr<OI> Robot::oi;
 
 void Robot::RobotInit()
@@ -19,6 +21,7 @@ void Robot::RobotInit()
 	// Initialize subsystems!
 	DriveTrainSubsystem.reset(new DriveTrain());
 	CubeArmsSubsystem.reset(new CubeArms());
+	ClimbSubsystem.reset(new Climb());
 
 	// This MUST be here. If the OI creates Commands (which it very likely
 	// will), constructing it during the construction of CommandBase (from
@@ -27,7 +30,9 @@ void Robot::RobotInit()
 	// news. Don't move it.
 	oi.reset(new OI());
 
-	SmartDashboard::PutData(DriveTrainSubsystem.get());
+	frc::SmartDashboard::PutData(DriveTrainSubsystem.get());
+	frc::SmartDashboard::PutData(CubeArmsSubsystem.get());
+	frc::SmartDashboard::PutData(ClimbSubsystem.get());
 
 	// After subsystem creations, now create autonomous commands
 	m_defaultAuto.reset(new MyAutoCommand());

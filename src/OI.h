@@ -8,12 +8,17 @@
 #pragma once
 
 #include <memory>
-#include <WPILib.h>
+#include <Joystick.h>
+#include <Buttons/JoystickButton.h>
 
 class OI
 {
 private:
 	std::shared_ptr<frc::Joystick> DriverJoystick;
+	std::shared_ptr<frc::Joystick> ButtonBox;
+
+	std::shared_ptr<frc::JoystickButton> RaiseHooksUpButton;
+	std::shared_ptr<frc::JoystickButton> DropHooksDownButton;
 
 public:
 	OI();
