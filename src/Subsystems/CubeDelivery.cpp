@@ -15,12 +15,12 @@ CubeDelivery::CubeDelivery() : Subsystem("CubeDeliverySubsystem")
 
 void CubeDelivery::OpenArms()
 {
-	m_openCloseArms(frc::DoubleSolenoid::Value::kForward);
+	m_openCloseArms.Set(frc::DoubleSolenoid::Value::kForward);
 }
 
 void CubeDelivery::CloseArms()
 {
-	m_openCloseArms(frc::DoubleSolenoid::Value::kReverse);
+	m_openCloseArms.Set(frc::DoubleSolenoid::Value::kReverse);
 }
 
 void CubeDelivery::StopWheels()
