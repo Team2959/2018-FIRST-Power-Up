@@ -32,3 +32,9 @@ bool ScaleClimb::AtTop()
 {
 	return m_topLimitSwitch->Get();
 }
+
+void ScaleClimb::DropHooksDown()
+{
+	m_leftSpark->Set(-0.5);
+	m_rightSpark->Set(-0.5);
+}

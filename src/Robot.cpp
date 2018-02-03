@@ -17,24 +17,30 @@
 std::unique_ptr<DriveTrain> Robot::DriveTrainSubsystem;
 std::unique_ptr<CubeArms> Robot::CubeArmsSubsystem;
 std::unique_ptr<ScaleClimb> Robot::ClimbSubsystem;
-std::unique_ptr<OI> Robot::oi;
 std::unique_ptr<MotionTracking> Robot::MotionTrackingSubsystem;
+std::unique_ptr<OI> Robot::oi;
 
 void Robot::RobotInit()
 {
 	// Initialize subsystems!
-/*	DriveTrainSubsystem.reset(new DriveTrain());
+	DriveTrainSubsystem.reset(new DriveTrain());
 	CubeArmsSubsystem.reset(new CubeArms());
 	ClimbSubsystem.reset(new ScaleClimb());
 	MotionTrackingSubsystem.reset(new MotionTracking());
-*/
+	MotionTrackingSubsystem->SetMotorPointers(
+			DriveTrainSubsystem->m_xDrive->FlmPointer(),
+			DriveTrainSubsystem->m_xDrive->FrmPointer(),
+			DriveTrainSubsystem->m_xDrive->BlmPointer(),
+			DriveTrainSubsystem->m_xDrive->BrmPointer()
+		);
+
 	// This MUST be here. If the OI creates Commands (which it very likely
 	// will), constructing it during the construction of CommandBase (from
 	// which commands extend), subsystems are not guaranteed to be
 	// yet. Thus, their requires() statements may grab null pointers. Bad
 	// news. Don't move it.
 	oi.reset(new OI());
-/*
+
 	frc::SmartDashboard::PutData(DriveTrainSubsystem.get());
 	frc::SmartDashboard::PutData(CubeArmsSubsystem.get());
 	frc::SmartDashboard::PutData(ClimbSubsystem.get());
@@ -46,8 +52,8 @@ void Robot::RobotInit()
 	m_chooser.AddDefault("Default Auto", m_defaultAuto.get());
 	m_chooser.AddObject("Drive Straight", m_driveStraightAuto.get());
 	frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-*/
-	// CameraServer::GetInstance()->StartAutomaticCapture();
+
+	CameraServer::GetInstance()->StartAutomaticCapture();
 }
 
 /**

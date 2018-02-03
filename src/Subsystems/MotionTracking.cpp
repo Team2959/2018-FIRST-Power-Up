@@ -6,6 +6,8 @@
  */
 
 #include <Subsystems/MotionTracking.h>
+#include <SmartDashboard/SmartDashboard.h>
+#include "Commands/WheelTracking.h"
 
 MotionTracking::MotionTracking(): Subsystem("MotionTracking")
 {
@@ -47,4 +49,8 @@ void MotionTracking::SendMotorNumberToDash()
 	frc::SmartDashboard::PutNumber("frm Distance"  , m_frmDistance);
 	frc::SmartDashboard::PutNumber("blm Distance"  , m_blmDistance);
 	frc::SmartDashboard::PutNumber("brm Distance"  , m_brmDistance);
+}
+void MotionTracking::InitDefaultCommand()
+{
+	SetDefaultCommand(new WheelTracking());
 }

@@ -10,7 +10,6 @@
 
 WheelTracking::WheelTracking() : Command("WheelTracking")
 {
-	// TODO Auto-generated constructor stub
 	Requires(Robot::MotionTrackingSubsystem.get());
 }
 
@@ -25,5 +24,5 @@ void WheelTracking::Execute()
 
 bool WheelTracking::IsFinished()
 {
-	return true;
+	return false;
 }

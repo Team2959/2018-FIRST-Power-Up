@@ -9,16 +9,23 @@
 #include <SmartDashboard/SmartDashboard.h>
 #include <Commands/RaiseHooksUpToRungCommand.h>
 #include <Commands/DropHooksDownCommand.h>
+#include <Commands/FoldArmsDownCommand.h>
+#include <Commands/FoldArmsUpCommand.h>
 
 OI::OI()
 {
-	/* DriverJoystick.reset(new frc::Joystick(0));
+	DriverJoystick.reset(new frc::Joystick(0));
 	ButtonBox.reset(new frc::Joystick(1));
 
 	RaiseHooksUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 1));
 	DropHooksDownButton.reset(new frc::JoystickButton(ButtonBox.get(), 2));
+	FoldCubeArmsUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 4));
+	FoldCubeArmsDownButton.reset(new frc::JoystickButton(ButtonBox.get(), 5));
 
-	RaiseHooksUpButton->WhenPressed(new RaiseHooksUpToRungCommand()); */
+	RaiseHooksUpButton->WhenPressed(new RaiseHooksUpToRungCommand());
+	DropHooksDownButton->WhileHeld(new DropHooksDownCommand());
+	FoldCubeArmsUpButton->WhenPressed(new FoldArmsDownCommand());
+	FoldCubeArmsDownButton->WhenPressed(new FoldArmsDownCommand());
 }
 
 std::shared_ptr<frc::Joystick> OI::GetDriverJoystick()

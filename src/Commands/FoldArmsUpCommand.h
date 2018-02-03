@@ -10,11 +10,11 @@
 
 #include <Commands/Command.h>
 
-class FoldArmsUp: public frc::Command
+class FoldArmsUpCommand: public frc::Command
 {
 public:
-	FoldArmsUp();
-	~FoldArmsUp() override = default;
+	FoldArmsUpCommand();
+	~FoldArmsUpCommand() override = default;
 
 	void Initialize() override;
 	bool IsFinished() override;

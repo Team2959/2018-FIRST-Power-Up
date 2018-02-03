@@ -12,6 +12,7 @@
 #include <Utilities/XDrive.h>
 #include <Timer.h>
 
+
 class MotionTracking: public frc::Subsystem
 {
 public:
@@ -20,6 +21,7 @@ public:
 	void SetMotorPointers(std::shared_ptr<WPI_TalonSRX> flm, std::shared_ptr<WPI_TalonSRX> frm, std::shared_ptr<WPI_TalonSRX> blm, std::shared_ptr<WPI_TalonSRX> brm);
     void UpdateWheels();
     void SendMotorNumberToDash();
+    void InitDefaultCommand() override;
 
 private:
 	frc::Timer m_time;

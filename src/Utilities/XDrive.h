@@ -13,7 +13,6 @@
 #include <llvm/raw_ostream.h>
 #include "ctre/Phoenix.h"
 #include <string>
-#include <SmartDashboard/SmartDashboard.h>
 
 class XDrive: public frc::RobotDriveBase
 {
