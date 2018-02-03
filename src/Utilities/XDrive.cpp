@@ -26,6 +26,7 @@ XDrive::XDrive()
 	static int instances = 0;
 	++instances;
 	SetName("XDrive", instances);
+
 }
 
 void XDrive::CreateAndConfigureMotorController(std::shared_ptr<WPI_TalonSRX> motor, int canId, std::string name)
@@ -106,17 +107,7 @@ void XDrive::Drive(double magnitude, double totalAngle, double rotation)
 
 	m_safetyHelper.Feed();
 
-	double current = m_time.Get();
-	double diff = current - previous;
-	previous = current;
-	double flm = m_frontLeftMotor->GetSelectedSensorVelocity(0) *(0.0025566346646476);
-	double frm = m_frontRightMotor->GetSelectedSensorVelocity(0) *(0.0025566346646476);
-	double brm = m_backRightMotor->GetSelectedSensorVelocity(0) *(0.0025566346646476);
-	double blm = m_backLeftMotor->GetSelectedSensorVelocity(0) *(0.0025566346646476);
-	flmDistance += ((flmPrevSpeed + flm) /2.0)*diff;
-	frmDistance += ((frmPrevSpeed + frm) /2.0)*diff;
-	brmDistance += ((brmPrevSpeed + brm) /2.0)*diff;
-	blmDistance += ((blmPrevSpeed + blm) /2.0)*diff;
+
 }
 
 void XDrive::StopMotor()
@@ -152,4 +143,25 @@ void XDrive::InitSendable(frc::SendableBuilder& builder)
 	builder.AddDoubleProperty("Back Left Motor Speed",
 							[=]() { return m_backLeftMotor->Get(); },
 							[=](double value) { m_backLeftMotor->Set(ControlMode::Velocity, value); });
+}
+
+std::shared_ptr<WPI_TalonSRX> XDrive::FlmPointer()
+{
+	return m_frontLeftMotor;
+}
+
+std::shared_ptr<WPI_TalonSRX> XDrive::FrmPointer()
+{
+	return m_frontRightMotor;
+
+}
+
+std::shared_ptr<WPI_TalonSRX> XDrive::BlmPointer()
+{
+	return m_backLeftMotor;
+}
+
+std::shared_ptr<WPI_TalonSRX> XDrive::BrmPointer()
+{
+	return m_backRightMotor;
 }

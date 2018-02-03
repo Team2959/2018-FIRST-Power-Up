@@ -16,6 +16,7 @@
 #include <Subsystems/DriveTrain.h>
 #include <Subsystems/CubeArms.h>
 #include <Subsystems/Climb.h>
+#include <Subsystems/MotionTracking.h>
 
 #include <Commands/DriveStraightCommand.h>
 #include <Commands/MyAutoCommand.h>
@@ -29,6 +30,7 @@ public:
 	static std::unique_ptr<CubeArms> CubeArmsSubsystem;
 	static std::unique_ptr<Climb> ClimbSubsystem;
 	static std::unique_ptr<OI> oi;
+	static std::unique_ptr<MotionTracking> MotionTrackingSubsystem;
 
 public:
 	void RobotInit() override;

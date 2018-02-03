@@ -13,26 +13,17 @@
 #include "ctre/Phoenix.h"
 #include <string>
 #include <Timer.h>
+#include <SmartDashboard/SmartDashboard.h>
+
 
 class XDrive: public frc::RobotDriveBase
 {
 private:
+
 	std::shared_ptr<WPI_TalonSRX> m_frontLeftMotor;
 	std::shared_ptr<WPI_TalonSRX> m_backLeftMotor;
 	std::shared_ptr<WPI_TalonSRX> m_frontRightMotor;
 	std::shared_ptr<WPI_TalonSRX> m_backRightMotor;
-	frc::Timer m_time;
-	double previous;
-	double flmDistance = 0;
-	double frmDistance = 0;
-	double brmDistance = 0;
-	double blmDistance = 0;
-	double flmPrevSpeed = 0;
-	double frmPrevSpeed = 0;
-	double brmPrevSpeed = 0;
-	double blmPrevSpeed = 0;
-	double Xdis = 0;
-	double Ydis = 0;
 
 
 public:
@@ -49,6 +40,15 @@ public:
 	void GetDescription(llvm::raw_ostream& desc) const override;
 
 	void InitSendable(frc::SendableBuilder& builder) override;
+
+	std::shared_ptr<WPI_TalonSRX> FlmPointer();
+	std::shared_ptr<WPI_TalonSRX> FrmPointer();
+	std::shared_ptr<WPI_TalonSRX> BlmPointer();
+	std::shared_ptr<WPI_TalonSRX> BrmPointer();
+
+
+
+
 
 private:
 	void CreateAndConfigureMotorController(std::shared_ptr<WPI_TalonSRX> motor, int canId, std::string name);
