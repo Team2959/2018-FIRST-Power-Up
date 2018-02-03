@@ -24,6 +24,7 @@ OI::OI()
 	FoldCubeArmsDownButton.reset(new frc::JoystickButton(ButtonBox.get(), 5));
 
 	RaiseHooksUpButton->WhenPressed(new RaiseHooksUpToRungCommand());
+	DropHooksDownButton->WhileHeld(new DropHooksDownCommand());
 	FoldCubeArmsUpButton->WhenPressed(new FoldArmsDownCommand());
 	FoldCubeArmsDownButton->WhenPressed(new FoldArmsDownCommand());
 
