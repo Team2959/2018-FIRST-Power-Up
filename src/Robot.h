@@ -16,11 +16,11 @@
 #include <OI.h>
 #include <Subsystems/DriveTrain.h>
 #include <Subsystems/CubeArms.h>
-#include <Subsystems/Climb.h>
 #include <Subsystems/MotionTracking.h>
 
 #include <Commands/DriveStraightCommand.h>
 #include <Commands/MyAutoCommand.h>
+#include <Subsystems/ScaleClimb.h>
 
 
 class Robot : public frc::TimedRobot
@@ -29,7 +29,7 @@ public:
 	// Add all subsystem definition here as static public variables
 	static std::unique_ptr<DriveTrain> DriveTrainSubsystem;
 	static std::unique_ptr<CubeArms> CubeArmsSubsystem;
-	static std::unique_ptr<Climb> ClimbSubsystem;
+	static std::unique_ptr<ScaleClimb> ClimbSubsystem;
 	static std::unique_ptr<OI> oi;
 	static std::unique_ptr<MotionTracking> MotionTrackingSubsystem;
 

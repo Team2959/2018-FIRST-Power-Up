@@ -6,16 +6,16 @@
  */
 
 #include <Commands/WheelTracking.h>
+#include "Robot.h"
 
 WheelTracking::WheelTracking() : Command("WheelTracking")
 {
 	// TODO Auto-generated constructor stub
 	Requires(Robot::MotionTrackingSubsystem.get());
-
 }
 
-WheelTracking::~WheelTracking() {
-	// TODO Auto-generated destructor stub
+WheelTracking::~WheelTracking()
+{
 }
 
 void WheelTracking::Execute()
@@ -23,3 +23,7 @@ void WheelTracking::Execute()
 	Robot::MotionTrackingSubsystem->UpdateWheels();
 }
 
+bool WheelTracking::IsFinished()
+{
+	return true;
+}

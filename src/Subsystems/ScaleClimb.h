@@ -5,15 +5,15 @@
  *      Author: CW
  */
 
-#ifndef SRC_SUBSYSTEMS_CLIMB_H_
-#define SRC_SUBSYSTEMS_CLIMB_H_
+#ifndef SRC_SUBSYSTEMS_SCALECLIMB_H_
+#define SRC_SUBSYSTEMS_SCALECLIMB_H_
 
 #include <Commands/Subsystem.h>
 #include <memory>
 #include <Spark.h>
 #include <DigitalInput.h>
 
-class Climb: public frc::Subsystem
+class ScaleClimb: public frc::Subsystem
 {
 private:
 	std::shared_ptr<frc::Spark> m_leftSpark;
@@ -21,8 +21,8 @@ private:
 	std::shared_ptr<frc::DigitalInput> m_topLimitSwitch;
 
 public:
-	Climb();
-	~Climb() override = default;
+	ScaleClimb();
+	~ScaleClimb() override = default;
 
 	void RaiseHooksUp();
 
@@ -31,4 +31,4 @@ public:
 	bool AtTop();
 };
 
-#endif /* SRC_SUBSYSTEMS_CLIMB_H_ */
+#endif /* SRC_SUBSYSTEMS_SCALECLIMB_H_ */

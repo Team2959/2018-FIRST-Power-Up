@@ -7,14 +7,14 @@
 *																			  *
 ******************************************************************************/
 
+#include <PixyCam/SpiChannel.h>
 #include <iterator>
-#include "Spi.h"
 
 using namespace PixyCam;
 using namespace std;
 
 // Get the next word to write so that we can read a word
-uint16_t Spi::GetNextWordToWrite()
+uint16_t SpiChannel::GetNextWordToWrite()
 {
 	const uint8_t	SyncByte{ 0x5A };		// Sync byte with no data payload following
 	const uint8_t	SyncDataByte{ 0x5B };	// Sync byte with data payload following
@@ -26,7 +26,7 @@ uint16_t Spi::GetNextWordToWrite()
 }
 
 // Read bytes
-size_t Spi::Read(uint8_t* buffer, size_t count)
+size_t SpiChannel::Read(uint8_t* buffer, size_t count)
 {
 	// SPI is a bit complicated...
 	// - SPI reads & writes at the same time...to read we must write.
@@ -48,7 +48,7 @@ size_t Spi::Read(uint8_t* buffer, size_t count)
 }
 
 // Write bytes
-size_t Spi::Write(const uint8_t* buffer, size_t count)
+size_t SpiChannel::Write(const uint8_t* buffer, size_t count)
 {
 	copy(buffer, buffer + count, back_inserter(_writeBuffer));	// Copy to the write buffer
 	return count;												// Done

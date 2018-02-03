@@ -10,11 +10,12 @@
 
 #include <Commands/Command.h>
 
-class WheelTracking: public frc::Command {
+class WheelTracking: public frc::Command
+{
 public:
 	WheelTracking();
 	virtual ~WheelTracking();
-	void Initialize();
+
 	void Execute();
 	bool IsFinished();
 };

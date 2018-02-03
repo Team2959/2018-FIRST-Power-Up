@@ -6,11 +6,11 @@
  */
 
 #include <PixyCam/I2CChannel.h>
+#include <PixyCam/SpiChannel.h>
 #include <iostream>
 #include <memory>
 #include <SmartDashboard/SmartDashboard.h>
 #include "TestPixyCam.h"
-#include "../PixyCam/Spi.h"
 
 using namespace frc;
 using namespace PixyCam;

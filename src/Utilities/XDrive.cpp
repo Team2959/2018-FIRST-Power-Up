@@ -26,7 +26,6 @@ XDrive::XDrive()
 	static int instances = 0;
 	++instances;
 	SetName("XDrive", instances);
-
 }
 
 void XDrive::CreateAndConfigureMotorController(std::shared_ptr<WPI_TalonSRX> motor, int canId, std::string name)
@@ -106,8 +105,6 @@ void XDrive::Drive(double magnitude, double totalAngle, double rotation)
 	m_backLeftMotor->Set(ControlMode::Velocity, motorD * RawToVelocity);
 
 	m_safetyHelper.Feed();
-
-
 }
 
 void XDrive::StopMotor()
@@ -153,7 +150,6 @@ std::shared_ptr<WPI_TalonSRX> XDrive::FlmPointer()
 std::shared_ptr<WPI_TalonSRX> XDrive::FrmPointer()
 {
 	return m_frontRightMotor;
-
 }
 
 std::shared_ptr<WPI_TalonSRX> XDrive::BlmPointer()

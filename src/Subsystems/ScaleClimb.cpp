@@ -5,30 +5,30 @@
  *      Author: CW
  */
 
-#include <Subsystems/Climb.h>
 #include <RobotMap.h>
 #include <PWMSpeedController.h>
+#include <Subsystems/ScaleClimb.h>
 
-Climb::Climb() : frc::Subsystem("Climb")
+ScaleClimb::ScaleClimb() : frc::Subsystem("Climb")
 {
 	m_leftSpark.reset(new frc::Spark(CLIMB_LEFT_MOTOR));
 	m_rightSpark.reset(new frc::Spark(CLIMB_RIGHT_MOTOR));
 	m_topLimitSwitch.reset(new frc::DigitalInput(CLIMB_TOP_LIMIT_SWITCH));
 }
 
-void Climb::RaiseHooksUp()
+void ScaleClimb::RaiseHooksUp()
 {
 	m_leftSpark->Set(1);
 	m_rightSpark->Set(1);
 }
 
-void Climb::StopHooks()
+void ScaleClimb::StopHooks()
 {
 	m_leftSpark->Set(0);
 	m_rightSpark->Set(0);
 }
 
-bool Climb::AtTop()
+bool ScaleClimb::AtTop()
 {
 	return m_topLimitSwitch->Get();
 }

@@ -9,9 +9,11 @@
 #define SRC_SUBSYSTEMS_MOTIONTRACKING_H_
 
 #include <Commands/Subsystem.h>
-#include <utilities/XDrive.h>
+#include <Utilities/XDrive.h>
+#include <Timer.h>
 
-class MotionTracking: public frc::Subsystem {
+class MotionTracking: public frc::Subsystem
+{
 public:
 	MotionTracking();
 	virtual ~MotionTracking();
@@ -38,6 +40,5 @@ private:
 	std::shared_ptr<WPI_TalonSRX> m_frontRightMotor;
 	std::shared_ptr<WPI_TalonSRX> m_backRightMotor;
 };
-
 
 #endif /* SRC_SUBSYSTEMS_MOTIONTRACKING_H_ */

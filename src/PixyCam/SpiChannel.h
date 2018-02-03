@@ -18,10 +18,10 @@
 
 namespace PixyCam
 {
-	class Spi : public Channel
+	class SpiChannel : public Channel
 	{
 	public:
-		Spi(frc::SPI::Port port) : _spi{ std::move(port) } { }				// Constructor
+		SpiChannel(frc::SPI::Port port) : _spi{ std::move(port) } { }				// Constructor
 		virtual size_t Read(uint8_t* buffer, size_t count) override;		// Read bytes
 		virtual size_t Write(const uint8_t* buffer, size_t count) override;	// Write bytes
 
