@@ -14,3 +14,4 @@ size_t PixyCam::I2CChannel::Read(uint8_t* buffer, size_t count) { return _i2c.Re
 
 // Write bytes
 size_t PixyCam::I2CChannel::Write(const uint8_t* buffer, size_t count) { return _i2c.WriteBulk(const_cast<uint8_t*>(buffer), count) ? 0 : count; }
+

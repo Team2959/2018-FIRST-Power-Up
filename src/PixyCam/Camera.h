@@ -10,6 +10,19 @@
 *																			  *
 ******************************************************************************/
 
+/* Some additional notes:
+ *
+ * Within PixyMon (or via the control button on the camera PC board), you must configure
+ * the object color(s) to look for.
+ *
+ * Within PixyMon, you must configure the communications interface method to match
+ * the physical channel that will be used.
+ *
+ * For I2C (the only one that we have fully tested), you must also specify the I2C address,
+ * and use that for the input parameter in I2CChannel.
+ *
+ */
+
 #ifndef SRC_CAMERA_H_
 #define SRC_CAMERA_H_
 
@@ -46,7 +59,7 @@ namespace PixyCam
 	// Peek N words
 	template<size_t N> bool Camera::PeekWords(std::array<uint16_t, N>& words)
 	{
-		return _channel.Peek(reinterpret_cast<uint8_t*>(&words[0]), sizeof(uint16_t) * words.size()) == (sizeof(uint16_t) * words.size());	// Success iff we can peek enough bytes
+		return _channel.Peek(reinterpret_cast<uint8_t*>(&words[0]), sizeof(uint16_t) * words.size()) == (sizeof(uint16_t) * words.size());
 	}
 }
 

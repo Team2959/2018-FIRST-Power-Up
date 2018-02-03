@@ -21,11 +21,11 @@ namespace PixyCam
 	{
 	public:
 		I2CChannel(frc::I2C::Port port, int deviceAddress) : _i2c{ port, deviceAddress } { }	// Constructor
-		size_t Read(uint8_t* buffer, size_t count) override;					// Read bytes
-		size_t Write(const uint8_t* buffer, size_t count) override;				// Write bytes
+		size_t Read(uint8_t* buffer, size_t count) override;		// Read bytes
+		size_t Write(const uint8_t* buffer, size_t count) override;	// Write bytes
 
 	private:
-		frc::I2C	_i2c;																// Library provided I2C object
+		frc::I2C	_i2c;											// Library provided I2C object
 	};
 }
 

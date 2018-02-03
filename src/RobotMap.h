@@ -19,13 +19,15 @@ constexpr double QuarterPi = Pi / 4.0;
  * floating around.
  */
 
-// Can Mapping
+// Can Mapping - Talons
 constexpr int Front_LEFT_DRIVE_MOTOR_CAN = 1;
 constexpr int Front_Right_DRIVE_MOTOR_CAN = 2;
 constexpr int Back_Right_DRIVE_MOTOR_CAN = 3;
 constexpr int Back_Left_DRIVE_MOTOR_CAN = 4;
+constexpr int CUBE_VERTICAL_MOTOR_CAN = 5;
 
-//PWM Mappings
+//PWM Mappings - Sparks
+constexpr int CUBE_ARMS_OPEN_CLOSE_MOTOR = 0;
 constexpr int CLIMB_LEFT_MOTOR = 1;
 constexpr int CLIMB_RIGHT_MOTOR = 2;
 

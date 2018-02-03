@@ -6,9 +6,12 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Robot.h"
+#include <iostream>
 #include <Commands/Scheduler.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <CameraServer.h>
+#include "PixyCam/Camera.h"
+#include "PixyCam/I2CChannel.h"
 
 // Create the unique static pointers for each subsystem
 std::unique_ptr<DriveTrain> Robot::DriveTrainSubsystem;
@@ -26,7 +29,6 @@ void Robot::RobotInit()
 	ClimbSubsystem.reset(new ScaleClimb());
 	CubeDeliverySubsystem.reset(new CubeDelivery());
 	MotionTrackingSubsystem.reset(new MotionTracking());
-
 	MotionTrackingSubsystem->SetMotorPointers(
 			DriveTrainSubsystem->m_xDrive->FlmPointer(),
 			DriveTrainSubsystem->m_xDrive->FrmPointer(),
@@ -101,7 +103,6 @@ void Robot::AutonomousInit()
 //	{
 //		m_autonomousCommand = &m_defaultAuto;
 //	}
-
 	m_autonomousCommand = m_chooser.GetSelected();
 
 	if (m_autonomousCommand != nullptr)
@@ -135,6 +136,27 @@ void Robot::TeleopPeriodic()
 
 void Robot::TestPeriodic()
 {
+	TestPixyCam();
+	frc::TimedRobot::TestPeriodic();
+}
+
+void Robot::RobotPeriodic()
+{
+}
+
+void Robot::TestPixyCam()
+{
+	static PixyCam::Camera	camera{std::make_unique<PixyCam::I2CChannel>(frc::I2C::kOnboard,0)};
+	auto blocks{ camera.ReadFrameBlocks() };
+
+	if(blocks.size() == 0)
+		std::cout << "None";
+	else
+		for(auto i = 0U; i < blocks.size(); ++i)
+		{
+			auto& block{blocks[i]};
+			std::cout << i << ":  " << block.X() << ',' << block.Y() << ',' << block.Width() << ',' << block.Height() << '\n';
+		}
 }
 
 START_ROBOT_CLASS(Robot)

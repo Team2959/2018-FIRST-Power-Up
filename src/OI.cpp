@@ -7,7 +7,6 @@
 
 #include "OI.h"
 #include <SmartDashboard/SmartDashboard.h>
-//#include "Commands/TestPixyCam.h"
 #include <Commands/RaiseHooksUpToRungCommand.h>
 #include <Commands/DropHooksDownCommand.h>
 #include <Commands/FoldArmsDownCommand.h>
@@ -27,8 +26,6 @@ OI::OI()
 	DropHooksDownButton->WhileHeld(new DropHooksDownCommand());
 	FoldCubeArmsUpButton->WhenPressed(new FoldArmsDownCommand());
 	FoldCubeArmsDownButton->WhenPressed(new FoldArmsDownCommand());
-
-	//frc::SmartDashboard::PutData("Pixy Cam", new TestPixyCam());
 }
 
 std::shared_ptr<frc::Joystick> OI::GetDriverJoystick()
