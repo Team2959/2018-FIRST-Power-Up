@@ -24,5 +24,5 @@ void WheelTracking::Execute()
 
 bool WheelTracking::IsFinished()
 {
-	return true;
+	return false;
 }

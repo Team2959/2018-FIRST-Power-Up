@@ -20,6 +20,8 @@ private:
 
 	std::shared_ptr<frc::JoystickButton> RaiseHooksUpButton;
 	std::shared_ptr<frc::JoystickButton> DropHooksDownButton;
+	std::shared_ptr<frc::JoystickButton> FoldCubeArmsUpButton;
+	std::shared_ptr<frc::JoystickButton> FoldCubeArmsDownButton;
 
 public:
 	OI();
