@@ -10,10 +10,16 @@
 
 #include <Commands/Command.h>
 
-class GrabCubeCommand: public frc::Command {
+class GrabCubeCommand: public frc::Command
+{
 public:
 	GrabCubeCommand();
 	virtual ~GrabCubeCommand();
+
+	void Execute() override;
+	bool IsFinished() override;
+	void End() override;
+	void Interrupted() override;
 };
 
 #endif /* SRC_COMMANDS_GRABCUBECOMMAND_H_ */

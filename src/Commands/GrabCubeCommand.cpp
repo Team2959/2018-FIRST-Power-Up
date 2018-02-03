@@ -6,13 +6,36 @@
  */
 
 #include <Commands/GrabCubeCommand.h>
+#include "Robot.h"
 
-GrabCubeCommand::GrabCubeCommand() {
-	// TODO Auto-generated constructor stub
+
+GrabCubeCommand::GrabCubeCommand() : frc::Command("GrabCube")
+{
+	Requires(Robot::CubeArmsSubsystem.get());
+}
+
+GrabCubeCommand::~GrabCubeCommand()
+{
 
 }
 
-GrabCubeCommand::~GrabCubeCommand() {
-	// TODO Auto-generated destructor stub
+void GrabCubeCommand::Execute()
+{
+	Robot::CubeArmsSubsystem->RaiseHooksUp();
+}
+
+bool GrabCubeCommand::IsFinished()
+{
+	return Robot::CubeArmsSubsystem->AtTop();
+}
+
+void GrabCubeCommand::End()
+{
+	Robot::CubeArmsSubsystem->StopHooks();
+}
+
+void GrabCubeCommand::Interrupted()
+{
+	End();
 }
 
