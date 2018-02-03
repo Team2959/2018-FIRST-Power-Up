@@ -19,6 +19,7 @@ public:
 	void Execute() override;
 	bool IsFinished() override;
 	void End() override;
+	void Interrupted() override;
 };
 
 #endif /* SRC_COMMANDS_DROPHOOKSDOWNCOMMAND_H_ */
