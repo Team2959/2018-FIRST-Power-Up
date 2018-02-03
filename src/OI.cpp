@@ -10,6 +10,8 @@
 //#include "Commands/TestPixyCam.h"
 #include <Commands/RaiseHooksUpToRungCommand.h>
 #include <Commands/DropHooksDownCommand.h>
+#include <Commands/FoldArmsDownCommand.h>
+#include <Commands/FoldArmsUpCommand.h>
 
 OI::OI()
 {
@@ -18,8 +20,12 @@ OI::OI()
 
 	RaiseHooksUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 1));
 	DropHooksDownButton.reset(new frc::JoystickButton(ButtonBox.get(), 2));
+	FoldCubeArmsUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 4));
+	FoldCubeArmsDownButton.reset(new frc::JoystickButton(ButtonBox.get(), 5));
 
 	RaiseHooksUpButton->WhenPressed(new RaiseHooksUpToRungCommand());
+	FoldCubeArmsUpButton->WhenPressed(new FoldArmsDownCommand());
+	FoldCubeArmsDownButton->WhenPressed(new FoldArmsDownCommand());
 
 	//frc::SmartDashboard::PutData("Pixy Cam", new TestPixyCam());
 }
