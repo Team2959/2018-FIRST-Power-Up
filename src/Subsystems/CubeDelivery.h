@@ -13,7 +13,7 @@
 #include "ctre/Phoenix.h"
 #include <Spark.h>
 
-class CubeDeliverySubsystem: public frc::Subsystem
+class CubeDelivery: public frc::Subsystem
 {
 private:
 	frc::DoubleSolenoid m_openCloseArms {2, 3};
@@ -21,8 +21,8 @@ private:
 	std::shared_ptr<frc::Spark> m_cubeManipulationMotor;
 
 public:
-	CubeDeliverySubsystem();
-	~CubeDeliverySubsystem() override = default;
+	CubeDelivery();
+	~CubeDelivery() override = default;
 
 	void OpenArms();
 	void CloseArms();
