@@ -7,11 +7,13 @@
 
 #include <Commands/GrabCubeCommand.h>
 #include "Robot.h"
+//#include "CubeDelivery.h"
+
 
 
 GrabCubeCommand::GrabCubeCommand() : frc::Command("GrabCube")
 {
-	Requires(Robot::CubeArmsSubsystem.get());
+//	Requires(Robot::CubeDeliverySubsystem.get());
 }
 
 GrabCubeCommand::~GrabCubeCommand()
@@ -21,17 +23,17 @@ GrabCubeCommand::~GrabCubeCommand()
 
 void GrabCubeCommand::Execute()
 {
-	Robot::CubeArmsSubsystem->RaiseHooksUp();
+	//Robot::CubeDeliverySubsystem->();
 }
 
 bool GrabCubeCommand::IsFinished()
 {
-	return Robot::CubeArmsSubsystem->AtTop();
+	return true;
 }
 
 void GrabCubeCommand::End()
 {
-	Robot::CubeArmsSubsystem->StopHooks();
+//	Robot::CubeDeliverySubsystem->StopWheels();
 }
 
 void GrabCubeCommand::Interrupted()

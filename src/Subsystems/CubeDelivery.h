@@ -25,11 +25,11 @@ public:
 	~CubeDelivery() override = default;
 
 	void OpenArms();
-	void CloseArms();
-	void StopWheels();
-	void SpinWheelsIn();
-	void SpinWheelsOutFast();
-	void SpinWheelsOutSlow();
+//	void CloseArms();
+//	void StopWheels();
+//	void SpinWheelsIn();
+//	void SpinWheelsOutFast();
+//	void SpinWheelsOutSlow();
 };
 
 #endif /* SRC_COMMANDS_CUBEDELIVERYSUBSYSTEM_H_ */

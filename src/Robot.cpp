@@ -14,6 +14,7 @@
 std::unique_ptr<DriveTrain> Robot::DriveTrainSubsystem;
 std::unique_ptr<CubeArms> Robot::CubeArmsSubsystem;
 std::unique_ptr<ScaleClimb> Robot::ClimbSubsystem;
+std::unique_ptr<CubeDelivery> Robot::CubeDeliverySubsystem;
 std::unique_ptr<MotionTracking> Robot::MotionTrackingSubsystem;
 std::unique_ptr<OI> Robot::oi;
 
@@ -23,6 +24,7 @@ void Robot::RobotInit()
 	DriveTrainSubsystem.reset(new DriveTrain());
 	CubeArmsSubsystem.reset(new CubeArms());
 	ClimbSubsystem.reset(new ScaleClimb());
+	CubeDeliverySubsystem.reset(new CubeDelivery());
 	MotionTrackingSubsystem.reset(new MotionTracking());
 
 	MotionTrackingSubsystem->SetMotorPointers(
@@ -42,6 +44,7 @@ void Robot::RobotInit()
 	frc::SmartDashboard::PutData(DriveTrainSubsystem.get());
 	frc::SmartDashboard::PutData(CubeArmsSubsystem.get());
 	frc::SmartDashboard::PutData(ClimbSubsystem.get());
+	frc::SmartDashboard::PutData(CubeDeliverySubsystem.get());
 
 	// After subsystem creations, now create autonomous commands
 	m_defaultAuto.reset(new MyAutoCommand());
@@ -52,7 +55,6 @@ void Robot::RobotInit()
 	frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
 	CameraServer::GetInstance()->StartAutomaticCapture();
-
 }
 
 /**

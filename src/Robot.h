@@ -17,10 +17,10 @@
 #include <Subsystems/CubeArms.h>
 #include <Subsystems/MotionTracking.h>
 #include <Subsystems/ScaleClimb.h>
+#include <Subsystems/CubeDelivery.h>
 #include <Commands/DriveStraightCommand.h>
 #include <Commands/MyAutoCommand.h>
 #include <Commands/WheelTracking.h>
-
 
 class Robot : public frc::TimedRobot
 {
@@ -29,6 +29,7 @@ public:
 	static std::unique_ptr<DriveTrain> DriveTrainSubsystem;
 	static std::unique_ptr<CubeArms> CubeArmsSubsystem;
 	static std::unique_ptr<ScaleClimb> ClimbSubsystem;
+	static std::unique_ptr<CubeDelivery> CubeDeliverySubsystem;
 	static std::unique_ptr<MotionTracking> MotionTrackingSubsystem;
 	// OI last
 	static std::unique_ptr<OI> oi;
