@@ -9,6 +9,7 @@
 #define SRC_COMMANDS_CUBEDELIVERYSUBSYSTEM_H_
 
 #include <Commands/Subsystem.h>
+#include <memory>
 #include <DoubleSolenoid.h>
 #include "ctre/Phoenix.h"
 #include <Spark.h>
@@ -25,11 +26,11 @@ public:
 	~CubeDelivery() override = default;
 
 	void OpenArms();
-//	void CloseArms();
-//	void StopWheels();
-//	void SpinWheelsIn();
-//	void SpinWheelsOutFast();
-//	void SpinWheelsOutSlow();
+	void CloseArms();
+	void StopWheels();
+	void SpinWheelsIn();
+	void SpinWheelsOutFast();
+	void SpinWheelsOutSlow();
 };
 
 #endif /* SRC_COMMANDS_CUBEDELIVERYSUBSYSTEM_H_ */

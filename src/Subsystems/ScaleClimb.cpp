@@ -5,9 +5,8 @@
  *      Author: CW
  */
 
-#include <RobotMap.h>
-#include <PWMSpeedController.h>
-#include <Subsystems/ScaleClimb.h>
+#include "Subsystems/ScaleClimb.h"
+#include "RobotMap.h"
 
 ScaleClimb::ScaleClimb() : frc::Subsystem("Climb")
 {

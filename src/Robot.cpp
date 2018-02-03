@@ -29,6 +29,7 @@ void Robot::RobotInit()
 	ClimbSubsystem.reset(new ScaleClimb());
 	CubeDeliverySubsystem.reset(new CubeDelivery());
 	MotionTrackingSubsystem.reset(new MotionTracking());
+
 	MotionTrackingSubsystem->SetMotorPointers(
 			DriveTrainSubsystem->m_xDrive->FlmPointer(),
 			DriveTrainSubsystem->m_xDrive->FrmPointer(),
