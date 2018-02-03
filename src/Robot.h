@@ -19,6 +19,7 @@
 #include <Subsystems/ScaleClimb.h>
 #include <Commands/DriveStraightCommand.h>
 #include <Commands/MyAutoCommand.h>
+#include <Commands/WheelTracking.h>
 
 
 class Robot : public frc::TimedRobot

@@ -25,6 +25,13 @@ void Robot::RobotInit()
 	ClimbSubsystem.reset(new ScaleClimb());
 	MotionTrackingSubsystem.reset(new MotionTracking());
 
+	MotionTrackingSubsystem->SetMotorPointers(
+			DriveTrainSubsystem->m_xDrive->FlmPointer(),
+			DriveTrainSubsystem->m_xDrive->FrmPointer(),
+			DriveTrainSubsystem->m_xDrive->BlmPointer(),
+			DriveTrainSubsystem->m_xDrive->BrmPointer()
+		);
+
 	// This MUST be here. If the OI creates Commands (which it very likely
 	// will), constructing it during the construction of CommandBase (from
 	// which commands extend), subsystems are not guaranteed to be
@@ -45,6 +52,7 @@ void Robot::RobotInit()
 	frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
 	CameraServer::GetInstance()->StartAutomaticCapture();
+
 }
 
 /**

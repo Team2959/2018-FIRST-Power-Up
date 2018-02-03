@@ -15,11 +15,13 @@
 class DriveTrain: public frc::Subsystem
 {
 private:
-	std::shared_ptr<XDrive> m_xDrive;
+
 
 public:
 	DriveTrain();
 	~DriveTrain() override = default;
+	std::shared_ptr<XDrive> m_xDrive;
+
 
 	void InitDefaultCommand() override;
 
