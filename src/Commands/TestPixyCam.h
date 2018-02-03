@@ -5,11 +5,12 @@
  *      Author: JWB
  */
 
-#pragma once
+#ifndef SRC_TEST_PIXY_COMMAND_H_
+#define SRC_TEST_PIXY_COMMAND_H_
 
 #include <memory>
 #include <Commands/Command.h>
-#include "../PixyCam/Camera.h"
+#include "PixyCam/Camera.h"
 
 class TestPixyCam : public frc::Command
 {
@@ -22,3 +23,5 @@ public:
 private:
 	static std::unique_ptr<PixyCam::Camera>	_camera;
 };
+
+#endif /* SRC_TEST_PIXY_COMMAND_H_ */

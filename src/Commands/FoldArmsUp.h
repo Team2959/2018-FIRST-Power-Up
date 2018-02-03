@@ -5,7 +5,8 @@
  *      Author: &+(Kangaroo-kanga)
  */
 
-#pragma once
+#ifndef SRC_FOLD_ARMS_UP_H_
+#define SRC_FOLD_ARMS_UP_H_
 
 #include <Commands/Command.h>
 
@@ -18,3 +19,5 @@ public:
 	void Initialize() override;
 	bool IsFinished() override;
 };
+
+#endif /* SRC_FOLD_ARMS_UP_H_ */

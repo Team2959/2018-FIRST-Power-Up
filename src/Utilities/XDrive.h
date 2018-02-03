@@ -5,7 +5,8 @@
  *      Author: TuffyPelly
  */
 
-#pragma once
+#ifndef SRC_XDRIVE_H_
+#define SRC_XDRIVE_H_
 
 #include <Drive/RobotDriveBase.h>
 #include <memory>
@@ -24,7 +25,6 @@ private:
 	std::shared_ptr<WPI_TalonSRX> m_backLeftMotor;
 	std::shared_ptr<WPI_TalonSRX> m_frontRightMotor;
 	std::shared_ptr<WPI_TalonSRX> m_backRightMotor;
-
 
 public:
 	XDrive();
@@ -53,3 +53,5 @@ public:
 private:
 	void CreateAndConfigureMotorController(std::shared_ptr<WPI_TalonSRX> motor, int canId, std::string name);
 };
+
+#endif /* SRC_XDRIVE_H_ */

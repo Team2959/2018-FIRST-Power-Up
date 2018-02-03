@@ -5,7 +5,8 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#ifndef SRC_OI_H_
+#define SRC_OI_H_
 
 #include <memory>
 #include <Joystick.h>
@@ -25,3 +26,5 @@ public:
 
 	std::shared_ptr<frc::Joystick> GetDriverJoystick();
 };
+
+#endif /* SRC_OI_H_ */

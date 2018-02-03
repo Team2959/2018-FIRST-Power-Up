@@ -10,7 +10,8 @@
 *																			  *
 ******************************************************************************/
 
-#pragma once
+#ifndef SRC_CAMERA_H_
+#define SRC_CAMERA_H_
 
 #include <memory>
 #include <vector>
@@ -48,3 +49,5 @@ namespace PixyCam
 		return _channel.Peek(reinterpret_cast<uint8_t*>(&words[0]), sizeof(uint16_t) * words.size()) == (sizeof(uint16_t) * words.size());	// Success iff we can peek enough bytes
 	}
 }
+
+#endif /* SRC_CAMERA_H_ */
