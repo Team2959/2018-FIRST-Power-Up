@@ -10,7 +10,8 @@
 *																			  *
 ******************************************************************************/
 
-#pragma once
+#ifndef SRC_BLOCK_H_
+#define SRC_BLOCK_H_
 
 #include <cstdint>
 
@@ -40,3 +41,5 @@ namespace PixyCam
 		uint16_t	_angle;
 	};
 }
+
+#endif /* SRC_BLOCK_H_ */

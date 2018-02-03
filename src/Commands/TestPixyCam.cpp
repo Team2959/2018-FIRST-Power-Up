@@ -5,18 +5,18 @@
  *      Author: JWB
  */
 
+#include <PixyCam/I2CChannel.h>
 #include <iostream>
 #include <memory>
 #include <SmartDashboard/SmartDashboard.h>
 #include "TestPixyCam.h"
 #include "../PixyCam/Spi.h"
-#include "../PixyCam/I2C.h"
 
 using namespace frc;
 using namespace PixyCam;
 using namespace std;
 
-std::unique_ptr<PixyCam::Camera>	TestPixyCam::_camera{std::make_unique<Camera>(std::make_unique<PixyCam::I2C>(frc::I2C::kOnboard,0))};
+std::unique_ptr<PixyCam::Camera>	TestPixyCam::_camera{std::make_unique<Camera>(std::make_unique<PixyCam::I2CChannel>(frc::I2C::kOnboard,0))};
 
 TestPixyCam::TestPixyCam() : Command("TestPixyCam")
 {

@@ -11,7 +11,8 @@
 *																			  *
 ******************************************************************************/
 
-#pragma once
+#ifndef SRC_LOOK_AHEAD_CHANNEL_H_
+#define SRC_LOOK_AHEAD_CHANNEL_H_
 
 #include <deque>
 #include <memory>
@@ -32,3 +33,5 @@ namespace PixyCam
 		std::deque<uint8_t>			_inputBuffer;						// Our input buffer
 	};
 };
+
+#endif /* SRC_LOOK_AHEAD_CHANNEL_H_ */

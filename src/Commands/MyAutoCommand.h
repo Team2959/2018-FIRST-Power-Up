@@ -5,7 +5,8 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#ifndef SRC_MY_AUTO_COMMAND_H_
+#define SRC_MY_AUTO_COMMAND_H_
 
 #include <Commands/Command.h>
 
@@ -20,3 +21,5 @@ public:
 	void End() override;
 	void Interrupted() override;
 };
+
+#endif /* SRC_MY_AUTO_COMMAND_H_ */

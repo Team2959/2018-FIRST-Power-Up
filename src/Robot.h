@@ -5,7 +5,8 @@
  *      Author: CW
  */
 
-#pragma once
+#ifndef SRC_ROBOT_H_
+#define SRC_ROBOT_H_
 
 #include <TimedRobot.h>
 #include <memory>
@@ -52,3 +53,5 @@ private:
 	std::unique_ptr<DriveStraightCommand> m_driveStraightAuto;
 	frc::SendableChooser<frc::Command*> m_chooser;
 };
+
+#endif /* SRC_ROBOT_H_ */

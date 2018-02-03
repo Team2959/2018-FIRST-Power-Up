@@ -5,7 +5,8 @@
  *      Author: Andrew
  */
 
-#pragma once
+#ifndef SRC_DRIVE_STRAIGHT_COMMAND_H_
+#define SRC_DRIVE_STRAIGHT_COMMAND_H_
 
 #include <Commands/TimedCommand.h>
 
@@ -19,3 +20,5 @@ public:
 	void End() override;
 	void Interrupted() override;
 };
+
+#endif /* SRC_DRIVE_STRAIGHT_COMMAND_H_ */

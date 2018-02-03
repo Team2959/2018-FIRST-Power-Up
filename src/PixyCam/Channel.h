@@ -10,9 +10,11 @@
 *																			  *
 ******************************************************************************/
 
-#pragma once
+#ifndef SRC_CHANNEL_H_
+#define SRC_CHANNEL_H_
 
 #include <cstdint>
+#include <cstring>
 
 namespace PixyCam
 {
@@ -34,3 +36,5 @@ namespace PixyCam
 			virtual size_t Write(const uint8_t* buffer, size_t count) = 0;
 	};
 }
+
+#endif /* SRC_CHANNEL_H_ */

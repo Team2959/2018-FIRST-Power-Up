@@ -9,7 +9,8 @@
 *																			  *
 ******************************************************************************/
 
-#pragma once
+#ifndef SRC_SPI_H_
+#define SRC_SPI_H_
 
 #include <deque>
 #include <SPI.h>
@@ -31,3 +32,5 @@ namespace PixyCam
 		std::deque<uint8_t>	_writeBuffer;									// Bytes to write
 	};
 }
+
+#endif /* SRC_SPI_H_ */

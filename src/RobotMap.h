@@ -5,7 +5,8 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#ifndef SRC_ROBOT_MAP_H_
+#define SRC_ROBOT_MAP_H_
 
 constexpr double Pi = 3.1415926535;
 constexpr double HalfPi = Pi / 2.0;
@@ -30,3 +31,5 @@ constexpr int CLIMB_RIGHT_MOTOR = 2;
 
 // DIO Mappings
 constexpr int CLIMB_TOP_LIMIT_SWITCH = 4;
+
+#endif /* SRC_ROBOT_MAP_H_ */

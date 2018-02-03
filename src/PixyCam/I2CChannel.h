@@ -9,21 +9,24 @@
 *																			  *
 ******************************************************************************/
 
-#pragma once
+#ifndef SRC_I2C_H_
+#define SRC_I2C_H_
 
 #include <I2C.h>
 #include "Channel.h"
 
 namespace PixyCam
 {
-	class I2C : public Channel
+	class I2CChannel : public Channel
 	{
 	public:
-		I2C(frc::I2C::Port port, int deviceAddress) : _i2c{ port, deviceAddress } { }	// Constructor
-		virtual size_t Read(uint8_t* buffer, size_t count) override;					// Read bytes
-		virtual size_t Write(const uint8_t* buffer, size_t count) override;				// Write bytes
+		I2CChannel(frc::I2C::Port port, int deviceAddress) : _i2c{ port, deviceAddress } { }	// Constructor
+		size_t Read(uint8_t* buffer, size_t count) override;					// Read bytes
+		size_t Write(const uint8_t* buffer, size_t count) override;				// Write bytes
 
 	private:
 		frc::I2C	_i2c;																// Library provided I2C object
 	};
 }
+
+#endif /* SRC_I2C_H_ */

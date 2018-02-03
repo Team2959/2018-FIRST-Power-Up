@@ -5,7 +5,8 @@
  *      Author: CW
  */
 
-#pragma once
+#ifndef SRC_DRIVE_WITH_JOYSTICK_H_
+#define SRC_DRIVE_WITH_JOYSTICK_H_
 
 #include <Commands/Command.h>
 #include <Utilities/JoystickConditioning.h>
@@ -23,3 +24,5 @@ public:
 	void Execute() override;
 	bool IsFinished() override;
 };
+
+#endif /* SRC_DRIVE_WITH_JOYSTICK_H_ */

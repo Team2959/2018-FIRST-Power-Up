@@ -5,7 +5,8 @@
  *      Author: Andrew
  */
 
-#pragma once
+#ifndef SRC_CUBE_ARMS_H_
+#define SRC_CUBE_ARMS_H_
 
 #include <Commands/Subsystem.h>
 #include <DoubleSolenoid.h>
@@ -23,3 +24,5 @@ public:
 	void FoldUp();
 	void FoldDown();
 };
+
+#endif /* SRC_CUBE_ARMS_H_ */

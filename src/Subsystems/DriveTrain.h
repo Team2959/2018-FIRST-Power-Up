@@ -5,7 +5,8 @@
  *      Author: CW
  */
 
-#pragma once
+#ifndef SRC_DRIVE_TRAIN_H_
+#define SRC_DRIVE_TRAIN_H_
 
 #include <Commands/Subsystem.h>
 #include <memory>
@@ -28,3 +29,5 @@ public:
 	// Rotation is -1 .. 1
 	void Drive(double magnitude, double totalAngle, double rotation);
 };
+
+#endif /* SRC_DRIVE_TRAIN_H_ */

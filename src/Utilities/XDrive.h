@@ -5,7 +5,8 @@
  *      Author: TuffyPelly
  */
 
-#pragma once
+#ifndef SRC_XDRIVE_H_
+#define SRC_XDRIVE_H_
 
 #include <Drive/RobotDriveBase.h>
 #include <memory>
@@ -34,7 +35,6 @@ private:
 	double Xdis = 0;
 	double Ydis = 0;
 
-
 public:
 	XDrive();
 	~XDrive() override = default;
@@ -53,3 +53,5 @@ public:
 private:
 	void CreateAndConfigureMotorController(std::shared_ptr<WPI_TalonSRX> motor, int canId, std::string name);
 };
+
+#endif /* SRC_XDRIVE_H_ */
