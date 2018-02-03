@@ -6,9 +6,12 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Robot.h"
+#include <iostream>
 #include <Commands/Scheduler.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <CameraServer.h>
+#include "PixyCam/Camera.h"
+#include "PixyCam/I2CChannel.h"
 
 // Create the unique static pointers for each subsystem
 std::unique_ptr<DriveTrain> Robot::DriveTrainSubsystem;
@@ -20,18 +23,18 @@ std::unique_ptr<MotionTracking> Robot::MotionTrackingSubsystem;
 void Robot::RobotInit()
 {
 	// Initialize subsystems!
-	DriveTrainSubsystem.reset(new DriveTrain());
+/*	DriveTrainSubsystem.reset(new DriveTrain());
 	CubeArmsSubsystem.reset(new CubeArms());
 	ClimbSubsystem.reset(new ScaleClimb());
 	MotionTrackingSubsystem.reset(new MotionTracking());
-
+*/
 	// This MUST be here. If the OI creates Commands (which it very likely
 	// will), constructing it during the construction of CommandBase (from
 	// which commands extend), subsystems are not guaranteed to be
 	// yet. Thus, their requires() statements may grab null pointers. Bad
 	// news. Don't move it.
 	oi.reset(new OI());
-
+/*
 	frc::SmartDashboard::PutData(DriveTrainSubsystem.get());
 	frc::SmartDashboard::PutData(CubeArmsSubsystem.get());
 	frc::SmartDashboard::PutData(ClimbSubsystem.get());
@@ -43,8 +46,8 @@ void Robot::RobotInit()
 	m_chooser.AddDefault("Default Auto", m_defaultAuto.get());
 	m_chooser.AddObject("Drive Straight", m_driveStraightAuto.get());
 	frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-
-	CameraServer::GetInstance()->StartAutomaticCapture();
+*/
+	// CameraServer::GetInstance()->StartAutomaticCapture();
 }
 
 /**
@@ -91,7 +94,6 @@ void Robot::AutonomousInit()
 //	{
 //		m_autonomousCommand = &m_defaultAuto;
 //	}
-
 	m_autonomousCommand = m_chooser.GetSelected();
 
 	if (m_autonomousCommand != nullptr)
@@ -125,6 +127,27 @@ void Robot::TeleopPeriodic()
 
 void Robot::TestPeriodic()
 {
+	TestPixyCam();
+	frc::TimedRobot::TestPeriodic();
+}
+
+void Robot::RobotPeriodic()
+{
+}
+
+void Robot::TestPixyCam()
+{
+	static PixyCam::Camera	camera{std::make_unique<PixyCam::I2CChannel>(frc::I2C::kOnboard,0)};
+	auto blocks{ camera.ReadFrameBlocks() };
+
+	if(blocks.size() == 0)
+		std::cout << "None";
+	else
+		for(auto i = 0U; i < blocks.size(); ++i)
+		{
+			auto& block{blocks[i]};
+			std::cout << i << ":  " << block.X() << ',' << block.Y() << ',' << block.Width() << ',' << block.Height() << '\n';
+		}
 }
 
 START_ROBOT_CLASS(Robot)

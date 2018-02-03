@@ -14,7 +14,6 @@
 #define SRC_CHANNEL_H_
 
 #include <cstdint>
-#include <cstring>
 
 namespace PixyCam
 {

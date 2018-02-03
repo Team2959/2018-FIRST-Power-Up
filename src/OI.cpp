@@ -7,21 +7,18 @@
 
 #include "OI.h"
 #include <SmartDashboard/SmartDashboard.h>
-#include "Commands/TestPixyCam.h"
 #include <Commands/RaiseHooksUpToRungCommand.h>
 #include <Commands/DropHooksDownCommand.h>
 
 OI::OI()
 {
-	DriverJoystick.reset(new frc::Joystick(0));
+	/* DriverJoystick.reset(new frc::Joystick(0));
 	ButtonBox.reset(new frc::Joystick(1));
 
 	RaiseHooksUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 1));
 	DropHooksDownButton.reset(new frc::JoystickButton(ButtonBox.get(), 2));
 
-	RaiseHooksUpButton->WhenPressed(new RaiseHooksUpToRungCommand());
-
-	//frc::SmartDashboard::PutData("Pixy Cam", new TestPixyCam());
+	RaiseHooksUpButton->WhenPressed(new RaiseHooksUpToRungCommand()); */
 }
 
 std::shared_ptr<frc::Joystick> OI::GetDriverJoystick()

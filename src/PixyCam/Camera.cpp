@@ -11,7 +11,6 @@
 ******************************************************************************/
 
 #include <array>
-#include <iostream>
 #include "Camera.h"
 
 using namespace PixyCam;
@@ -35,21 +34,17 @@ bool Camera::Write(const initializer_list<uint8_t>& buffer) { return _channel.Wr
 // Get blocks for a frame
 vector<Block> Camera::ReadFrameBlocks()
 {
-	cout << "Camera::ReadFrameBlocks - Begin\n";
 	if (!SyncStartOfFrame())												// If we can't sync to start of frame
 		return vector<Block>();												// Done.  Return empty vector
-	cout << "Camera::ReadFrameBlocks - Frame Sync Detected\n";
 	array<uint16_t, 2>	words;												// Will hold words for reading
 	if (!ReadWord(words[0]) || (words[0] != BlockSync))						// If we can't read the frame sync word
 		return vector<Block>();												// Done.  Return empty vector
-	cout << "Camera::ReadFrameBlocks - Frame Sync Read\n";
 	vector<Block>	blocks;													// Will hold the blocks that we read
 	// Continue the while forever...will drop out when we can't peek at the initial bytes, if we find a start of frame, or if we can't read a block word
 	while (true)
 	{
 		if (!PeekWords(words) || IsStartOfFrame(words))						// If we can't peek the next two words, or the next two words are start of frame
 			return blocks;													// Then we are done
-		cout << "Camera::ReadFrameBlocks - Block Sync " << std::hex << words[0] << '\n';
 		switch (words[0])													// See what kind of block
 		{
 		case BlockSync:														// If a standard block
@@ -58,7 +53,7 @@ vector<Block> Camera::ReadFrameBlocks()
 			for (auto i = blockWords.begin(); i != blockWords.end(); ++i)	// Iterate over the block words
 				if (!ReadWord(*i))											// If can't read it
 					return blocks;											// Done
-			blocks.emplace_back(words[0], words[1], words[2], words[3], words[4], words[5], words[6]);	// Add the block to the vector
+			blocks.emplace_back(blockWords[0], blockWords[1], blockWords[2], blockWords[3], blockWords[4], blockWords[5], blockWords[6]);	// Add the block to the vector
 		}
 		continue;
 		case ColorCodeSync:													// If a color code block, same as above but with an additional word
@@ -67,7 +62,7 @@ vector<Block> Camera::ReadFrameBlocks()
 			for (auto i = blockWords.begin(); i != blockWords.end(); ++i)	// Iterate over the block words
 				if (!ReadWord(*i))											// If can't read it
 					return blocks;											// Done
-			blocks.emplace_back(words[0], words[1], words[2], words[3], words[4], words[5], words[6], words[7]);	// Add the block to the vector
+			blocks.emplace_back(blockWords[0], blockWords[1], blockWords[2], blockWords[3], blockWords[4], blockWords[5], blockWords[6], blockWords[7]);	// Add the block to the vector
 		}
 		continue;
 		default:															// Anything else, we don't recognize
@@ -105,8 +100,9 @@ bool Camera::SyncStartOfFrame()
 		return false;									// Then unsuccessful
 	while (!IsStartOfFrame(words))						// While not start of frame
 	{
-		if (!ReadWord(words[0]) || !PeekWords(words))	// If we can't read a word, nor peek the next pair
+		if(!ReadWord(words[0])||!PeekWords(words))		// If we can't read a word, nor peek the next pair
 			return false;								// Then unsuccessful
 	}
 	return true;										// If we get here, then we are at the start of frame
 }
+

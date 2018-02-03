@@ -47,7 +47,11 @@ public:
 
 	void TestPeriodic() override;
 
+	virtual void RobotPeriodic() override;
+
 private:
+	void TestPixyCam();
+
 	// Have it null by default so that if testing teleop it
 	// doesn't have undefined behavior and potentially crash.
 	frc::Command* m_autonomousCommand = nullptr;
