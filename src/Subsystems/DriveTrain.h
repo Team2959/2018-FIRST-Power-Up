@@ -17,7 +17,6 @@ class DriveTrain: public frc::Subsystem
 private:
 	std::shared_ptr<XDrive> m_xDrive;
 
-
 public:
 	DriveTrain();
 	~DriveTrain() override = default;
@@ -29,7 +28,6 @@ public:
 	// Total Angle is 0 .. 2 * Pi in radians for direction
 	// Rotation is -1 .. 1
 	void Drive(double magnitude, double totalAngle, double rotation);
-
 };
 
 #endif /* SRC_DRIVE_TRAIN_H_ */

@@ -6,6 +6,7 @@
  */
 
 #include <Subsystems/MotionTracking.h>
+#include <SmartDashboard/SmartDashboard.h>
 
 MotionTracking::MotionTracking(): Subsystem("MotionTracking")
 {

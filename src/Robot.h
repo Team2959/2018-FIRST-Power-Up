@@ -12,15 +12,13 @@
 #include <memory>
 #include <Commands/Command.h>
 #include <SmartDashboard/SendableChooser.h>
-
 #include <OI.h>
 #include <Subsystems/DriveTrain.h>
 #include <Subsystems/CubeArms.h>
 #include <Subsystems/MotionTracking.h>
-
+#include <Subsystems/ScaleClimb.h>
 #include <Commands/DriveStraightCommand.h>
 #include <Commands/MyAutoCommand.h>
-#include <Subsystems/ScaleClimb.h>
 
 
 class Robot : public frc::TimedRobot
@@ -30,8 +28,9 @@ public:
 	static std::unique_ptr<DriveTrain> DriveTrainSubsystem;
 	static std::unique_ptr<CubeArms> CubeArmsSubsystem;
 	static std::unique_ptr<ScaleClimb> ClimbSubsystem;
-	static std::unique_ptr<OI> oi;
 	static std::unique_ptr<MotionTracking> MotionTrackingSubsystem;
+	// OI last
+	static std::unique_ptr<OI> oi;
 
 public:
 	void RobotInit() override;
