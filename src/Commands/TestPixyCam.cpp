@@ -5,12 +5,12 @@
  *      Author: JWB
  */
 
-#include <PixyCam/I2CChannel.h>
-#include <PixyCam/SpiChannel.h>
+#include <Commands/TestPixyCam.h>
 #include <iostream>
 #include <memory>
 #include <SmartDashboard/SmartDashboard.h>
-#include "TestPixyCam.h"
+#include <PixyCam/I2CChannel.h>
+#include <PixyCam/SpiChannel.h>
 
 using namespace frc;
 using namespace PixyCam;

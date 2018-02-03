@@ -10,7 +10,6 @@
 
 WheelTracking::WheelTracking() : Command("WheelTracking")
 {
-	// TODO Auto-generated constructor stub
 	Requires(Robot::MotionTrackingSubsystem.get());
 }
 

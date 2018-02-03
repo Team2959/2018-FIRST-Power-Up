@@ -14,8 +14,8 @@
 std::unique_ptr<DriveTrain> Robot::DriveTrainSubsystem;
 std::unique_ptr<CubeArms> Robot::CubeArmsSubsystem;
 std::unique_ptr<ScaleClimb> Robot::ClimbSubsystem;
-std::unique_ptr<OI> Robot::oi;
 std::unique_ptr<MotionTracking> Robot::MotionTrackingSubsystem;
+std::unique_ptr<OI> Robot::oi;
 
 void Robot::RobotInit()
 {
