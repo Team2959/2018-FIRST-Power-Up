@@ -7,10 +7,15 @@
 
 #include "Subsystems/MotionTracking.h"
 #include <SmartDashboard/SmartDashboard.h>
-#include "Commands/WheelTracking.h"
+#include "Commands/WheelTrackingCommand.h"
 
-MotionTracking::MotionTracking(): Subsystem("MotionTracking")
+MotionTracking::MotionTracking(std::shared_ptr<XDrive> xDriveSystem): frc::Subsystem("MotionTracking")
 {
+	m_frontLeftMotor = xDriveSystem->FlmPointer();
+	m_frontRightMotor = xDriveSystem->FrmPointer();
+	m_backLeftMotor = xDriveSystem->BlmPointer();
+	m_backRightMotor = xDriveSystem->BrmPointer();
+
 	m_time.Start();
 	m_previous = m_time.Get();
 }
@@ -20,12 +25,9 @@ MotionTracking::~MotionTracking()
 	m_time.Stop();
 }
 
-void MotionTracking::SetMotorPointers(std::shared_ptr<WPI_TalonSRX> flm, std::shared_ptr<WPI_TalonSRX> frm, std::shared_ptr<WPI_TalonSRX> blm, std::shared_ptr<WPI_TalonSRX> brm)
+void MotionTracking::InitDefaultCommand()
 {
-	m_frontLeftMotor = flm;
-	m_frontRightMotor = frm;
-	m_backLeftMotor = blm;
-	m_backRightMotor = brm;
+	SetDefaultCommand(new WheelTrackingCommand());
 }
 
 void MotionTracking::UpdateWheels()
@@ -49,8 +51,4 @@ void MotionTracking::SendMotorNumberToDash()
 	frc::SmartDashboard::PutNumber("frm Distance"  , m_frmDistance);
 	frc::SmartDashboard::PutNumber("blm Distance"  , m_blmDistance);
 	frc::SmartDashboard::PutNumber("brm Distance"  , m_brmDistance);
-}
-void MotionTracking::InitDefaultCommand()
-{
-	SetDefaultCommand(new WheelTracking());
 }

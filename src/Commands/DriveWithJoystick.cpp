@@ -5,14 +5,13 @@
  *      Author: CW
  */
 
-#include <Commands/DriveWithJoystick.h>
+#include "Commands/DriveWithJoystick.h"
 #include "Robot.h"
 #include "RobotMap.h"
 #include <math.h>
-#include <SmartDashboard/SmartDashboard.h>
+//#include <SmartDashboard/SmartDashboard.h>
 
-
-DriveWithJoystick::DriveWithJoystick() : Command("DriveWithJoystick")
+DriveWithJoystick::DriveWithJoystick() : frc::Command("DriveWithJoystick")
 {
 	Requires(Robot::DriveTrainSubsystem.get());
 }
@@ -33,9 +32,9 @@ void DriveWithJoystick::Execute()
 
 	magnitude = m_conditioningMagnitude.Conditioned(magnitude);
 
-	SmartDashboard::PutNumber("Magnitude", magnitude);
-	SmartDashboard::PutNumber("Total Angle", angle);
-	SmartDashboard::PutNumber("Rotation", rotation);
+//	frc::SmartDashboard::PutNumber("Magnitude", magnitude);
+//	frc::SmartDashboard::PutNumber("Total Angle", angle);
+//	frc::SmartDashboard::PutNumber("Rotation", rotation);
 
 	Robot::DriveTrainSubsystem->Drive(magnitude, angle, rotation);
 }

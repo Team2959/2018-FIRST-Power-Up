@@ -8,9 +8,9 @@
 #include "Subsystems/DriveTrain.h"
 #include "Commands/DriveWithJoystick.h"
 
-DriveTrain::DriveTrain() : Subsystem("DriveTrain")
+DriveTrain::DriveTrain(std::shared_ptr<XDrive> xDriveSystem) : frc::Subsystem("DriveTrain")
 {
-	m_xDrive.reset(new XDrive());
+	m_xDrive = xDriveSystem;
 }
 
 void DriveTrain::InitDefaultCommand()

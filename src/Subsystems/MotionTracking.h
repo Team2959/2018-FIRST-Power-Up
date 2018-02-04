@@ -9,19 +9,21 @@
 #define SRC_SUBSYSTEMS_MOTIONTRACKING_H_
 
 #include <Commands/Subsystem.h>
-#include <Utilities/XDrive.h>
+#include <memory>
 #include <Timer.h>
-
+#include "Utilities/XDrive.h"
+#include "ctre/Phoenix.h"
 
 class MotionTracking: public frc::Subsystem
 {
 public:
-	MotionTracking();
+	MotionTracking(std::shared_ptr<XDrive> xDriveSystem = nullptr);
 	virtual ~MotionTracking();
-	void SetMotorPointers(std::shared_ptr<WPI_TalonSRX> flm, std::shared_ptr<WPI_TalonSRX> frm, std::shared_ptr<WPI_TalonSRX> blm, std::shared_ptr<WPI_TalonSRX> brm);
+
+	void InitDefaultCommand() override;
+
     void UpdateWheels();
     void SendMotorNumberToDash();
-    void InitDefaultCommand() override;
 
 private:
 	frc::Timer m_time;

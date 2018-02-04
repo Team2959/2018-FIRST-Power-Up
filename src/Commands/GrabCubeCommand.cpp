@@ -5,15 +5,12 @@
  *      Author: Kevin
  */
 
-#include <Commands/GrabCubeCommand.h>
+#include "Commands/GrabCubeCommand.h"
 #include "Robot.h"
-//#include "CubeDelivery.h"
-
-
 
 GrabCubeCommand::GrabCubeCommand() : frc::Command("GrabCube")
 {
-//	Requires(Robot::CubeDeliverySubsystem.get());
+	Requires(Robot::CubeDeliverySubsystem.get());
 }
 
 GrabCubeCommand::~GrabCubeCommand()
@@ -33,11 +30,10 @@ bool GrabCubeCommand::IsFinished()
 
 void GrabCubeCommand::End()
 {
-//	Robot::CubeDeliverySubsystem->StopWheels();
+	Robot::CubeDeliverySubsystem->StopWheels();
 }
 
 void GrabCubeCommand::Interrupted()
 {
 	End();
 }
-

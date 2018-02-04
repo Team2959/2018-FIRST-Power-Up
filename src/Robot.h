@@ -12,18 +12,21 @@
 #include <memory>
 #include <Commands/Command.h>
 #include <SmartDashboard/SendableChooser.h>
-#include <OI.h>
-#include <Subsystems/DriveTrain.h>
-#include <Subsystems/CubeArms.h>
-#include <Subsystems/MotionTracking.h>
-#include <Subsystems/ScaleClimb.h>
-#include <Subsystems/CubeDelivery.h>
-#include <Commands/DriveStraightCommand.h>
-#include <Commands/MyAutoCommand.h>
-#include <Commands/WheelTracking.h>
+#include "OI.h"
+#include "Utilities/XDrive.h"
+#include "Subsystems/DriveTrain.h"
+#include "Subsystems/CubeArms.h"
+#include "Subsystems/MotionTracking.h"
+#include "Subsystems/ScaleClimb.h"
+#include "Subsystems/CubeDelivery.h"
+#include "Commands/DriveStraightCommand.h"
+#include "Commands/MyAutoCommand.h"
 
 class Robot : public frc::TimedRobot
 {
+private:
+	std::shared_ptr<XDrive> m_xDrive;
+
 public:
 	// Add all subsystem definition here as static public variables
 	static std::unique_ptr<DriveTrain> DriveTrainSubsystem;
@@ -47,8 +50,6 @@ public:
 	void TeleopPeriodic() override;
 
 	void TestPeriodic() override;
-
-	virtual void RobotPeriodic() override;
 
 private:
 	void TestPixyCam();

@@ -10,12 +10,13 @@
 
 #include <Commands/Subsystem.h>
 #include <DoubleSolenoid.h>
+#include "RobotMap.h"
 
 class CubeArms: public frc::Subsystem
 {
 private:
 	// private members
-	frc::DoubleSolenoid m_foldArms {0, 1};
+	frc::DoubleSolenoid m_foldArms {FOLD_CUBE_ARMS_FORWARD_SOLENOID, FOLD_CUBE_ARMS_REVERSE_SOLENOID};
 
 public:
 	CubeArms();

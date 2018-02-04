@@ -25,12 +25,10 @@ public:
 	~ScaleClimb() override = default;
 
 	void RaiseHooksUp();
-
+	void DropHooksDown();
 	void StopHooks();
 
 	bool AtTop();
-
-	void DropHooksDown();
 };
 
 #endif /* SRC_SUBSYSTEMS_SCALECLIMB_H_ */

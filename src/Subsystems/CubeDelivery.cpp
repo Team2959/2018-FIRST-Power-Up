@@ -8,8 +8,9 @@
 #include "Subsystems/CubeDelivery.h"
 #include "RobotMap.h"
 
-CubeDelivery::CubeDelivery() : Subsystem("CubeDeliverySubsystem")
+CubeDelivery::CubeDelivery() : frc::Subsystem("CubeDeliverySubsystem")
 {
+	m_cubeLiftMotor.reset(new WPI_TalonSRX(CUBE_VERTICAL_MOTOR_CAN));
 	m_cubeManipulationMotor.reset(new frc::Spark(CUBE_ARMS_OPEN_CLOSE_MOTOR));
 }
 
@@ -42,4 +43,3 @@ void CubeDelivery::SpinWheelsOutSlow()
 {
 	m_cubeManipulationMotor->Set(-0.25);
 }
-

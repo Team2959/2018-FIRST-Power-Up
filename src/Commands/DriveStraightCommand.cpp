@@ -5,11 +5,11 @@
  *      Author: Andrew
  */
 
-#include <Commands/DriveStraightCommand.h>
+#include "Commands/DriveStraightCommand.h"
 #include "Robot.h"
 #include "RobotMap.h"
 
-DriveStraightCommand::DriveStraightCommand(double driveTime) : TimedCommand("DriveStraight", driveTime)
+DriveStraightCommand::DriveStraightCommand(double driveTime) : frc::TimedCommand("DriveStraight", driveTime)
 {
 	Requires(Robot::DriveTrainSubsystem.get());
 }

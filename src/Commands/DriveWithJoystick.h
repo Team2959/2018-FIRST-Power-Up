@@ -14,8 +14,8 @@
 class DriveWithJoystick: public frc::Command
 {
 private:
-	JoystickConditioning m_conditioningMagnitude{};
-	JoystickConditioning m_conditioningTwist {};
+	JoystickConditioning m_conditioningMagnitude;
+	JoystickConditioning m_conditioningTwist;
 
 public:
 	DriveWithJoystick();

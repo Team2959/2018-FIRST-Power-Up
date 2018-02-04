@@ -11,7 +11,7 @@
 #include <Drive/RobotDriveBase.h>
 #include <memory>
 #include <llvm/raw_ostream.h>
-#include "ctre/Phoenix.h"
+#include <ctre/Phoenix.h>
 #include <string>
 
 class XDrive: public frc::RobotDriveBase

@@ -5,9 +5,8 @@
  *      Author: Andrew
  */
 
-#include <Commands/FoldArmsUpCommand.h>
+#include "Commands/FoldArmsUpCommand.h"
 #include "Robot.h"
-#include "Subsystems/CubeArms.h"
 
 FoldArmsUpCommand::FoldArmsUpCommand() : frc::Command("FoldArmsUp")
 {

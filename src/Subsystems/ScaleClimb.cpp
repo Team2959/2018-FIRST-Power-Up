@@ -8,7 +8,7 @@
 #include "Subsystems/ScaleClimb.h"
 #include "RobotMap.h"
 
-ScaleClimb::ScaleClimb() : frc::Subsystem("Climb")
+ScaleClimb::ScaleClimb() : frc::Subsystem("ScaleClimb")
 {
 	m_leftSpark.reset(new frc::Spark(CLIMB_LEFT_MOTOR));
 	m_rightSpark.reset(new frc::Spark(CLIMB_RIGHT_MOTOR));
@@ -21,6 +21,12 @@ void ScaleClimb::RaiseHooksUp()
 	m_rightSpark->Set(1);
 }
 
+void ScaleClimb::DropHooksDown()
+{
+	m_leftSpark->Set(-0.5);
+	m_rightSpark->Set(-0.5);
+}
+
 void ScaleClimb::StopHooks()
 {
 	m_leftSpark->Set(0);
@@ -30,10 +36,4 @@ void ScaleClimb::StopHooks()
 bool ScaleClimb::AtTop()
 {
 	return m_topLimitSwitch->Get();
-}
-
-void ScaleClimb::DropHooksDown()
-{
-	m_leftSpark->Set(-0.5);
-	m_rightSpark->Set(-0.5);
 }

@@ -23,19 +23,14 @@ std::unique_ptr<OI> Robot::oi;
 
 void Robot::RobotInit()
 {
+	m_xDrive.reset(new XDrive());
+
 	// Initialize subsystems!
-	DriveTrainSubsystem.reset(new DriveTrain());
+	DriveTrainSubsystem.reset(new DriveTrain(m_xDrive));
 	CubeArmsSubsystem.reset(new CubeArms());
 	ClimbSubsystem.reset(new ScaleClimb());
 	CubeDeliverySubsystem.reset(new CubeDelivery());
-	MotionTrackingSubsystem.reset(new MotionTracking());
-
-	MotionTrackingSubsystem->SetMotorPointers(
-			DriveTrainSubsystem->m_xDrive->FlmPointer(),
-			DriveTrainSubsystem->m_xDrive->FrmPointer(),
-			DriveTrainSubsystem->m_xDrive->BlmPointer(),
-			DriveTrainSubsystem->m_xDrive->BrmPointer()
-		);
+	MotionTrackingSubsystem.reset(new MotionTracking(m_xDrive));
 
 	// This MUST be here. If the OI creates Commands (which it very likely
 	// will), constructing it during the construction of CommandBase (from
@@ -139,10 +134,6 @@ void Robot::TestPeriodic()
 {
 	TestPixyCam();
 	frc::TimedRobot::TestPeriodic();
-}
-
-void Robot::RobotPeriodic()
-{
 }
 
 void Robot::TestPixyCam()

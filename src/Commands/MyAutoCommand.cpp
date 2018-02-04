@@ -7,7 +7,7 @@
 
 #include "MyAutoCommand.h"
 
-MyAutoCommand::MyAutoCommand()
+MyAutoCommand::MyAutoCommand() : frc::Command("MyAuto")
 {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(&Robot::chassis);

@@ -7,7 +7,7 @@
 
 #include "Subsystems/CubeArms.h"
 
-CubeArms::CubeArms() : Subsystem("CubeArms")
+CubeArms::CubeArms() : frc::Subsystem("CubeArms")
 {
 }
 

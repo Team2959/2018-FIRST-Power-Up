@@ -26,12 +26,18 @@ constexpr int Back_Right_DRIVE_MOTOR_CAN = 3;
 constexpr int Back_Left_DRIVE_MOTOR_CAN = 4;
 constexpr int CUBE_VERTICAL_MOTOR_CAN = 5;
 
-//PWM Mappings - Sparks
+// PWM Mappings - Sparks
 constexpr int CUBE_ARMS_OPEN_CLOSE_MOTOR = 0;
 constexpr int CLIMB_LEFT_MOTOR = 1;
 constexpr int CLIMB_RIGHT_MOTOR = 2;
 
-// DIO Mappings
+// Digital IO Mappings
 constexpr int CLIMB_TOP_LIMIT_SWITCH = 4;
+
+// Pneumatic Solenoids
+constexpr int FOLD_CUBE_ARMS_FORWARD_SOLENOID = 0;
+constexpr int FOLD_CUBE_ARMS_REVERSE_SOLENOID = 1;
+constexpr int OPEN_CLOSE_CUBE_ARMS_FORWARD_SOLENOID = 2;
+constexpr int OPEN_CLOSE_CUBE_ARMS_REVERSE_SOLENOID = 3;
 
 #endif /* SRC_ROBOT_MAP_H_ */
