@@ -11,13 +11,12 @@
 
 MotionTracking::MotionTracking(std::shared_ptr<XDrive> xDriveSystem): frc::Subsystem("MotionTracking")
 {
-	m_frontLeftMotor = xDriveSystem->FlmPointer();
-	m_frontRightMotor = xDriveSystem->FrmPointer();
-	m_backLeftMotor = xDriveSystem->BlmPointer();
-	m_backRightMotor = xDriveSystem->BrmPointer();
-
 	m_time.Start();
-	m_previous = m_time.Get();
+
+	InitMotorTelemetry("frontLeft", xDriveSystem->FlmPointer());
+	InitMotorTelemetry("frontRight", xDriveSystem->FrmPointer());
+	InitMotorTelemetry("backRight", xDriveSystem->BrmPointer());
+	InitMotorTelemetry("backLeft", xDriveSystem->BlmPointer());
 }
 
 MotionTracking::~MotionTracking()
@@ -32,23 +31,43 @@ void MotionTracking::InitDefaultCommand()
 
 void MotionTracking::UpdateWheels()
 {
-	double current = m_time.Get();
-	double diff = current - m_previous;
-	m_previous = current;
-	double flm = m_frontLeftMotor->GetSelectedSensorVelocity(0) *(0.0025566346646476);
-	double frm = m_frontRightMotor->GetSelectedSensorVelocity(0) *(0.0025566346646476);
-	double brm = m_backRightMotor->GetSelectedSensorVelocity(0) *(0.0025566346646476);
-	double blm = m_backLeftMotor->GetSelectedSensorVelocity(0) *(0.0025566346646476);
-	m_flmDistance += ((m_flmPrevSpeed + flm) /2.0)*diff;
-	m_frmDistance += ((m_frmPrevSpeed + frm) /2.0)*diff;
-	m_brmDistance += ((m_brmPrevSpeed + brm) /2.0)*diff;
-	m_blmDistance += ((m_blmPrevSpeed + blm) /2.0)*diff;
+	UpdateMotorTelemetry("frontLeft");
+	UpdateMotorTelemetry("frontRight");
+	UpdateMotorTelemetry("backRight");
+	UpdateMotorTelemetry("backLeft");
 }
 
 void MotionTracking::SendMotorNumberToDash()
 {
-	frc::SmartDashboard::PutNumber("flm Distance"  , m_flmDistance);
-	frc::SmartDashboard::PutNumber("frm Distance"  , m_frmDistance);
-	frc::SmartDashboard::PutNumber("blm Distance"  , m_blmDistance);
-	frc::SmartDashboard::PutNumber("brm Distance"  , m_brmDistance);
+	frc::SmartDashboard::PutNumber("flm Distance", m_motors["frontLeft"].displacement);
+	frc::SmartDashboard::PutNumber("frm Distance", m_motors["frontRight"].displacement);
+	frc::SmartDashboard::PutNumber("blm Distance", m_motors["backLeft"].displacement);
+	frc::SmartDashboard::PutNumber("brm Distance", m_motors["backRight"].displacement);
 }
+
+void MotionTracking::InitMotorTelemetry(std::string name, std::shared_ptr<WPI_TalonSRX> controller)
+{
+	m_motors[name] = {0.0, 0.0, 0.0, 0.0, m_time.Get(), controller};
+}
+
+void MotionTracking::UpdateMotorTelemetry(std::string name)
+{
+	if (m_motors.find(name) != m_motors.end()) {
+		double currentTime = m_time.Get();
+		double currentVelocity = m_motors[name].controller->GetSelectedSensorVelocity(0) * ENCODER_TO_FPS;
+		m_motors[name].displacement += (m_motors[name].instVelocity + currentVelocity) * 0.5 * (currentTime - m_motors[name].time);
+		m_motors[name].instVelocity = currentVelocity;
+		m_motors[name].instPercent = m_motors[name].controller->GetMotorOutputPercent();
+		m_motors[name].instCurrent = m_motors[name].controller->GetOutputCurrent();
+		m_motors[name].time = currentTime;
+	}
+}
+
+void MotionTracking::PrintMotorTelemetries()
+{
+	std::cout << "Displacement (ft) [" << m_motors["frontLeft"].displacement << ", " << m_motors["frontRight"].displacement << ", " << m_motors["backRight"].displacement << ", " << m_motors["backLeft"].displacement << "]\n";
+	std::cout << "Current      (A)  [" << m_motors["frontLeft"].instCurrent << ", " << m_motors["frontRight"].instCurrent << ", " << m_motors["backRight"].instCurrent << ", " << m_motors["backLeft"].instCurrent << "]\n";
+}
+
+
+
