@@ -25,7 +25,6 @@ XDrive::XDrive()
 
 	static int instances = 0;
 	++instances;
-	SetName("XDrive", instances);
 }
 
 void XDrive::CreateAndConfigureMotorController(std::shared_ptr<WPI_TalonSRX> motor, int canId, std::string name)
