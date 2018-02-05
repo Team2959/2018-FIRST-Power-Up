@@ -22,9 +22,6 @@ XDrive::XDrive()
 	CreateAndConfigureMotorController(m_backLeftMotor, Back_Left_DRIVE_MOTOR_CAN, "Back Left");
 	CreateAndConfigureMotorController(m_frontRightMotor, Front_Right_DRIVE_MOTOR_CAN, "Front Right");
 	CreateAndConfigureMotorController(m_backRightMotor, Back_Right_DRIVE_MOTOR_CAN, "Back Right");
-
-	static int instances = 0;
-	++instances;
 }
 
 void XDrive::CreateAndConfigureMotorController(std::shared_ptr<WPI_TalonSRX> motor, int canId, std::string name)
