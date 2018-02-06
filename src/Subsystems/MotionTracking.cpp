@@ -13,10 +13,10 @@ MotionTracking::MotionTracking(std::shared_ptr<XDrive> xDriveSystem): frc::Subsy
 {
 	m_time.Start();
 
-	InitMotorTelemetry("frontLeft", xDriveSystem->FlmPointer());
-	InitMotorTelemetry("frontRight", xDriveSystem->FrmPointer());
-	InitMotorTelemetry("backRight", xDriveSystem->BrmPointer());
-	InitMotorTelemetry("backLeft", xDriveSystem->BlmPointer());
+	InitMotorTelemetry("frontLeft", xDriveSystem->Flm());
+	InitMotorTelemetry("frontRight", xDriveSystem->Frm());
+	InitMotorTelemetry("backRight", xDriveSystem->Brm());
+	InitMotorTelemetry("backLeft", xDriveSystem->Blm());
 }
 
 MotionTracking::~MotionTracking()
@@ -45,9 +45,9 @@ void MotionTracking::SendMotorNumberToDash()
 	frc::SmartDashboard::PutNumber("brm Distance", m_motors["backRight"].displacement);
 }
 
-void MotionTracking::InitMotorTelemetry(std::string name, std::shared_ptr<WPI_TalonSRX> controller)
+void MotionTracking::InitMotorTelemetry(std::string name, WPI_TalonSRX& controller)
 {
-	m_motors[name] = {0.0, 0.0, 0.0, 0.0, m_time.Get(), controller};
+	m_motors[name] = {0.0, 0.0, 0.0, 0.0, m_time.Get(), &controller};
 }
 
 void MotionTracking::UpdateMotorTelemetry(std::string name)

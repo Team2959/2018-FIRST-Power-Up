@@ -17,10 +17,10 @@
 class XDrive: public frc::RobotDriveBase
 {
 private:
-	std::shared_ptr<WPI_TalonSRX> m_frontLeftMotor;
-	std::shared_ptr<WPI_TalonSRX> m_backLeftMotor;
-	std::shared_ptr<WPI_TalonSRX> m_frontRightMotor;
-	std::shared_ptr<WPI_TalonSRX> m_backRightMotor;
+	WPI_TalonSRX	m_frontLeftMotor;
+	WPI_TalonSRX	m_backLeftMotor;
+	WPI_TalonSRX	m_frontRightMotor;
+	WPI_TalonSRX	m_backRightMotor;
 
 public:
 	XDrive();
@@ -37,13 +37,13 @@ public:
 
 	void InitSendable(frc::SendableBuilder& builder) override;
 
-	std::shared_ptr<WPI_TalonSRX> FlmPointer();
-	std::shared_ptr<WPI_TalonSRX> FrmPointer();
-	std::shared_ptr<WPI_TalonSRX> BlmPointer();
-	std::shared_ptr<WPI_TalonSRX> BrmPointer();
+	WPI_TalonSRX& Flm();
+	WPI_TalonSRX& Frm();
+	WPI_TalonSRX& Blm();
+	WPI_TalonSRX& Brm();
 
 private:
-	void CreateAndConfigureMotorController(std::shared_ptr<WPI_TalonSRX> motor, int canId, std::string name);
+	void ConfigureMotorController(WPI_TalonSRX& motor, std::string name);
 };
 
 #endif /* SRC_XDRIVE_H_ */

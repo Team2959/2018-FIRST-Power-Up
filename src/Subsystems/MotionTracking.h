@@ -22,7 +22,7 @@ struct MotorTelemetry {
 	double instPercent;
 	double instCurrent;
 	double time;
-	std::shared_ptr<WPI_TalonSRX> controller;
+	WPI_TalonSRX* controller;
 };
 
 constexpr double ENCODER_TO_FPS = (10.0 * 3.141592653589793238462643383279502) / (4096.0 * 3.0);
@@ -37,7 +37,7 @@ public:
 
     void UpdateWheels();
     void UpdateMotorTelemetry(std::string name);
-    void InitMotorTelemetry(std::string name, std::shared_ptr<WPI_TalonSRX> controller);
+    void InitMotorTelemetry(std::string name, WPI_TalonSRX& controller);
 
     void SendMotorNumberToDash();
     void PrintMotorTelemetries();

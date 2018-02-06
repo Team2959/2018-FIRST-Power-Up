@@ -20,10 +20,10 @@ constexpr double QuarterPi = Pi / 4.0;
  */
 
 // Can Mapping - Talons
-constexpr int Front_LEFT_DRIVE_MOTOR_CAN = 1;
-constexpr int Front_Right_DRIVE_MOTOR_CAN = 2;
-constexpr int Back_Right_DRIVE_MOTOR_CAN = 3;
-constexpr int Back_Left_DRIVE_MOTOR_CAN = 4;
+constexpr int FRONT_LEFT_DRIVE_MOTOR_CAN = 1;
+constexpr int FRONT_RIGHT_DRIVE_MOTOR_CAN = 2;
+constexpr int BACK_RIGHT_DRIVE_MOTOR_CAN = 3;
+constexpr int BACK_LEFT_DRIVE_MOTOR_CAN = 4;
 constexpr int CUBE_VERTICAL_MOTOR_CAN = 5;
 
 // PWM Mappings - Sparks
