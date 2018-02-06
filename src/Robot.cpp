@@ -142,7 +142,7 @@ void Robot::TestPixyCam()
 	auto blocks{ camera.ReadFrameBlocks() };
 
 	if(blocks.size() == 0)
-		std::cout << "None";
+		std::cout << "None\n";
 	else
 		for(auto i = 0U; i < blocks.size(); ++i)
 		{
