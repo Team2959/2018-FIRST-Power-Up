@@ -43,3 +43,8 @@ void CubeDelivery::SpinWheelsOutSlow()
 {
 	m_cubeManipulationMotor->Set(-0.25);
 }
+
+bool CubeDelivery::ArmsAreOpen()
+{
+	return m_openCloseArms.Get() == frc::DoubleSolenoid::Value::kForward;
+}
