@@ -53,6 +53,16 @@ void Robot::RobotInit()
 	frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
 	CameraServer::GetInstance()->StartAutomaticCapture();
+
+	periodicCount = 0;
+}
+void Robot::RobotPeriodic()
+{
+	if ((periodicCount % 50) == 0) {
+		MotionTrackingSubsystem->PrintMotorTelemetries();
+	}
+
+	++periodicCount;
 }
 
 /**

@@ -39,6 +39,7 @@ public:
 
 public:
 	void RobotInit() override;
+	void RobotPeriodic() override;
 
 	void DisabledInit() override;
 	void DisabledPeriodic() override;
@@ -60,6 +61,8 @@ private:
 	std::unique_ptr<MyAutoCommand> m_defaultAuto;
 	std::unique_ptr<DriveStraightCommand> m_driveStraightAuto;
 	frc::SendableChooser<frc::Command*> m_chooser;
+
+	unsigned int periodicCount;
 };
 
 #endif /* SRC_ROBOT_H_ */
