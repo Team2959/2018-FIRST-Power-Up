@@ -10,9 +10,22 @@
 
 #include <Commands/Subsystem.h>
 #include <memory>
+#include <unordered_map>
+#include <iostream>
 #include <Timer.h>
 #include "Utilities/XDrive.h"
 #include "ctre/Phoenix.h"
+
+struct MotorTelemetry {
+	double displacement;
+	double instVelocity;
+	double instPercent;
+	double instCurrent;
+	double time;
+	std::shared_ptr<WPI_TalonSRX> controller;
+};
+
+constexpr double ENCODER_TO_FPS = (10.0 * 3.141592653589793238462643383279502) / (4096.0 * 3.0);
 
 class MotionTracking: public frc::Subsystem
 {
@@ -23,26 +36,19 @@ public:
 	void InitDefaultCommand() override;
 
     void UpdateWheels();
+    void UpdateMotorTelemetry(std::string name);
+    void InitMotorTelemetry(std::string name, std::shared_ptr<WPI_TalonSRX> controller);
+
     void SendMotorNumberToDash();
+    void PrintMotorTelemetries();
 
 private:
 	frc::Timer m_time;
-	double m_previous;
-	double m_flmDistance = 0;
-	double m_frmDistance = 0;
-	double m_brmDistance = 0;
-	double m_blmDistance = 0;
-	double m_flmPrevSpeed = 0;
-	double m_frmPrevSpeed = 0;
-	double m_brmPrevSpeed = 0;
-	double m_blmPrevSpeed = 0;
+
+	std::unordered_map<std::string, struct MotorTelemetry> m_motors;
+
 	double m_Xdis = 0;
 	double m_Ydis = 0;
-
-	std::shared_ptr<WPI_TalonSRX> m_frontLeftMotor;
-	std::shared_ptr<WPI_TalonSRX> m_backLeftMotor;
-	std::shared_ptr<WPI_TalonSRX> m_frontRightMotor;
-	std::shared_ptr<WPI_TalonSRX> m_backRightMotor;
 };
 
 #endif /* SRC_SUBSYSTEMS_MOTIONTRACKING_H_ */
