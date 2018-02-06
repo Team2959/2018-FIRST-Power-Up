@@ -32,6 +32,8 @@ public:
 	void SpinWheelsIn();
 	void SpinWheelsOutFast();
 	void SpinWheelsOutSlow();
+	bool ArmsAreOpen();
+
 };
 
 #endif /* SRC_COMMANDS_CUBEDELIVERYSUBSYSTEM_H_ */
