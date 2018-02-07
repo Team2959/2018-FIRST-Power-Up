@@ -19,6 +19,7 @@ MotionTracking::MotionTracking(std::shared_ptr<XDrive> xDriveSystem): frc::Subsy
 	InitMotorTelemetry("backLeft", xDriveSystem->Blm());
 
 	m_navmxp = new AHRS(SPI::Port::kMXP);
+	m_navmxp->ZeroYaw();
 }
 
 MotionTracking::~MotionTracking()
@@ -70,6 +71,7 @@ void MotionTracking::PrintMotorTelemetries()
 	std::cout << "Displacement (ft)    [" << m_motors["frontLeft"].displacement << ", " << m_motors["frontRight"].displacement << ", " << m_motors["backRight"].displacement << ", " << m_motors["backLeft"].displacement << "]\n";
 	std::cout << "Current      (A)     [" << m_motors["frontLeft"].instCurrent << ", " << m_motors["frontRight"].instCurrent << ", " << m_motors["backRight"].instCurrent << ", " << m_motors["backLeft"].instCurrent << "]\n";
 	std::cout << "Velocity     (ft/s)  [" << m_motors["frontLeft"].instVelocity << ", " << m_motors["frontRight"].instVelocity << ", " << m_motors["backRight"].instVelocity << ", " << m_motors["backLeft"].instVelocity << "]\n";
+	std::cout << "Angle        (rad)   [" << GetAngle() << "]\n";
 }
 
 void MotionTracking::ResetMotorTelemetry(std::string name)
@@ -94,6 +96,11 @@ void MotionTracking::ResetTelemetries()
 
 double MotionTracking::GetAngle()
 {
-	return fmod(m_navmxp->GetAngle()*(Pi / 18.0) + QuarterPi, 2 * Pi);
+	/* Translate the angle to the trigonometric standard */
+	double angle = fmod(m_navmxp->GetAngle() - 90, 360.0);
+	if (angle < 0)
+		angle += 360;
+
+	return (360.0 - angle) * (Pi / 180.0);
 }
 
