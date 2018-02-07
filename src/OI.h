@@ -24,7 +24,6 @@ private:
 	std::shared_ptr<frc::JoystickButton> FoldCubeArmsDownButton;
 	std::shared_ptr<frc::JoystickButton> OpeningAndClosingArmsButton;
 
-
 public:
 	OI();
 

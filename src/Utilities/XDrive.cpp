@@ -16,8 +16,11 @@
 const double MaxRPM = 500.0;
 const double RawToVelocity =  MaxRPM * 4096.0 / 600.0;
 
-XDrive::XDrive() : m_frontLeftMotor{FRONT_LEFT_DRIVE_MOTOR_CAN}, m_backLeftMotor{BACK_LEFT_DRIVE_MOTOR_CAN},
-		m_frontRightMotor{FRONT_RIGHT_DRIVE_MOTOR_CAN}, m_backRightMotor{BACK_RIGHT_DRIVE_MOTOR_CAN}
+XDrive::XDrive() :
+	m_frontLeftMotor{FRONT_LEFT_DRIVE_MOTOR_CAN},
+	m_backLeftMotor{BACK_LEFT_DRIVE_MOTOR_CAN},
+	m_frontRightMotor{FRONT_RIGHT_DRIVE_MOTOR_CAN},
+	m_backRightMotor{BACK_RIGHT_DRIVE_MOTOR_CAN}
 {
 	ConfigureMotorController(m_frontLeftMotor, "Front Left");
 	ConfigureMotorController(m_backLeftMotor, "Back Left");

@@ -13,10 +13,6 @@ OpeningAndClosingArmsCommand::OpeningAndClosingArmsCommand() : frc::TimedCommand
 	Requires(Robot::CubeDeliverySubsystem.get());
 }
 
-OpeningAndClosingArmsCommand::~OpeningAndClosingArmsCommand()
-{
-}
-
 void OpeningAndClosingArmsCommand::Initialize()
 {
 	bool armsAreOpen = Robot::CubeDeliverySubsystem->ArmsAreOpen();

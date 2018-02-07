@@ -6,8 +6,10 @@
  */
 
 #include "Subsystems/CubeArms.h"
+#include "RobotMap.h"
 
-CubeArms::CubeArms() : frc::Subsystem("CubeArms")
+CubeArms::CubeArms() : frc::Subsystem("CubeArms"),
+	m_foldArms {FOLD_CUBE_ARMS_FORWARD_SOLENOID, FOLD_CUBE_ARMS_REVERSE_SOLENOID}
 {
 }
 

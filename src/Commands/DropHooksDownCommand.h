@@ -14,7 +14,7 @@ class DropHooksDownCommand: public frc::Command
 {
 public:
 	DropHooksDownCommand();
-	virtual ~DropHooksDownCommand();
+	~DropHooksDownCommand() override = default;
 
 	void Execute() override;
 	bool IsFinished() override;

@@ -13,10 +13,6 @@ RaiseHooksUpToRungCommand::RaiseHooksUpToRungCommand() : frc::Command("RaiseHook
 	Requires(Robot::ClimbSubsystem.get());
 }
 
-RaiseHooksUpToRungCommand::~RaiseHooksUpToRungCommand()
-{
-}
-
 void RaiseHooksUpToRungCommand::Execute()
 {
 	Robot::ClimbSubsystem->RaiseHooksUp();

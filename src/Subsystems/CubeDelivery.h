@@ -9,18 +9,16 @@
 #define SRC_COMMANDS_CUBEDELIVERYSUBSYSTEM_H_
 
 #include <Commands/Subsystem.h>
-#include <memory>
 #include <DoubleSolenoid.h>
-#include <ctre/Phoenix.h>
 #include <Spark.h>
-#include "RobotMap.h"
+#include <ctre/Phoenix.h>
 
 class CubeDelivery: public frc::Subsystem
 {
 private:
-	std::shared_ptr<WPI_TalonSRX> m_cubeLiftMotor;
-	std::shared_ptr<frc::Spark> m_cubeManipulationMotor;
-	frc::DoubleSolenoid m_openCloseArms {OPEN_CLOSE_CUBE_ARMS_FORWARD_SOLENOID, OPEN_CLOSE_CUBE_ARMS_REVERSE_SOLENOID};
+	frc::DoubleSolenoid m_openCloseArms;
+	frc::Spark m_cubeManipulationMotor;
+	WPI_TalonSRX m_cubeLiftMotor;
 
 public:
 	CubeDelivery();
@@ -33,7 +31,6 @@ public:
 	void SpinWheelsOutFast();
 	void SpinWheelsOutSlow();
 	bool ArmsAreOpen();
-
 };
 
 #endif /* SRC_COMMANDS_CUBEDELIVERYSUBSYSTEM_H_ */

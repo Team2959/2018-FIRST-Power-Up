@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "OI.h"
-#include <SmartDashboard/SmartDashboard.h>
+//#include <SmartDashboard/SmartDashboard.h>
 #include <Commands/RaiseHooksUpToRungCommand.h>
 #include <Commands/DropHooksDownCommand.h>
 #include <Commands/FoldArmsDownCommand.h>
@@ -31,6 +31,8 @@ OI::OI()
 	FoldCubeArmsDownButton->WhenPressed(new FoldArmsDownCommand());
 	OpeningAndClosingArmsButton->WhenPressed(new OpeningAndClosingArmsCommand());
 
+	// example how to put a command on the dashboard. You can press start and execute it.
+	//frc::SmartDashboard::PutData("Raise Hooks Up", new RaiseHooksUpToRungCommand());
 }
 
 std::shared_ptr<frc::Joystick> OI::GetDriverJoystick()

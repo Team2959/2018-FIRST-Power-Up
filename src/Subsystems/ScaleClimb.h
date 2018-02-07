@@ -9,16 +9,15 @@
 #define SRC_SUBSYSTEMS_SCALECLIMB_H_
 
 #include <Commands/Subsystem.h>
-#include <memory>
 #include <Spark.h>
 #include <DigitalInput.h>
 
 class ScaleClimb: public frc::Subsystem
 {
 private:
-	std::shared_ptr<frc::Spark> m_leftSpark;
-	std::shared_ptr<frc::Spark> m_rightSpark;
-	std::shared_ptr<frc::DigitalInput> m_topLimitSwitch;
+	frc::Spark m_leftSpark;
+	frc::Spark m_rightSpark;
+	frc::DigitalInput m_topLimitSwitch;
 
 public:
 	ScaleClimb();

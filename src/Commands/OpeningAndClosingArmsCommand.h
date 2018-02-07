@@ -14,7 +14,7 @@ class OpeningAndClosingArmsCommand: public frc::TimedCommand
 {
 public:
 	OpeningAndClosingArmsCommand();
-	virtual ~OpeningAndClosingArmsCommand();
+	~OpeningAndClosingArmsCommand() override = default;
 
 	void Initialize() override;
 	void End() override;

@@ -13,10 +13,6 @@ DropHooksDownCommand::DropHooksDownCommand() : frc::Command("DropHooksDown")
 	Requires(Robot::ClimbSubsystem.get());
 }
 
-DropHooksDownCommand::~DropHooksDownCommand()
-{
-}
-
 void DropHooksDownCommand::Execute()
 {
 	Robot::ClimbSubsystem->DropHooksDown();

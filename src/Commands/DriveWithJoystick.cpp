@@ -11,12 +11,12 @@
 #include <math.h>
 //#include <SmartDashboard/SmartDashboard.h>
 
-DriveWithJoystick::DriveWithJoystick() : frc::Command("DriveWithJoystick")
+DriveWithJoystick::DriveWithJoystick() : frc::Command("DriveWithJoystick"),
+	m_conditioningMagnitude {-0.1, 0.1, -0.05, 0.05, 1.0, 1.0},
+	m_conditioningTwist {-0.2, 0.2, 0.0, 0.0, 1.0, 1.0}
 {
 	Requires(Robot::DriveTrainSubsystem.get());
 	Requires(Robot::MotionTrackingSubsystem.get());
-	m_conditioningTwist.UpdateConstants(-0.2, 0.2, 0.0, 0.0, 1.0, 1.0);
-	m_conditioningMagnitude.UpdateConstants(-0.1, 0.1, -0.05, 0.05, 1.0, 1.0);
 }
 
 void DriveWithJoystick::Execute()

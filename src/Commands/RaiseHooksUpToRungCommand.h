@@ -14,7 +14,7 @@ class RaiseHooksUpToRungCommand: public frc::Command
 {
 public:
 	RaiseHooksUpToRungCommand();
-	virtual ~RaiseHooksUpToRungCommand();
+	~RaiseHooksUpToRungCommand() override = default;
 
 	void Execute() override;
 	bool IsFinished() override;
