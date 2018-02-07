@@ -17,6 +17,8 @@ MotionTracking::MotionTracking(std::shared_ptr<XDrive> xDriveSystem): frc::Subsy
 	InitMotorTelemetry("frontRight", xDriveSystem->Frm());
 	InitMotorTelemetry("backRight", xDriveSystem->Brm());
 	InitMotorTelemetry("backLeft", xDriveSystem->Blm());
+
+	m_navmxp = new AHRS(SPI::Port::kMXP);
 }
 
 MotionTracking::~MotionTracking()
@@ -65,9 +67,33 @@ void MotionTracking::UpdateMotorTelemetry(std::string name)
 
 void MotionTracking::PrintMotorTelemetries()
 {
-	std::cout << "Displacement (ft) [" << m_motors["frontLeft"].displacement << ", " << m_motors["frontRight"].displacement << ", " << m_motors["backRight"].displacement << ", " << m_motors["backLeft"].displacement << "]\n";
-	std::cout << "Current      (A)  [" << m_motors["frontLeft"].instCurrent << ", " << m_motors["frontRight"].instCurrent << ", " << m_motors["backRight"].instCurrent << ", " << m_motors["backLeft"].instCurrent << "]\n";
+	std::cout << "Displacement (ft)    [" << m_motors["frontLeft"].displacement << ", " << m_motors["frontRight"].displacement << ", " << m_motors["backRight"].displacement << ", " << m_motors["backLeft"].displacement << "]\n";
+	std::cout << "Current      (A)     [" << m_motors["frontLeft"].instCurrent << ", " << m_motors["frontRight"].instCurrent << ", " << m_motors["backRight"].instCurrent << ", " << m_motors["backLeft"].instCurrent << "]\n";
+	std::cout << "Velocity     (ft/s)  [" << m_motors["frontLeft"].instVelocity << ", " << m_motors["frontRight"].instVelocity << ", " << m_motors["backRight"].instVelocity << ", " << m_motors["backLeft"].instVelocity << "]\n";
 }
 
+void MotionTracking::ResetMotorTelemetry(std::string name)
+{
+	if (m_motors.find(name) != m_motors.end()) {
+		double currentTime = m_time.Get();
+		m_motors[name].displacement = 0;
+		m_motors[name].instVelocity = 0;
+		m_motors[name].instPercent = 0;
+		m_motors[name].instCurrent = 0;
+		m_motors[name].time = currentTime;
+	}
+}
 
+void MotionTracking::ResetTelemetries()
+{
+	ResetMotorTelemetry("frontLeft");
+	ResetMotorTelemetry("frontRight");
+	ResetMotorTelemetry("backRight");
+	ResetMotorTelemetry("backLeft");
+}
+
+double MotionTracking::GetAngle()
+{
+	return fmod(m_navmxp->GetAngle()*(Pi / 18.0) + QuarterPi, 2 * Pi);
+}
 

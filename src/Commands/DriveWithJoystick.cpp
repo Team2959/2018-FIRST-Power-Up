@@ -14,6 +14,9 @@
 DriveWithJoystick::DriveWithJoystick() : frc::Command("DriveWithJoystick")
 {
 	Requires(Robot::DriveTrainSubsystem.get());
+	Requires(Robot::MotionTrackingSubsystem.get());
+	m_conditioningTwist.UpdateConstants(-0.2, 0.2, 0.0, 0.0, 1.0, 1.0);
+	m_conditioningMagnitude.UpdateConstants(-0.1, 0.1, -0.05, 0.05, 1.0, 1.0);
 }
 
 void DriveWithJoystick::Execute()
@@ -29,6 +32,12 @@ void DriveWithJoystick::Execute()
 	double angle = atan2(yAxis,xAxis);
 	if (angle < 0)
 		angle = angle + Pi*2;
+
+	if (Robot::oi->GetDriverJoystick()->GetThrottle() > 0) {
+		angle = Robot::MotionTrackingSubsystem->GetAngle() - angle;
+		if (angle < 0)
+			angle = 360 - angle;
+	}
 
 	magnitude = m_conditioningMagnitude.Conditioned(magnitude);
 

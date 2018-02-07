@@ -15,6 +15,9 @@
 #include <Timer.h>
 #include "Utilities/XDrive.h"
 #include "ctre/Phoenix.h"
+#include "RobotMap.h"
+
+#include "AHRS.h"
 
 struct MotorTelemetry {
 	double displacement;
@@ -42,10 +45,17 @@ public:
     void SendMotorNumberToDash();
     void PrintMotorTelemetries();
 
+    void ResetMotorTelemetry(std::string name);
+    void ResetTelemetries();
+
+    double GetAngle();
+
 private:
 	frc::Timer m_time;
 
 	std::unordered_map<std::string, struct MotorTelemetry> m_motors;
+
+	AHRS* m_navmxp;
 
 	double m_Xdis = 0;
 	double m_Ydis = 0;

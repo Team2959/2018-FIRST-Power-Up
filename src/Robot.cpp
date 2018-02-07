@@ -58,7 +58,7 @@ void Robot::RobotInit()
 }
 void Robot::RobotPeriodic()
 {
-	if ((periodicCount % 50) == 0) {
+	if ((periodicCount % 100) == 0) {
 		MotionTrackingSubsystem->PrintMotorTelemetries();
 	}
 
@@ -74,6 +74,7 @@ void Robot::RobotPeriodic()
  */
 void Robot::DisabledInit()
 {
+	MotionTrackingSubsystem->ResetTelemetries();
 }
 
 void Robot::DisabledPeriodic()
