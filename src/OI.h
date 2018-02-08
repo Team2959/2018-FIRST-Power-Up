@@ -20,14 +20,17 @@ private:
 
 	std::shared_ptr<frc::JoystickButton> RaiseHooksUpButton;
 	std::shared_ptr<frc::JoystickButton> DropHooksDownButton;
+	std::shared_ptr<frc::JoystickButton> StopArmWheelsButton;
 	std::shared_ptr<frc::JoystickButton> FoldCubeArmsUpButton;
 	std::shared_ptr<frc::JoystickButton> FoldCubeArmsDownButton;
+	std::shared_ptr<frc::JoystickButton> SpinArmWheelsInButton;
 	std::shared_ptr<frc::JoystickButton> OpeningAndClosingArmsButton;
 
 public:
 	OI();
 
 	std::shared_ptr<frc::Joystick> GetDriverJoystick();
+	std::shared_ptr<frc::Joystick> GetButtonBox();
 };
 
 #endif /* SRC_OI_H_ */

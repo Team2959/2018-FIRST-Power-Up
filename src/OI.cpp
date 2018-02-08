@@ -12,6 +12,7 @@
 #include <Commands/FoldArmsDownCommand.h>
 #include <Commands/FoldArmsUpCommand.h>
 #include <Commands/OpeningAndClosingArmsCommand.h>
+#include <Commands/StopArmWheelsCommand.h>
 
 OI::OI()
 {
@@ -20,13 +21,16 @@ OI::OI()
 
 	RaiseHooksUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 1));
 	DropHooksDownButton.reset(new frc::JoystickButton(ButtonBox.get(), 2));
+	StopArmWheelsButton.reset(new frc::JoystickButton(ButtonBox.get(), 3));
 	FoldCubeArmsUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 4));
 	FoldCubeArmsDownButton.reset(new frc::JoystickButton(ButtonBox.get(), 5));
+	SpinArmWheelsInButton.reset(new frc::JoystickButton(ButtonBox.get(), 6));
 	OpeningAndClosingArmsButton.reset(new frc::JoystickButton(DriverJoystick.get(), 2));
 
 
 	RaiseHooksUpButton->WhenPressed(new RaiseHooksUpToRungCommand());
 	DropHooksDownButton->WhileHeld(new DropHooksDownCommand());
+	StopArmWheelsButton->WhenPressed(new StopArmWheelsCommand());
 	FoldCubeArmsUpButton->WhenPressed(new FoldArmsDownCommand());
 	FoldCubeArmsDownButton->WhenPressed(new FoldArmsDownCommand());
 	OpeningAndClosingArmsButton->WhenPressed(new OpeningAndClosingArmsCommand());
@@ -38,4 +42,9 @@ OI::OI()
 std::shared_ptr<frc::Joystick> OI::GetDriverJoystick()
 {
 	return DriverJoystick;
+}
+
+std::shared_ptr<frc::Joystick> OI::GetButtonBox()
+{
+	return ButtonBox;
 }

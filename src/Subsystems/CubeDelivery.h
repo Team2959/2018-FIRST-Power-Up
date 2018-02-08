@@ -28,8 +28,7 @@ public:
 	void CloseArms();
 	void StopWheels();
 	void SpinWheelsIn();
-	void SpinWheelsOutFast();
-	void SpinWheelsOutSlow();
+	void SpinWheelsOut(double speed);
 	bool ArmsAreOpen();
 };
 
