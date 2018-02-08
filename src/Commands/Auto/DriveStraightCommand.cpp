@@ -5,7 +5,7 @@
  *      Author: Andrew
  */
 
-#include "Commands/DriveStraightCommand.h"
+#include "DriveStraightCommand.h"
 #include "Robot.h"
 #include "RobotMap.h"
 

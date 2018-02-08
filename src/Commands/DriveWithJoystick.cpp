@@ -36,7 +36,7 @@ void DriveWithJoystick::Execute()
 	{
 		angle = Robot::MotionTrackingSubsystem->GetAngle() - angle;
 		if (angle < 0)
-			angle = 360 - angle;
+			angle = (2 * Pi) + angle;
 	}
 
 	magnitude = m_conditioningMagnitude.Conditioned(magnitude);

@@ -50,6 +50,7 @@ void Robot::RobotInit()
 
 	m_chooser.AddDefault("Default Auto", m_defaultAuto.get());
 	m_chooser.AddObject("Drive Straight", m_driveStraightAuto.get());
+	m_chooser.AddObject("Place Initial Cube On Switch", &m_placeInitialCubeOnSwitch);
 	frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
 	CameraServer::GetInstance()->StartAutomaticCapture();
@@ -112,10 +113,16 @@ void Robot::AutonomousInit()
 //	{
 //		m_autonomousCommand = &m_defaultAuto;
 //	}
+
+	std::cout << "AutonomousInit - 1\n";
 	m_autonomousCommand = m_chooser.GetSelected();
 
+	for(auto i = 0; i < 1000; ++i)
+		std::cout << "m_autonomousCommand - " << (void*)m_autonomousCommand << '\n';
+	// Chooser isn't working...figure out why
 	if (m_autonomousCommand != nullptr)
 	{
+		std::cout << "Starting -- " << m_autonomousCommand->GetName() << '\n';
 		m_autonomousCommand->Start();
 	}
 }
