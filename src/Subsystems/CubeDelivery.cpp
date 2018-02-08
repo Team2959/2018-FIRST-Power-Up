@@ -35,14 +35,18 @@ void CubeDelivery::SpinWheelsIn()
 	m_cubeManipulationMotor.Set(1);
 }
 
-void CubeDelivery::SpinWheelsOutFast()
+void CubeDelivery::SpinWheelsOut(double speed)
 {
-	m_cubeManipulationMotor.Set(-1);
-}
+	if (speed < -1)
+	{
+		speed = -1;
+	}
+	else if (speed > 0)
+	{
+		speed = 0;
+	}
 
-void CubeDelivery::SpinWheelsOutSlow()
-{
-	m_cubeManipulationMotor.Set(-0.25);
+	m_cubeManipulationMotor.Set(speed);
 }
 
 bool CubeDelivery::ArmsAreOpen()
