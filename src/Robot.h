@@ -19,8 +19,9 @@
 #include "Subsystems/MotionTracking.h"
 #include "Subsystems/ScaleClimb.h"
 #include "Subsystems/CubeDelivery.h"
-#include "Commands/DriveStraightCommand.h"
-#include "Commands/MyAutoCommand.h"
+#include "Commands/Auto/DriveStraightCommand.h"
+#include "Commands/Auto/MyAutoCommand.h"
+#include "Commands/Auto/PlaceInitialCubeOnSwitch.h"
 
 class Robot : public frc::TimedRobot
 {
@@ -57,6 +58,7 @@ private:
 
 	// Have it null by default so that if testing teleop it
 	// doesn't have undefined behavior and potentially crash.
+	PlaceInitialCubeOnSwitchCommand	m_placeInitialCubeOnSwitch;
 	frc::Command* m_autonomousCommand = nullptr;
 	std::unique_ptr<MyAutoCommand> m_defaultAuto;
 	std::unique_ptr<DriveStraightCommand> m_driveStraightAuto;
