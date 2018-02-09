@@ -7,6 +7,8 @@
 
 #include "Subsystems/CubeDelivery.h"
 #include "RobotMap.h"
+#include <DoubleSolenoid.h>
+
 
 CubeDelivery::CubeDelivery() : frc::Subsystem("CubeDeliverySubsystem"),
 	m_openCloseArms {OPEN_CLOSE_CUBE_ARMS_FORWARD_SOLENOID, OPEN_CLOSE_CUBE_ARMS_REVERSE_SOLENOID},
