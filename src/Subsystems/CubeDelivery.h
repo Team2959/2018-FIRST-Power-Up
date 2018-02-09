@@ -12,6 +12,7 @@
 #include <DoubleSolenoid.h>
 #include <Spark.h>
 #include <ctre/Phoenix.h>
+#include <DigitalInput.h>
 
 class CubeDelivery: public frc::Subsystem
 {
@@ -19,6 +20,7 @@ private:
 	frc::DoubleSolenoid m_openCloseArms;
 	frc::Spark m_cubeManipulationMotor;
 	WPI_TalonSRX m_cubeLiftMotor;
+	frc::DigitalInput m_cubePresentSwitch;
 
 public:
 	CubeDelivery();
@@ -30,6 +32,7 @@ public:
 	void SpinWheelsIn();
 	void SpinWheelsOut(double speed);
 	bool ArmsAreOpen();
+	bool CubePresent();
 };
 
 #endif /* SRC_COMMANDS_CUBEDELIVERYSUBSYSTEM_H_ */

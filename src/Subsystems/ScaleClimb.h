@@ -18,6 +18,7 @@ private:
 	frc::Spark m_leftSpark;
 	frc::Spark m_rightSpark;
 	frc::DigitalInput m_topLimitSwitch;
+	frc::DigitalInput m_bottomLimitSwitch;
 
 public:
 	ScaleClimb();
@@ -28,6 +29,7 @@ public:
 	void StopHooks();
 
 	bool AtTop();
+	bool AtBottom();
 };
 
 #endif /* SRC_SUBSYSTEMS_SCALECLIMB_H_ */

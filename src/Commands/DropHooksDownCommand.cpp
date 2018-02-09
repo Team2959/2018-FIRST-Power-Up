@@ -20,7 +20,7 @@ void DropHooksDownCommand::Execute()
 
 bool DropHooksDownCommand::IsFinished()
 {
-	return false;
+	return Robot::ClimbSubsystem->AtBottom();
 }
 
 void DropHooksDownCommand::End()

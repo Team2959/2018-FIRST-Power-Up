@@ -19,7 +19,7 @@ constexpr double QuarterPi = Pi / 4.0;
  * floating around.
  */
 
-// Can Mapping - Talons
+// CAN Mapping - Talons
 constexpr int FRONT_LEFT_DRIVE_MOTOR_CAN = 1;
 constexpr int FRONT_RIGHT_DRIVE_MOTOR_CAN = 2;
 constexpr int BACK_RIGHT_DRIVE_MOTOR_CAN = 3;
@@ -32,9 +32,11 @@ constexpr int CLIMB_LEFT_MOTOR = 1;
 constexpr int CLIMB_RIGHT_MOTOR = 2;
 
 // Digital IO Mappings
-constexpr int CLIMB_TOP_LIMIT_SWITCH = 4;
+constexpr int CLIMB_TOP_LIMIT_SWITCH = 0;
+constexpr int CLIMB_BOTTOM_LIMIT_SWITCH = 1;
+constexpr int CUBE_PRESENT_OPTICAL_SWITCH = 2;
 
-// Pneumatic Solenoids
+// Pneumatics Control Module (PCM) Solenoids
 constexpr int FOLD_CUBE_ARMS_FORWARD_SOLENOID = 0;
 constexpr int FOLD_CUBE_ARMS_REVERSE_SOLENOID = 1;
 constexpr int OPEN_CLOSE_CUBE_ARMS_FORWARD_SOLENOID = 2;
