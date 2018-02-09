@@ -39,19 +39,12 @@ void Robot::RobotInit()
 	// news. Don't move it.
 	oi.reset(new OI());
 
-	frc::SmartDashboard::PutData(DriveTrainSubsystem.get());
-	frc::SmartDashboard::PutData(CubeArmsSubsystem.get());
-	frc::SmartDashboard::PutData(ClimbSubsystem.get());
-	frc::SmartDashboard::PutData(CubeDeliverySubsystem.get());
+	m_autonomous.reset(new Autonomous());
 
-	// After subsystem creations, now create autonomous commands
-	m_defaultAuto.reset(new MyAutoCommand());
-	m_driveStraightAuto.reset(new DriveStraightCommand(3.0));
-
-	m_chooser.AddDefault("Default Auto", m_defaultAuto.get());
-	m_chooser.AddObject("Drive Straight", m_driveStraightAuto.get());
-	m_chooser.AddObject("Place Initial Cube On Switch", &m_placeInitialCubeOnSwitch);
-	frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+//	SmartDashboard::PutData(DriveTrainSubsystem.get());
+//	SmartDashboard::PutData(CubeArmsSubsystem.get());
+//	SmartDashboard::PutData(ClimbSubsystem.get());
+//	SmartDashboard::PutData(CubeDeliverySubsystem.get());
 
 	CameraServer::GetInstance()->StartAutomaticCapture();
 
@@ -101,30 +94,7 @@ void Robot::DisabledPeriodic()
  */
 void Robot::AutonomousInit()
 {
-	// Add code to read switch/scale state from Field Management System
-	// https://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/826278-2018-game-data-details
-
-//	std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
-//	if (autoSelected == "Drive Straight")
-//	{
-//		m_autonomousCommand = &m_driveStraightAuto;
-//	}
-//	else
-//	{
-//		m_autonomousCommand = &m_defaultAuto;
-//	}
-
-	std::cout << "AutonomousInit - 1\n";
-	m_autonomousCommand = m_chooser.GetSelected();
-
-	for(auto i = 0; i < 1000; ++i)
-		std::cout << "m_autonomousCommand - " << (void*)m_autonomousCommand << '\n';
-	// Chooser isn't working...figure out why
-	if (m_autonomousCommand != nullptr)
-	{
-		std::cout << "Starting -- " << m_autonomousCommand->GetName() << '\n';
-		m_autonomousCommand->Start();
-	}
+	m_autonomous->AutoInit();
 }
 
 void Robot::AutonomousPeriodic()
@@ -134,15 +104,7 @@ void Robot::AutonomousPeriodic()
 
 void Robot::TeleopInit()
 {
-	// This makes sure that the autonomous stops running when
-	// teleop starts running. If you want the autonomous to
-	// continue until interrupted by another command, remove
-	// this line or comment it out.
-	if (m_autonomousCommand != nullptr)
-	{
-		m_autonomousCommand->Cancel();
-		m_autonomousCommand = nullptr;
-	}
+	m_autonomous->TeleopInit();
 }
 
 void Robot::TeleopPeriodic()

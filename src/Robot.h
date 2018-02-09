@@ -19,14 +19,14 @@
 #include "Subsystems/MotionTracking.h"
 #include "Subsystems/ScaleClimb.h"
 #include "Subsystems/CubeDelivery.h"
-#include "Commands/Auto/DriveStraightCommand.h"
-#include "Commands/Auto/MyAutoCommand.h"
-#include "Commands/Auto/PlaceInitialCubeOnSwitch.h"
+#include <Autonomous.h>
 
 class Robot : public frc::TimedRobot
 {
 private:
 	std::shared_ptr<XDrive> m_xDrive;
+	std::unique_ptr<Autonomous> m_autonomous;
+	unsigned int periodicCount;
 
 public:
 	// Add all subsystem definition here as static public variables
@@ -55,16 +55,6 @@ public:
 
 private:
 	void TestPixyCam();
-
-	// Have it null by default so that if testing teleop it
-	// doesn't have undefined behavior and potentially crash.
-	PlaceInitialCubeOnSwitchCommand	m_placeInitialCubeOnSwitch;
-	frc::Command* m_autonomousCommand = nullptr;
-	std::unique_ptr<MyAutoCommand> m_defaultAuto;
-	std::unique_ptr<DriveStraightCommand> m_driveStraightAuto;
-	frc::SendableChooser<frc::Command*> m_chooser;
-
-	unsigned int periodicCount;
 };
 
 #endif /* SRC_ROBOT_H_ */
