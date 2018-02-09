@@ -30,8 +30,11 @@ void OpeningAndClosingArmsCommand::Initialize()
 
 void OpeningAndClosingArmsCommand::End()
 {
-	bool armsAreOpen = Robot::CubeDeliverySubsystem->ArmsAreOpen();
-	if (armsAreOpen == false)
+	if (Robot::CubeDeliverySubsystem->ArmsAreOpen())
+	{
+		Robot::CubeDeliverySubsystem->SpinWheelsIn();
+	}
+	else
 	{
 		Robot::CubeDeliverySubsystem->StopWheels();
 	}

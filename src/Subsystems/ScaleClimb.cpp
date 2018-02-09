@@ -11,7 +11,8 @@
 ScaleClimb::ScaleClimb() : frc::Subsystem("ScaleClimb"),
 	m_leftSpark {CLIMB_LEFT_MOTOR},
 	m_rightSpark {CLIMB_RIGHT_MOTOR},
-	m_topLimitSwitch {CLIMB_TOP_LIMIT_SWITCH}
+	m_topLimitSwitch {CLIMB_TOP_LIMIT_SWITCH},
+	m_bottomLimitSwitch {CLIMB_BOTTOM_LIMIT_SWITCH}
 {
 }
 
@@ -36,4 +37,9 @@ void ScaleClimb::StopHooks()
 bool ScaleClimb::AtTop()
 {
 	return m_topLimitSwitch.Get();
+}
+
+bool ScaleClimb::AtBottom()
+{
+	return m_bottomLimitSwitch.Get();
 }
