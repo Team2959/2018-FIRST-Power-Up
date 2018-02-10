@@ -9,6 +9,7 @@
 #include <Commands/VerticalMovementCommand.h>
 #include <math.h>
 #include <Subsystems/VerticalArmMovement.h>
+#include <SmartDashboard/SmartDashboard.h>
 
  // approximately 24" of travel with diameter of 1.08 for an encoder with 4096 ticks
 const double GearDiameter = Pi * 1.08;
@@ -41,7 +42,7 @@ VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentS
 
 void VerticalArmMovement::InitDefaultCommand()
 {
-	SetDefaultCommand(new VerticalMovementCommand());
+//	SetDefaultCommand(new VerticalMovementCommand());
 }
 
 void VerticalArmMovement::MoveArm(CubeVerticalPlace target, double scaleHeight)
@@ -85,18 +86,12 @@ void VerticalArmMovement::MoveArm(CubeVerticalPlace target, double scaleHeight)
 //	int pulseWidthUs = talon.GetSensorCollection().GetPulseWidthRiseToFallUs();
 //	/* get the period in us, rise-to-rise in microseconds */
 //	int periodUs = talon.GetSensorCollection().GetPulseWidthRiseToRiseUs();
-//	/* get measured velocity in units per 100ms, 4096 units is one rotation */
-//	int pulseWidthVel = talon.GetSensorCollection().GetPulseWidthVelocity();
-//	/* is sensor plugged in to Talon */
-//	bool sensorPluggedIn = false;
-//	if (periodUs != 0) {
-//	sensorPluggedIn = true;
-//	}
 }
 
 bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHeight)
 {
-	auto position = m_cubeLiftMotor.GetSensorCollection().GetPulseWidthPosition();
+	auto position = m_cubeLiftMotor.GetSelectedSensorPosition(0);
+
 	double targetPosition = 0;
 
 	switch (target)
@@ -120,6 +115,9 @@ bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHei
 		targetPosition = ScaleConversionSlope*(scaleHeight-ScalePositionMinimum)+ScalePositionMinimum;
 		break;
 	}
+
+	frc::SmartDashboard::PutNumber("Current Poistion", position);
+	frc::SmartDashboard::PutNumber("Target Poistion", targetPosition);
 
 	return fabs(position - targetPosition) < 50;
 }

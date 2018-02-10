@@ -43,7 +43,6 @@ OI::OI()
 	frc::SmartDashboard::PutData("Move To Level2 ", new MoveToVerticalCubePositionCommand(Level2));
 	frc::SmartDashboard::PutData("Move To Level3 ", new MoveToVerticalCubePositionCommand(Level3));
 	frc::SmartDashboard::PutData("Move To Portal ", new MoveToVerticalCubePositionCommand(Portal));
-
 }
 
 std::shared_ptr<frc::Joystick> OI::GetDriverJoystick()
