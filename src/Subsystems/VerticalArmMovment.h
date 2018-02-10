@@ -30,6 +30,8 @@ public:
 	VerticalArmMovment();
 	virtual ~VerticalArmMovment();
 
+	void InitDefaultCommand() override;
+
 	void MoveArm(CubeVerticalPlace target, double scaleHeight = 0.0);
 };
 

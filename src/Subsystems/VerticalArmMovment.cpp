@@ -7,6 +7,7 @@
 
 #include <Subsystems/VerticalArmMovment.h>
 #include "RobotMap.h"
+#include <Commands/VerticalMovementCommand.h>
 
 const double ScaleHeightMinimum = 4.0;
 const double ScaleHeightMaximum = 6.0;
@@ -29,6 +30,11 @@ VerticalArmMovment::~VerticalArmMovment()
 {
 }
 
+void VerticalArmMovment::InitDefaultCommand()
+{
+	SetDefaultCommand(new VerticalMovementCommand());
+}
+
 void VerticalArmMovment::MoveArm(CubeVerticalPlace target, double scaleHeight)
 {
 	double position = 0;
@@ -36,7 +42,7 @@ void VerticalArmMovment::MoveArm(CubeVerticalPlace target, double scaleHeight)
 	switch (target)
 	{
 	case Exchange:
-		position = 1000;`
+		position = 1000;
 		break;
 
 	case Level2:
