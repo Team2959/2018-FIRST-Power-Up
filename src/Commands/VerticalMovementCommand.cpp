@@ -14,9 +14,9 @@ const double UpperSlider = 1.0;
 const double LowerSlider = 0.5;
 const double ConversionSlope = (UpperScaleHeight - LowerScaleHeight) / (UpperSlider - LowerSlider);
 
-VerticalMovementCommand::VerticalMovementCommand()
+VerticalMovementCommand::VerticalMovementCommand() : frc::Command("VerticalMovement")
 {
-
+	Requires(Robot::VerticalArmMovmentSubsystem.get());
 }
 
 void VerticalMovementCommand::Execute()

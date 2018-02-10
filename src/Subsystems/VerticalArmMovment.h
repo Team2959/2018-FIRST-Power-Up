@@ -33,6 +33,7 @@ public:
 	void InitDefaultCommand() override;
 
 	void MoveArm(CubeVerticalPlace target, double scaleHeight = 0.0);
+	bool IsAtPosition(CubeVerticalPlace target, double scaleHeight = 0.0);
 };
 
 #endif /* SRC_SUBSYSTEMS_VERTICALARMMOVMENT_H_ */

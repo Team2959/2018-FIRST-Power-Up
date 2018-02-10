@@ -8,12 +8,20 @@
 #include <Subsystems/VerticalArmMovment.h>
 #include "RobotMap.h"
 #include <Commands/VerticalMovementCommand.h>
+#include <math.h>
 
 const double ScaleHeightMinimum = 4.0;
 const double ScaleHeightMaximum = 6.0;
 const double ScalePositionMinimum = 15000;
 const double ScalePositionMaximum = 30000;
 const double ScaleConversionSlope = (ScalePositionMaximum-ScalePositionMinimum)/(ScaleHeightMaximum-ScaleHeightMinimum);
+
+const int ExchangePosition = 1000;
+const int Level2Position = 2000;
+const int Level3Position = 3000;
+const int PortalPosition = 4000;
+const int SwitchPosition = 5000;
+
 
 VerticalArmMovment::VerticalArmMovment() : frc::Subsystem("VerticalArmMovmentSubsystem"),
 	m_cubeLiftMotor {CUBE_VERTICAL_MOTOR_CAN}
@@ -42,23 +50,23 @@ void VerticalArmMovment::MoveArm(CubeVerticalPlace target, double scaleHeight)
 	switch (target)
 	{
 	case Exchange:
-		position = 1000;
+		position = ExchangePosition;
 		break;
 
 	case Level2:
-		position = 2000;
+		position = Level2Position;
 		break;
 
 	case Level3:
-		position = 3000;
+		position = Level3Position;
 		break;
 
 	case Portal:
-		position = 4000;
+		position = PortalPosition;
 		break;
 
 	case Switch:
-		position = 5000;
+		position = SwitchPosition;
 		break;
 
 	case Scale:
@@ -83,4 +91,34 @@ void VerticalArmMovment::MoveArm(CubeVerticalPlace target, double scaleHeight)
 //	sensorPluggedIn = true;
 //	}
 //	m_cubeLiftMotor.Set();
+}
+
+bool VerticalArmMovment::IsAtPosition(CubeVerticalPlace target, double scaleHeight)
+{
+	auto position = m_cubeLiftMotor.GetActiveTrajectoryPosition();
+	double targetPosition = 0;
+
+	switch (target)
+	{
+	case Exchange:
+		targetPosition = ExchangePosition;
+		break;
+	case Level2:
+		targetPosition = Level2Position;
+		break;
+	case Level3:
+		targetPosition = Level3Position;
+		break;
+	case Portal:
+		targetPosition = PortalPosition;
+		break;
+	case Switch:
+		targetPosition = SwitchPosition;
+		break;
+	case Scale:
+		targetPosition = ScaleConversionSlope*(scaleHeight-ScalePositionMinimum)+ScalePositionMinimum;
+		break;
+	}
+
+	return fabs(position - targetPosition) < 5;
 }
