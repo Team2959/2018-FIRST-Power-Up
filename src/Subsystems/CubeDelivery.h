@@ -11,7 +11,6 @@
 #include <Commands/Subsystem.h>
 #include <DoubleSolenoid.h>
 #include <Spark.h>
-#include <ctre/Phoenix.h>
 #include <DigitalInput.h>
 
 class CubeDelivery: public frc::Subsystem
@@ -19,7 +18,6 @@ class CubeDelivery: public frc::Subsystem
 private:
 	frc::DoubleSolenoid m_openCloseArms;
 	frc::Spark m_cubeManipulationMotor;
-	WPI_TalonSRX m_cubeLiftMotor;
 	frc::DigitalInput m_cubePresentSwitch;
 
 public:

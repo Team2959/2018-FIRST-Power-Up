@@ -13,7 +13,6 @@
 CubeDelivery::CubeDelivery() : frc::Subsystem("CubeDeliverySubsystem"),
 	m_openCloseArms {OPEN_CLOSE_CUBE_ARMS_FORWARD_SOLENOID, OPEN_CLOSE_CUBE_ARMS_REVERSE_SOLENOID},
 	m_cubeManipulationMotor {CUBE_ARMS_OPEN_CLOSE_MOTOR},
-	m_cubeLiftMotor {CUBE_VERTICAL_MOTOR_CAN},
 	m_cubePresentSwitch {CUBE_PRESENT_OPTICAL_SWITCH}
 {
 }
