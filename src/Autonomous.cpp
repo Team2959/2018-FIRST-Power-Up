@@ -12,12 +12,14 @@
 #include "Commands/Auto/DriveStraightCommand.h"
 #include "Commands/Auto/MyAutoCommand.h"
 #include "Commands/Auto/PlaceInitialCubeOnSwitch.h"
+#include "Commands/Auto/PlaceOnLeftSwitchCommandGroup.h"
 
 Autonomous::Autonomous()
 {
 	m_chooser.AddDefault("Default Auto", AutoCommand::Default);
 	m_chooser.AddObject("Drive Straight", AutoCommand::DriveStraight);
 	m_chooser.AddObject("Place Initial Cube On Switch", AutoCommand::PlaceInitialCubeOnSwitch);
+	m_chooser.AddObject("Place Cube On Left Switch", AutoCommand::PlaceCubeOnLeftSwitch);
 	frc::SmartDashboard::PutData("Autonomous Command", &m_chooser);
 }
 
@@ -68,6 +70,9 @@ void Autonomous::AutoInit()
 		break;
 	case AutoCommand::PlaceInitialCubeOnSwitch:
 		m_autonomousCommand = std::make_unique<PlaceInitialCubeOnSwitchCommand>();
+		break;
+	case AutoCommand::PlaceCubeOnLeftSwitch:
+		m_autonomousCommand = std::make_unique<PlaceOnLeftSwitchCommandGroup>();
 		break;
 	}
 
