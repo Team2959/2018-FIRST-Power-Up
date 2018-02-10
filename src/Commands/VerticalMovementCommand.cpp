@@ -6,20 +6,51 @@
  */
 
 #include <Commands/VerticalMovementCommand.h>
+#include "Robot.h"
+
+const double LowerScaleHeight = 4.0;
+const double UpperScaleHeight = 6.0;
+const double UpperSlider = 1.0;
+const double LowerSlider = 0.5;
+const double ConversionSlope = (UpperScaleHeight - LowerScaleHeight) / (UpperSlider - LowerSlider);
 
 VerticalMovementCommand::VerticalMovementCommand()
 {
 
 }
-void VerticalMovementCommand::InitDefaultCommand()
-{
 
-}
-void Execute()
+void VerticalMovementCommand::Execute()
 {
-	double autoAxis = Robot::oi->GetButtonBox()->GetRawAxis(2);
+	double sliderAxis = Robot::oi->GetButtonBox()->GetRawAxis(3);
+
+	if (sliderAxis < -0.75)
+	{
+		Robot::VerticalArmMovmentSubsystem->MoveArm(Exchange);
+	}
+	else if (sliderAxis < -0.5)
+	{
+		Robot::VerticalArmMovmentSubsystem->MoveArm(Level2);
+	}
+	else if (sliderAxis < -0.25)
+	{
+		Robot::VerticalArmMovmentSubsystem->MoveArm(Level3);
+	}
+	else if (sliderAxis < 0)
+	{
+		Robot::VerticalArmMovmentSubsystem->MoveArm(Portal);
+	}
+	else if (sliderAxis < 0.25)
+	{
+		Robot::VerticalArmMovmentSubsystem->MoveArm(Switch);
+	}
+	else if (sliderAxis > 0.5)
+	{
+		double position = LowerScaleHeight + ConversionSlope * (sliderAxis - LowerSlider);
+		Robot::VerticalArmMovmentSubsystem->MoveArm(Scale, position);
+	}
 }
-bool IsFinished()
+
+bool VerticalMovementCommand::IsFinished()
 {
 	return false;
 }

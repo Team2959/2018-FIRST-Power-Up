@@ -16,13 +16,8 @@ public:
 	VerticalMovementCommand();
 	~VerticalMovementCommand() override = default;
 
-void Execute() override;
-bool IsFinished() override;
-
-
+	void Execute() override;
+	bool IsFinished() override;
 };
-
-
-
 
 #endif /* SRC_COMMANDS_VERTICALMOVEMENTCOMMAND_H_ */
