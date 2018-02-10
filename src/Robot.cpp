@@ -6,12 +6,15 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Robot.h"
+#include <csignal>
+#include <cstring>
 #include <iostream>
 #include <Commands/Scheduler.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <CameraServer.h>
 #include "PixyCam/Camera.h"
 #include "PixyCam/I2CChannel.h"
+#include "SignalRegistration.h"
 
 // Create the unique static pointers for each subsystem
 std::unique_ptr<DriveTrain> Robot::DriveTrainSubsystem;
@@ -52,6 +55,36 @@ void Robot::RobotInit()
 	CameraServer::GetInstance()->StartAutomaticCapture();
 
 	periodicCount = 0;
+}
+
+// Handler for C library signals
+void Robot::SignalHandler(int signal) { std::cout << "C SIGNAL! - " << strsignal(signal) << '\n'; }
+
+// We have had some instances where the robot restarts user application repeatedly.
+// This is here to give us a hint for any possible information that might help
+// narrow down the problem
+void Robot::StartCompetition()
+{
+	// These registrations take care of registering/unregistring for C signal handling
+	SignalRegistration	SIGILLReg{SIGILL, SignalHandler};
+	SignalRegistration	SIGBUSReg{SIGBUS, SignalHandler};
+	SignalRegistration	SIGSEGVReg{SIGSEGV, SignalHandler};
+
+	// Call the base function inside our try/catch block
+	try
+	{
+		frc::TimedRobot::StartCompetition();
+	}
+	catch(std::exception& e)							// All STL exceptions (and any well designed exceptions) should be caught here
+	{
+		std::cout << "EXCEPTION! - " << e.what() << '\n';
+	}
+	catch(...)											// All other exceptions should be caught here.
+	{
+		std::cout << "UNKNOWN EXCEPTION DETECTED!\n";	// We don't know anything about it, but we know it happend
+	}
+
+	// Our SignalRegistrations will now go out of scope, unregistering their handlers
 }
 
 void Robot::RobotPeriodic()
