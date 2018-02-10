@@ -10,26 +10,25 @@
 
 #include <Commands/Command.h>
 #include <SmartDashboard/SendableChooser.h>
-#include "Commands/Auto/DriveStraightCommand.h"
-#include "Commands/Auto/MyAutoCommand.h"
-#include "Commands/Auto/PlaceInitialCubeOnSwitch.h"
 
 class Autonomous
 {
 private:
-	// Have it null by default so that if testing teleop it
-	// doesn't have undefined behavior and potentially crash.
-	frc::Command* m_autonomousCommand = nullptr;
+	// The chooser seems problematic updating the SmartDashboard when it uses an frc::Command* as its stored data.
+	// So, use an enum, and map from that enum to our command.
 
-	frc::SendableChooser<frc::Command*> m_chooser;
+	enum class AutoCommand
+	{
+		Default,
+		DriveStraight,
+		PlaceInitialCubeOnSwitch
+	};
 
-	MyAutoCommand m_defaultAuto;
-	DriveStraightCommand m_driveStraightAuto;
-	PlaceInitialCubeOnSwitchCommand	m_placeInitialCubeOnSwitch;
+	frc::SendableChooser<AutoCommand>	m_chooser;
+	std::unique_ptr<frc::Command>		m_autonomousCommand;
 
 public:
 	Autonomous();
-	virtual ~Autonomous();
 
 	void AutoInit();
 	void TeleopInit();

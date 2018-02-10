@@ -9,17 +9,16 @@
 #include <iostream>
 #include <SmartDashboard/SmartDashboard.h>
 #include <DriverStation.h>
+#include "Commands/Auto/DriveStraightCommand.h"
+#include "Commands/Auto/MyAutoCommand.h"
+#include "Commands/Auto/PlaceInitialCubeOnSwitch.h"
 
-Autonomous::Autonomous() : m_driveStraightAuto {5.0}
+Autonomous::Autonomous()
 {
-	m_chooser.AddDefault("Default Auto", &m_defaultAuto);
-	m_chooser.AddObject("Drive Straight", &m_driveStraightAuto);
-	m_chooser.AddObject("Place Initial Cube On Switch", &m_placeInitialCubeOnSwitch);
-	frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-}
-
-Autonomous::~Autonomous()
-{
+	m_chooser.AddDefault("Default Auto", AutoCommand::Default);
+	m_chooser.AddObject("Drive Straight", AutoCommand::DriveStraight);
+	m_chooser.AddObject("Place Initial Cube On Switch", AutoCommand::PlaceInitialCubeOnSwitch);
+	frc::SmartDashboard::PutData("Autonomous Command", &m_chooser);
 }
 
 void Autonomous::AutoInit()
@@ -59,12 +58,22 @@ void Autonomous::AutoInit()
 //	}
 
 	std::cout << "AutonomousInit - 1\n";
-	m_autonomousCommand = m_chooser.GetSelected();
+	switch(m_chooser.GetSelected())
+	{
+	case AutoCommand::Default:
+		m_autonomousCommand = std::make_unique<MyAutoCommand>();
+		break;
+	case AutoCommand::DriveStraight:
+		m_autonomousCommand = std::make_unique<DriveStraightCommand>(5.0);
+		break;
+	case AutoCommand::PlaceInitialCubeOnSwitch:
+		m_autonomousCommand = std::make_unique<PlaceInitialCubeOnSwitchCommand>();
+		break;
+	}
 
-	for(auto i = 0; i < 10; ++i)
-		std::cout << "m_autonomousCommand - " << (void*)m_autonomousCommand << '\n';
-	// Chooser isn't working...figure out why
-	if (m_autonomousCommand != nullptr)
+	std::cout << "AutonomousInit - 2\n";
+
+	if(m_autonomousCommand)
 	{
 		std::cout << "Starting -- " << m_autonomousCommand->GetName() << '\n';
 		m_autonomousCommand->Start();
@@ -77,7 +86,7 @@ void Autonomous::TeleopInit()
 	// teleop starts running. If you want the autonomous to
 	// continue until interrupted by another command, remove
 	// this line or comment it out.
-	if (m_autonomousCommand != nullptr)
+	if (m_autonomousCommand)
 	{
 		m_autonomousCommand->Cancel();
 		m_autonomousCommand = nullptr;

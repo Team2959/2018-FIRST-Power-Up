@@ -53,7 +53,10 @@ public:
 
 	void TestPeriodic() override;
 
+	virtual void StartCompetition() override;
+
 private:
+	static void SignalHandler(int signal);	// Handle a signal from the operating system
 	void TestPixyCam();
 };
 
