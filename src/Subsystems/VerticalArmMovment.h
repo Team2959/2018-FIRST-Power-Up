@@ -30,7 +30,7 @@ public:
 	VerticalArmMovment();
 	virtual ~VerticalArmMovment();
 
-	void MoveArm(CubeVerticalPlace target, double height = 0.0);
+	void MoveArm(CubeVerticalPlace target, double scaleHeight = 0.0);
 };
 
 #endif /* SRC_SUBSYSTEMS_VERTICALARMMOVMENT_H_ */
