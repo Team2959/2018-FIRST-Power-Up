@@ -19,7 +19,7 @@ void DeliverCubeCommand::Initialize()
 
 	if (speedAxis > 0)
 	{
-		speedAxis = fmax(0.25,speedAxis);
+		speedAxis = fmax(SpinCubeWheelsOutSlow, speedAxis);
 	}
 	else
 	{
@@ -28,16 +28,16 @@ void DeliverCubeCommand::Initialize()
 		if (autoAxis > -0.75)
 		{
 			// slow
-			autoAxis = 0.25;
+			autoAxis = SpinCubeWheelsOutSlow;
 		}
 		else
 		{
 			// fast
-			autoAxis = 1;
+			autoAxis = SpinCubeWheelsOutFast;
 		}
 	}
 
-	Robot::CubeDeliverySubsystem->SpinWheelsOut(speedAxis);
+	Robot::CubeDeliverySubsystem->SpinWheelsOut(-speedAxis);
 }
 
 bool DeliverCubeCommand::IsFinished()

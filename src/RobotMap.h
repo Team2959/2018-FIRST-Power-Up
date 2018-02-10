@@ -12,6 +12,10 @@ constexpr double Pi = 3.1415926535;
 constexpr double HalfPi = Pi / 2.0;
 constexpr double QuarterPi = Pi / 4.0;
 
+// Cube Delivery Speeds
+constexpr double SpinCubeWheelsOutSlow = 0.25;
+constexpr double SpinCubeWheelsOutFast = 1.0;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
