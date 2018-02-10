@@ -10,12 +10,14 @@
 
 #include <Commands/Command.h>
 
-class VerticalMovementCommand: public frc::Command {
+class VerticalMovementCommand: public frc::Command
+{
 public:
 	VerticalMovementCommand();
 	~VerticalMovementCommand() override = default;
 
-void InitDefaultCommand() override;
+void Execute() override;
+bool IsFinished() override;
 
 
 };

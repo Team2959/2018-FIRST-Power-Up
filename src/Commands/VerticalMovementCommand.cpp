@@ -15,3 +15,14 @@ void VerticalMovementCommand::InitDefaultCommand()
 {
 
 }
+void Execute()
+{
+	double autoAxis = Robot::oi->GetButtonBox()->GetRawAxis(2);
+}
+bool IsFinished()
+{
+	return false;
+}
+
+
+
