@@ -12,7 +12,7 @@ const double ScaleHeightMinimum = 4.0;
 const double ScaleHeightMaximum = 6.0;
 const double ScalePositionMinimum = 15000;
 const double ScalePositionMaximum = 30000;
-const double ScaleConversionSlope = 7500;
+const double ScaleConversionSlope = (ScalePositionMaximum-ScalePositionMinimum)/(ScaleHeightMaximum-ScaleHeightMinimum);
 
 VerticalArmMovment::VerticalArmMovment() : frc::Subsystem("VerticalArmMovmentSubsystem"),
 	m_cubeLiftMotor {CUBE_VERTICAL_MOTOR_CAN}
@@ -36,7 +36,7 @@ void VerticalArmMovment::MoveArm(CubeVerticalPlace target, double scaleHeight)
 	switch (target)
 	{
 	case Exchange:
-		position = 1000;`
+		position = 1000;
 		break;
 
 	case Level2:
