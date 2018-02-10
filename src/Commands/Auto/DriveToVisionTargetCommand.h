@@ -15,12 +15,9 @@ public:
 	DriveToVisionTargetCommand();
 	~DriveToVisionTargetCommand() override = default;
 
-void DriveToVisionTargetCommand::Execute() override;
-bool DriveToVisionTargetCommand::IsFinished() override;
-void DriveToVisionTargetCommand::End() override;
-
-
+	void Execute() override;
+	bool IsFinished() override;
+	void End() override;
 };
-
 
 #endif /* SRC_COMMANDS_AUTO_DRIVETOVISIONTARGETCOMMAND_H_ */

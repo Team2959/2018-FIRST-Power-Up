@@ -20,7 +20,7 @@
 #include "Subsystems/ScaleClimb.h"
 #include "Subsystems/CubeDelivery.h"
 #include <Autonomous.h>
-#include <Subsystems/VerticalArmMovment.h>
+#include <Subsystems/VerticalArmMovement.h>
 
 
 class Robot : public frc::TimedRobot
@@ -37,7 +37,7 @@ public:
 	static std::unique_ptr<ScaleClimb> ClimbSubsystem;
 	static std::unique_ptr<CubeDelivery> CubeDeliverySubsystem;
 	static std::unique_ptr<MotionTracking> MotionTrackingSubsystem;
-	static std::unique_ptr<VerticalArmMovment> VerticalArmMovmentSubsystem;
+	static std::unique_ptr<VerticalArmMovement> VerticalArmMovmentSubsystem;
 
 	// OI last
 	static std::unique_ptr<OI> oi;

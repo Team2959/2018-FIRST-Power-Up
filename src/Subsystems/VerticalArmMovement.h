@@ -5,8 +5,8 @@
  *      Author: CW
  */
 
-#ifndef SRC_SUBSYSTEMS_VERTICALARMMOVMENT_H_
-#define SRC_SUBSYSTEMS_VERTICALARMMOVMENT_H_
+#ifndef SRC_SUBSYSTEMS_VERTICALARMMOVEMENT_H_
+#define SRC_SUBSYSTEMS_VERTICALARMMOVEMENT_H_
 
 #include <Commands/Subsystem.h>
 #include <ctre/Phoenix.h>
@@ -21,14 +21,14 @@ enum CubeVerticalPlace
 	Scale = 5
 };
 
-class VerticalArmMovment: public frc::Subsystem
+class VerticalArmMovement: public frc::Subsystem
 {
 private:
 	WPI_TalonSRX m_cubeLiftMotor;
 
 public:
-	VerticalArmMovment();
-	virtual ~VerticalArmMovment();
+	VerticalArmMovement();
+	~VerticalArmMovement() override = default;
 
 	void InitDefaultCommand() override;
 
@@ -36,4 +36,4 @@ public:
 	bool IsAtPosition(CubeVerticalPlace target, double scaleHeight = 0.0);
 };
 
-#endif /* SRC_SUBSYSTEMS_VERTICALARMMOVMENT_H_ */
+#endif /* SRC_SUBSYSTEMS_VERTICALARMMOVEMENT_H_ */

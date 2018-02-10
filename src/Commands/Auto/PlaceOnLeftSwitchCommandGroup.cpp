@@ -6,10 +6,10 @@
  */
 
 #include <Commands/Auto/PlaceOnLeftSwitchCommandGroup.h>
-#include <Subsystems/VerticalArmMovment.h>
 #include <Commands/DeliverCubeCommand.h>
 #include <Commands/Auto/MoveToVerticalCubePositionCommand.h>
 #include <Commands/FoldArmsDownCommand.h>
+#include <Subsystems/VerticalArmMovement.h>
 
 PlaceOnLeftSwitchCommandGroup::PlaceOnLeftSwitchCommandGroup()
 {

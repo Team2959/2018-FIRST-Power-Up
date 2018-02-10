@@ -5,45 +5,46 @@
  *      Author: Devin
  */
 
-#include <Subsystems/VerticalArmMovment.h>
 #include "RobotMap.h"
 #include <Commands/VerticalMovementCommand.h>
 #include <math.h>
+#include <Subsystems/VerticalArmMovement.h>
+
+ // approximately 24" of travel with diameter of 1.08 for an encoder with 4096 ticks
+const double GearDiameter = Pi * 1.08;
+const double DistanceToTicksFactor = 4096 / GearDiameter;
 
 const double ScaleHeightMinimum = 4.0;
 const double ScaleHeightMaximum = 6.0;
-const double ScalePositionMinimum = 15000;
-const double ScalePositionMaximum = 30000;
+const double ScalePositionMaximum = 100000;
+const double ScalePositionMinimum = ScalePositionMaximum - 24 * DistanceToTicksFactor;
 const double ScaleConversionSlope = (ScalePositionMaximum-ScalePositionMinimum)/(ScaleHeightMaximum-ScaleHeightMinimum);
 
-const int ExchangePosition = 1000;
-const int Level2Position = 2000;
-const int Level3Position = 3000;
-const int PortalPosition = 4000;
-const int SwitchPosition = 5000;
+const int ExchangePosition = 3.5 * DistanceToTicksFactor;
+const int Level2Position = 16.5 * DistanceToTicksFactor;
+const int SwitchPosition = 24.5 * DistanceToTicksFactor;
+const int PortalPosition = 25.5 * DistanceToTicksFactor;
+const int Level3Position = 27.5 * DistanceToTicksFactor;
 
-
-VerticalArmMovment::VerticalArmMovment() : frc::Subsystem("VerticalArmMovmentSubsystem"),
+VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentSubsystem"),
 	m_cubeLiftMotor {CUBE_VERTICAL_MOTOR_CAN}
 {
 	m_cubeLiftMotor.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, 0, 0);
-//	m_cubeLiftMotor.Config_kF(0, 0.275, 0);
-//	m_cubeLiftMotor.Config_kP(0, 0.45, 0);
+	m_cubeLiftMotor.Config_kF(0, 0.275, 0);
+	m_cubeLiftMotor.Config_kP(0, 1, 0);
 //	m_cubeLiftMotor.Config_kI(0, 0.0045, 0);
 //	m_cubeLiftMotor.Config_IntegralZone(0, 300, 0);
 	m_cubeLiftMotor.SetSensorPhase(true);
+	m_cubeLiftMotor.SetSelectedSensorPosition(0,0,0);
+	m_cubeLiftMotor.Set(ControlMode::Position, 0);
 }
 
-VerticalArmMovment::~VerticalArmMovment()
-{
-}
-
-void VerticalArmMovment::InitDefaultCommand()
+void VerticalArmMovement::InitDefaultCommand()
 {
 	SetDefaultCommand(new VerticalMovementCommand());
 }
 
-void VerticalArmMovment::MoveArm(CubeVerticalPlace target, double scaleHeight)
+void VerticalArmMovement::MoveArm(CubeVerticalPlace target, double scaleHeight)
 {
 	double position = 0;
 
@@ -74,6 +75,7 @@ void VerticalArmMovment::MoveArm(CubeVerticalPlace target, double scaleHeight)
 		break;
 	}
 
+	//std::cout << "Arm Position " << position << "\n";
 	m_cubeLiftMotor.Set(ControlMode::Position, position);
 
 	// From CTRE manual for 7.5.4.2. CTR Magnetic Encoder (absolute) – C++
@@ -90,12 +92,11 @@ void VerticalArmMovment::MoveArm(CubeVerticalPlace target, double scaleHeight)
 //	if (periodUs != 0) {
 //	sensorPluggedIn = true;
 //	}
-//	m_cubeLiftMotor.Set();
 }
 
-bool VerticalArmMovment::IsAtPosition(CubeVerticalPlace target, double scaleHeight)
+bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHeight)
 {
-	auto position = m_cubeLiftMotor.GetActiveTrajectoryPosition();
+	auto position = m_cubeLiftMotor.GetSensorCollection().GetPulseWidthPosition();
 	double targetPosition = 0;
 
 	switch (target)
@@ -120,5 +121,5 @@ bool VerticalArmMovment::IsAtPosition(CubeVerticalPlace target, double scaleHeig
 		break;
 	}
 
-	return fabs(position - targetPosition) < 5;
+	return fabs(position - targetPosition) < 50;
 }

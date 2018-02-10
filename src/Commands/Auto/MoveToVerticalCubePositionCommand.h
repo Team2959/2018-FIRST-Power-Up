@@ -9,7 +9,7 @@
 #define SRC_COMMANDS_AUTO_MOVETOVERTICALCUBEPOSITIONCOMMAND_H_
 
 #include <Commands/Command.h>
-#include <Subsystems/VerticalArmMovment.h>
+#include <Subsystems/VerticalArmMovement.h>
 
 class MoveToVerticalCubePositionCommand: public frc::Command
 {

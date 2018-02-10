@@ -7,12 +7,19 @@
 
 #include <Commands/Auto/DriveToVisionTargetCommand.h>
 
-DriveToVisionTargetCommand::DriveToVisionTargetCommand() {
-	// TODO Auto-generated constructor stub
-
+DriveToVisionTargetCommand::DriveToVisionTargetCommand()
+{
 }
 
-DriveToVisionTargetCommand::~DriveToVisionTargetCommand() {
-	// TODO Auto-generated destructor stub
+void DriveToVisionTargetCommand::Execute()
+{
 }
 
+bool DriveToVisionTargetCommand::IsFinished()
+{
+	return false;
+}
+
+void DriveToVisionTargetCommand::End()
+{
+}

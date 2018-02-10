@@ -6,13 +6,14 @@
 /*----------------------------------------------------------------------------*/
 
 #include "OI.h"
-//#include <SmartDashboard/SmartDashboard.h>
+#include <SmartDashboard/SmartDashboard.h>
 #include <Commands/RaiseHooksUpToRungCommand.h>
 #include <Commands/DropHooksDownCommand.h>
 #include <Commands/FoldArmsDownCommand.h>
 #include <Commands/FoldArmsUpCommand.h>
 #include <Commands/OpeningAndClosingArmsCommand.h>
 #include <Commands/StopArmWheelsCommand.h>
+#include <Commands/Auto/MoveToVerticalCubePositionCommand.h>
 
 OI::OI()
 {
@@ -37,6 +38,12 @@ OI::OI()
 
 	// example how to put a command on the dashboard. You can press start and execute it.
 	//frc::SmartDashboard::PutData("Raise Hooks Up", new RaiseHooksUpToRungCommand());
+	frc::SmartDashboard::PutData("Move To to switch ", new MoveToVerticalCubePositionCommand(Switch));
+	frc::SmartDashboard::PutData("Move To exchange ", new MoveToVerticalCubePositionCommand(Exchange));
+	frc::SmartDashboard::PutData("Move To Level2 ", new MoveToVerticalCubePositionCommand(Level2));
+	frc::SmartDashboard::PutData("Move To Level3 ", new MoveToVerticalCubePositionCommand(Level3));
+	frc::SmartDashboard::PutData("Move To Portal ", new MoveToVerticalCubePositionCommand(Portal));
+
 }
 
 std::shared_ptr<frc::Joystick> OI::GetDriverJoystick()
