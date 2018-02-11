@@ -5,27 +5,10 @@
  *      Author: Devin
  */
 
-#include "RobotMap.h"
 #include <Commands/VerticalMovementCommand.h>
 #include <math.h>
 #include <Subsystems/VerticalArmMovement.h>
 #include <SmartDashboard/SmartDashboard.h>
-
- // approximately 24" of travel with diameter of 1.08 for an encoder with 4096 ticks
-const double GearDiameter = Pi * 1.08;
-const double DistanceToTicksFactor = 4096 / GearDiameter;
-
-const double ScaleHeightMinimum = 4.0;
-const double ScaleHeightMaximum = 6.0;
-const double ScalePositionMaximum = 100000;
-const double ScalePositionMinimum = ScalePositionMaximum - 24 * DistanceToTicksFactor;
-const double ScaleConversionSlope = (ScalePositionMaximum-ScalePositionMinimum)/(ScaleHeightMaximum-ScaleHeightMinimum);
-
-const int ExchangePosition = 3.5 * DistanceToTicksFactor;
-const int Level2Position = 16.5 * DistanceToTicksFactor;
-const int SwitchPosition = 24.5 * DistanceToTicksFactor;
-const int PortalPosition = 25.5 * DistanceToTicksFactor;
-const int Level3Position = 27.5 * DistanceToTicksFactor;
 
 VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentSubsystem"),
 	m_cubeLiftMotor {CUBE_VERTICAL_MOTOR_CAN}
@@ -78,14 +61,6 @@ void VerticalArmMovement::MoveArm(CubeVerticalPlace target, double scaleHeight)
 
 	//std::cout << "Arm Position " << position << "\n";
 	m_cubeLiftMotor.Set(ControlMode::Position, position);
-
-	// From CTRE manual for 7.5.4.2. CTR Magnetic Encoder (absolute) – C++
-//	/* get the decoded pulse width encoder position, 4096 units per rotation */
-//	int pulseWidthPos = talon.GetSensorCollection().GetPulseWidthPosition();
-//	/* get the pulse width in us, rise-to-fall in microseconds */
-//	int pulseWidthUs = talon.GetSensorCollection().GetPulseWidthRiseToFallUs();
-//	/* get the period in us, rise-to-rise in microseconds */
-//	int periodUs = talon.GetSensorCollection().GetPulseWidthRiseToRiseUs();
 }
 
 bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHeight)

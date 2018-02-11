@@ -14,10 +14,10 @@
 class MoveToVerticalCubePositionCommand: public frc::Command
 {
 private:
-	CubeVerticalPlace m_target;
+	VerticalArmMovement::CubeVerticalPlace m_target;
 
 public:
-	MoveToVerticalCubePositionCommand(CubeVerticalPlace target = Switch);
+	MoveToVerticalCubePositionCommand(VerticalArmMovement::CubeVerticalPlace target = VerticalArmMovement::Switch);
 	~MoveToVerticalCubePositionCommand() override = default;
 
 	void Execute() override;

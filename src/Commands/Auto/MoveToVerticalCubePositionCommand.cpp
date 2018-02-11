@@ -8,7 +8,7 @@
 #include <Commands/Auto/MoveToVerticalCubePositionCommand.h>
 #include <Robot.h>
 
-MoveToVerticalCubePositionCommand::MoveToVerticalCubePositionCommand(CubeVerticalPlace target) : frc::Command("MoveToVerticalCubePosition")
+MoveToVerticalCubePositionCommand::MoveToVerticalCubePositionCommand(VerticalArmMovement::CubeVerticalPlace target) : frc::Command("MoveToVerticalCubePosition")
 {
 	m_target = target;
 	Requires(Robot::VerticalArmMovmentSubsystem.get());

@@ -11,7 +11,7 @@
 #include <DriverStation.h>
 #include "Commands/Auto/DriveStraightCommand.h"
 #include "Commands/Auto/MyAutoCommand.h"
-#include "Commands/Auto/PlaceInitialCubeOnSwitch.h"
+#include "Commands/Auto/PlaceInitialCubeOnSwitchCommandGroup.h"
 #include "Commands/Auto/PlaceOnLeftSwitchCommandGroup.h"
 
 Autonomous::Autonomous()
@@ -43,23 +43,13 @@ void Autonomous::AutoInit()
 		switchOnLeft = gameData[0] == 'L';
 		scaleOnLeft = gameData[1] == 'L';
 		opponentSwitchOnLeft = gameData[2] == 'L';
+
+		std::cout << "Auto Has Game Data - " << hasGameData << '\n';
+		std::cout << "Switch on left - " << switchOnLeft << '\n';
+		std::cout << "Scale on left - " << scaleOnLeft << '\n';
+		std::cout << "Opponent switch on left - " << opponentSwitchOnLeft << '\n';
 	}
-	std::cout << "Auto Has Game Data - " << hasGameData << '\n';
-	std::cout << "Switch on left - " << switchOnLeft << '\n';
-	std::cout << "Scale on left - " << scaleOnLeft << '\n';
-	std::cout << "Opponent switch on left - " << opponentSwitchOnLeft << '\n';
 
-//	std::string autoSelected = frc::SmartDashboard::GetString("Auto Selector", "Default");
-//	if (autoSelected == "Drive Straight")
-//	{
-//		m_autonomousCommand = &m_driveStraightAuto;
-//	}
-//	else
-//	{
-//		m_autonomousCommand = &m_defaultAuto;
-//	}
-
-	std::cout << "AutonomousInit - 1\n";
 	switch(m_chooser.GetSelected())
 	{
 	case AutoCommand::Default:
@@ -69,14 +59,12 @@ void Autonomous::AutoInit()
 		m_autonomousCommand = std::make_unique<DriveStraightCommand>(5.0);
 		break;
 	case AutoCommand::PlaceInitialCubeOnSwitch:
-		m_autonomousCommand = std::make_unique<PlaceInitialCubeOnSwitchCommand>();
+		m_autonomousCommand = std::make_unique<PlaceInitialCubeOnSwitchCommandGroup>(switchOnLeft);
 		break;
 	case AutoCommand::PlaceCubeOnLeftSwitch:
 		m_autonomousCommand = std::make_unique<PlaceOnLeftSwitchCommandGroup>();
 		break;
 	}
-
-	std::cout << "AutonomousInit - 2\n";
 
 	if(m_autonomousCommand)
 	{

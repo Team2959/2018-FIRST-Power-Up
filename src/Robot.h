@@ -22,7 +22,6 @@
 #include <Autonomous.h>
 #include <Subsystems/VerticalArmMovement.h>
 
-
 class Robot : public frc::TimedRobot
 {
 private:

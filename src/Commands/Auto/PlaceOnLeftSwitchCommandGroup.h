@@ -2,7 +2,7 @@
  * PlaceOnLeftSwitch.h
  *
  *  Created on: Feb 10, 2018
- *      Author: Tracy
+ *      Author: Andrew
  */
 
 #ifndef SRC_COMMANDS_AUTO_PLACEONLEFTSWITCHCOMMANDGROUP_H_
@@ -14,7 +14,7 @@ class PlaceOnLeftSwitchCommandGroup: public frc::CommandGroup
 {
 public:
 	PlaceOnLeftSwitchCommandGroup();
-	virtual ~PlaceOnLeftSwitchCommandGroup();
+	~PlaceOnLeftSwitchCommandGroup() override = default;
 };
 
 #endif /* SRC_COMMANDS_AUTO_PLACEONLEFTSWITCHCOMMANDGROUP_H_ */

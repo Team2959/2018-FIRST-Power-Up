@@ -25,28 +25,28 @@ void VerticalMovementCommand::Execute()
 
 	if (sliderAxis < -0.75)
 	{
-		Robot::VerticalArmMovmentSubsystem->MoveArm(Exchange);
+		Robot::VerticalArmMovmentSubsystem->MoveArm(VerticalArmMovement::Exchange);
 	}
 	else if (sliderAxis < -0.5)
 	{
-		Robot::VerticalArmMovmentSubsystem->MoveArm(Level2);
+		Robot::VerticalArmMovmentSubsystem->MoveArm(VerticalArmMovement::Level2);
 	}
 	else if (sliderAxis < -0.25)
 	{
-		Robot::VerticalArmMovmentSubsystem->MoveArm(Level3);
+		Robot::VerticalArmMovmentSubsystem->MoveArm(VerticalArmMovement::Level3);
 	}
 	else if (sliderAxis < 0)
 	{
-		Robot::VerticalArmMovmentSubsystem->MoveArm(Portal);
+		Robot::VerticalArmMovmentSubsystem->MoveArm(VerticalArmMovement::Portal);
 	}
 	else if (sliderAxis < 0.25)
 	{
-		Robot::VerticalArmMovmentSubsystem->MoveArm(Switch);
+		Robot::VerticalArmMovmentSubsystem->MoveArm(VerticalArmMovement::Switch);
 	}
 	else if (sliderAxis > 0.5)
 	{
 		double position = LowerScaleHeight + ConversionSlope * (sliderAxis - LowerSlider);
-		Robot::VerticalArmMovmentSubsystem->MoveArm(Scale, position);
+		Robot::VerticalArmMovmentSubsystem->MoveArm(VerticalArmMovement::Scale, position);
 	}
 }
 

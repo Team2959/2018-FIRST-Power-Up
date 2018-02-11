@@ -17,32 +17,36 @@
 
 OI::OI()
 {
+	// Create USB joysticks
 	DriverJoystick.reset(new frc::Joystick(0));
 	ButtonBox.reset(new frc::Joystick(1));
 
+	// map driver buttons
+	OpeningAndClosingArmsButton.reset(new frc::JoystickButton(DriverJoystick.get(), 2));
+
+	// map co-pilot buttons
 	RaiseHooksUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 1));
 	DropHooksDownButton.reset(new frc::JoystickButton(ButtonBox.get(), 2));
 	StopArmWheelsButton.reset(new frc::JoystickButton(ButtonBox.get(), 3));
 	FoldCubeArmsUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 4));
 	FoldCubeArmsDownButton.reset(new frc::JoystickButton(ButtonBox.get(), 5));
 	SpinArmWheelsInButton.reset(new frc::JoystickButton(ButtonBox.get(), 6));
-	OpeningAndClosingArmsButton.reset(new frc::JoystickButton(DriverJoystick.get(), 2));
 
-
+	// Tie buttons to commands
+	OpeningAndClosingArmsButton->WhenPressed(new OpeningAndClosingArmsCommand());
 	RaiseHooksUpButton->WhenPressed(new RaiseHooksUpToRungCommand());
 	DropHooksDownButton->WhileHeld(new DropHooksDownCommand());
 	StopArmWheelsButton->WhenPressed(new StopArmWheelsCommand());
 	FoldCubeArmsUpButton->WhenPressed(new FoldArmsDownCommand());
 	FoldCubeArmsDownButton->WhenPressed(new FoldArmsDownCommand());
-	OpeningAndClosingArmsButton->WhenPressed(new OpeningAndClosingArmsCommand());
 
 	// example how to put a command on the dashboard. You can press start and execute it.
 	//frc::SmartDashboard::PutData("Raise Hooks Up", new RaiseHooksUpToRungCommand());
-	frc::SmartDashboard::PutData("Move To to switch ", new MoveToVerticalCubePositionCommand(Switch));
-	frc::SmartDashboard::PutData("Move To exchange ", new MoveToVerticalCubePositionCommand(Exchange));
-	frc::SmartDashboard::PutData("Move To Level2 ", new MoveToVerticalCubePositionCommand(Level2));
-	frc::SmartDashboard::PutData("Move To Level3 ", new MoveToVerticalCubePositionCommand(Level3));
-	frc::SmartDashboard::PutData("Move To Portal ", new MoveToVerticalCubePositionCommand(Portal));
+	frc::SmartDashboard::PutData("Move To to switch ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Switch));
+	frc::SmartDashboard::PutData("Move To exchange ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Exchange));
+	frc::SmartDashboard::PutData("Move To Level2 ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Level2));
+	frc::SmartDashboard::PutData("Move To Level3 ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Level3));
+	frc::SmartDashboard::PutData("Move To Portal ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Portal));
 }
 
 std::shared_ptr<frc::Joystick> OI::GetDriverJoystick()
