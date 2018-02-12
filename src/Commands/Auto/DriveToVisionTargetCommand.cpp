@@ -6,9 +6,11 @@
  */
 
 #include <Commands/Auto/DriveToVisionTargetCommand.h>
+#include "../../Robot.h"
 
 DriveToVisionTargetCommand::DriveToVisionTargetCommand()
 {
+	Requires(Robot::VisionSubsystem.get());
 }
 
 void DriveToVisionTargetCommand::Execute()

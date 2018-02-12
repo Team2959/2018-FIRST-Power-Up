@@ -19,6 +19,7 @@
 #include "Subsystems/MotionTracking.h"
 #include "Subsystems/ScaleClimb.h"
 #include "Subsystems/CubeDelivery.h"
+#include "Subsystems/Vision.h"
 #include <Autonomous.h>
 #include <Subsystems/VerticalArmMovement.h>
 
@@ -37,6 +38,7 @@ public:
 	static std::unique_ptr<CubeDelivery> CubeDeliverySubsystem;
 	static std::unique_ptr<MotionTracking> MotionTrackingSubsystem;
 	static std::unique_ptr<VerticalArmMovement> VerticalArmMovmentSubsystem;
+	static std::unique_ptr<Vision> VisionSubsystem;
 
 	// OI last
 	static std::unique_ptr<OI> oi;
