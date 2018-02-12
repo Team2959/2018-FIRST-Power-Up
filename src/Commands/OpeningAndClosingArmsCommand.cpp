@@ -28,6 +28,23 @@ void OpeningAndClosingArmsCommand::Initialize()
 	}
 }
 
+bool OpeningAndClosingArmsCommand::IsFinished()
+{
+	bool timeExpired = frc::TimedCommand::IsFinished();
+
+	if (Robot::CubeDeliverySubsystem->ArmsAreOpen())
+	{
+		return timeExpired;
+	}
+
+	if (timeExpired)
+	{
+		return true;
+	}
+
+	return Robot::CubeDeliverySubsystem->CubePresent();
+}
+
 void OpeningAndClosingArmsCommand::End()
 {
 	if (Robot::CubeDeliverySubsystem->ArmsAreOpen())

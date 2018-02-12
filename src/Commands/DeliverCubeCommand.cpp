@@ -7,6 +7,7 @@
 
 #include <Commands/DeliverCubeCommand.h>
 #include "Robot.h"
+#include "Subsystems/CubeDelivery.h"
 
 DeliverCubeCommand::DeliverCubeCommand() : frc::Command("DeliverCube")
 {
@@ -19,25 +20,18 @@ void DeliverCubeCommand::Initialize()
 
 	if (speedAxis > 0)
 	{
-		speedAxis = fmax(SpinCubeWheelsOutSlow, speedAxis);
+		speedAxis = -speedAxis;
+	}
+	else if (Robot::VerticalArmMovmentSubsystem->IsAtSwitchOrHigher())
+	{
+		speedAxis = SpinCubeWheelsOutSlow;
 	}
 	else
 	{
-		// Auto select speed based on button box slider input
-		double autoAxis = Robot::oi->GetButtonBox()->GetRawAxis(2);
-		if (autoAxis > -0.75)
-		{
-			// slow
-			autoAxis = SpinCubeWheelsOutSlow;
-		}
-		else
-		{
-			// fast
-			autoAxis = SpinCubeWheelsOutFast;
-		}
+		speedAxis = SpinCubeWheelsOutFast;
 	}
 
-	Robot::CubeDeliverySubsystem->SpinWheelsOut(-speedAxis);
+	Robot::CubeDeliverySubsystem->SpinWheelsOut(speedAxis);
 }
 
 bool DeliverCubeCommand::IsFinished()

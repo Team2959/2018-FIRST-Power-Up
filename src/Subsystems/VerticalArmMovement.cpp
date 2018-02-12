@@ -5,10 +5,10 @@
  *      Author: Devin
  */
 
-#include <Commands/VerticalMovementCommand.h>
-#include <math.h>
 #include <Subsystems/VerticalArmMovement.h>
+#include <math.h>
 #include <SmartDashboard/SmartDashboard.h>
+#include <Commands/VerticalArmMovementFromCoPilot.h>
 
 VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentSubsystem"),
 	m_cubeLiftMotor {CUBE_VERTICAL_MOTOR_CAN}
@@ -25,7 +25,7 @@ VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentS
 
 void VerticalArmMovement::InitDefaultCommand()
 {
-//	SetDefaultCommand(new VerticalMovementCommand());
+//	SetDefaultCommand(new VerticalArmMovementFromCoPilot());
 }
 
 void VerticalArmMovement::MoveArm(CubeVerticalPlace target, double scaleHeight)
@@ -34,26 +34,24 @@ void VerticalArmMovement::MoveArm(CubeVerticalPlace target, double scaleHeight)
 
 	switch (target)
 	{
+	case Level1:
+		position = Level1Position;
+		break;
 	case Exchange:
 		position = ExchangePosition;
 		break;
-
 	case Level2:
 		position = Level2Position;
 		break;
-
 	case Level3:
 		position = Level3Position;
 		break;
-
 	case Portal:
 		position = PortalPosition;
 		break;
-
 	case Switch:
 		position = SwitchPosition;
 		break;
-
 	case Scale:
 		position = ScaleConversionSlope*(scaleHeight-ScalePositionMinimum)+ScalePositionMinimum;
 		break;
@@ -61,6 +59,13 @@ void VerticalArmMovement::MoveArm(CubeVerticalPlace target, double scaleHeight)
 
 	//std::cout << "Arm Position " << position << "\n";
 	m_cubeLiftMotor.Set(ControlMode::Position, position);
+}
+
+void VerticalArmMovement::MoveArmToHeight(double height)
+{
+	height = fmax(0, height);
+	height = fmin(1, height);
+	m_cubeLiftMotor.Set(ControlMode::Position, height * ScalePositionMaximum);
 }
 
 bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHeight)
@@ -71,6 +76,9 @@ bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHei
 
 	switch (target)
 	{
+	case Level1:
+		targetPosition = Level1Position;
+		break;
 	case Exchange:
 		targetPosition = ExchangePosition;
 		break;
@@ -91,8 +99,13 @@ bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHei
 		break;
 	}
 
-	frc::SmartDashboard::PutNumber("Current Poistion", position);
-	frc::SmartDashboard::PutNumber("Target Poistion", targetPosition);
+	frc::SmartDashboard::PutNumber("Current Position", position);
+	frc::SmartDashboard::PutNumber("Target Position", targetPosition);
 
 	return fabs(position - targetPosition) < 50;
+}
+
+bool VerticalArmMovement::IsAtSwitchOrHigher()
+{
+	return m_cubeLiftMotor.GetSelectedSensorPosition(0) > (SwitchPosition - 500);
 }

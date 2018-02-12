@@ -13,6 +13,10 @@
 #include <Spark.h>
 #include <DigitalInput.h>
 
+// Cube Delivery Speeds
+constexpr double SpinCubeWheelsOutSlow = -0.25;
+constexpr double SpinCubeWheelsOutFast = -1.0;
+
 class CubeDelivery: public frc::Subsystem
 {
 private:

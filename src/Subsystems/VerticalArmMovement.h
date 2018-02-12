@@ -37,12 +37,13 @@ private:
 public:
 	enum CubeVerticalPlace
 	{
-		Exchange = 0,
-		Level2 = 1,
-		Level3 = 2,
-		Portal = 3,
-		Switch = 4,
-		Scale = 5
+		Level1 = 0,
+		Exchange = 1,
+		Level2 = 2,
+		Level3 = 3,
+		Portal = 4,
+		Switch = 5,
+		Scale = 6
 	};
 
 public:
@@ -52,7 +53,9 @@ public:
 	void InitDefaultCommand() override;
 
 	void MoveArm(CubeVerticalPlace target, double scaleHeight = 0.0);
+	void MoveArmToHeight(double height);
 	bool IsAtPosition(CubeVerticalPlace target, double scaleHeight = 0.0);
+	bool IsAtSwitchOrHigher();
 };
 
 #endif /* SRC_SUBSYSTEMS_VERTICALARMMOVEMENT_H_ */

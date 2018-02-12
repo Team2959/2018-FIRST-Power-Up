@@ -43,6 +43,7 @@ OI::OI()
 	// example how to put a command on the dashboard. You can press start and execute it.
 	//frc::SmartDashboard::PutData("Raise Hooks Up", new RaiseHooksUpToRungCommand());
 	frc::SmartDashboard::PutData("Move To to switch ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Switch));
+	frc::SmartDashboard::PutData("Move To Level1 ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Level1));
 	frc::SmartDashboard::PutData("Move To exchange ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Exchange));
 	frc::SmartDashboard::PutData("Move To Level2 ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Level2));
 	frc::SmartDashboard::PutData("Move To Level3 ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Level3));
