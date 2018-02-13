@@ -23,6 +23,7 @@ std::unique_ptr<ScaleClimb> Robot::ClimbSubsystem;
 std::unique_ptr<CubeDelivery> Robot::CubeDeliverySubsystem;
 std::unique_ptr<MotionTracking> Robot::MotionTrackingSubsystem;
 std::unique_ptr<VerticalArmMovement> Robot::VerticalArmMovmentSubsystem;
+std::unique_ptr<Vision> Robot::VisionSubsystem;
 
 std::unique_ptr<OI> Robot::oi;
 
@@ -37,6 +38,7 @@ void Robot::RobotInit()
 	CubeDeliverySubsystem.reset(new CubeDelivery());
 	MotionTrackingSubsystem.reset(new MotionTracking(m_xDrive));
 	VerticalArmMovmentSubsystem.reset(new VerticalArmMovement());
+	VisionSubsystem = std::make_unique<Vision>();
 
 	// This MUST be here. If the OI creates Commands (which it very likely
 	// will), constructing it during the construction of CommandBase (from
