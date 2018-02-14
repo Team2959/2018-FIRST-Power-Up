@@ -15,6 +15,8 @@
 #include "PixyCam/Camera.h"
 #include "PixyCam/I2CChannel.h"
 #include "SignalRegistration.h"
+#include <PowerDistributionPanel.h>
+
 
 // Create the unique static pointers for each subsystem
 std::unique_ptr<DriveTrain> Robot::DriveTrainSubsystem;
@@ -53,6 +55,7 @@ void Robot::RobotInit()
 //	SmartDashboard::PutData(CubeArmsSubsystem.get());
 //	SmartDashboard::PutData(ClimbSubsystem.get());
 //	SmartDashboard::PutData(CubeDeliverySubsystem.get());
+	frc::SmartDashboard::PutData(&m_pdp);
 
 	CameraServer::GetInstance()->StartAutomaticCapture();
 

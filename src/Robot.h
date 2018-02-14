@@ -22,6 +22,7 @@
 #include "Subsystems/Vision.h"
 #include <Autonomous.h>
 #include <Subsystems/VerticalArmMovement.h>
+#include <PowerDistributionPanel.h>
 
 class Robot : public frc::TimedRobot
 {
@@ -29,6 +30,8 @@ private:
 	std::shared_ptr<XDrive> m_xDrive;
 	std::unique_ptr<Autonomous> m_autonomous;
 	unsigned int periodicCount;
+
+	frc::PowerDistributionPanel m_pdp {0};
 
 public:
 	// Add all subsystem definition here as static public variables
