@@ -8,12 +8,19 @@
 #include "Subsystems/CubeDelivery.h"
 #include "RobotMap.h"
 #include <DoubleSolenoid.h>
+#include <SmartDashboard/SmartDashboard.h>
+#include <SmartDashboard/SmartDashboard.h>
+
+
 
 CubeDelivery::CubeDelivery() : frc::Subsystem("CubeDeliverySubsystem"),
 	m_openCloseArms {OPEN_CLOSE_CUBE_ARMS_FORWARD_SOLENOID, OPEN_CLOSE_CUBE_ARMS_REVERSE_SOLENOID},
 	m_cubeManipulationMotor {CUBE_ARMS_OPEN_CLOSE_MOTOR},
 	m_cubePresentSwitch {CUBE_PRESENT_OPTICAL_SWITCH}
 {
+	frc::SmartDashboard::PutData("Arms Open or Closed",&m_openCloseArms);
+	frc::SmartDashboard::PutData("Cube Possession",&m_cubePresentSwitch);
+
 }
 
 void CubeDelivery::OpenArms()

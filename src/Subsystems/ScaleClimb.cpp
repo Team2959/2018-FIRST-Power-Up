@@ -7,6 +7,7 @@
 
 #include "Subsystems/ScaleClimb.h"
 #include "RobotMap.h"
+#include <SmartDashboard/SmartDashboard.h>
 
 ScaleClimb::ScaleClimb() : frc::Subsystem("ScaleClimb"),
 	m_leftSpark {CLIMB_LEFT_MOTOR},
@@ -14,6 +15,7 @@ ScaleClimb::ScaleClimb() : frc::Subsystem("ScaleClimb"),
 	m_topLimitSwitch {CLIMB_TOP_LIMIT_SWITCH},
 	m_bottomLimitSwitch {CLIMB_BOTTOM_LIMIT_SWITCH}
 {
+	frc::SmartDashboard::PutData("At Top",&m_topLimitSwitch);
 }
 
 void ScaleClimb::RaiseHooksUp()
