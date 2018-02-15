@@ -24,6 +24,8 @@ private:
 	frc::Spark m_cubeManipulationMotor;
 	frc::DigitalInput m_cubePresentSwitch;
 
+	std::string GetArmText();
+
 public:
 	CubeDelivery();
 	~CubeDelivery() override = default;
@@ -35,6 +37,8 @@ public:
 	void SpinWheelsOut(double speed);
 	bool ArmsAreOpen();
 	bool CubePresent();
+
+	void UpdateSmartDashboard();
 };
 
 #endif /* SRC_COMMANDS_CUBEDELIVERYSUBSYSTEM_H_ */

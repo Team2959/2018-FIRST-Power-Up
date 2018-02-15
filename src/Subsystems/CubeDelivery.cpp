@@ -18,9 +18,7 @@ CubeDelivery::CubeDelivery() : frc::Subsystem("CubeDeliverySubsystem"),
 	m_cubeManipulationMotor {CUBE_ARMS_OPEN_CLOSE_MOTOR},
 	m_cubePresentSwitch {CUBE_PRESENT_OPTICAL_SWITCH}
 {
-	frc::SmartDashboard::PutData("Arms Open or Closed",&m_openCloseArms);
-	frc::SmartDashboard::PutData("Cube Possession",&m_cubePresentSwitch);
-
+	UpdateSmartDashboard();
 }
 
 void CubeDelivery::OpenArms()
@@ -65,4 +63,24 @@ bool CubeDelivery::ArmsAreOpen()
 bool CubeDelivery::CubePresent()
 {
 	return m_cubePresentSwitch.Get();
+}
+
+void CubeDelivery::UpdateSmartDashboard()
+{
+	frc::SmartDashboard::PutString("Arms Open:  ",GetArmText());
+	frc::SmartDashboard::PutBoolean("  Cube Possession",m_cubePresentSwitch.Get());
+}
+
+std::string CubeDelivery::GetArmText()
+{
+	switch(m_openCloseArms.Get())
+	{
+	case frc::DoubleSolenoid::kForward:
+		return "Forward";
+	case frc::DoubleSolenoid::kReverse:
+		return "Reverse";
+	case frc::DoubleSolenoid::kOff:
+	default:
+		return "Off";
+	}
 }

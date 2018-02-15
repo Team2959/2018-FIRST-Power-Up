@@ -15,7 +15,6 @@ ScaleClimb::ScaleClimb() : frc::Subsystem("ScaleClimb"),
 	m_topLimitSwitch {CLIMB_TOP_LIMIT_SWITCH},
 	m_bottomLimitSwitch {CLIMB_BOTTOM_LIMIT_SWITCH}
 {
-	frc::SmartDashboard::PutData("At Top",&m_topLimitSwitch);
 }
 
 void ScaleClimb::RaiseHooksUp()
@@ -44,4 +43,9 @@ bool ScaleClimb::AtTop()
 bool ScaleClimb::AtBottom()
 {
 	return m_bottomLimitSwitch.Get();
+}
+
+void ScaleClimb::UpdateSmartDashboard()
+{
+	frc::SmartDashboard::PutBoolean("  At Top",m_topLimitSwitch.Get());
 }

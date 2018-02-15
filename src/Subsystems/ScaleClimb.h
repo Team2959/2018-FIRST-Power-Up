@@ -30,6 +30,8 @@ public:
 
 	bool AtTop();
 	bool AtBottom();
+
+	void UpdateSmartDashboard();
 };
 
 #endif /* SRC_SUBSYSTEMS_SCALECLIMB_H_ */
