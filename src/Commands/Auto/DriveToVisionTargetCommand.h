@@ -18,6 +18,13 @@ public:
 	void Execute() override;
 	bool IsFinished() override;
 	void End() override;
+
+private:
+double	FindTarget();
+constexpr static double NoTarget = -1;
+constexpr static double AtTarget = -2;
+constexpr static int TapeColor = 0;
+constexpr static double TargetSize = .25;
 };
 
 #endif /* SRC_COMMANDS_AUTO_DRIVETOVISIONTARGETCOMMAND_H_ */
