@@ -47,5 +47,5 @@ bool ScaleClimb::AtBottom()
 
 void ScaleClimb::UpdateSmartDashboard()
 {
-	frc::SmartDashboard::PutBoolean("  At Top",m_topLimitSwitch.Get());
+	frc::SmartDashboard::PutBoolean("  At Top", AtTop());
 }

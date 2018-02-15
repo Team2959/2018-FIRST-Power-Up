@@ -37,9 +37,7 @@ constexpr int CLIMB_BOTTOM_LIMIT_SWITCH = 1;
 constexpr int CUBE_PRESENT_OPTICAL_SWITCH = 2;
 
 // Pneumatics Control Module (PCM) Solenoids
-constexpr int FOLD_CUBE_ARMS_FORWARD_SOLENOID = 0;
-constexpr int FOLD_CUBE_ARMS_REVERSE_SOLENOID = 1;
-constexpr int OPEN_CLOSE_CUBE_ARMS_FORWARD_SOLENOID = 2;
-constexpr int OPEN_CLOSE_CUBE_ARMS_REVERSE_SOLENOID = 3;
+constexpr int FOLD_CUBE_ARMS_SOLENOID = 0;
+constexpr int OPEN_CLOSE_CUBE_ARMS_SOLENOID = 1;
 
 #endif /* SRC_ROBOT_MAP_H_ */

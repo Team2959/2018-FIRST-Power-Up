@@ -7,14 +7,10 @@
 
 #include "Subsystems/CubeDelivery.h"
 #include "RobotMap.h"
-#include <DoubleSolenoid.h>
 #include <SmartDashboard/SmartDashboard.h>
-#include <SmartDashboard/SmartDashboard.h>
-
-
 
 CubeDelivery::CubeDelivery() : frc::Subsystem("CubeDeliverySubsystem"),
-	m_openCloseArms {OPEN_CLOSE_CUBE_ARMS_FORWARD_SOLENOID, OPEN_CLOSE_CUBE_ARMS_REVERSE_SOLENOID},
+	m_openCloseArms {OPEN_CLOSE_CUBE_ARMS_SOLENOID},
 	m_cubeManipulationMotor {CUBE_ARMS_OPEN_CLOSE_MOTOR},
 	m_cubePresentSwitch {CUBE_PRESENT_OPTICAL_SWITCH}
 {
@@ -23,12 +19,12 @@ CubeDelivery::CubeDelivery() : frc::Subsystem("CubeDeliverySubsystem"),
 
 void CubeDelivery::OpenArms()
 {
-	m_openCloseArms.Set(frc::DoubleSolenoid::Value::kForward);
+	m_openCloseArms.Set(true);
 }
 
 void CubeDelivery::CloseArms()
 {
-	m_openCloseArms.Set(frc::DoubleSolenoid::Value::kReverse);
+	m_openCloseArms.Set(false);
 }
 
 void CubeDelivery::StopWheels()
@@ -57,7 +53,7 @@ void CubeDelivery::SpinWheelsOut(double speed)
 
 bool CubeDelivery::ArmsAreOpen()
 {
-	return m_openCloseArms.Get() == frc::DoubleSolenoid::Value::kForward;
+	return m_openCloseArms.Get();
 }
 
 bool CubeDelivery::CubePresent()
@@ -67,17 +63,6 @@ bool CubeDelivery::CubePresent()
 
 void CubeDelivery::UpdateSmartDashboard()
 {
-	frc::SmartDashboard::PutBoolean("   Arms Open",GetArmValue());
-	frc::SmartDashboard::PutBoolean("  Cube Possession",m_cubePresentSwitch.Get());
-}
-
-bool CubeDelivery::GetArmValue()
-{
-	switch(m_openCloseArms.Get())
-	{
-	case frc::DoubleSolenoid::kForward:
-		return true;
-	default:
-		return false;
-	}
+	frc::SmartDashboard::PutBoolean("   Arms Open", ArmsAreOpen());
+	frc::SmartDashboard::PutBoolean("  Cube Possession", CubePresent());
 }
