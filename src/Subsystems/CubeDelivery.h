@@ -24,7 +24,7 @@ private:
 	frc::Spark m_cubeManipulationMotor;
 	frc::DigitalInput m_cubePresentSwitch;
 
-	std::string GetArmText();
+	bool GetArmValue();
 
 public:
 	CubeDelivery();

@@ -67,20 +67,17 @@ bool CubeDelivery::CubePresent()
 
 void CubeDelivery::UpdateSmartDashboard()
 {
-	frc::SmartDashboard::PutString("Arms Open:  ",GetArmText());
+	frc::SmartDashboard::PutBoolean("   Arms Open",GetArmValue());
 	frc::SmartDashboard::PutBoolean("  Cube Possession",m_cubePresentSwitch.Get());
 }
 
-std::string CubeDelivery::GetArmText()
+bool CubeDelivery::GetArmValue()
 {
 	switch(m_openCloseArms.Get())
 	{
 	case frc::DoubleSolenoid::kForward:
-		return "Forward";
-	case frc::DoubleSolenoid::kReverse:
-		return "Reverse";
-	case frc::DoubleSolenoid::kOff:
+		return true;
 	default:
-		return "Off";
+		return false;
 	}
 }
