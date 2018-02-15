@@ -55,7 +55,8 @@ void MotionTracking::InitMotorTelemetry(std::string name, WPI_TalonSRX& controll
 
 void MotionTracking::UpdateMotorTelemetry(std::string name)
 {
-	if (m_motors.find(name) != m_motors.end()) {
+	if (m_motors.find(name) != m_motors.end())
+	{
 		double currentTime = m_time.Get();
 		double currentVelocity = m_motors[name].controller->GetSelectedSensorVelocity(0) * ENCODER_TO_FPS;
 		m_motors[name].displacement += (m_motors[name].instVelocity + currentVelocity) * 0.5 * (currentTime - m_motors[name].time);
@@ -76,7 +77,8 @@ void MotionTracking::PrintMotorTelemetries()
 
 void MotionTracking::ResetMotorTelemetry(std::string name)
 {
-	if (m_motors.find(name) != m_motors.end()) {
+	if (m_motors.find(name) != m_motors.end())
+	{
 		double currentTime = m_time.Get();
 		m_motors[name].displacement = 0;
 		m_motors[name].instVelocity = 0;

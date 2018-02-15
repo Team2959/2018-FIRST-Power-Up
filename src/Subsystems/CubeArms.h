@@ -9,12 +9,12 @@
 #define SRC_CUBE_ARMS_H_
 
 #include <Commands/Subsystem.h>
-#include <DoubleSolenoid.h>
+#include <Solenoid.h>
 
 class CubeArms: public frc::Subsystem
 {
 private:
-	frc::DoubleSolenoid m_foldArms;
+	frc::Solenoid m_foldArms;
 
 public:
 	CubeArms();

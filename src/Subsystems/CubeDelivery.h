@@ -9,7 +9,7 @@
 #define SRC_COMMANDS_CUBEDELIVERYSUBSYSTEM_H_
 
 #include <Commands/Subsystem.h>
-#include <DoubleSolenoid.h>
+#include <Solenoid.h>
 #include <Spark.h>
 #include <DigitalInput.h>
 
@@ -20,11 +20,9 @@ constexpr double SpinCubeWheelsOutFast = -1.0;
 class CubeDelivery: public frc::Subsystem
 {
 private:
-	frc::DoubleSolenoid m_openCloseArms;
+	frc::Solenoid m_openCloseArms;
 	frc::Spark m_cubeManipulationMotor;
 	frc::DigitalInput m_cubePresentSwitch;
-
-	bool GetArmValue();
 
 public:
 	CubeDelivery();

@@ -9,16 +9,16 @@
 #include "RobotMap.h"
 
 CubeArms::CubeArms() : frc::Subsystem("CubeArms"),
-	m_foldArms {FOLD_CUBE_ARMS_FORWARD_SOLENOID, FOLD_CUBE_ARMS_REVERSE_SOLENOID}
+	m_foldArms {FOLD_CUBE_ARMS_SOLENOID}
 {
 }
 
 void CubeArms::FoldUp()
 {
-	m_foldArms.Set(frc::DoubleSolenoid::Value::kForward);
+	m_foldArms.Set(true);
 }
 
 void CubeArms::FoldDown()
 {
-	m_foldArms.Set(frc::DoubleSolenoid::Value::kReverse);
+	m_foldArms.Set(false);
 }
