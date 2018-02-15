@@ -94,8 +94,12 @@ void Robot::StartCompetition()
 
 void Robot::RobotPeriodic()
 {
-	CubeDeliverySubsystem->UpdateSmartDashboard();
-	ClimbSubsystem->UpdateSmartDashboard();
+	if ((periodicCount % 5) == 0)
+	{
+		CubeDeliverySubsystem->UpdateSmartDashboard();
+		ClimbSubsystem->UpdateSmartDashboard();
+	}
+
 	if ((periodicCount % 100) == 0)
 	{
 		MotionTrackingSubsystem->PrintMotorTelemetries();
