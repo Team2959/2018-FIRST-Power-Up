@@ -19,13 +19,32 @@ DriveToVisionTargetCommand::DriveToVisionTargetCommand()
 
 void DriveToVisionTargetCommand::Execute()
 {
+double xTarget = FindTarget();
+DriveTrain* driveTrain= Robot::DriveTrainSubsystem.get();
 
+if (xTarget == NoTarget ){
+	driveTrain->Drive(0,0,0);
+	return;
 }
-
+if (xTarget == AtTarget ){
+	driveTrain->Drive(0,0,0);
+	m_AtTarget = true;
+	return;
+}
+if (xTarget<0.4){
+	driveTrain->Drive(1,3*QuarterPi,0);
+	return;
+}
+if (xTarget>0.6){
+	driveTrain->Drive(1,QuarterPi,0);
+	return;
+}
+driveTrain->Drive(1,HalfPi,0);
+}
 
 bool DriveToVisionTargetCommand::IsFinished()
 {
-	return false;
+	return m_AtTarget;
 }
 
 void DriveToVisionTargetCommand::End()
