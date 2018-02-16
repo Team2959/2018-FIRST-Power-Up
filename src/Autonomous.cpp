@@ -13,6 +13,7 @@
 #include "Commands/Auto/MyAutoCommand.h"
 #include "Commands/Auto/PlaceInitialCubeOnSwitchCommandGroup.h"
 #include "Commands/Auto/PlaceOnLeftSwitchCommandGroup.h"
+#include "Robot.h"
 
 Autonomous::Autonomous()
 {
@@ -25,10 +26,7 @@ Autonomous::Autonomous()
 
 void Autonomous::AutoInit()
 {
-	bool hasGameData = false;
-	bool switchOnLeft = false;
-	bool scaleOnLeft = false;
-	bool opponentSwitchOnLeft = false;
+	Robot::CubeDeliverySubsystem->CloseArms();
 
 	// Add code to read switch/scale state from Field Management System
 	// https://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/826278-2018-game-data-details
@@ -39,15 +37,27 @@ void Autonomous::AutoInit()
 	}
 	else
 	{
-		hasGameData = true;
-		switchOnLeft = gameData[0] == 'L';
-		scaleOnLeft = gameData[1] == 'L';
-		opponentSwitchOnLeft = gameData[2] == 'L';
+		if (gameData[0] == 'L'){
+			m_nearSwitchSide = Side::Left;
+		}
+		else {
+			m_nearSwitchSide = Side::Right;
+		}
+		if (gameData[1] == 'L'){
+					m_ScaleSide = Side::Left;
+				}
+				else {
+					m_ScaleSide = Side::Right;
+				}
 
-		std::cout << "Auto Has Game Data - " << hasGameData << '\n';
-		std::cout << "Switch on left - " << switchOnLeft << '\n';
-		std::cout << "Scale on left - " << scaleOnLeft << '\n';
-		std::cout << "Opponent switch on left - " << opponentSwitchOnLeft << '\n';
+		if (gameData[2] == 'L'){
+					m_farSwitchSide = Side::Left;
+				}
+				else {
+					m_farSwitchSide = Side::Right;
+				}
+
+
 	}
 
 	switch(m_chooser.GetSelected())
@@ -59,7 +69,7 @@ void Autonomous::AutoInit()
 		m_autonomousCommand = std::make_unique<DriveStraightCommand>(5.0);
 		break;
 	case AutoCommand::PlaceInitialCubeOnSwitch:
-		m_autonomousCommand = std::make_unique<PlaceInitialCubeOnSwitchCommandGroup>(switchOnLeft);
+		m_autonomousCommand = std::make_unique<PlaceInitialCubeOnSwitchCommandGroup>();
 		break;
 	case AutoCommand::PlaceCubeOnLeftSwitch:
 		m_autonomousCommand = std::make_unique<PlaceOnLeftSwitchCommandGroup>();
@@ -84,4 +94,23 @@ void Autonomous::TeleopInit()
 		m_autonomousCommand->Cancel();
 		m_autonomousCommand = nullptr;
 	}
+}
+
+Autonomous::Side Autonomous::m_nearSwitchSide;
+Autonomous::Side Autonomous::m_farSwitchSide;
+Autonomous::Side Autonomous::m_ScaleSide;
+
+Autonomous::Side Autonomous::GetNearSwitchSide()
+{
+	return m_nearSwitchSide;
+}
+
+Autonomous::Side Autonomous::GetFarSwitchSide()
+{
+	return 	m_farSwitchSide;
+}
+
+Autonomous::Side Autonomous::GetScaleSide()
+{
+	return m_ScaleSide;
 }

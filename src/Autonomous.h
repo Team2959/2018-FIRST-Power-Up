@@ -25,6 +25,7 @@ private:
 		PlaceCubeOnLeftSwitch
 	};
 
+
 	frc::SendableChooser<AutoCommand>	m_chooser;
 	std::unique_ptr<frc::Command>		m_autonomousCommand;
 
@@ -33,6 +34,20 @@ public:
 
 	void AutoInit();
 	void TeleopInit();
+
+	enum class Side
+		{
+			Left, Right
+		};
+
+	static Side GetNearSwitchSide();
+	static Side GetFarSwitchSide();
+	static Side GetScaleSide();
+
+private:
+	static Side							m_nearSwitchSide;
+	static Side							m_farSwitchSide;
+	static Side							m_ScaleSide;
 };
 
 #endif /* SRC_AUTONOMOUS_H_ */
