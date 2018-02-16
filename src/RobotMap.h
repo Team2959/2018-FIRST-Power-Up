@@ -27,14 +27,14 @@ constexpr int BACK_LEFT_DRIVE_MOTOR_CAN = 4;
 constexpr int CUBE_VERTICAL_MOTOR_CAN = 5;
 
 // PWM Mappings - Sparks
-constexpr int CUBE_ARMS_OPEN_CLOSE_MOTOR = 0;
-constexpr int CLIMB_LEFT_MOTOR = 1;
-constexpr int CLIMB_RIGHT_MOTOR = 2;
+constexpr int CUBE_ARMS_OPEN_CLOSE_MOTOR = 4;
+constexpr int CLIMB_LEFT_MOTOR = 7;
+constexpr int CLIMB_RIGHT_MOTOR = 6;
 
 // Digital IO Mappings
-constexpr int CLIMB_TOP_LIMIT_SWITCH = 0;
-constexpr int CLIMB_BOTTOM_LIMIT_SWITCH = 1;
-constexpr int CUBE_PRESENT_OPTICAL_SWITCH = 2;
+constexpr int CLIMB_TOP_LIMIT_SWITCH = 6;
+constexpr int CLIMB_BOTTOM_LIMIT_SWITCH = 7;
+constexpr int CUBE_PRESENT_OPTICAL_SWITCH = 6;
 
 // Pneumatics Control Module (PCM) Solenoids
 constexpr int FOLD_CUBE_ARMS_SOLENOID = 0;
