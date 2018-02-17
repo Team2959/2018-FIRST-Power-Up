@@ -49,6 +49,8 @@ bool DriveToVisionTargetCommand::IsFinished()
 
 void DriveToVisionTargetCommand::End()
 {
+	DriveTrain* driveTrain= Robot::DriveTrainSubsystem.get();
+	driveTrain->Drive(0,0,0);
 }
 double	DriveToVisionTargetCommand::FindTarget()
 {

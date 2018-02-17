@@ -11,18 +11,14 @@
 #include <Commands/FoldArmsDownCommand.h>
 #include <Subsystems/VerticalArmMovement.h>
 #include <Commands/Auto/CloseCubeArmsCommand.h>
-
-PlaceInitialCubeOnSwitchCommandGroup::PlaceInitialCubeOnSwitchCommandGroup(bool switchOnLeft) :	frc::CommandGroup("PlaceInitialCubeOnSwitch")
+#include <Commands/Auto/FindDriveTarget.h>
+#include <Commands/Auto/DriveToVisionTargetCommand.h>
+PlaceInitialCubeOnSwitchCommandGroup::PlaceInitialCubeOnSwitchCommandGroup() :	frc::CommandGroup("PlaceInitialCubeOnSwitch")
 {
-	AddParallel(new CloseCubeArmsCommand());
 
-	// Identify centroid of block pyramid
-	// Turn toward direction of switchOnLeft until the reflective tape is centered in field of view
-	// Drive until we are close enough.  By:  identified tape block(s) are large enough or proximity sensor trips.
-	// Drop the cube on switch
-	//AddParallel(new DriveToSwitchTargetCommand(switchOnLeft));
 
-	AddParallel(new MoveToVerticalCubePositionCommand(VerticalArmMovement::Switch));
-	AddParallel(new FoldArmsDownCommand());
+	AddSequential(new FindDriveTarget());
+	AddSequential(new DriveToVisionTargetCommand());
+	AddSequential(new FoldArmsDownCommand());
 	AddSequential(new DeliverCubeCommand());
 }

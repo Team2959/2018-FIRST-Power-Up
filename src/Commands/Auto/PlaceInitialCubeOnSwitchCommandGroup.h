@@ -13,7 +13,7 @@
 class PlaceInitialCubeOnSwitchCommandGroup : public frc::CommandGroup
 {
 public:
-	PlaceInitialCubeOnSwitchCommandGroup(bool switchOnLeft = true);
+	PlaceInitialCubeOnSwitchCommandGroup();
 	~PlaceInitialCubeOnSwitchCommandGroup() override = default;
 };
 
