@@ -13,10 +13,9 @@
 #include <Commands/Auto/CloseCubeArmsCommand.h>
 #include <Commands/Auto/FindDriveTarget.h>
 #include <Commands/Auto/DriveToVisionTargetCommand.h>
+
 PlaceInitialCubeOnSwitchCommandGroup::PlaceInitialCubeOnSwitchCommandGroup() :	frc::CommandGroup("PlaceInitialCubeOnSwitch")
 {
-
-
 	AddSequential(new FindDriveTarget());
 	AddSequential(new DriveToVisionTargetCommand());
 	AddSequential(new FoldArmsDownCommand());

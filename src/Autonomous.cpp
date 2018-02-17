@@ -37,27 +37,31 @@ void Autonomous::AutoInit()
 	}
 	else
 	{
-		if (gameData[0] == 'L'){
+		if (gameData[0] == 'L')
+		{
 			m_nearSwitchSide = Side::Left;
 		}
-		else {
+		else
+		{
 			m_nearSwitchSide = Side::Right;
 		}
-		if (gameData[1] == 'L'){
-					m_ScaleSide = Side::Left;
-				}
-				else {
-					m_ScaleSide = Side::Right;
-				}
+		if (gameData[1] == 'L')
+		{
+			m_ScaleSide = Side::Left;
+		}
+		else
+		{
+			m_ScaleSide = Side::Right;
+		}
 
-		if (gameData[2] == 'L'){
-					m_farSwitchSide = Side::Left;
-				}
-				else {
-					m_farSwitchSide = Side::Right;
-				}
-
-
+		if (gameData[2] == 'L')
+		{
+			m_farSwitchSide = Side::Left;
+		}
+		else
+		{
+			m_farSwitchSide = Side::Right;
+		}
 	}
 
 	switch(m_chooser.GetSelected())

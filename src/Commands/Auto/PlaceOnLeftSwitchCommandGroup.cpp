@@ -14,7 +14,6 @@
 
 PlaceOnLeftSwitchCommandGroup::PlaceOnLeftSwitchCommandGroup()
 {
-	AddParallel(new CloseCubeArmsCommand());
 	//AddParallel(new DriveToLeftSwitchCommand());
 	AddParallel(new MoveToVerticalCubePositionCommand(VerticalArmMovement::Switch));
 	AddParallel(new FoldArmsDownCommand());
