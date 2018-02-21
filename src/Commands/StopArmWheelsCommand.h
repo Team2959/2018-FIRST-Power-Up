@@ -8,16 +8,15 @@
 #ifndef SRC_COMMANDS_STOPARMWHEELSCOMMAND_H_
 #define SRC_COMMANDS_STOPARMWHEELSCOMMAND_H_
 
-#include <Commands/Command.h>
+#include <Commands/TimedCommand.h>
 
-class StopArmWheelsCommand: public frc::Command
+class StopArmWheelsCommand: public frc::TimedCommand
 {
 public:
-	StopArmWheelsCommand();
+	StopArmWheelsCommand(double time = 0.0);
 	~StopArmWheelsCommand() override = default;
 
-	void Initialize() override;
-	bool IsFinished() override;
+	void End() override;
 };
 
 #endif /* SRC_COMMANDS_STOPARMWHEELSCOMMAND_H_ */

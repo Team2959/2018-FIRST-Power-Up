@@ -16,8 +16,7 @@
 #include <Commands/Auto/MoveToVerticalCubePositionCommand.h>
 #include <Commands/DeliverCubeCommand.h>
 #include <Commands/MoveToAbsoluteHeightCommand.h>
-#include <Commands/OpenCubeArmsCommand.h>
-#include <Commands/CloseCubeArmsCommand.h>
+#include <Commands/OpenOrCloseCubeArmsCommand.h>
 
 OI::OI()
 {
@@ -26,8 +25,7 @@ OI::OI()
 	ButtonBox.reset(new frc::Joystick(1));
 
 	// map driver buttons
-	OpenCubeArmsButton.reset(new frc::JoystickButton(DriverJoystick.get(), 2));
-	CloseCubeArmsButton.reset(new frc::JoystickButton(DriverJoystick.get(), 3));
+	OpenOrCloseCubeArmsButton.reset(new frc::JoystickButton(DriverJoystick.get(), 2));
 
 	// map co-pilot buttons
 	RaiseHooksUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 1));
@@ -42,8 +40,7 @@ OI::OI()
 	IsCubePresentTrigger.reset(new CubePresentTrigger());
 
 	// Tie buttons to commands
-	OpenCubeArmsButton->WhenPressed(new OpenCubeArmsCommand());
-	CloseCubeArmsButton->WhenPressed(new CloseCubeArmsCommand());
+	OpenOrCloseCubeArmsButton->WhenPressed(new OpenOrCloseCubeArmsCommand());
 	RaiseHooksUpButton->WhenPressed(new RaiseHooksUpToRungCommand());
 	DropHooksDownButton->WhileHeld(new DropHooksDownCommand());
 	StopArmWheelsButton->WhenPressed(new StopArmWheelsCommand());
@@ -52,7 +49,7 @@ OI::OI()
 	SpinArmWheelsInButton->WhenPressed(new SpinArmWheelsInCommand());
 	DeliverCubeButton->WhenPressed(new DeliverCubeCommand());
 
-	IsCubePresentTrigger->WhenActive(new StopArmWheelsCommand());
+	IsCubePresentTrigger->WhenActive(new StopArmWheelsCommand(0.5));
 
 	// example how to put a command on the dashboard. You can press start and execute it.
 	//frc::SmartDashboard::PutData("Raise Hooks Up", new RaiseHooksUpToRungCommand());

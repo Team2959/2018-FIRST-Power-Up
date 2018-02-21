@@ -8,17 +8,12 @@
 #include <Commands/StopArmWheelsCommand.h>
 #include "Robot.h"
 
-StopArmWheelsCommand::StopArmWheelsCommand() : frc::Command("StopArmWheels")
+StopArmWheelsCommand::StopArmWheelsCommand(double time) : frc::TimedCommand("StopArmWheels", time)
 {
 	Requires(Robot::CubeDeliverySubsystem.get());
 }
 
-void StopArmWheelsCommand::Initialize()
+void StopArmWheelsCommand::End()
 {
 	Robot::CubeDeliverySubsystem->StopWheels();
-}
-
-bool StopArmWheelsCommand::IsFinished()
-{
-	return true;
 }
