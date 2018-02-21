@@ -14,8 +14,8 @@ VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentS
 	m_cubeLiftMotor {CUBE_VERTICAL_MOTOR_CAN}
 {
 	m_cubeLiftMotor.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, 0, 0);
-	m_cubeLiftMotor.Config_kF(0, 0.275, 0);
-	m_cubeLiftMotor.Config_kP(0, 0.025, 0);
+	m_cubeLiftMotor.Config_kF(0, 0, 0);
+	m_cubeLiftMotor.Config_kP(0, 0.25, 0);
 //	m_cubeLiftMotor.Config_kI(0, 0.0045, 0);
 //	m_cubeLiftMotor.Config_IntegralZone(0, 300, 0);
 	m_cubeLiftMotor.SetSensorPhase(false);

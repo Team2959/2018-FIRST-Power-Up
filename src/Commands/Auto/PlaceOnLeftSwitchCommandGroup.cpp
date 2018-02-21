@@ -10,7 +10,6 @@
 #include <Commands/Auto/MoveToVerticalCubePositionCommand.h>
 #include <Commands/FoldArmsDownCommand.h>
 #include <Subsystems/VerticalArmMovement.h>
-#include <Commands/Auto/CloseCubeArmsCommand.h>
 
 PlaceOnLeftSwitchCommandGroup::PlaceOnLeftSwitchCommandGroup()
 {

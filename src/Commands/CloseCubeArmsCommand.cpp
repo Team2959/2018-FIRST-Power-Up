@@ -5,7 +5,7 @@
  *      Author:
  */
 
-#include <Commands/Auto/CloseCubeArmsCommand.h>
+#include <Commands/CloseCubeArmsCommand.h>
 #include "Robot.h"
 
 CloseCubeArmsCommand::CloseCubeArmsCommand() : frc::Command("CloseCubeArms")
