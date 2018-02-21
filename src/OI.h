@@ -11,6 +11,7 @@
 #include <memory>
 #include <Joystick.h>
 #include <Buttons/JoystickButton.h>
+#include <Triggers/CubePresentTrigger.h>
 
 class OI
 {
@@ -24,8 +25,11 @@ private:
 	std::shared_ptr<frc::JoystickButton> FoldCubeArmsUpButton;
 	std::shared_ptr<frc::JoystickButton> FoldCubeArmsDownButton;
 	std::shared_ptr<frc::JoystickButton> SpinArmWheelsInButton;
-	std::shared_ptr<frc::JoystickButton> OpeningAndClosingArmsButton;
 	std::shared_ptr<frc::JoystickButton> DeliverCubeButton;
+	std::shared_ptr<frc::JoystickButton> OpenCubeArmsButton;
+	std::shared_ptr<frc::JoystickButton> CloseCubeArmsButton;
+
+	std::shared_ptr<CubePresentTrigger> IsCubePresentTrigger;
 
 public:
 	OI();

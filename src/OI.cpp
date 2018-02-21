@@ -11,12 +11,13 @@
 #include <Commands/DropHooksDownCommand.h>
 #include <Commands/FoldArmsDownCommand.h>
 #include <Commands/FoldArmsUpCommand.h>
-#include <Commands/OpeningAndClosingArmsCommand.h>
 #include <Commands/StopArmWheelsCommand.h>
 #include <Commands/SpinArmWheelsInCommand.h>
 #include <Commands/Auto/MoveToVerticalCubePositionCommand.h>
 #include <Commands/DeliverCubeCommand.h>
 #include <Commands/MoveToAbsoluteHeightCommand.h>
+#include <Commands/OpenCubeArmsCommand.h>
+#include <Commands/CloseCubeArmsCommand.h>
 
 OI::OI()
 {
@@ -25,7 +26,8 @@ OI::OI()
 	ButtonBox.reset(new frc::Joystick(1));
 
 	// map driver buttons
-	OpeningAndClosingArmsButton.reset(new frc::JoystickButton(DriverJoystick.get(), 2));
+	OpenCubeArmsButton.reset(new frc::JoystickButton(DriverJoystick.get(), 2));
+	CloseCubeArmsButton.reset(new frc::JoystickButton(DriverJoystick.get(), 3));
 
 	// map co-pilot buttons
 	RaiseHooksUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 1));
@@ -36,8 +38,12 @@ OI::OI()
 	SpinArmWheelsInButton.reset(new frc::JoystickButton(ButtonBox.get(), 6));
 	DeliverCubeButton.reset(new frc::JoystickButton(ButtonBox.get(), 7));
 
+	// Triggers
+	IsCubePresentTrigger.reset(new CubePresentTrigger());
+
 	// Tie buttons to commands
-	OpeningAndClosingArmsButton->WhenPressed(new OpeningAndClosingArmsCommand());
+	OpenCubeArmsButton->WhenPressed(new OpenCubeArmsCommand());
+	CloseCubeArmsButton->WhenPressed(new CloseCubeArmsCommand());
 	RaiseHooksUpButton->WhenPressed(new RaiseHooksUpToRungCommand());
 	DropHooksDownButton->WhileHeld(new DropHooksDownCommand());
 	StopArmWheelsButton->WhenPressed(new StopArmWheelsCommand());
@@ -45,6 +51,8 @@ OI::OI()
 	FoldCubeArmsDownButton->WhenPressed(new FoldArmsDownCommand());
 	SpinArmWheelsInButton->WhenPressed(new SpinArmWheelsInCommand());
 	DeliverCubeButton->WhenPressed(new DeliverCubeCommand());
+
+	IsCubePresentTrigger->WhenActive(new StopArmWheelsCommand());
 
 	// example how to put a command on the dashboard. You can press start and execute it.
 	//frc::SmartDashboard::PutData("Raise Hooks Up", new RaiseHooksUpToRungCommand());
