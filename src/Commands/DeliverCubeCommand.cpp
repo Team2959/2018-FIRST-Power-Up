@@ -32,7 +32,7 @@ void DeliverCubeCommand::Initialize()
 //	}
 //
 //	Robot::CubeDeliverySubsystem->SpinWheelsOut(speedAxis);
-	Robot::CubeDeliverySubsystem->SpinWheelsOut(SpinCubeWheelsOutSlow);
+	Robot::CubeDeliverySubsystem->SpinWheelsOut(SpinCubeWheelsOutFast);
 }
 
 bool DeliverCubeCommand::IsFinished()
