@@ -37,15 +37,16 @@ void ScaleClimb::StopHooks()
 
 bool ScaleClimb::AtTop()
 {
-	return m_topLimitSwitch.Get();
+	return m_topLimitSwitch.Get() == false;
 }
 
 bool ScaleClimb::AtBottom()
 {
-	return m_bottomLimitSwitch.Get();
+	return m_bottomLimitSwitch.Get() == false;
 }
 
 void ScaleClimb::UpdateSmartDashboard()
 {
 	frc::SmartDashboard::PutBoolean("  At Top", AtTop());
+	frc::SmartDashboard::PutBoolean("  At Bottom", AtBottom());
 }

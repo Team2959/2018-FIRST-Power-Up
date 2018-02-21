@@ -54,8 +54,10 @@ public:
 
 	void MoveArm(CubeVerticalPlace target, double scaleHeight = 0.0);
 	void MoveArmToHeight(double height);
+	void MoveToAbsoluteHeight(double height);
 	bool IsAtPosition(CubeVerticalPlace target, double scaleHeight = 0.0);
 	bool IsAtSwitchOrHigher();
+	void UpdateSmartDashboard();
 };
 
 #endif /* SRC_SUBSYSTEMS_VERTICALARMMOVEMENT_H_ */

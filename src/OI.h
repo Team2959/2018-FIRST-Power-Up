@@ -25,6 +25,7 @@ private:
 	std::shared_ptr<frc::JoystickButton> FoldCubeArmsDownButton;
 	std::shared_ptr<frc::JoystickButton> SpinArmWheelsInButton;
 	std::shared_ptr<frc::JoystickButton> OpeningAndClosingArmsButton;
+	std::shared_ptr<frc::JoystickButton> DeliverCubeButton;
 
 public:
 	OI();

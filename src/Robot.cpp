@@ -98,6 +98,7 @@ void Robot::RobotPeriodic()
 	{
 		CubeDeliverySubsystem->UpdateSmartDashboard();
 		ClimbSubsystem->UpdateSmartDashboard();
+		VerticalArmMovmentSubsystem->UpdateSmartDashboard();
 	}
 
 	if ((periodicCount % 100) == 0)

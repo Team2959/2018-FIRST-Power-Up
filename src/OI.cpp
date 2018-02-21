@@ -13,7 +13,10 @@
 #include <Commands/FoldArmsUpCommand.h>
 #include <Commands/OpeningAndClosingArmsCommand.h>
 #include <Commands/StopArmWheelsCommand.h>
+#include <Commands/SpinArmWheelsInCommand.h>
 #include <Commands/Auto/MoveToVerticalCubePositionCommand.h>
+#include <Commands/DeliverCubeCommand.h>
+#include <Commands/MoveToAbsoluteHeightCommand.h>
 
 OI::OI()
 {
@@ -31,14 +34,17 @@ OI::OI()
 	FoldCubeArmsUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 4));
 	FoldCubeArmsDownButton.reset(new frc::JoystickButton(ButtonBox.get(), 5));
 	SpinArmWheelsInButton.reset(new frc::JoystickButton(ButtonBox.get(), 6));
+	DeliverCubeButton.reset(new frc::JoystickButton(ButtonBox.get(), 7));
 
 	// Tie buttons to commands
 	OpeningAndClosingArmsButton->WhenPressed(new OpeningAndClosingArmsCommand());
 	RaiseHooksUpButton->WhenPressed(new RaiseHooksUpToRungCommand());
 	DropHooksDownButton->WhileHeld(new DropHooksDownCommand());
 	StopArmWheelsButton->WhenPressed(new StopArmWheelsCommand());
-	FoldCubeArmsUpButton->WhenPressed(new FoldArmsDownCommand());
+	FoldCubeArmsUpButton->WhenPressed(new FoldArmsUpCommand());
 	FoldCubeArmsDownButton->WhenPressed(new FoldArmsDownCommand());
+	SpinArmWheelsInButton->WhenPressed(new SpinArmWheelsInCommand());
+	DeliverCubeButton->WhenPressed(new DeliverCubeCommand());
 
 	// example how to put a command on the dashboard. You can press start and execute it.
 	//frc::SmartDashboard::PutData("Raise Hooks Up", new RaiseHooksUpToRungCommand());
@@ -48,6 +54,8 @@ OI::OI()
 	frc::SmartDashboard::PutData("Move To Level2 ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Level2));
 	frc::SmartDashboard::PutData("Move To Level3 ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Level3));
 	frc::SmartDashboard::PutData("Move To Portal ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Portal));
+	frc::SmartDashboard::PutNumber("Absolute Position", 0);
+	frc::SmartDashboard::PutData("Move To Absolute Height ", new MoveToAbsoluteHeightCommand());
 }
 
 std::shared_ptr<frc::Joystick> OI::GetDriverJoystick()

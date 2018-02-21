@@ -34,11 +34,11 @@ constexpr int CLIMB_RIGHT_MOTOR = 6;
 // Digital IO Mappings
 constexpr int CLIMB_TOP_LIMIT_SWITCH = 9;
 constexpr int CLIMB_BOTTOM_LIMIT_SWITCH = 7;
-constexpr int CUBE_PRESENT_OPTICAL_SWITCH = 8;
+constexpr int CUBE_PRESENT_OPTICAL_SWITCH = 6;
 
 // Pneumatics Control Module (PCM) Solenoids
-constexpr int FOLD_CUBE_ARMS_SOLENOID = 0;
-constexpr int OPEN_CLOSE_CUBE_ARMS_SOLENOID = 1;
+constexpr int FOLD_CUBE_ARMS_SOLENOID = 1;
+constexpr int OPEN_CLOSE_CUBE_ARMS_SOLENOID = 0;
 
 constexpr double NoTarget = -1;
 constexpr double AtTarget = -2;

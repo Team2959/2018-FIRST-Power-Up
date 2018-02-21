@@ -58,7 +58,7 @@ bool CubeDelivery::ArmsAreOpen()
 
 bool CubeDelivery::CubePresent()
 {
-	return m_cubePresentSwitch.Get();
+	return m_cubePresentSwitch.Get() == false;
 }
 
 void CubeDelivery::UpdateSmartDashboard()

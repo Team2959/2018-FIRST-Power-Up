@@ -15,11 +15,15 @@ VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentS
 {
 	m_cubeLiftMotor.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, 0, 0);
 	m_cubeLiftMotor.Config_kF(0, 0.275, 0);
-	m_cubeLiftMotor.Config_kP(0, 1, 0);
+	m_cubeLiftMotor.Config_kP(0, 0.025, 0);
 //	m_cubeLiftMotor.Config_kI(0, 0.0045, 0);
 //	m_cubeLiftMotor.Config_IntegralZone(0, 300, 0);
 	m_cubeLiftMotor.SetSensorPhase(false);
 	m_cubeLiftMotor.SetSelectedSensorPosition(0,0,0);
+	m_cubeLiftMotor.ConfigPeakOutputForward(0.5, 0);
+	m_cubeLiftMotor.ConfigPeakOutputReverse(-0.5, 0);
+	m_cubeLiftMotor.ConfigAllowableClosedloopError(0, 128, 0);
+	m_cubeLiftMotor.ConfigClosedloopRamp(0.5, 0);
 	m_cubeLiftMotor.Set(ControlMode::Position, 0);
 }
 
@@ -68,6 +72,11 @@ void VerticalArmMovement::MoveArmToHeight(double height)
 	m_cubeLiftMotor.Set(ControlMode::Position, height * ScalePositionMaximum);
 }
 
+void VerticalArmMovement::MoveToAbsoluteHeight(double height)
+{
+	m_cubeLiftMotor.Set(ControlMode::Position, height);
+}
+
 bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHeight)
 {
 	auto position = m_cubeLiftMotor.GetSelectedSensorPosition(0);
@@ -108,4 +117,9 @@ bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHei
 bool VerticalArmMovement::IsAtSwitchOrHigher()
 {
 	return m_cubeLiftMotor.GetSelectedSensorPosition(0) > (SwitchPosition - 500);
+}
+
+void VerticalArmMovement::UpdateSmartDashboard()
+{
+	frc::SmartDashboard::PutNumber("Current Position", m_cubeLiftMotor.GetSelectedSensorPosition(0));
 }
