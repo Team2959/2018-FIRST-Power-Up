@@ -9,20 +9,28 @@
 #define SRC_COMMANDS_AUTO_FINDDRIVETARGET_H_
 
 #include <Commands/Command.h>
+#include "../../Autonomous.h"
+#include "../../Subsystems/DriveTrain.h"
+#include "../../Subsystems/Vision.h"
 
 class FindDriveTarget: public frc::Command
 {
 public:
-	FindDriveTarget();
-	~FindDriveTarget() override = default;
-
-	void Execute() override;
-	bool IsFinished() override;
-	void End() override;
+	FindDriveTarget(DriveTrain& driveTrain, Vision& vision, Side nearSwitchSide);
+	virtual void Execute() override;
+	virtual bool IsFinished() override;
+	virtual void End() override;
 
 private:
+	enum class Direction { Clockwise, CounterClockwise, Stop };
+
 	double FindTarget();
-	bool m_AtTarget = false;
+	void Rotate(Direction direction);
+
+	DriveTrain&	m_driveTrain;
+	Vision&		m_Vision;
+	Side 		m_nearSwitchSide;
+	bool		m_AtTarget{ false };
 };
 
 #endif /* SRC_COMMANDS_AUTO_FINDDRIVETARGET_H_ */

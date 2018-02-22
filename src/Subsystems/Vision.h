@@ -23,6 +23,8 @@ public:
 	double Top() const { return _top; }
 	double Width() const { return _width;}
 	double Height() const { return _height; }
+	double Right() const { return _left + _width; }
+	double Bottom() const { return _top + _height; }
 
 private:
 	double	_left;

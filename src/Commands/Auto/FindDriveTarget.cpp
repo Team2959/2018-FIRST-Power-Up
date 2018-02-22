@@ -9,7 +9,8 @@
 #include <Robot.h>
 #include <Autonomous.h>
 
-FindDriveTarget::FindDriveTarget()
+FindDriveTarget::FindDriveTarget(DriveTrain& driveTrain, Vision& vision, Side nearSwitchSide) : m_driveTrain{ driveTrain },
+  m_Vision{ vision }, m_nearSwitchSide{ nearSwitchSide }
 {
 	Requires(Robot::VisionSubsystem.get());
 	Requires(Robot::DriveTrainSubsystem.get());
@@ -17,18 +18,18 @@ FindDriveTarget::FindDriveTarget()
 
 void FindDriveTarget::Execute()
 {
-	DriveTrain* driveTrain= Robot::DriveTrainSubsystem.get();
-	double targetLocation = FindTarget();
-	if(( targetLocation<0.5)&&(Autonomous::GetNearSwitchSide() == Autonomous::Side::Left))
+	double targetLocation{ FindTarget() };
+	if( (targetLocation < 0.5)&&(m_nearSwitchSide == Side::Left) )
 	{
-		driveTrain->Drive(0,0,-1);
+		Rotate(Direction::CounterClockwise);
 		return;
 	}
-	if(( targetLocation>0.5)&&(Autonomous::GetNearSwitchSide() == Autonomous::Side::Right))
+	if( (targetLocation > 0.5)&&(m_nearSwitchSide == Side::Right) )
 	{
-				driveTrain->Drive(0,0,1);
-				return;
+		Rotate(Direction::Clockwise);
+		return;
 	}
+	Rotate(Direction::Stop);
 	m_AtTarget = true;
 }
 
@@ -39,30 +40,39 @@ bool FindDriveTarget::IsFinished()
 
 void FindDriveTarget::End()
 {
-	Robot::DriveTrainSubsystem->Drive(0,0,0);
+	Rotate(Direction::Stop);
 }
 
-double	FindDriveTarget::FindTarget()
+double FindDriveTarget::FindTarget()
 {
-	Vision*	vision = Robot::VisionSubsystem.get();
-	std::vector<VisionObject> visionObjects = vision->GetObjects(CubeColor);
-	if(visionObjects.size() == 0)
+	std::vector<VisionObject> visionObjects = m_Vision.GetObjects(CubeColor);
+	if( visionObjects.empty() )
 		return NoTarget;
-	double minX = 100;
-	double maxX = -100;
-	for (unsigned i = 0;i!=visionObjects.size();i++)
+	double minX = 100.0;
+	double maxX = -100.0;
+	for( auto& visionObject : visionObjects )
 	{
-		double	left = visionObjects[i].Left();
-		double right = left + visionObjects[i].Width();
-		if (left<minX)
+		double	left = visionObject.Left();
+		double 	right = visionObject.Right();
+		if (left < minX)
 		{
 			minX = left;
 		}
-		if (right>maxX)
+		if ( right > maxX)
 		{
 			maxX = right;
 		}
 	}
+	return (minX + maxX) / 2.0;
+}
 
-	return (minX + maxX)/2;
+void FindDriveTarget::Rotate(Direction direction)
+{
+	constexpr double Speed{ 0.1 };	// Raise to a faster speed after testing
+	if(direction == Direction::Clockwise)
+		m_driveTrain.Drive( 0.0, 0.0, Speed );
+	else if(direction == Direction::CounterClockwise)
+		m_driveTrain.Drive( 0.0, 0.0, -Speed );
+	else
+		m_driveTrain.Drive( 0.0, 0.0, 0.0 );
 }

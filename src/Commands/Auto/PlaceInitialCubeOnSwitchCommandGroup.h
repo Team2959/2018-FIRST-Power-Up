@@ -9,11 +9,14 @@
 #define SRC_PLACE_INITIAL_CUBE_ON_SWITCH_H_
 
 #include <Commands/CommandGroup.h>
+#include "../../Autonomous.h"
+#include "../../Subsystems/DriveTrain.h"
+#include "../../Subsystems/Vision.h"
 
 class PlaceInitialCubeOnSwitchCommandGroup : public frc::CommandGroup
 {
 public:
-	PlaceInitialCubeOnSwitchCommandGroup();
+	PlaceInitialCubeOnSwitchCommandGroup(DriveTrain& driveTrain, Vision& vision, Side nearSwitchSide);
 	~PlaceInitialCubeOnSwitchCommandGroup() override = default;
 };
 

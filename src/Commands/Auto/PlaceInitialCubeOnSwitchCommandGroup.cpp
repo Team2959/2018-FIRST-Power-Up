@@ -13,10 +13,11 @@
 #include <Commands/Auto/FindDriveTarget.h>
 #include <Commands/Auto/DriveToVisionTargetCommand.h>
 
-PlaceInitialCubeOnSwitchCommandGroup::PlaceInitialCubeOnSwitchCommandGroup() :	frc::CommandGroup("PlaceInitialCubeOnSwitch")
+PlaceInitialCubeOnSwitchCommandGroup::PlaceInitialCubeOnSwitchCommandGroup(DriveTrain& driveTrain, Vision& vision, Side nearSwitchSide) :
+  frc::CommandGroup("PlaceInitialCubeOnSwitch")
 {
-	AddSequential(new FindDriveTarget());
-	AddSequential(new DriveToVisionTargetCommand());
+	AddSequential(new FindDriveTarget(driveTrain, vision, nearSwitchSide));
+	AddSequential(new DriveToVisionTargetCommand(driveTrain, vision));
 	AddSequential(new MoveToVerticalCubePositionCommand(VerticalArmMovement::Switch));
 	AddSequential(new FoldArmsDownCommand());
 	AddSequential(new DeliverCubeCommand());

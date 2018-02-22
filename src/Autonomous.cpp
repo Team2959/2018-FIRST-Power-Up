@@ -15,7 +15,7 @@
 #include "Commands/Auto/PlaceOnLeftSwitchCommandGroup.h"
 #include "Robot.h"
 
-Autonomous::Autonomous()
+Autonomous::Autonomous(DriveTrain& driveTrain, Vision& vision) : m_driveTrain{ driveTrain }, m_vision{ vision }
 {
 	m_chooser.AddDefault("Default Auto", AutoCommand::Default);
 	m_chooser.AddObject("Drive Straight", AutoCommand::DriveStraight);
@@ -28,40 +28,46 @@ void Autonomous::AutoInit()
 {
 	Robot::CubeDeliverySubsystem->CloseArms();
 
+	Side	nearSwitchSide;
+	// Side	farSwitchSide;
+	// Side	scaleSide;
 	// Add code to read switch/scale state from Field Management System
 	// https://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/826278-2018-game-data-details
 	auto gameData{frc::DriverStation::GetInstance().GetGameSpecificMessage()};
 	if (gameData.size() < 3)
 	{
 		std::cout << "AutonomousInit - No game data.\n";
+		nearSwitchSide = Side::Left;
+		// farSwitchSide = Side::Left;
+		// scaleSide = Side::Left;
 	}
 	else
 	{
 		if (gameData[0] == 'L')
 		{
-			m_nearSwitchSide = Side::Left;
+			nearSwitchSide = Side::Left;
 		}
 		else
 		{
-			m_nearSwitchSide = Side::Right;
+			nearSwitchSide = Side::Right;
 		}
+		/*
 		if (gameData[1] == 'L')
 		{
-			m_ScaleSide = Side::Left;
+			scaleSide = Side::Left;
 		}
 		else
 		{
-			m_ScaleSide = Side::Right;
+			scaleSide = Side::Right;
 		}
-
 		if (gameData[2] == 'L')
 		{
-			m_farSwitchSide = Side::Left;
+			farSwitchSide = Side::Left;
 		}
 		else
 		{
-			m_farSwitchSide = Side::Right;
-		}
+			farSwitchSide = Side::Right;
+		} */
 	}
 
 	switch(m_chooser.GetSelected())
@@ -73,7 +79,7 @@ void Autonomous::AutoInit()
 		m_autonomousCommand = std::make_unique<DriveStraightCommand>(5.0);
 		break;
 	case AutoCommand::PlaceInitialCubeOnSwitch:
-		m_autonomousCommand = std::make_unique<PlaceInitialCubeOnSwitchCommandGroup>();
+		m_autonomousCommand = std::make_unique<PlaceInitialCubeOnSwitchCommandGroup>(m_driveTrain, m_vision, nearSwitchSide);
 		break;
 	case AutoCommand::PlaceCubeOnLeftSwitch:
 		m_autonomousCommand = std::make_unique<PlaceOnLeftSwitchCommandGroup>();
@@ -98,23 +104,4 @@ void Autonomous::TeleopInit()
 		m_autonomousCommand->Cancel();
 		m_autonomousCommand = nullptr;
 	}
-}
-
-Autonomous::Side Autonomous::m_nearSwitchSide;
-Autonomous::Side Autonomous::m_farSwitchSide;
-Autonomous::Side Autonomous::m_ScaleSide;
-
-Autonomous::Side Autonomous::GetNearSwitchSide()
-{
-	return m_nearSwitchSide;
-}
-
-Autonomous::Side Autonomous::GetFarSwitchSide()
-{
-	return 	m_farSwitchSide;
-}
-
-Autonomous::Side Autonomous::GetScaleSide()
-{
-	return m_ScaleSide;
 }

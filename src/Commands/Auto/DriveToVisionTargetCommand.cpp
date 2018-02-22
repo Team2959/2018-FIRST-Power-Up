@@ -8,7 +8,8 @@
 #include <Commands/Auto/DriveToVisionTargetCommand.h>
 #include <robot.h>
 
-DriveToVisionTargetCommand::DriveToVisionTargetCommand()
+DriveToVisionTargetCommand::DriveToVisionTargetCommand(DriveTrain& driveTrain, Vision& vision) :
+	m_driveTrain{ driveTrain }, m_vision{ vision }
 {
 	Requires(Robot::VisionSubsystem.get());
 	Requires(Robot::DriveTrainSubsystem.get());
@@ -17,34 +18,26 @@ DriveToVisionTargetCommand::DriveToVisionTargetCommand()
 void DriveToVisionTargetCommand::Execute()
 {
 	double xTarget = FindTarget();
-	DriveTrain* driveTrain = Robot::DriveTrainSubsystem.get();
 
 	if (xTarget == NoTarget)
 	{
-		driveTrain->Drive(0, 0, 0);
+		StopDrive();
 		return;
 	}
-
 	if (xTarget == AtTarget)
 	{
-		driveTrain->Drive(0, 0, 0);
+		StopDrive();
 		m_AtTarget = true;
 		return;
 	}
-
+	double	angle;
 	if (xTarget < 0.4)
-	{
-		driveTrain->Drive(1, 3 * QuarterPi, 0);
-		return;
-	}
-
-	if (xTarget > 0.6)
-	{
-		driveTrain->Drive(1, QuarterPi, 0);
-		return;
-	}
-
-	driveTrain->Drive(1, HalfPi, 0);
+		angle = 3.0 * QuarterPi;
+	else if(xTarget > 0.6)
+		angle = QuarterPi;
+	else
+		angle = HalfPi;
+	Drive(angle);
 }
 
 bool DriveToVisionTargetCommand::IsFinished()
@@ -54,23 +47,20 @@ bool DriveToVisionTargetCommand::IsFinished()
 
 void DriveToVisionTargetCommand::End()
 {
-	DriveTrain* driveTrain = Robot::DriveTrainSubsystem.get();
-	driveTrain->Drive(0, 0, 0);
+	StopDrive();
 }
 
 double DriveToVisionTargetCommand::FindTarget()
 {
-	Vision* vision = Robot::VisionSubsystem.get();
-	std::vector<VisionObject> visionObjects = vision->GetObjects(TapeColor);
-	if (visionObjects.size() == 0)
+	std::vector<VisionObject>	visionObjects = m_vision.GetObjects(TapeColor);
+	if (visionObjects.empty())
 		return NoTarget;
-
-	double minX = 100;
-	double maxX = -100;
-	for (unsigned i = 0; i != visionObjects.size(); i++)
+	double minX = 100.0;
+	double maxX = -100.0;
+	for (auto& visionObject : visionObjects)
 	{
-		double left = visionObjects[i].Left();
-		double right = left + visionObjects[i].Width();
+		double left = visionObject.Left();
+		double right = visionObject.Right();
 		if (left < minX)
 		{
 			minX = left;
@@ -86,4 +76,15 @@ double DriveToVisionTargetCommand::FindTarget()
 	}
 
 	return (minX + maxX) / 2;
+}
+
+void DriveToVisionTargetCommand::StopDrive()
+{
+	m_driveTrain.Drive(0.0, 0.0, 0.0);
+}
+
+void DriveToVisionTargetCommand::Drive(double angle)
+{
+	constexpr double Speed{ 0.1 };			// Increase this after testing when safe
+	m_driveTrain.Drive(Speed, angle, 0.0);
 }
