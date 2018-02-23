@@ -99,10 +99,9 @@ void MotionTracking::ResetTelemetries()
 double MotionTracking::GetAngle()
 {
 	/* Translate the angle to the trigonometric standard */
-	double angle = fmod(m_navmxp->GetAngle() - 90, 360.0);
-	if (angle < 0)
-		angle += 360;
+	/* This angle is the direction the front of the robot is facing relative to the field */
+	double angle = fmod(m_navmxp->GetAngle() + 90, 360.0);
 
-	return (360.0 - angle) * (Pi / 180.0);
+	return angle * (Pi / 180.0);
 }
 
