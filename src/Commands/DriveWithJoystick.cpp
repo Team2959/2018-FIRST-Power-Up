@@ -32,9 +32,11 @@ void DriveWithJoystick::Execute()
 	if (angle < 0)
 		angle = angle + Pi*2;
 
-	/*sif (Robot::oi->GetDriverJoystick()->GetThrottle() > 0.0)
+	/* This may not be the ideal method for selecting field centric mode,
+	   but the field centric math is now correct.
+	if (Robot::oi->GetDriverJoystick()->GetThrottle() > 0.0)
 	{
-		angle = Robot::MotionTrackingSubsystem->GetAngle() - angle;
+		angle = (90 + Robot::MotionTrackingSubsystem->GetAngle() - angle);
 		if (angle < 0)
 			angle = (2 * Pi) + angle;
 	}*/
