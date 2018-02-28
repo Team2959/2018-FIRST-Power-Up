@@ -69,7 +69,7 @@ double FindDriveTarget::FindTarget()
 
 void FindDriveTarget::Rotate(Direction direction)
 {
-	double speed = frc::SmartDashboard::GetNumber("Auton Speed", 0.1);
+	double speed = frc::SmartDashboard::GetNumber("Auton Rotate Speed", 0.1);
 
 	if(direction == Direction::Clockwise)
 	{
