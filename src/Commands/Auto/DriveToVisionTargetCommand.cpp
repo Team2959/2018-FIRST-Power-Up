@@ -7,6 +7,7 @@
 
 #include <Commands/Auto/DriveToVisionTargetCommand.h>
 #include <robot.h>
+#include <SmartDashboard/SmartDashboard.h>
 
 DriveToVisionTargetCommand::DriveToVisionTargetCommand(DriveTrain& driveTrain, Vision& vision) :
 	m_driveTrain{ driveTrain }, m_vision{ vision }
@@ -85,6 +86,7 @@ void DriveToVisionTargetCommand::StopDrive()
 
 void DriveToVisionTargetCommand::Drive(double angle)
 {
-	constexpr double Speed{ 0.1 };			// Increase this after testing when safe
-	m_driveTrain.Drive(Speed, angle, 0.0);
+	double speed = frc::SmartDashboard::GetNumber("Auton Speed", 0.1);
+
+	m_driveTrain.Drive(speed, angle, 0.0);
 }

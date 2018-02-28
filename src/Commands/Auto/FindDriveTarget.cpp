@@ -8,6 +8,7 @@
 #include <Commands/Auto/FindDriveTarget.h>
 #include <Robot.h>
 #include <Autonomous.h>
+#include <SmartDashboard/SmartDashboard.h>
 
 FindDriveTarget::FindDriveTarget(DriveTrain& driveTrain, Vision& vision, Side nearSwitchSide) : m_driveTrain{ driveTrain },
   m_Vision{ vision }, m_nearSwitchSide{ nearSwitchSide }
@@ -68,11 +69,20 @@ double FindDriveTarget::FindTarget()
 
 void FindDriveTarget::Rotate(Direction direction)
 {
-	constexpr double Speed{ 0.1 };	// Raise to a faster speed after testing
+	double speed = frc::SmartDashboard::GetNumber("Auton Speed", 0.1);
+
 	if(direction == Direction::Clockwise)
-		m_driveTrain.Drive( 0.0, 0.0, Speed );
+	{
+		// we are good
+	}
 	else if(direction == Direction::CounterClockwise)
-		m_driveTrain.Drive( 0.0, 0.0, -Speed );
+	{
+		speed = -speed;
+	}
 	else
-		m_driveTrain.Drive( 0.0, 0.0, 0.0 );
+	{
+		speed = 0;
+	}
+
+	m_driveTrain.Drive( 0.0, 0.0, speed );
 }

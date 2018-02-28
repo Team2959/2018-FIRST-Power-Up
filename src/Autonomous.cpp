@@ -20,7 +20,7 @@ Autonomous::Autonomous(DriveTrain& driveTrain, Vision& vision) : m_driveTrain{ d
 	m_chooser.AddDefault("Default Auto", AutoCommand::Default);
 	m_chooser.AddObject("Drive Straight", AutoCommand::DriveStraight);
 	m_chooser.AddObject("Place Initial Cube On Switch", AutoCommand::PlaceInitialCubeOnSwitch);
-	m_chooser.AddObject("Place Cube On Left Switch", AutoCommand::PlaceCubeOnLeftSwitch);
+	//m_chooser.AddObject("Place Cube On Left Switch", AutoCommand::PlaceCubeOnLeftSwitch);
 	frc::SmartDashboard::PutData("Autonomous Command", &m_chooser);
 }
 
@@ -76,7 +76,7 @@ void Autonomous::AutoInit()
 		m_autonomousCommand = std::make_unique<MyAutoCommand>();
 		break;
 	case AutoCommand::DriveStraight:
-		m_autonomousCommand = std::make_unique<DriveStraightCommand>(5.0);
+		m_autonomousCommand = std::make_unique<DriveStraightCommand>(2.0);
 		break;
 	case AutoCommand::PlaceInitialCubeOnSwitch:
 		m_autonomousCommand = std::make_unique<PlaceInitialCubeOnSwitchCommandGroup>(m_driveTrain, m_vision, nearSwitchSide);

@@ -18,7 +18,7 @@ PlaceInitialCubeOnSwitchCommandGroup::PlaceInitialCubeOnSwitchCommandGroup(Drive
 {
 	AddSequential(new FindDriveTarget(driveTrain, vision, nearSwitchSide));
 	AddSequential(new DriveToVisionTargetCommand(driveTrain, vision));
-	AddSequential(new MoveToVerticalCubePositionCommand(VerticalArmMovement::Switch));
-	AddSequential(new FoldArmsDownCommand());
+	//AddSequential(new MoveToVerticalCubePositionCommand(VerticalArmMovement::Switch));
+	//AddSequential(new FoldArmsDownCommand());
 	AddSequential(new DeliverCubeCommand());
 }
