@@ -36,10 +36,10 @@ void XDrive::ConfigureMotorController(WPI_TalonSRX& motor, std::string name)
 	motor.ConfigVelocityMeasurementPeriod(VelocityMeasPeriod::Period_5Ms, 0);
 	motor.ConfigVelocityMeasurementWindow(1, 0);
 	motor.SetSensorPhase(true);
-	motor.Config_kF(0, 0.275, 0);
-	motor.Config_kP(0, 0.45, 0);
-	motor.Config_kI(0, 0.0045, 0);
-	motor.Config_IntegralZone(0, 300, 0);
+	motor.Config_kF(0, 0.25, 0);
+	motor.Config_kP(0, 0.3, 0);
+	motor.Config_kI(0, 0.03, 0);
+	motor.Config_IntegralZone(0, 575, 0);
 
 	motor.SetName("XDrive", name);
 
