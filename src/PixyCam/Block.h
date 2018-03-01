@@ -20,11 +20,11 @@ namespace PixyCam
 	class Block
 	{
 	public:
-		Block(uint16_t sync, uint16_t checksum, uint16_t number, uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t angle = 0);	// Constructor
+		Block(uint16_t sync, uint16_t checksum, uint16_t signatureNumber, uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t angle = 0);	// Constructor
 		uint16_t Angle() const { return _angle; }		// All these getters simply retrieve the fields
 		uint16_t Checksum() const { return _checksum; }
 		uint16_t Height() const { return _height; }
-		uint16_t Number() const { return _number; }
+		uint16_t SignatureNumber() const { return _signatureNumber; }
 		uint16_t Sync() const { return _sync; }
 		uint16_t Width() const { return _width; }
 		uint16_t X() const { return _x; }
@@ -33,7 +33,7 @@ namespace PixyCam
 	private:
 		uint16_t	_sync;	// All of our fields
 		uint16_t	_checksum;
-		uint16_t	_number;
+		uint16_t	_signatureNumber;	// Signature number, see RobotMap.h for mapping
 		uint16_t	_x;
 		uint16_t	_y;
 		uint16_t	_width;

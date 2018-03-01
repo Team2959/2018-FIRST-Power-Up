@@ -19,7 +19,7 @@ vector<VisionObject> Vision::GetObjects(int signature)
 	vector<VisionObject>	result;
 	for(auto& frameBlock : _camera.ReadFrameBlocks())
 	{
-		if(frameBlock.Number() != signature)
+		if(frameBlock.SignatureNumber() != signature)
 			continue;
 		// Convert the frame block (in pixel coords) to our VisionObject which is in frame relative coords
 		result.emplace_back(static_cast<double>(frameBlock.X() - frameBlock.Width() / 2) / FrameWidth,

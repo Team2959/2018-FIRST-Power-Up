@@ -51,6 +51,7 @@ double FindDriveTarget::FindTarget()
 		return NoTarget;
 	double minX = 100.0;
 	double maxX = -100.0;
+	// think about limiting this to largest width 'cube', which should be the pyramid
 	for( auto& visionObject : visionObjects )
 	{
 		double	left = visionObject.Left();

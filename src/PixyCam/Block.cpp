@@ -12,5 +12,5 @@
 using namespace PixyCam;
 
 // Constructor
-Block::Block(uint16_t sync, uint16_t checksum, uint16_t number, uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t angle) :
-	_sync{ sync }, _checksum{ checksum }, _number{ number }, _x{ x }, _y{ y }, _width{ width }, _height{ height }, _angle{ angle } { }
+Block::Block(uint16_t sync, uint16_t checksum, uint16_t signatureNumber, uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t angle) :
+	_sync{ sync }, _checksum{ checksum }, _signatureNumber{ signatureNumber }, _x{ x }, _y{ y }, _width{ width }, _height{ height }, _angle{ angle } { }

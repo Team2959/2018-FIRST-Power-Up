@@ -58,6 +58,9 @@ double DriveToVisionTargetCommand::FindTarget()
 		return NoTarget;
 	double minX = 100.0;
 	double maxX = -100.0;
+	// potential changes
+	// probably need to find the cube pile and only want tape to the side of the pile
+	// if no cube pile, do not use as reference, just tape then
 	for (auto& visionObject : visionObjects)
 	{
 		double left = visionObject.Left();
