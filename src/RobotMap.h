@@ -42,8 +42,8 @@ constexpr int OPEN_CLOSE_CUBE_ARMS_SOLENOID = 0;
 
 constexpr double NoTarget = -1;
 constexpr double AtTarget = -2;
-constexpr int TapeColor = 0;
-constexpr int CubeColor = 1;
+constexpr int CubeColor = 0;
+constexpr int TapeColor = 1;
 constexpr static double TargetSize = .25;
 
 #endif /* SRC_ROBOT_MAP_H_ */
