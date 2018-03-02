@@ -21,9 +21,18 @@ vector<VisionObject> Vision::GetObjects(int signature)
 	{
 		if(frameBlock.SignatureNumber() != signature)
 			continue;
+
+		double TopOfBlock = static_cast<double>(frameBlock.Y() - frameBlock.Height() / 2) / FrameHeight;
+			if(TopOfBlock > 0.8)
+				continue;
+
+		double BottomOfBlock = static_cast<double>(frameBlock.Y() + frameBlock.Height() / 2) / FrameHeight;
+						if(BottomOfBlock < 0.25)
+							continue;
+
 		// Convert the frame block (in pixel coords) to our VisionObject which is in frame relative coords
 		result.emplace_back(static_cast<double>(frameBlock.X() - frameBlock.Width() / 2) / FrameWidth,
-							static_cast<double>(frameBlock.Y() - frameBlock.Height() / 2) / FrameHeight,
+							TopOfBlock,
 							static_cast<double>(frameBlock.Width()) / FrameWidth,
 							static_cast<double>(frameBlock.Height()) / FrameHeight);
 	}
