@@ -12,6 +12,7 @@
 #include <Subsystems/VerticalArmMovement.h>
 #include <Commands/Auto/FindDriveTarget.h>
 #include <Commands/Auto/DriveToVisionTargetCommand.h>
+#include <Commands/Auto/DriveStraightCommand.h>
 
 PlaceInitialCubeOnSwitchCommandGroup::PlaceInitialCubeOnSwitchCommandGroup(DriveTrain& driveTrain, Vision& vision, Side nearSwitchSide) :
   frc::CommandGroup("PlaceInitialCubeOnSwitch")
@@ -20,5 +21,7 @@ PlaceInitialCubeOnSwitchCommandGroup::PlaceInitialCubeOnSwitchCommandGroup(Drive
 	AddSequential(new DriveToVisionTargetCommand(driveTrain, vision));
 	//AddSequential(new MoveToVerticalCubePositionCommand(VerticalArmMovement::Switch));
 	//AddSequential(new FoldArmsDownCommand());
+	AddSequential(new DriveStraightCommand(0.5));
 	AddSequential(new DeliverCubeCommand());
+
 }

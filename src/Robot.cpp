@@ -57,7 +57,7 @@ void Robot::RobotInit()
 //	SmartDashboard::PutData(CubeDeliverySubsystem.get());
 	frc::SmartDashboard::PutData(&m_pdp);
 
-	CameraServer::GetInstance()->StartAutomaticCapture();
+//	CameraServer::GetInstance()->StartAutomaticCapture();
 
 	periodicCount = 0;
 }
@@ -103,7 +103,7 @@ void Robot::RobotPeriodic()
 
 	if ((periodicCount % 100) == 0)
 	{
-		MotionTrackingSubsystem->PrintMotorTelemetries();
+		//MotionTrackingSubsystem->PrintMotorTelemetries();
 	}
 
 	++periodicCount;
@@ -177,7 +177,14 @@ void Robot::TestPixyCam()
 		for(auto i = 0U; i < blocks.size(); ++i)
 		{
 			auto& block{blocks[i]};
-			std::cout << i << ":  " << block.X() << ',' << block.Y() << ',' << block.Width() << ',' << block.Height() << '\n';
+			if (block.SignatureNumber() == CubeColor)
+			{
+				std::cout << "Cube " << i << ": " << block.X() << ',' << block.Y() << ',' << block.Width() << ',' << block.Height() << '\n';
+			}
+			else if (block.SignatureNumber() == TapeColor)
+			{
+				std::cout << "Tape " << i << ": " << block.X() << ',' << block.Y() << ',' << block.Width() << ',' << block.Height() << '\n';
+			}
 		}
 }
 

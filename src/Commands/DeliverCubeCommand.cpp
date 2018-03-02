@@ -8,6 +8,7 @@
 #include <Commands/DeliverCubeCommand.h>
 #include "Robot.h"
 #include "Subsystems/CubeDelivery.h"
+#include <iostream>
 
 DeliverCubeCommand::DeliverCubeCommand() : frc::Command("DeliverCube")
 {
@@ -33,6 +34,7 @@ void DeliverCubeCommand::Initialize()
 //
 //	Robot::CubeDeliverySubsystem->SpinWheelsOut(speedAxis);
 	Robot::CubeDeliverySubsystem->SpinWheelsOut(SpinCubeWheelsOutFast);
+	std::cout << "Deliver Cube\n";
 }
 
 bool DeliverCubeCommand::IsFinished()

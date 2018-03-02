@@ -22,15 +22,18 @@ public:
 	virtual void End() override;
 
 private:
-	enum class Direction { Clockwise, CounterClockwise, Stop };
+	enum class Direction { ShimmyLeft, ShimmyRight, Straight };
 
-	double FindTarget();
-	void Rotate(Direction direction);
+	double FindCubePyramid();
+	void Shimmy(Direction direction, double angle);
+
+	bool AtReflectiveTape();
 
 	DriveTrain&	m_driveTrain;
 	Vision&		m_Vision;
 	Side 		m_nearSwitchSide;
 	bool		m_AtTarget{ false };
+	Direction	m_lastDirection {Direction::Straight};
 };
 
 #endif /* SRC_COMMANDS_AUTO_FINDDRIVETARGET_H_ */

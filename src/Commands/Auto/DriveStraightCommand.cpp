@@ -9,6 +9,7 @@
 #include "Robot.h"
 #include "RobotMap.h"
 #include <SmartDashboard/SmartDashboard.h>
+#include <iostream>
 
 DriveStraightCommand::DriveStraightCommand(double driveTime) : frc::TimedCommand("DriveStraight", driveTime)
 {
@@ -19,6 +20,7 @@ void DriveStraightCommand::Execute()
 {
 	double speed = frc::SmartDashboard::GetNumber("Auton Speed", 0.1);
 	Robot::DriveTrainSubsystem->Drive(speed, HalfPi, 0);
+	std::cout << "Drive Straight\n";
 }
 
 void DriveStraightCommand::End()

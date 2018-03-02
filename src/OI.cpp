@@ -63,7 +63,7 @@ OI::OI()
 	frc::SmartDashboard::PutData("Move To Absolute Height ", new MoveToAbsoluteHeightCommand());
 
 	frc::SmartDashboard::PutNumber("Auton Speed", 0.25);
-	frc::SmartDashboard::PutNumber("Auton Rotate Speed", 0.1);
+	frc::SmartDashboard::PutNumber("Auton Shimmy Speed", 0.2);
 }
 
 std::shared_ptr<frc::Joystick> OI::GetDriverJoystick()

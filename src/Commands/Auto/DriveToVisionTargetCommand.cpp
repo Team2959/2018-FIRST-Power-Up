@@ -8,6 +8,7 @@
 #include <Commands/Auto/DriveToVisionTargetCommand.h>
 #include <robot.h>
 #include <SmartDashboard/SmartDashboard.h>
+#include <iostream>
 
 DriveToVisionTargetCommand::DriveToVisionTargetCommand(DriveTrain& driveTrain, Vision& vision) :
 	m_driveTrain{ driveTrain }, m_vision{ vision }
@@ -22,11 +23,13 @@ void DriveToVisionTargetCommand::Execute()
 
 	if (xTarget == NoTarget)
 	{
+		std::cout << "Drive to Vision Target - STOP No TARGET!\n";
 		StopDrive();
 		return;
 	}
 	if (xTarget == AtTarget)
 	{
+		std::cout << "Drive to Vision Target - STOP at target.\n";
 		StopDrive();
 		m_AtTarget = true;
 		return;
@@ -38,6 +41,7 @@ void DriveToVisionTargetCommand::Execute()
 		angle = QuarterPi;
 	else
 		angle = HalfPi;
+	std::cout << "Drive to Vision Target - angle " << angle << ".\n";
 	Drive(angle);
 }
 
