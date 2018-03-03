@@ -87,7 +87,7 @@ void FindDriveTarget::Execute()
 	{
 		if (m_lastDirection == Direction::ShimmyLeft)
 		{
-			Shimmy(Direction::ShimmyLeft, 0.75 * Pi);
+			Shimmy(Direction::ShimmyLeft, 0.875 * Pi);
 		}
 		else
 		{
@@ -98,7 +98,7 @@ void FindDriveTarget::Execute()
 	{
 		if (m_lastDirection == Direction::ShimmyRight)
 		{
-			Shimmy(Direction::ShimmyRight, QuarterPi);
+			Shimmy(Direction::ShimmyRight, QuarterPi/2.0);
 		}
 		else
 		{
@@ -177,5 +177,6 @@ bool FindDriveTarget::AtReflectiveTape()
 	std::cout << ElapsedMS() << ":  AtReflectiveTape - " << tallest << "\n";
 
 	// At 4' probably 90 high and frame height is 240, hence ratio of 90/240
-	return tallest > 0.375;
+	//).25 works better
+	return tallest > 0.25;
 }
