@@ -11,10 +11,12 @@
 #include <iostream>
 
 DriveToVisionTargetCommand::DriveToVisionTargetCommand(DriveTrain& driveTrain, Vision& vision) :
-	m_driveTrain{ driveTrain }, m_vision{ vision }
+	m_driveTrain{ driveTrain }, m_vision{ vision }, m_atTarget{ false }, m_lastAngle{HalfPi}
 {
 	Requires(Robot::VisionSubsystem.get());
 	Requires(Robot::DriveTrainSubsystem.get());
+
+	m_speed = frc::SmartDashboard::GetNumber("Auton Speed", 0.1);
 }
 
 void DriveToVisionTargetCommand::Execute()
@@ -23,17 +25,18 @@ void DriveToVisionTargetCommand::Execute()
 
 	if (xTarget == NoTarget)
 	{
-		std::cout << "Drive to Vision Target - STOP No TARGET!\n";
-		StopDrive();
+		std::cout << "Drive to Vision Target - keep moving - No TARGET!\n";
+		Drive(m_lastAngle);
 		return;
 	}
+
 	if (xTarget == AtTarget)
 	{
 		std::cout << "Drive to Vision Target - STOP at target.\n";
-		StopDrive();
-		m_AtTarget = true;
+		m_atTarget = true;
 		return;
 	}
+
 	double	angle;
 	if (xTarget < 0.4)
 		angle = 3.0 * QuarterPi;
@@ -47,7 +50,7 @@ void DriveToVisionTargetCommand::Execute()
 
 bool DriveToVisionTargetCommand::IsFinished()
 {
-	return m_AtTarget;
+	return m_atTarget;
 }
 
 void DriveToVisionTargetCommand::End()
@@ -93,7 +96,6 @@ void DriveToVisionTargetCommand::StopDrive()
 
 void DriveToVisionTargetCommand::Drive(double angle)
 {
-	double speed = frc::SmartDashboard::GetNumber("Auton Speed", 0.1);
-
-	m_driveTrain.Drive(speed, angle, 0.0);
+	m_lastAngle = angle;
+	m_driveTrain.Drive(m_speed, angle, 0.0);
 }

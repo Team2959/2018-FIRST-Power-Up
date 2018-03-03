@@ -33,7 +33,9 @@ private:
 
 	DriveTrain&	m_driveTrain;
 	Vision& 	m_vision;
-	bool		m_AtTarget{ false };
+	bool		m_atTarget;
+	double		m_lastAngle;
+	double		m_speed;
 };
 
 #endif /* SRC_COMMANDS_AUTO_DRIVETOVISIONTARGETCOMMAND_H_ */
