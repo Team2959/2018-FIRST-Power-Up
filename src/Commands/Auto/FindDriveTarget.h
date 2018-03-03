@@ -28,7 +28,8 @@ private:
 
 	double FindCubePyramid();
 	void Shimmy(Direction direction, double angle);
-	bool AtReflectiveTape();
+	bool AtReflectiveTape(double& center);
+	double AngleToTape(double center);
 
 	double		m_lastSpeed{ 0.0 };
 	double		m_lastAngle{ HalfPi };

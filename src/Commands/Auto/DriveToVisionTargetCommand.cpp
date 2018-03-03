@@ -45,9 +45,9 @@ void DriveToVisionTargetCommand::Execute()
 	}
 
 	double	angle;
-	if (xTarget < 0.4)
+	if (xTarget < 0.45)
 		angle = 3.0 * QuarterPi;
-	else if(xTarget > 0.6)
+	else if(xTarget > 0.55)
 		angle = QuarterPi;
 	else
 		angle = HalfPi;
@@ -75,30 +75,33 @@ double DriveToVisionTargetCommand::FindTarget()
 	std::vector<VisionObject>	visionObjects = Robot::VisionSubsystem->GetObjects(TapeColor);
 	if (visionObjects.empty())
 		return NoTarget;
-	double minX = 100.0;
-	double maxX = -100.0;
-	// potential changes
-	// probably need to find the cube pile and only want tape to the side of the pile
-	// if no cube pile, do not use as reference, just tape then
-	for (auto& visionObject : visionObjects)
+
+	auto&	biggestObject{ visionObjects[0] };
+
+	if(visionObjects.size()==1)
 	{
-		double left = visionObject.Left();
-		double right = visionObject.Right();
-		if (left < minX)
+		if (biggestObject.Height() >= TargetSize)
 		{
-			minX = left;
+			return AtTarget;
 		}
-		if (right > maxX)
-		{
-			maxX = right;
-		}
-	}
-	if (maxX - minX >= TargetSize)
-	{
-		return AtTarget;
+		return biggestObject.CenterX();
 	}
 
-	return (minX + maxX) / 2;
+	auto*	mate{ &visionObjects[1] };
+	auto	mateDistance{ fabs(mate->CenterX() - biggestObject.CenterX()) };
+
+	for(auto i = 2U; i < visionObjects.size(); ++i)
+	{
+		auto&	comparisonObject{ visionObjects[i] };
+		auto	comparisonDistance{ fabs(comparisonObject.CenterX() - biggestObject.CenterX())};
+		if(mateDistance > comparisonDistance)
+		{
+			mate = &comparisonObject;
+			mateDistance = comparisonDistance;
+		}
+	}
+
+	return (biggestObject.CenterX() + mate->CenterX()) / 2.0;
 }
 
 void DriveToVisionTargetCommand::StopDrive()
