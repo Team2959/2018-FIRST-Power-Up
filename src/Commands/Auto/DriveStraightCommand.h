@@ -19,6 +19,7 @@ public:
 	void Execute() override;
 	void End() override;
 	void Interrupted() override;
+
 };
 
 #endif /* SRC_DRIVE_STRAIGHT_COMMAND_H_ */

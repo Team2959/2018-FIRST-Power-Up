@@ -58,6 +58,11 @@ void DriveToVisionTargetCommand::End()
 	StopDrive();
 }
 
+void DriveToVisionTargetCommand :: Interrupted()
+{
+	StopDrive();
+}
+
 double DriveToVisionTargetCommand::FindTarget()
 {
 	std::vector<VisionObject>	visionObjects = m_vision.GetObjects(TapeColor);

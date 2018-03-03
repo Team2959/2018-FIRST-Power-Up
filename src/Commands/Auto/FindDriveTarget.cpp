@@ -97,6 +97,12 @@ void FindDriveTarget::End()
 	Shimmy(Direction::Straight, 0);
 }
 
+void FindDriveTarget :: Interrupted()
+{
+	m_driveTrain.Drive(0.0, 0, 0.0);
+}
+
+
 double FindDriveTarget::FindCubePyramid()
 {
 	std::vector<VisionObject> visionObjects = m_Vision.GetObjects(CubeColor);

@@ -22,6 +22,7 @@ public:
 
 	void Execute() override;
 	bool IsFinished() override;
+
 };
 
 #endif /* SRC_COMMANDS_AUTO_MOVETOVERTICALCUBEPOSITIONCOMMAND_H_ */

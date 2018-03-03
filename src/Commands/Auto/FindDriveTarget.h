@@ -20,6 +20,8 @@ public:
 	virtual void Execute() override;
 	virtual bool IsFinished() override;
 	virtual void End() override;
+	void Interrupted () override;
+
 
 private:
 	enum class Direction { ShimmyLeft, ShimmyRight, Straight, SlideLeft, SlideRight };
