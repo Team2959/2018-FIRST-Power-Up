@@ -31,7 +31,7 @@ private:
 	std::unique_ptr<Autonomous> m_autonomous;
 	unsigned int periodicCount;
 
-	frc::PowerDistributionPanel m_pdp {0};
+//	frc::PowerDistributionPanel m_pdp {0};
 
 public:
 	// Add all subsystem definition here as static public variables

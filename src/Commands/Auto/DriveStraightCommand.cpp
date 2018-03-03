@@ -14,12 +14,17 @@
 DriveStraightCommand::DriveStraightCommand(double driveTime) : frc::TimedCommand("DriveStraight", driveTime)
 {
 	Requires(Robot::DriveTrainSubsystem.get());
+	m_speed = frc::SmartDashboard::GetNumber("Auton Speed", 0.5);
+}
+
+void DriveStraightCommand::Initialize()
+{
+	m_speed = frc::SmartDashboard::GetNumber("Auton Speed", 0.5);
 }
 
 void DriveStraightCommand::Execute()
 {
-	double speed = frc::SmartDashboard::GetNumber("Auton Speed", 0.1);
-	Robot::DriveTrainSubsystem->Drive(speed, HalfPi, 0);
+	Robot::DriveTrainSubsystem->Drive(m_speed, HalfPi, 0);
 	std::cout << "Drive Straight\n";
 }
 

@@ -10,35 +10,32 @@
 
 #include <Commands/Command.h>
 #include "../../Autonomous.h"
-#include "../../Subsystems/DriveTrain.h"
-#include "../../Subsystems/Vision.h"
+#include "../../RobotMap.h"
 
 class FindDriveTarget: public frc::Command
 {
 public:
-	FindDriveTarget(DriveTrain& driveTrain, Vision& vision, Side nearSwitchSide);
+	FindDriveTarget(Side nearSwitchSide);
+
+	virtual void Initialize() override;
 	virtual void Execute() override;
 	virtual bool IsFinished() override;
 	virtual void End() override;
-	void Interrupted () override;
-
+	virtual void Interrupted () override;
 
 private:
 	enum class Direction { ShimmyLeft, ShimmyRight, Straight, SlideLeft, SlideRight };
 
 	double FindCubePyramid();
 	void Shimmy(Direction direction, double angle);
-
 	bool AtReflectiveTape();
 
-	DriveTrain&	m_driveTrain;
-	Vision&		m_Vision;
-	Side 		m_nearSwitchSide;
-	Direction	m_lastDirection;
-	double		m_lastSpeed;
-	double		m_lastAngle;
+	double		m_lastSpeed{ 0.0 };
+	double		m_lastAngle{ HalfPi };
 	double		m_autonSpeed;
-	bool		m_AtTarget;
+	Direction	m_lastDirection{ Direction::Straight };
+	Side 		m_nearSwitchSide;
+	bool		m_atTarget{ false };
 };
 
 #endif /* SRC_COMMANDS_AUTO_FINDDRIVETARGET_H_ */

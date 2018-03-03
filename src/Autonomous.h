@@ -10,8 +10,6 @@
 
 #include <Commands/Command.h>
 #include <SmartDashboard/SendableChooser.h>
-#include "Subsystems/DriveTrain.h"
-#include "Subsystems/Vision.h"
 
 enum class Side { Left, Right };
 
@@ -33,14 +31,10 @@ private:
 	std::unique_ptr<frc::Command>		m_autonomousCommand;
 
 public:
-	Autonomous(DriveTrain& driveTrain, Vision& vision);
+	Autonomous();
 
 	void AutoInit();
 	void TeleopInit();
-
-private:
-	DriveTrain&	m_driveTrain;
-	Vision& 	m_vision;
 };
 
 #endif /* SRC_AUTONOMOUS_H_ */

@@ -49,13 +49,13 @@ void Robot::RobotInit()
 	// news. Don't move it.
 	oi.reset(new OI());
 
-	m_autonomous.reset(new Autonomous(*DriveTrainSubsystem, *VisionSubsystem));
+	m_autonomous.reset(new Autonomous());
 
 //	SmartDashboard::PutData(DriveTrainSubsystem.get());
 //	SmartDashboard::PutData(CubeArmsSubsystem.get());
 //	SmartDashboard::PutData(ClimbSubsystem.get());
 //	SmartDashboard::PutData(CubeDeliverySubsystem.get());
-	frc::SmartDashboard::PutData(&m_pdp);
+//	frc::SmartDashboard::PutData(&m_pdp);
 
 //	CameraServer::GetInstance()->StartAutomaticCapture();
 

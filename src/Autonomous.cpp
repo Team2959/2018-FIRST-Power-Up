@@ -15,13 +15,16 @@
 #include "Commands/Auto/PlaceOnLeftSwitchCommandGroup.h"
 #include "Robot.h"
 
-Autonomous::Autonomous(DriveTrain& driveTrain, Vision& vision) : m_driveTrain{ driveTrain }, m_vision{ vision }
+Autonomous::Autonomous()
 {
 	m_chooser.AddDefault("Default Auto", AutoCommand::Default);
 	m_chooser.AddObject("Drive Straight", AutoCommand::DriveStraight);
 	m_chooser.AddObject("Place Initial Cube On Switch", AutoCommand::PlaceInitialCubeOnSwitch);
 	//m_chooser.AddObject("Place Cube On Left Switch", AutoCommand::PlaceCubeOnLeftSwitch);
 	frc::SmartDashboard::PutData("Autonomous Command", &m_chooser);
+
+	frc::SmartDashboard::PutNumber("Auton Speed", 0.25);
+	frc::SmartDashboard::PutNumber("Auton Shimmy Speed", 0.2);
 }
 
 void Autonomous::AutoInit()
@@ -79,7 +82,7 @@ void Autonomous::AutoInit()
 		m_autonomousCommand = std::make_unique<DriveStraightCommand>(2.0);
 		break;
 	case AutoCommand::PlaceInitialCubeOnSwitch:
-		m_autonomousCommand = std::make_unique<PlaceInitialCubeOnSwitchCommandGroup>(m_driveTrain, m_vision, nearSwitchSide);
+		m_autonomousCommand = std::make_unique<PlaceInitialCubeOnSwitchCommandGroup>(nearSwitchSide);
 		break;
 	case AutoCommand::PlaceCubeOnLeftSwitch:
 		m_autonomousCommand = std::make_unique<PlaceOnLeftSwitchCommandGroup>();

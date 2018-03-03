@@ -10,26 +10,50 @@
 #include <Autonomous.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <iostream>
+#include <chrono>
 
-FindDriveTarget::FindDriveTarget(DriveTrain& driveTrain, Vision& vision, Side nearSwitchSide) :
-	m_driveTrain{ driveTrain }, m_Vision{ vision }, m_nearSwitchSide{ nearSwitchSide },
-	m_lastDirection {Direction::Straight}, m_lastSpeed{0.0}, m_lastAngle{HalfPi},
-	m_AtTarget{ false }
+FindDriveTarget::FindDriveTarget(Side nearSwitchSide) :
+	m_nearSwitchSide{ nearSwitchSide }
 {
 	Requires(Robot::VisionSubsystem.get());
 	Requires(Robot::DriveTrainSubsystem.get());
-	m_autonSpeed = frc::SmartDashboard::GetNumber("Auton Shimmy Speed", 0.1);
+
+	m_autonSpeed = 0.25;
+}
+
+static decltype(std::chrono::high_resolution_clock::now())	startTime;
+
+void ResetStartTime()
+{
+	startTime = std::chrono::high_resolution_clock::now();
+}
+
+int ElapsedMS()
+{
+	return static_cast<int>(1000.0 * std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - startTime).count());
+}
+
+void FindDriveTarget::Initialize()
+{
+	ResetStartTime();
+	m_autonSpeed = frc::SmartDashboard::GetNumber("Auton Shimmy Speed", 0.25);
+	m_lastSpeed = 0.0;
+	m_lastAngle = HalfPi;
+	m_atTarget = false;
+	m_lastDirection = Direction::Straight;
 }
 
 void FindDriveTarget::Execute()
 {
+	std::cout << "FindDriveTarget::Execute\n";
 	double targetLocation = FindCubePyramid();
+
+	std::cout << ElapsedMS() << ":  targetLocation = " << targetLocation << '\n';
 
 	if (targetLocation < 0)
 	{
 		// no cube data, continue with previous motion
 		Shimmy(m_lastDirection, m_lastAngle);
-		std::cout << "Continue last Shimmy!\n";
 		return;
 	}
 	m_lastSpeed = m_autonSpeed;
@@ -40,7 +64,6 @@ void FindDriveTarget::Execute()
 	{
 		// need to move to center of pyramid, which is left of us
 		Shimmy(Direction::SlideLeft, 0.875 * Pi);
-		std::cout << "Slide Left to Find Target!\n";
 		return;
 	}
 
@@ -48,13 +71,14 @@ void FindDriveTarget::Execute()
 	{
 		// need to move to center of pyramid, which is right of us
 		Shimmy(Direction::SlideRight, 0.125 * Pi);
-		std::cout << "Slide Right to Find Target!\n";
 		return;
 	}
 
-	m_AtTarget = AtReflectiveTape();
+	m_atTarget = AtReflectiveTape();
 
-	if (m_AtTarget)
+	std::cout << ElapsedMS() << ":  m_atTarget = " << m_atTarget << '\n';
+
+	if (m_atTarget)
 	{
 		return;
 	}
@@ -63,12 +87,10 @@ void FindDriveTarget::Execute()
 	{
 		if (m_lastDirection == Direction::ShimmyLeft)
 		{
-			std::cout << "Shimmy Left to Vision Target!\n";
 			Shimmy(Direction::ShimmyLeft, 0.75 * Pi);
 		}
 		else
 		{
-			std::cout << "Straight from Left side to Vision Target!\n";
 			Shimmy(Direction::Straight, HalfPi);
 		}
 	}
@@ -76,12 +98,10 @@ void FindDriveTarget::Execute()
 	{
 		if (m_lastDirection == Direction::ShimmyRight)
 		{
-			std::cout << "Shimmy Right to Vision Target!\n";
 			Shimmy(Direction::ShimmyRight, QuarterPi);
 		}
 		else
 		{
-			std::cout << "Straight from Right side to Vision Target!\n";
 			Shimmy(Direction::Straight, HalfPi);
 		}
 	}
@@ -89,7 +109,7 @@ void FindDriveTarget::Execute()
 
 bool FindDriveTarget::IsFinished()
 {
-	return m_AtTarget;
+	return m_atTarget;
 }
 
 void FindDriveTarget::End()
@@ -99,20 +119,19 @@ void FindDriveTarget::End()
 
 void FindDriveTarget :: Interrupted()
 {
-	m_driveTrain.Drive(0.0, 0, 0.0);
+	Robot::DriveTrainSubsystem->Drive(0.0, 0, 0.0);
 }
-
 
 double FindDriveTarget::FindCubePyramid()
 {
-	std::vector<VisionObject> visionObjects = m_Vision.GetObjects(CubeColor);
+	std::vector<VisionObject> visionObjects = Robot::VisionSubsystem->GetObjects(CubeColor);
 	if( visionObjects.empty() )
 		return NoTarget;
 
 	// find the biggest 'cube' from the list (either wider or taller)
 	// return the center location as our target
 	double biggestCubeDimension = 0;
-	double biggestCubeLocation = 0;
+	double biggestCubeLocation = NoTarget;
 
 	for( auto& visionObject : visionObjects )
 	{
@@ -133,14 +152,19 @@ void FindDriveTarget::Shimmy(Direction direction, double angle)
 	m_lastDirection = direction;
 	m_lastAngle = angle;
 
-	m_driveTrain.Drive(m_lastSpeed, angle, 0.0);
+	std::cout << ElapsedMS() << ":  Shimmy(" << (int)direction << ", " << (int)(angle * 180.0 / Pi) << ")\n";
+
+	Robot::DriveTrainSubsystem->Drive(m_lastSpeed, angle, 0.0);
 }
 
 bool FindDriveTarget::AtReflectiveTape()
 {
-	std::vector<VisionObject> visionObjects = m_Vision.GetObjects(TapeColor);
+	std::vector<VisionObject> visionObjects = Robot::VisionSubsystem->GetObjects(TapeColor);
 	if( visionObjects.empty() )
+	{
+		std::cout << ElapsedMS() << ":  AtReflectiveTape - None\n";
 		return false;
+	}
 
 	// find the tallest 'tape' from the list
 	double tallest = 0;
@@ -149,6 +173,8 @@ bool FindDriveTarget::AtReflectiveTape()
 	{
 		tallest = fmax(tallest, visionObject.Height());
 	}
+
+	std::cout << ElapsedMS() << ":  AtReflectiveTape - " << tallest << "\n";
 
 	// At 4' probably 90 high and frame height is 240, hence ratio of 90/240
 	return tallest > 0.375;

@@ -10,30 +10,37 @@
 #include <SmartDashboard/SmartDashboard.h>
 #include <iostream>
 
-DriveToVisionTargetCommand::DriveToVisionTargetCommand(DriveTrain& driveTrain, Vision& vision) :
-	m_driveTrain{ driveTrain }, m_vision{ vision }, m_atTarget{ false }, m_lastAngle{HalfPi}
+DriveToVisionTargetCommand::DriveToVisionTargetCommand() :
+	m_atTarget{ false }, m_lastAngle{HalfPi}
 {
 	Requires(Robot::VisionSubsystem.get());
 	Requires(Robot::DriveTrainSubsystem.get());
 
-	m_speed = frc::SmartDashboard::GetNumber("Auton Speed", 0.1);
+	m_speed = 0.25;
+}
+
+void DriveToVisionTargetCommand::Initialize()
+{
+	m_atTarget = false;
+	m_lastAngle = HalfPi;
+	m_speed = frc::SmartDashboard::GetNumber("Auton Speed", 0.25);
 }
 
 void DriveToVisionTargetCommand::Execute()
 {
 	double xTarget = FindTarget();
 
-	if (xTarget == NoTarget)
-	{
-		std::cout << "Drive to Vision Target - keep moving - No TARGET!\n";
-		Drive(m_lastAngle);
-		return;
-	}
-
-	if (xTarget == AtTarget)
+	if (xTarget <= AtTarget)
 	{
 		std::cout << "Drive to Vision Target - STOP at target.\n";
 		m_atTarget = true;
+		return;
+	}
+
+	if (xTarget <= NoTarget)
+	{
+		std::cout << "Drive to Vision Target - keep moving - No TARGET!\n";
+		Drive(m_lastAngle);
 		return;
 	}
 
@@ -65,7 +72,7 @@ void DriveToVisionTargetCommand :: Interrupted()
 
 double DriveToVisionTargetCommand::FindTarget()
 {
-	std::vector<VisionObject>	visionObjects = m_vision.GetObjects(TapeColor);
+	std::vector<VisionObject>	visionObjects = Robot::VisionSubsystem->GetObjects(TapeColor);
 	if (visionObjects.empty())
 		return NoTarget;
 	double minX = 100.0;
@@ -96,11 +103,11 @@ double DriveToVisionTargetCommand::FindTarget()
 
 void DriveToVisionTargetCommand::StopDrive()
 {
-	m_driveTrain.Drive(0.0, 0.0, 0.0);
+	Robot::DriveTrainSubsystem->Drive(0.0, 0.0, 0.0);
 }
 
 void DriveToVisionTargetCommand::Drive(double angle)
 {
 	m_lastAngle = angle;
-	m_driveTrain.Drive(m_speed, angle, 0.0);
+	Robot::DriveTrainSubsystem->Drive(m_speed, angle, 0.0);
 }

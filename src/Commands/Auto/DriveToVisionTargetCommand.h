@@ -15,9 +15,10 @@
 class DriveToVisionTargetCommand: public frc::Command
 {
 public:
-	DriveToVisionTargetCommand(DriveTrain& driveTrain, Vision& vision);
+	DriveToVisionTargetCommand();
 	~DriveToVisionTargetCommand() override = default;
 
+	void Initialize() override;
 	void Execute() override;
 	bool IsFinished() override;
 	void End() override;
@@ -32,9 +33,6 @@ private:
 	void StopDrive();
 	void Drive(double angle);
 
-
-	DriveTrain&	m_driveTrain;
-	Vision& 	m_vision;
 	bool		m_atTarget;
 	double		m_lastAngle;
 	double		m_speed;

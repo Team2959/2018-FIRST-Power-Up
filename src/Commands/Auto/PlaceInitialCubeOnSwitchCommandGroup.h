@@ -10,13 +10,11 @@
 
 #include <Commands/CommandGroup.h>
 #include "../../Autonomous.h"
-#include "../../Subsystems/DriveTrain.h"
-#include "../../Subsystems/Vision.h"
 
 class PlaceInitialCubeOnSwitchCommandGroup : public frc::CommandGroup
 {
 public:
-	PlaceInitialCubeOnSwitchCommandGroup(DriveTrain& driveTrain, Vision& vision, Side nearSwitchSide);
+	PlaceInitialCubeOnSwitchCommandGroup(Side nearSwitchSide);
 	~PlaceInitialCubeOnSwitchCommandGroup() override = default;
 };
 
