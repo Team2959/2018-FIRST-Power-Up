@@ -32,11 +32,11 @@ private:
 	DriveTrain&	m_driveTrain;
 	Vision&		m_Vision;
 	Side 		m_nearSwitchSide;
-	bool		m_AtTarget;
 	Direction	m_lastDirection;
 	double		m_lastSpeed;
 	double		m_lastAngle;
 	double		m_autonSpeed;
+	bool		m_AtTarget;
 };
 
 #endif /* SRC_COMMANDS_AUTO_FINDDRIVETARGET_H_ */
