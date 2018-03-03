@@ -44,6 +44,6 @@ constexpr double NoTarget = -1;
 constexpr double AtTarget = -2;
 constexpr int CubeColor = 1;
 constexpr int TapeColor = 2;
-constexpr static double TargetSize = 0.66; // percentage of frame filled
+constexpr static double TargetSize = 0.85; // percentage of frame filled
 
 #endif /* SRC_ROBOT_MAP_H_ */

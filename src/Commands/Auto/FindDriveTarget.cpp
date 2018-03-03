@@ -11,27 +11,44 @@
 #include <SmartDashboard/SmartDashboard.h>
 #include <iostream>
 
-FindDriveTarget::FindDriveTarget(DriveTrain& driveTrain, Vision& vision, Side nearSwitchSide) : m_driveTrain{ driveTrain },
-  m_Vision{ vision }, m_nearSwitchSide{ nearSwitchSide }
+FindDriveTarget::FindDriveTarget(DriveTrain& driveTrain, Vision& vision, Side nearSwitchSide) :
+	m_driveTrain{ driveTrain }, m_Vision{ vision }, m_nearSwitchSide{ nearSwitchSide },
+	m_lastDirection {Direction::Straight}, m_lastSpeed{0.0}, m_lastAngle{HalfPi},
+	m_AtTarget{ false }
 {
 	Requires(Robot::VisionSubsystem.get());
 	Requires(Robot::DriveTrainSubsystem.get());
+	m_autonSpeed = frc::SmartDashboard::GetNumber("Auton Shimmy Speed", 0.1);
 }
 
 void FindDriveTarget::Execute()
 {
-	double targetLocation{ FindCubePyramid() };
-	if( (targetLocation < 0.5)&&(m_nearSwitchSide == Side::Left) )
+	double targetLocation = FindCubePyramid();
+
+	if (targetLocation < 0)
 	{
-		Shimmy(Direction::ShimmyLeft, 0.875 * Pi);
-		std::cout << "Shimmy Left to Find Target!\n";
+		// no cube data, continue with previous motion
+		Shimmy(m_lastDirection, m_lastAngle);
+		std::cout << "Continue last Shimmy!\n";
+		return;
+	}
+	m_lastSpeed = m_autonSpeed;
+
+	if (targetLocation >= 0.0 &&
+		targetLocation < 0.5 &&
+		m_nearSwitchSide == Side::Left)
+	{
+		// need to move to center of pyramid, which is left of us
+		Shimmy(Direction::SlideLeft, 0.875 * Pi);
+		std::cout << "Slide Left to Find Target!\n";
 		return;
 	}
 
 	if( (targetLocation > 0.5)&&(m_nearSwitchSide == Side::Right) )
 	{
-		Shimmy(Direction::ShimmyRight, 0.125 * Pi);
-		std::cout << "Shimmy Right to Find Target!\n";
+		// need to move to center of pyramid, which is right of us
+		Shimmy(Direction::SlideRight, 0.125 * Pi);
+		std::cout << "Slide Right to Find Target!\n";
 		return;
 	}
 
@@ -47,12 +64,12 @@ void FindDriveTarget::Execute()
 		if (m_lastDirection == Direction::ShimmyLeft)
 		{
 			std::cout << "Shimmy Left to Vision Target!\n";
-			Shimmy(m_lastDirection, 0.75 * Pi);
+			Shimmy(Direction::ShimmyLeft, 0.75 * Pi);
 		}
 		else
 		{
 			std::cout << "Straight from Left side to Vision Target!\n";
-			Shimmy(m_lastDirection, HalfPi);
+			Shimmy(Direction::Straight, HalfPi);
 		}
 	}
 	else
@@ -60,12 +77,12 @@ void FindDriveTarget::Execute()
 		if (m_lastDirection == Direction::ShimmyRight)
 		{
 			std::cout << "Shimmy Right to Vision Target!\n";
-			Shimmy(m_lastDirection, QuarterPi);
+			Shimmy(Direction::ShimmyRight, QuarterPi);
 		}
 		else
 		{
 			std::cout << "Straight from Right side to Vision Target!\n";
-			Shimmy(m_lastDirection, HalfPi);
+			Shimmy(Direction::Straight, HalfPi);
 		}
 	}
 }
@@ -85,37 +102,48 @@ double FindDriveTarget::FindCubePyramid()
 	std::vector<VisionObject> visionObjects = m_Vision.GetObjects(CubeColor);
 	if( visionObjects.empty() )
 		return NoTarget;
-	double minX = 100.0;
-	double maxX = -100.0;
-	// think about limiting this to largest width 'cube', which should be the pyramid
+
+	// find the biggest 'cube' from the list (either wider or taller)
+	// return the center location as our target
+	double biggestCubeDimension = 0;
+	double biggestCubeLocation = 0;
+
 	for( auto& visionObject : visionObjects )
 	{
-		double	left = visionObject.Left();
-		double 	right = visionObject.Right();
-		if (left < minX)
+		double biggerDimension = fmax(visionObject.Width(), visionObject.Height());
+
+		if (biggerDimension > biggestCubeDimension)
 		{
-			minX = left;
-		}
-		if ( right > maxX)
-		{
-			maxX = right;
+			biggestCubeDimension = biggerDimension;
+			biggestCubeLocation = (visionObject.Left() + visionObject.Right()) / 2.0;
 		}
 	}
-	return (minX + maxX) / 2.0;
+
+	return biggestCubeLocation;
 }
 
 void FindDriveTarget::Shimmy(Direction direction, double angle)
 {
-	double speed = frc::SmartDashboard::GetNumber("Auton Shimmy Speed", 0.1);
-
 	m_lastDirection = direction;
+	m_lastAngle = angle;
 
-	m_driveTrain.Drive(speed, angle, 0.0 );
+	m_driveTrain.Drive(m_lastSpeed, angle, 0.0);
 }
-
 
 bool FindDriveTarget::AtReflectiveTape()
 {
 	std::vector<VisionObject> visionObjects = m_Vision.GetObjects(TapeColor);
-	return visionObjects.empty() == false;
+	if( visionObjects.empty() )
+		return false;
+
+	// find the tallest 'tape' from the list
+	double tallest = 0;
+
+	for( auto& visionObject : visionObjects )
+	{
+		tallest = fmax(tallest, visionObject.Height());
+	}
+
+	// At 4' probably 90 high and frame height is 240, hence ratio of 90/240
+	return tallest > 0.375;
 }

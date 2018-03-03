@@ -22,7 +22,7 @@ public:
 	virtual void End() override;
 
 private:
-	enum class Direction { ShimmyLeft, ShimmyRight, Straight };
+	enum class Direction { ShimmyLeft, ShimmyRight, Straight, SlideLeft, SlideRight };
 
 	double FindCubePyramid();
 	void Shimmy(Direction direction, double angle);
@@ -32,8 +32,11 @@ private:
 	DriveTrain&	m_driveTrain;
 	Vision&		m_Vision;
 	Side 		m_nearSwitchSide;
-	bool		m_AtTarget{ false };
-	Direction	m_lastDirection {Direction::Straight};
+	bool		m_AtTarget;
+	Direction	m_lastDirection;
+	double		m_lastSpeed;
+	double		m_lastAngle;
+	double		m_autonSpeed;
 };
 
 #endif /* SRC_COMMANDS_AUTO_FINDDRIVETARGET_H_ */
