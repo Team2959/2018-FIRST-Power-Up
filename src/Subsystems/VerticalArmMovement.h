@@ -27,12 +27,12 @@ private:
 	const double ScalePositionMinimum = ScalePositionMaximum - 24 * DistanceToTicksFactor;
 	const double ScaleConversionSlope = (ScalePositionMaximum-ScalePositionMinimum)/(ScaleHeightMaximum-ScaleHeightMinimum);
 
-	const int Level1Position = 5.5 * DistanceToTicksFactor;
-	const int ExchangePosition = 8.5 * DistanceToTicksFactor;
-	const int Level2Position = 16.5 * DistanceToTicksFactor;
-	const int SwitchPosition = 24.5 * DistanceToTicksFactor;
-	const int PortalPosition = 25.5 * DistanceToTicksFactor;
-	const int Level3Position = 27.5 * DistanceToTicksFactor;
+	const int Level1Position = 0;
+	const int ExchangePosition = 1000;
+	const int Level2Position = 6000;
+	const int SwitchPosition = 14000;
+	const int PortalPosition = 12000;
+	const int Level3Position = 12000;
 
 public:
 	enum CubeVerticalPlace
