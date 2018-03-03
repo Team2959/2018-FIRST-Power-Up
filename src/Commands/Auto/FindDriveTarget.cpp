@@ -74,7 +74,8 @@ void FindDriveTarget::Execute()
 		return;
 	}
 
-	m_atTarget = AtReflectiveTape();
+	double center = 0.5;
+	m_atTarget = AtReflectiveTape(center);
 
 	std::cout << ElapsedMS() << ":  m_atTarget = " << m_atTarget << '\n';
 
@@ -91,7 +92,7 @@ void FindDriveTarget::Execute()
 		}
 		else
 		{
-			Shimmy(Direction::Straight, HalfPi);
+			Shimmy(Direction::Straight, AngleToTape(center));
 		}
 	}
 	else
@@ -102,7 +103,7 @@ void FindDriveTarget::Execute()
 		}
 		else
 		{
-			Shimmy(Direction::Straight, HalfPi);
+			Shimmy(Direction::Straight, AngleToTape(center));
 		}
 	}
 }
@@ -157,7 +158,7 @@ void FindDriveTarget::Shimmy(Direction direction, double angle)
 	Robot::DriveTrainSubsystem->Drive(m_lastSpeed, angle, 0.0);
 }
 
-bool FindDriveTarget::AtReflectiveTape()
+bool FindDriveTarget::AtReflectiveTape(double& center)
 {
 	std::vector<VisionObject> visionObjects = Robot::VisionSubsystem->GetObjects(TapeColor);
 	if( visionObjects.empty() )
@@ -168,10 +169,15 @@ bool FindDriveTarget::AtReflectiveTape()
 
 	// find the tallest 'tape' from the list
 	double tallest = 0;
+	center = -1;
 
 	for( auto& visionObject : visionObjects )
 	{
-		tallest = fmax(tallest, visionObject.Height());
+		if (visionObject.Height() > tallest)
+		{
+			tallest = visionObject.Height();
+			center = visionObject.CenterX();
+		}
 	}
 
 	std::cout << ElapsedMS() << ":  AtReflectiveTape - " << tallest << "\n";
@@ -179,4 +185,21 @@ bool FindDriveTarget::AtReflectiveTape()
 	// At 4' probably 90 high and frame height is 240, hence ratio of 90/240
 	//).25 works better
 	return tallest > 0.25;
+}
+
+double FindDriveTarget::AngleToTape(double center)
+{
+	double angle = HalfPi;
+	if (center < 0)
+	{
+	}
+	else if (center<.45)
+	{
+		angle = 0.75 * Pi;
+	}
+	else if (center>.55)
+	{
+		angle = QuarterPi;
+	}
+	return angle;
 }
