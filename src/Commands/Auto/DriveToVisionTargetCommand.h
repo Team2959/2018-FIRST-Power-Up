@@ -30,7 +30,6 @@ private:
 	constexpr static double TargetSize = 0.25;
 
 	double FindTarget();
-	void StopDrive();
 	void Drive(double angle);
 
 	bool		m_atTarget;

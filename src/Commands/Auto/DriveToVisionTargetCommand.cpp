@@ -60,12 +60,12 @@ bool DriveToVisionTargetCommand::IsFinished()
 
 void DriveToVisionTargetCommand::End()
 {
-	StopDrive();
+	Interrupted();
 }
 
-void DriveToVisionTargetCommand :: Interrupted()
+void DriveToVisionTargetCommand::Interrupted()
 {
-	StopDrive();
+	Robot::DriveTrainSubsystem->Drive(0.0, 0.0, 0.0);
 }
 
 double DriveToVisionTargetCommand::FindTarget()
@@ -100,11 +100,6 @@ double DriveToVisionTargetCommand::FindTarget()
 	}
 
 	return (biggestObject.CenterX() + mate->CenterX()) / 2.0;
-}
-
-void DriveToVisionTargetCommand::StopDrive()
-{
-	Robot::DriveTrainSubsystem->Drive(0.0, 0.0, 0.0);
 }
 
 void DriveToVisionTargetCommand::Drive(double angle)

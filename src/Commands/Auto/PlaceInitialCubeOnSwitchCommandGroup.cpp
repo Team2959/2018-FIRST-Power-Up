@@ -18,7 +18,7 @@
 PlaceInitialCubeOnSwitchCommandGroup::PlaceInitialCubeOnSwitchCommandGroup(Side nearSwitchSide) :
   frc::CommandGroup("PlaceInitialCubeOnSwitch")
 {
-	double duration = frc::SmartDashboard::GetNumber("Auton Straight Duration", 1.0);
+	double duration = frc::SmartDashboard::GetNumber("Auton Straight To Switch Time", 1.0);
 	AddSequential(new FindDriveTarget(nearSwitchSide));
 	AddSequential(new DriveToVisionTargetCommand());
 	//AddSequential(new MoveToVerticalCubePositionCommand(VerticalArmMovement::Switch));

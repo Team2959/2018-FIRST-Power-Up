@@ -25,6 +25,7 @@ Autonomous::Autonomous()
 
 	frc::SmartDashboard::PutNumber("Auton Speed", 0.25);
 	frc::SmartDashboard::PutNumber("Auton Shimmy Speed", 0.2);
+	frc::SmartDashboard::PutNumber("Auton Straight To Switch Time", 1.0);
 }
 
 void Autonomous::AutoInit()

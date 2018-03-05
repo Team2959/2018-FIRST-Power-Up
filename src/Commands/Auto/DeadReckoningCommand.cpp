@@ -20,7 +20,7 @@ DeadReckoningCommand::DeadReckoningCommand(double driveTime, double magnitude, d
 
 void DeadReckoningCommand::Initialize()
 {
-	std::cout << "Start Drive Straight\n";
+	std::cout << "Start Dead Reckoning: magnitude" << m_magnitude << "; angle" << m_angle << "; rotation " << m_rotation << "\n";
 }
 
 void DeadReckoningCommand::Execute()
@@ -31,7 +31,7 @@ void DeadReckoningCommand::Execute()
 void DeadReckoningCommand::End()
 {
 	Robot::DriveTrainSubsystem->Drive(0, 0, 0);
-	std::cout << "Finished Drive Straight\n";
+	std::cout << "Finished Dead Reckoning\n";
 }
 
 void DeadReckoningCommand::Interrupted()
