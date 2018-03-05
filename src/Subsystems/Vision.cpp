@@ -7,12 +7,18 @@
 
 #include "Vision.h"
 #include "PixyCam/I2CChannel.h"
+#include "RobotMap.h"
+#include <iostream>
+#include <I2C.h>
 
 using namespace frc;
 using namespace std;
 using namespace PixyCam;
 
-Vision::Vision() : frc::Subsystem("Vision"), _camera{make_unique<I2CChannel>(I2C::kOnboard,0)} { }
+Vision::Vision() : frc::Subsystem("Vision"),
+	_camera{std::make_unique<I2CChannel>(I2C::kOnboard,0)}
+{
+}
 
 vector<VisionObject> Vision::GetObjects(int signature)
 {
@@ -37,4 +43,25 @@ vector<VisionObject> Vision::GetObjects(int signature)
 							static_cast<double>(frameBlock.Height()) / FrameHeight);
 	}
 	return result;
+}
+
+void Vision::TestPixyCam()
+{
+	auto blocks{ _camera.ReadFrameBlocks() };
+
+	if(blocks.size() == 0)
+		std::cout << "None\n";
+	else
+		for(auto i = 0U; i < blocks.size(); ++i)
+		{
+			auto& block{blocks[i]};
+			if (block.SignatureNumber() == CubeColor)
+			{
+				std::cout << "Cube " << i << ": " << block.X() << ',' << block.Y() << ',' << block.Width() << ',' << block.Height() << '\n';
+			}
+			else if (block.SignatureNumber() == TapeColor)
+			{
+				std::cout << "Tape " << i << ": " << block.X() << ',' << block.Y() << ',' << block.Width() << ',' << block.Height() << '\n';
+			}
+		}
 }

@@ -12,13 +12,13 @@
 #include <iostream>
 #include <chrono>
 
-FindDriveTarget::FindDriveTarget(Side nearSwitchSide) :
-	m_nearSwitchSide{ nearSwitchSide }
+FindDriveTarget::FindDriveTarget(Side nearSwitchSide) : frc::Command("FindDriveTarget"),
+	m_lastSpeed{ 0.0 }, m_lastAngle{ HalfPi }, m_autonSpeed{ 0.25 },
+	m_lastDirection{ Direction::Straight }, m_nearSwitchSide{ nearSwitchSide },
+	m_atTarget{ false }
 {
 	Requires(Robot::VisionSubsystem.get());
 	Requires(Robot::DriveTrainSubsystem.get());
-
-	m_autonSpeed = 0.25;
 }
 
 static decltype(std::chrono::high_resolution_clock::now())	startTime;
@@ -36,11 +36,12 @@ int ElapsedMS()
 void FindDriveTarget::Initialize()
 {
 	ResetStartTime();
-	m_autonSpeed = frc::SmartDashboard::GetNumber("Auton Shimmy Speed", 0.25);
+
 	m_lastSpeed = 0.0;
 	m_lastAngle = HalfPi;
-	m_atTarget = false;
+	m_autonSpeed = frc::SmartDashboard::GetNumber("Auton Shimmy Speed", 0.25);
 	m_lastDirection = Direction::Straight;
+	m_atTarget = false;
 }
 
 void FindDriveTarget::Execute()
@@ -118,7 +119,7 @@ void FindDriveTarget::End()
 	Shimmy(Direction::Straight, 0);
 }
 
-void FindDriveTarget :: Interrupted()
+void FindDriveTarget::Interrupted()
 {
 	Robot::DriveTrainSubsystem->Drive(0.0, 0, 0.0);
 }
@@ -141,7 +142,7 @@ double FindDriveTarget::FindCubePyramid()
 		if (biggerDimension > biggestCubeDimension)
 		{
 			biggestCubeDimension = biggerDimension;
-			biggestCubeLocation = (visionObject.Left() + visionObject.Right()) / 2.0;
+			biggestCubeLocation = visionObject.CenterX();
 		}
 	}
 

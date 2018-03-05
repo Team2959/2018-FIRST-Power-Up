@@ -119,6 +119,7 @@ void Robot::RobotPeriodic()
 void Robot::DisabledInit()
 {
 	MotionTrackingSubsystem->ResetTelemetries();
+	m_autonomous->CancelAutonomousCommand();
 }
 
 void Robot::DisabledPeriodic()
@@ -147,12 +148,13 @@ void Robot::AutonomousInit()
 
 void Robot::AutonomousPeriodic()
 {
+	m_autonomous->AutoPeriodic();
 	frc::Scheduler::GetInstance()->Run();
 }
 
 void Robot::TeleopInit()
 {
-	m_autonomous->TeleopInit();
+	m_autonomous->CancelAutonomousCommand();
 }
 
 void Robot::TeleopPeriodic()
@@ -162,30 +164,8 @@ void Robot::TeleopPeriodic()
 
 void Robot::TestPeriodic()
 {
-	TestPixyCam();
+	VisionSubsystem->TestPixyCam();
 	frc::TimedRobot::TestPeriodic();
-}
-
-void Robot::TestPixyCam()
-{
-	static PixyCam::Camera	camera{std::make_unique<PixyCam::I2CChannel>(frc::I2C::kOnboard,0)};
-	auto blocks{ camera.ReadFrameBlocks() };
-
-	if(blocks.size() == 0)
-		std::cout << "None\n";
-	else
-		for(auto i = 0U; i < blocks.size(); ++i)
-		{
-			auto& block{blocks[i]};
-			if (block.SignatureNumber() == CubeColor)
-			{
-				std::cout << "Cube " << i << ": " << block.X() << ',' << block.Y() << ',' << block.Width() << ',' << block.Height() << '\n';
-			}
-			else if (block.SignatureNumber() == TapeColor)
-			{
-				std::cout << "Tape " << i << ": " << block.X() << ',' << block.Y() << ',' << block.Width() << ',' << block.Height() << '\n';
-			}
-		}
 }
 
 START_ROBOT_CLASS(Robot)

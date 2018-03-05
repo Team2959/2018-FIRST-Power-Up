@@ -38,7 +38,10 @@ class Vision : public frc::Subsystem
 {
 public:
 	Vision();
+
 	std::vector<VisionObject> GetObjects(int signature);
+
+	void TestPixyCam();
 
 private:
 	constexpr static const int FrameWidth{320};

@@ -29,10 +29,38 @@ Autonomous::Autonomous()
 
 void Autonomous::AutoInit()
 {
+	m_autonomousCommand = nullptr;
 	Robot::CubeDeliverySubsystem->CloseArms();
 
+	StartAutonomousFromGameData();
+}
+
+void Autonomous::AutoPeriodic()
+{
+	// ensure we wait for game data to start autonomous
+	if (m_autonomousCommand == nullptr)
+	{
+		StartAutonomousFromGameData();
+	}
+}
+
+void Autonomous::CancelAutonomousCommand()
+{
+	// This makes sure that the autonomous stops running when
+	// teleop starts running. If you want the autonomous to
+	// continue until interrupted by another command, remove
+	// this line or comment it out.
+	if (m_autonomousCommand)
+	{
+		m_autonomousCommand->Cancel();
+		m_autonomousCommand = nullptr;
+	}
+}
+
+void Autonomous::StartAutonomousFromGameData()
+{
 	Side	nearSwitchSide;
-	// Side	farSwitchSide;
+	// Side	opponentSwitchSide;
 	// Side	scaleSide;
 	// Add code to read switch/scale state from Field Management System
 	// https://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/826278-2018-game-data-details
@@ -40,38 +68,34 @@ void Autonomous::AutoInit()
 	if (gameData.size() < 3)
 	{
 		std::cout << "AutonomousInit - No game data.\n";
+		return;
+	}
+
+	if (gameData[0] == 'L')
+	{
 		nearSwitchSide = Side::Left;
-		// farSwitchSide = Side::Left;
-		// scaleSide = Side::Left;
 	}
 	else
 	{
-		if (gameData[0] == 'L')
-		{
-			nearSwitchSide = Side::Left;
-		}
-		else
-		{
-			nearSwitchSide = Side::Right;
-		}
-		/*
-		if (gameData[1] == 'L')
-		{
-			scaleSide = Side::Left;
-		}
-		else
-		{
-			scaleSide = Side::Right;
-		}
-		if (gameData[2] == 'L')
-		{
-			farSwitchSide = Side::Left;
-		}
-		else
-		{
-			farSwitchSide = Side::Right;
-		} */
+		nearSwitchSide = Side::Right;
 	}
+	/*
+	if (gameData[1] == 'L')
+	{
+		scaleSide = Side::Left;
+	}
+	else
+	{
+		scaleSide = Side::Right;
+	}
+	if (gameData[2] == 'L')
+	{
+		opponentSwitchSide = Side::Left;
+	}
+	else
+	{
+		opponentSwitchSide = Side::Right;
+	} */
 
 	switch(m_chooser.GetSelected())
 	{
@@ -89,22 +113,9 @@ void Autonomous::AutoInit()
 		break;
 	}
 
-	if(m_autonomousCommand)
+	if (m_autonomousCommand)
 	{
 		std::cout << "Starting -- " << m_autonomousCommand->GetName() << '\n';
 		m_autonomousCommand->Start();
-	}
-}
-
-void Autonomous::TeleopInit()
-{
-	// This makes sure that the autonomous stops running when
-	// teleop starts running. If you want the autonomous to
-	// continue until interrupted by another command, remove
-	// this line or comment it out.
-	if (m_autonomousCommand)
-	{
-		m_autonomousCommand->Cancel();
-		m_autonomousCommand = nullptr;
 	}
 }

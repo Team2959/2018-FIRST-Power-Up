@@ -14,7 +14,7 @@
 DriveStraightCommand::DriveStraightCommand(double driveTime) : frc::TimedCommand("DriveStraight", driveTime)
 {
 	Requires(Robot::DriveTrainSubsystem.get());
-	m_speed = frc::SmartDashboard::GetNumber("Auton Speed", 0.5);
+	m_speed = 0.5;
 }
 
 void DriveStraightCommand::Initialize()

@@ -17,11 +17,11 @@ class FindDriveTarget: public frc::Command
 public:
 	FindDriveTarget(Side nearSwitchSide);
 
-	virtual void Initialize() override;
-	virtual void Execute() override;
-	virtual bool IsFinished() override;
-	virtual void End() override;
-	virtual void Interrupted () override;
+	void Initialize() override;
+	void Execute() override;
+	bool IsFinished() override;
+	void End() override;
+	void Interrupted() override;
 
 private:
 	enum class Direction { ShimmyLeft, ShimmyRight, Straight, SlideLeft, SlideRight };
@@ -31,12 +31,12 @@ private:
 	bool AtReflectiveTape(double& center);
 	double AngleToTape(double center);
 
-	double		m_lastSpeed{ 0.0 };
-	double		m_lastAngle{ HalfPi };
+	double		m_lastSpeed;
+	double		m_lastAngle;
 	double		m_autonSpeed;
-	Direction	m_lastDirection{ Direction::Straight };
+	Direction	m_lastDirection;
 	Side 		m_nearSwitchSide;
-	bool		m_atTarget{ false };
+	bool		m_atTarget;
 };
 
 #endif /* SRC_COMMANDS_AUTO_FINDDRIVETARGET_H_ */

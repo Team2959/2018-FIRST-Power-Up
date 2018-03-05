@@ -11,12 +11,10 @@
 #include <iostream>
 
 DriveToVisionTargetCommand::DriveToVisionTargetCommand() :
-	m_atTarget{ false }, m_lastAngle{HalfPi}
+	m_atTarget{ false }, m_lastAngle{HalfPi}, m_speed{ 0.25 }
 {
 	Requires(Robot::VisionSubsystem.get());
 	Requires(Robot::DriveTrainSubsystem.get());
-
-	m_speed = 0.25;
 }
 
 void DriveToVisionTargetCommand::Initialize()

@@ -30,11 +30,14 @@ private:
 	frc::SendableChooser<AutoCommand>	m_chooser;
 	std::unique_ptr<frc::Command>		m_autonomousCommand;
 
+	void StartAutonomousFromGameData();
+
 public:
 	Autonomous();
 
 	void AutoInit();
-	void TeleopInit();
+	void AutoPeriodic();
+	void CancelAutonomousCommand();
 };
 
 #endif /* SRC_AUTONOMOUS_H_ */
