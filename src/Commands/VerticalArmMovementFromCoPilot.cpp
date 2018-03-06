@@ -21,7 +21,7 @@ VerticalArmMovementFromCoPilot::VerticalArmMovementFromCoPilot() : frc::Command(
 
 void VerticalArmMovementFromCoPilot::Execute()
 {
-	double axis = Robot::oi->GetButtonBox()->GetRawAxis(3);
+	double axis = Robot::oi->GetButtonBox()->GetRawAxis(0);
 	// convert from -1 .. 1 to 0 .. 1 range
 	axis = (axis + 1.0) / 2.0;
 	Robot::VerticalArmMovmentSubsystem->MoveArmToHeight(axis);

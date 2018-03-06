@@ -28,13 +28,14 @@ OI::OI()
 	OpenOrCloseCubeArmsButton.reset(new frc::JoystickButton(DriverJoystick.get(), 2));
 
 	// map co-pilot buttons
-	RaiseHooksUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 1));
-	DropHooksDownButton.reset(new frc::JoystickButton(ButtonBox.get(), 2));
-	StopArmWheelsButton.reset(new frc::JoystickButton(ButtonBox.get(), 3));
-	FoldCubeArmsUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 4));
+	StopArmWheelsButton.reset(new frc::JoystickButton(ButtonBox.get(), 1));
+	SpinArmWheelsInButton.reset(new frc::JoystickButton(ButtonBox.get(), 2));
+	RaiseHooksUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 3));
+	DropHooksDownButton.reset(new frc::JoystickButton(ButtonBox.get(), 4));
 	FoldCubeArmsDownButton.reset(new frc::JoystickButton(ButtonBox.get(), 5));
-	SpinArmWheelsInButton.reset(new frc::JoystickButton(ButtonBox.get(), 6));
-	DeliverCubeButton.reset(new frc::JoystickButton(ButtonBox.get(), 7));
+	FoldCubeArmsUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 6));
+//	VerticalActivateButton.reset(new frc::JoystickButton(ButtonBox.get(), 7));
+	DeliverCubeButton.reset(new frc::JoystickButton(ButtonBox.get(), 8));
 
 	// Triggers
 	IsCubePresentTrigger.reset(new CubePresentTrigger());
