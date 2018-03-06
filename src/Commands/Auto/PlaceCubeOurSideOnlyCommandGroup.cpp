@@ -5,7 +5,7 @@
  *      Author: Aria
  */
 
-#include <Commands/Auto/PlaceCubeOurSideOnlyPlaceCubeOurSideOnlyCommandGroup.h>
+#include <Commands/Auto/PlaceCubeOurSideOnlyCommandGroup.h>
 #include "Commands/Auto/PlaceInitialCubeOnSwitchCommandGroup.h"
 #include <Commands/Auto/DeadReckoningCommand.h>
 #include <Commands/Auto/MoveToVerticalCubePositionCommand.h>
