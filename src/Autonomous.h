@@ -29,6 +29,7 @@ private:
 
 	frc::SendableChooser<AutoCommand>	m_chooser;
 	std::unique_ptr<frc::Command>		m_autonomousCommand;
+	bool m_foundGameData;
 
 	void StartAutonomousFromGameData();
 
