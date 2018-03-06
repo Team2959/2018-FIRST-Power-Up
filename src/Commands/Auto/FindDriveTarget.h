@@ -31,6 +31,8 @@ private:
 	bool AtReflectiveTape(double& center);
 	double AngleToTape(double center);
 
+	std::vector<double> m_history;
+
 	double		m_lastSpeed;
 	double		m_lastAngle;
 	double		m_autonSpeed;

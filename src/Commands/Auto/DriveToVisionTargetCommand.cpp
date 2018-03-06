@@ -9,6 +9,7 @@
 #include <robot.h>
 #include <SmartDashboard/SmartDashboard.h>
 #include <iostream>
+#include <numeric>
 
 DriveToVisionTargetCommand::DriveToVisionTargetCommand() :
 	m_atTarget{ false }, m_lastAngle{HalfPi}, m_speed{ 0.25 }
@@ -49,6 +50,13 @@ void DriveToVisionTargetCommand::Execute()
 		angle = QuarterPi;
 	else
 		angle = HalfPi;
+
+	m_history.push_back(angle);
+		while(m_history.size()>5)
+			m_history.erase(m_history.begin());
+
+		angle = std::accumulate(std::begin(m_history), std::end(m_history),0.0)/m_history.size();
+
 	std::cout << "Drive to Vision Target - angle " << angle << ".\n";
 	Drive(angle);
 }
