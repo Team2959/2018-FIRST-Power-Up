@@ -1,8 +1,8 @@
 /*
- * FarLeftAndRightCommand.h
+ * FarLeftAndRightCommandGroup.h
  *
  *  Created on: Mar 5, 2018
- *      Author: Kevin
+ *      Author: Aria
  */
 
 #ifndef SRC_COMMANDS_AUTO_FARLEFTANDRIGHTCOMMAND_H_
@@ -11,11 +11,11 @@
 #include <Commands/CommandGroup.h>
 #include "../../Autonomous.h"
 
-class FarLeftAndRightCommand: public frc::CommandGroup
+class FarLeftAndRightCommandGroup : public frc::CommandGroup
 {
 public:
-	FarLeftAndRightCommand();
-	virtual ~FarLeftAndRightCommand();
+	FarLeftAndRightCommandGroup();
+	~FarLeftAndRightCommandGroup() override = default;
 };
 
 #endif /* SRC_COMMANDS_AUTO_FARLEFTANDRIGHTCOMMAND_H_ */

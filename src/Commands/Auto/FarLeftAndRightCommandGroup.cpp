@@ -1,11 +1,11 @@
 /*
- * FarLeftAndRightCommand.cpp
+ * FarLeftAndRightCommandGroup.cpp
  *
  *  Created on: Mar 5, 2018
- *      Author: Kevin
+ *      Author: Aria
  */
 
-#include <Commands/Auto/FarLeftAndRightCommand.h>
+#include <Commands/Auto/FarLeftAndRightCommandGroup.h>
 #include "Commands/Auto/PlaceInitialCubeOnSwitchCommandGroup.h"
 #include <Commands/DeliverCubeCommand.h>
 #include <Commands/Auto/MoveToVerticalCubePositionCommand.h>
@@ -16,7 +16,7 @@
 #include <Commands/Auto/DriveStraightCommand.h>
 #include <SmartDashboard/SmartDashboard.h>
 
-FarLeftAndRightCommand::FarLeftAndRightCommand()
+FarLeftAndRightCommandGroup::FarLeftAndRightCommandGroup()
 {
 	bool startFarLeft = frc::SmartDashboard::GetBoolean("Is Auton Starting Far Left?", true);
 
@@ -25,9 +25,3 @@ FarLeftAndRightCommand::FarLeftAndRightCommand()
 
 	}
 }
-
-FarLeftAndRightCommand::~FarLeftAndRightCommand()
-{
-	// TODO Auto-generated destructor stub
-}
-

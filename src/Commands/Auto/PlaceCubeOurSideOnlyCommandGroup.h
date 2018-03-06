@@ -1,8 +1,8 @@
 /*
- * PlaceCubeOurSideOnly.h
+ * PlaceCubeOurSideOnlyPlaceCubeOurSideOnlyCommandGroup.h
  *
  *  Created on: Mar 5, 2018
- *      Author: Kevin
+ *      Author: Aria
  */
 
 #ifndef SRC_COMMANDS_AUTO_PLACECUBEOURSIDEONLY_H_
@@ -11,11 +11,11 @@
 #include <Commands/CommandGroup.h>
 #include "../../Autonomous.h"
 
-class PlaceCubeOurSideOnly: public frc::CommandGroup
+class PlaceCubeOurSideOnlyCommandGroup : public frc::CommandGroup
 {
 public:
-	PlaceCubeOurSideOnly(Side nearSwitchSide);
-	~PlaceCubeOurSideOnly() override = default;
+	PlaceCubeOurSideOnlyCommandGroup(Side nearSwitchSide);
+	~PlaceCubeOurSideOnlyCommandGroup() override = default;
 };
 
 #endif /* SRC_COMMANDS_AUTO_PLACECUBEOURSIDEONLY_H_ */
