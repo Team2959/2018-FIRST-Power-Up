@@ -26,10 +26,15 @@ Autonomous::Autonomous()
 	frc::SmartDashboard::PutNumber("Auton Speed", 0.25);
 	frc::SmartDashboard::PutNumber("Auton Shimmy Speed", 0.2);
 	frc::SmartDashboard::PutNumber("Auton Straight To Switch Time", 1.0);
+	frc::SmartDashboard::PutBoolean("Is Auton Starting Left?", true);
+	frc::SmartDashboard::PutBoolean("Is Auton Starting FarLeft?", true);
+
+	m_foundGameData = false;
 }
 
 void Autonomous::AutoInit()
 {
+	m_foundGameData = false;
 	m_autonomousCommand = nullptr;
 	Robot::CubeDeliverySubsystem->CloseArms();
 
@@ -39,7 +44,7 @@ void Autonomous::AutoInit()
 void Autonomous::AutoPeriodic()
 {
 	// ensure we wait for game data to start autonomous
-	if (m_autonomousCommand == nullptr)
+	if (!m_foundGameData && m_autonomousCommand == nullptr)
 	{
 		StartAutonomousFromGameData();
 	}
@@ -71,6 +76,8 @@ void Autonomous::StartAutonomousFromGameData()
 		std::cout << "AutonomousInit - No game data.\n";
 		return;
 	}
+
+	m_foundGameData = true;
 
 	if (gameData[0] == 'L')
 	{
