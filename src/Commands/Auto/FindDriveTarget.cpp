@@ -11,6 +11,7 @@
 #include <SmartDashboard/SmartDashboard.h>
 #include <iostream>
 #include <chrono>
+#include <numeric>
 
 FindDriveTarget::FindDriveTarget(Side nearSwitchSide) : frc::Command("FindDriveTarget"),
 	m_lastSpeed{ 0.0 }, m_lastAngle{ HalfPi }, m_autonSpeed{ 0.25 },
@@ -154,6 +155,11 @@ double FindDriveTarget::FindCubePyramid()
 
 void FindDriveTarget::Shimmy(Direction direction, double angle)
 {
+	m_history.push_back(angle);
+	while(m_history.size()>5)
+		m_history.erase(m_history.begin());
+
+	angle = std::accumulate(std::begin(m_history), std::end(m_history),0.0)/m_history.size();
 	m_lastDirection = direction;
 	m_lastAngle = angle;
 

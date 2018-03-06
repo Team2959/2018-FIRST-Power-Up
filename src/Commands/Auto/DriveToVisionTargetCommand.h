@@ -32,6 +32,9 @@ private:
 	double FindTarget();
 	void Drive(double angle);
 
+	std::vector<double> m_history;
+
+
 	bool		m_atTarget;
 	double		m_lastAngle;
 	double		m_speed;
