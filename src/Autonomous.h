@@ -24,7 +24,8 @@ private:
 		Default,
 		DriveStraight,
 		PlaceInitialCubeOnSwitch,
-		PlaceCubeOnLeftSwitch
+		PlaceCubeOnLeftSwitch,
+		PlaceCubeOnOurSide
 	};
 
 	frc::SendableChooser<AutoCommand>	m_chooser;

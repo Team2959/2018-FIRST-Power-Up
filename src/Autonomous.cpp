@@ -14,12 +14,14 @@
 #include "Commands/Auto/PlaceInitialCubeOnSwitchCommandGroup.h"
 #include "Commands/Auto/PlaceOnLeftSwitchCommandGroup.h"
 #include "Robot.h"
+#include "Commands/Auto/PlaceCubeOurSideOnlyCommandGroup.h"
 
 Autonomous::Autonomous()
 {
 	m_chooser.AddDefault("Default Auto", AutoCommand::Default);
 	m_chooser.AddObject("Drive Straight", AutoCommand::DriveStraight);
 	m_chooser.AddObject("Place Initial Cube On Switch", AutoCommand::PlaceInitialCubeOnSwitch);
+	m_chooser.AddObject("Place Cube On Our Side", AutoCommand::PlaceCubeOnOurSide);
 	//m_chooser.AddObject("Place Cube On Left Switch", AutoCommand::PlaceCubeOnLeftSwitch);
 	frc::SmartDashboard::PutData("Autonomous Command", &m_chooser);
 
@@ -119,6 +121,10 @@ void Autonomous::StartAutonomousFromGameData()
 	case AutoCommand::PlaceCubeOnLeftSwitch:
 		m_autonomousCommand = std::make_unique<PlaceOnLeftSwitchCommandGroup>();
 		break;
+
+	case AutoCommand::PlaceCubeOnOurSide:
+			m_autonomousCommand = std::make_unique<PlaceCubeOurSideOnlyCommandGroup>(nearSwitchSide);
+			break;
 	}
 
 	if (m_autonomousCommand)
