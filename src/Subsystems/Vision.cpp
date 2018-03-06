@@ -63,5 +63,10 @@ void Vision::TestPixyCam()
 			{
 				std::cout << "Tape " << i << ": " << block.X() << ',' << block.Y() << ',' << block.Width() << ',' << block.Height() << '\n';
 			}
+			std::cout << "Calcs " << i <<
+					": left " << (static_cast<double>(block.X() - block.Width() / 2) / FrameWidth) <<
+					", top " << (static_cast<double>(block.Y() - block.Height() / 2) / FrameHeight) <<
+					", width " << (static_cast<double>(block.Width()) / FrameWidth) <<
+					", height" << (static_cast<double>(block.Height()) / FrameHeight) << '\n';
 		}
 }
