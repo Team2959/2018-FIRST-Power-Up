@@ -119,7 +119,6 @@ void Robot::RobotPeriodic()
 void Robot::DisabledInit()
 {
 	MotionTrackingSubsystem->ResetTelemetries();
-	m_autonomous->CancelAutonomousCommand();
 }
 
 void Robot::DisabledPeriodic()
