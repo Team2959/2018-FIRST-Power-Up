@@ -78,7 +78,10 @@ void FindDriveTarget::Execute()
 	double center = 0.5;
 	m_atTarget = AtReflectiveTape(center);
 
-	std::cout << ElapsedMS() << ":  m_atTarget = " << m_atTarget << '\n';
+	std::cout << ElapsedMS() << ":  m_atTarget = " << m_atTarget
+			<< " center " << center
+			<< " angle to tape " << AngleToTape(center)
+			<< '\n';
 
 	if (m_atTarget)
 	{

@@ -27,7 +27,7 @@ public:
 private:
 	constexpr static double NoTarget = -1.0;
 	constexpr static double AtTarget = -2.0;
-	constexpr static double TargetSize = 0.25;
+	constexpr static double TargetSize = 0.6;
 
 	double FindTarget();
 	void Drive(double angle);
