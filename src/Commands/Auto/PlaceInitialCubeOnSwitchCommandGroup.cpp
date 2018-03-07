@@ -14,6 +14,8 @@
 #include <Commands/Auto/DriveToVisionTargetCommand.h>
 #include <Commands/Auto/DriveStraightCommand.h>
 #include <SmartDashboard/SmartDashboard.h>
+#include <Commands/TimedCommand.h>
+#include <Commands/StopArmWheelsCommand.h>
 
 PlaceInitialCubeOnSwitchCommandGroup::PlaceInitialCubeOnSwitchCommandGroup(Side nearSwitchSide) :
   frc::CommandGroup("PlaceInitialCubeOnSwitch")
@@ -25,4 +27,6 @@ PlaceInitialCubeOnSwitchCommandGroup::PlaceInitialCubeOnSwitchCommandGroup(Side 
 	//AddSequential(new FoldArmsDownCommand());
 	AddSequential(new DriveStraightCommand(duration));
 	AddSequential(new DeliverCubeCommand());
+	AddSequential(new TimedCommand(0.5));
+	AddSequential (new StopArmWheelsCommand);
 }

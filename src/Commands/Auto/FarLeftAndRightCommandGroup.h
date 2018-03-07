@@ -14,7 +14,7 @@
 class FarLeftAndRightCommandGroup : public frc::CommandGroup
 {
 public:
-	FarLeftAndRightCommandGroup();
+	FarLeftAndRightCommandGroup(Side nearSwitchSide);
 	~FarLeftAndRightCommandGroup() override = default;
 };
 
