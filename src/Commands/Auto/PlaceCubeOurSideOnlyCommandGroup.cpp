@@ -21,7 +21,7 @@ PlaceCubeOurSideOnlyCommandGroup::PlaceCubeOurSideOnlyCommandGroup(Side nearSwit
 	bool startLeft = frc::SmartDashboard::GetBoolean("Is Auton Starting Left?", true);
 
 	if ((startLeft && nearSwitchSide == Side::Left) ||
-			(startLeft == false && nearSwitchSide == Side::Right))
+		(startLeft == false && nearSwitchSide == Side::Right))
 	{
 		AddSequential(new PlaceInitialCubeOnSwitchCommandGroup(nearSwitchSide));
 	}

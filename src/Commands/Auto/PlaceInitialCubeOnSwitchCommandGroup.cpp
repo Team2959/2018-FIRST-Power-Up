@@ -28,5 +28,5 @@ PlaceInitialCubeOnSwitchCommandGroup::PlaceInitialCubeOnSwitchCommandGroup(Side 
 	AddSequential(new DriveStraightCommand(duration));
 	AddSequential(new DeliverCubeCommand());
 	AddSequential(new TimedCommand(0.5));
-	AddSequential (new StopArmWheelsCommand);
+	AddSequential(new StopArmWheelsCommand());
 }

@@ -2,27 +2,20 @@
  * SlideToTapeVisibleCommand.cpp
  *
  *  Created on: Mar 6, 2018
- *      Author: Kevin
+ *      Author: Aria
  */
 
-#include <SmartDashboard/SmartDashboard.h>
 #include <Commands/Auto/SlideToTapeVisibleCommand.h>
-
+#include <SmartDashboard/SmartDashboard.h>
 
 SlideToTapeVisibleCommand::SlideToTapeVisibleCommand(Side nearSwitchSide)
 {
-	bool startFarLeft = frc::SmartDashboard::GetBoolean("Is Auton Starting Far Left?", true);
+	bool startFarLeft = frc::SmartDashboard::GetBoolean("Is Auton Starting Left?", true);
 
-		if (startFarLeft)
-		{
+	if (startFarLeft)
+	{
 
-		}
-
-}
-
-SlideToTapeVisibleCommand::~SlideToTapeVisibleCommand()
-{
-	// TODO Auto-generated destructor stub
+	}
 }
 
 void SlideToTapeVisibleCommand::Initialize()
@@ -37,7 +30,7 @@ void SlideToTapeVisibleCommand::Execute()
 
 bool SlideToTapeVisibleCommand::IsFinished()
 {
-return true;
+	return true;
 }
 
 void SlideToTapeVisibleCommand::End()

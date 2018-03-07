@@ -22,10 +22,9 @@ private:
 	enum class AutoCommand
 	{
 		Default,
-		DriveStraight,
 		PlaceInitialCubeOnSwitch,
-		PlaceCubeOnLeftSwitch,
-		PlaceCubeOnOurSide
+		PlaceCubeOnOurSide,
+		FromOutsideWallPlaceCubeOnOurSide
 	};
 
 	frc::SendableChooser<AutoCommand>	m_chooser;

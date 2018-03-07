@@ -2,7 +2,7 @@
  * SlideToTapeVisibleCommand.h
  *
  *  Created on: Mar 6, 2018
- *      Author: Kevin
+ *      Author: Aria
  */
 
 #ifndef SRC_COMMANDS_AUTO_SLIDETOTAPEVISIBLECOMMAND_H_
@@ -15,7 +15,8 @@ class SlideToTapeVisibleCommand: public frc::Command
 {
 public:
 	SlideToTapeVisibleCommand(Side nearSwitchSide);
-	virtual ~SlideToTapeVisibleCommand();
+	~SlideToTapeVisibleCommand() override = default;
+
 	void Initialize() override;
 	void Execute() override;
 	bool IsFinished() override;

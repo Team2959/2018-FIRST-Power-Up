@@ -2,7 +2,7 @@
  * MoveAroundSwitchCommandGroup.h
  *
  *  Created on: Mar 6, 2018
- *      Author: Kevin
+ *      Author: Aria
  */
 
 #ifndef SRC_COMMANDS_AUTO_MOVEAROUNDSWITCHCOMMANDGROUP_H_
@@ -14,7 +14,7 @@ class MoveAroundSwitchCommandGroup: public frc::CommandGroup
 {
 public:
 	MoveAroundSwitchCommandGroup();
-	virtual ~MoveAroundSwitchCommandGroup();
+	~MoveAroundSwitchCommandGroup() override = default;
 };
 
 #endif /* SRC_COMMANDS_AUTO_MOVEAROUNDSWITCHCOMMANDGROUP_H_ */
