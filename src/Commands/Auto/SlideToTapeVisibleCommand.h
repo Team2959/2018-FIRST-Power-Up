@@ -22,6 +22,12 @@ public:
 	bool IsFinished() override;
 	void End() override;
 	void Interrupted() override;
+
+private:
+	bool m_isFinished = false;
+	double m_DriveAngle;
+	double m_autonSpeed;
+	bool IsTapeVisible();
 };
 
 #endif /* SRC_COMMANDS_AUTO_SLIDETOTAPEVISIBLECOMMAND_H_ */

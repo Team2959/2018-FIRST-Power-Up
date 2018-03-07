@@ -63,6 +63,6 @@ bool CubeDelivery::CubePresent()
 
 void CubeDelivery::UpdateSmartDashboard()
 {
-	frc::SmartDashboard::PutBoolean("   Arms Open", ArmsAreOpen());
+	frc::SmartDashboard::PutBoolean("   Arms Closed", !ArmsAreOpen());
 	frc::SmartDashboard::PutBoolean("  Cube Possession", CubePresent());
 }
