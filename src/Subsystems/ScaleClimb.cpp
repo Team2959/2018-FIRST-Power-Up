@@ -37,7 +37,7 @@ void ScaleClimb::StopHooks()
 
 bool ScaleClimb::AtTop()
 {
-	return m_topLimitSwitch.Get() == false;
+	return m_topLimitSwitch.Get() == true;
 }
 
 bool ScaleClimb::AtBottom()
