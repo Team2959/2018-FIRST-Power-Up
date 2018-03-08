@@ -17,10 +17,10 @@ SlideToTapeVisibleCommand::SlideToTapeVisibleCommand(Side nearSwitchSide)
 		Requires(Robot::DriveTrainSubsystem.get());
 	m_autonSpeed = frc::SmartDashboard::GetNumber("Auton Shimmy Speed", 0.25);
 if (nearSwitchSide == Side::Left ) {
-	m_DriveAngle = Pi/8;
+	m_DriveAngle = Pi / 4.0;
 }
 else {
-	m_DriveAngle = 7*Pi/8;
+	m_DriveAngle = 3 * Pi / 4.0;
 }
 }
 
