@@ -8,6 +8,7 @@
 #include "Subsystems/CubeDelivery.h"
 #include "RobotMap.h"
 #include <SmartDashboard/SmartDashboard.h>
+#include "Robot.h"
 
 CubeDelivery::CubeDelivery() : frc::Subsystem("CubeDeliverySubsystem"),
 	m_openCloseArms {OPEN_CLOSE_CUBE_ARMS_SOLENOID},
@@ -65,4 +66,5 @@ void CubeDelivery::UpdateSmartDashboard()
 {
 	frc::SmartDashboard::PutBoolean("   Arms Closed", !ArmsAreOpen());
 	frc::SmartDashboard::PutBoolean("  Cube Possession", CubePresent());
+	frc::SmartDashboard::PutNumber("  Delivery Speed", Robot::oi->GetButtonBox()->GetRawAxis(1));
 }
