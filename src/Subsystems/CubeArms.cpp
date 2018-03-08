@@ -15,10 +15,10 @@ CubeArms::CubeArms() : frc::Subsystem("CubeArms"),
 
 void CubeArms::FoldUp()
 {
-	m_foldArms.Set(true);
+	m_foldArms.Set(false);
 }
 
 void CubeArms::FoldDown()
 {
-	m_foldArms.Set(false);
+	m_foldArms.Set(true);
 }
