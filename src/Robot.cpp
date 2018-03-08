@@ -124,6 +124,15 @@ void Robot::DisabledInit()
 void Robot::DisabledPeriodic()
 {
 	frc::Scheduler::GetInstance()->Run();
+
+	if ((periodicCount % 100) == 0)
+	{
+		std::vector<VisionObject>	cubeVisionObjects = Robot::VisionSubsystem->GetObjects(CubeColor);
+		frc::SmartDashboard::PutBoolean("Sees Cube(s)", !cubeVisionObjects.empty());
+
+		std::vector<VisionObject>	tapeVisionObjects = Robot::VisionSubsystem->GetObjects(TapeColor);
+		frc::SmartDashboard::PutBoolean("Sees Cube(s)", !tapeVisionObjects.empty());
+	}
 }
 
 /**
