@@ -66,5 +66,11 @@ void CubeDelivery::UpdateSmartDashboard()
 {
 	frc::SmartDashboard::PutBoolean("   Arms Closed", !ArmsAreOpen());
 	frc::SmartDashboard::PutBoolean("  Cube Possession", CubePresent());
-	frc::SmartDashboard::PutNumber("  Delivery Speed", Robot::oi->GetButtonBox()->GetRawAxis(1));
+	auto&	oi = Robot::oi;
+	if(oi == nullptr)
+		return;
+	auto	buttonBox = oi->GetButtonBox();
+	if(buttonBox == nullptr)
+		return;
+	frc::SmartDashboard::PutNumber("  Delivery Speed", buttonBox->GetRawAxis(1));
 }

@@ -21,7 +21,7 @@ void DeliverCubeCommand::Initialize()
 
 	if (speedAxis > 0)
 	{
-		speedAxis = -speedAxis;
+		speedAxis = -0.5 * speedAxis - 0.5;
 	}
 	else if (Robot::VerticalArmMovmentSubsystem->IsAtSwitchOrHigher())
 	{
