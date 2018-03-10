@@ -21,7 +21,7 @@ VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentS
 	m_cubeLiftMotor.SetSensorPhase(false);
 	m_cubeLiftMotor.SetSelectedSensorPosition(0,0,0);
 	m_cubeLiftMotor.ConfigPeakOutputForward(0.5, 0);
-	m_cubeLiftMotor.ConfigPeakOutputReverse(-0.5, 0);
+	m_cubeLiftMotor.ConfigPeakOutputReverse(-0.3, 0);
 	m_cubeLiftMotor.ConfigAllowableClosedloopError(0, 128, 0);
 	m_cubeLiftMotor.ConfigClosedloopRamp(0.5, 0);
 	m_cubeLiftMotor.Set(ControlMode::Position, 0);

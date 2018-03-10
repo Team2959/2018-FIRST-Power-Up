@@ -24,14 +24,17 @@ private:
 		Default,
 		PlaceInitialCubeOnSwitch,
 		PlaceCubeOnOurSide,
-		FromOutsideWallPlaceCubeOnOurSide
+		FromOutsideWallPlaceCubeOnOurSide,
+		NoVisionCenter
 	};
 
 	frc::SendableChooser<AutoCommand>	m_chooser;
 	std::unique_ptr<frc::Command>		m_autonomousCommand;
 	bool m_foundGameData;
+	int m_cycleCount;
 
 	void StartAutonomousFromGameData();
+
 
 public:
 	Autonomous();

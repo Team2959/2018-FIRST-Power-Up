@@ -14,6 +14,7 @@
 #include "Commands/Auto/PlaceInitialCubeOnSwitchCommandGroup.h"
 #include "Commands/Auto/PlaceCubeOurSideOnlyCommandGroup.h"
 #include "Commands/Auto/FarLeftAndRightCommandGroup.h"
+#include <Commands/Auto/DeadReckoningCenterCommandGroup.h>
 
 Autonomous::Autonomous()
 {
@@ -21,19 +22,24 @@ Autonomous::Autonomous()
 	m_chooser.AddObject("Center-Place Initial Cube On Switch", AutoCommand::PlaceInitialCubeOnSwitch);
 	m_chooser.AddObject("Left/Right-Place Cube On Our Side", AutoCommand::PlaceCubeOnOurSide);
 	m_chooser.AddObject("Side wall-Place Cube On Our Side", AutoCommand::FromOutsideWallPlaceCubeOnOurSide);
+	m_chooser.AddObject("No Vision Center", AutoCommand::NoVisionCenter);
 	frc::SmartDashboard::PutData("Autonomous Command", &m_chooser);
 
 	frc::SmartDashboard::PutNumber("Auton Speed", 0.25);
 	frc::SmartDashboard::PutNumber("Auton Shimmy Speed", 0.2);
 	frc::SmartDashboard::PutNumber("Auton Straight To Switch Time", 1.0);
 	frc::SmartDashboard::PutBoolean("Is Auton Starting Left?", true);
+	frc::SmartDashboard::PutNumber("Auton Straight Time", 3.5);
+	frc::SmartDashboard::PutNumber("Auton Center Time", 3.5);
 
 	m_foundGameData = false;
+	m_cycleCount = 0;
 }
 
 void Autonomous::AutoInit()
 {
 	m_foundGameData = false;
+	m_cycleCount = 0;
 	m_autonomousCommand = nullptr;
 	Robot::CubeDeliverySubsystem->CloseArms();
 
@@ -70,13 +76,25 @@ void Autonomous::StartAutonomousFromGameData()
 	// Add code to read switch/scale state from Field Management System
 	// https://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/826278-2018-game-data-details
 	auto gameData{frc::DriverStation::GetInstance().GetGameSpecificMessage()};
-	if (gameData.size() < 3)
+	m_foundGameData = gameData.size() >= 3;
+	if (!m_foundGameData)
 	{
-		std::cout << "AutonomousInit - No game data.\n";
+		m_cycleCount++;
+
+		if (m_cycleCount < 50)
+		{
+			std::cout << "AutonomousInit - No game data.\n";
+			return;
+		}
+	}
+
+	if (!m_foundGameData)
+	{
+		m_autonomousCommand = std::make_unique<DriveStraightCommand>(3.5);
+		m_autonomousCommand->Start();
 		return;
 	}
 
-	m_foundGameData = true;
 
 	if (gameData[0] == 'L')
 	{
@@ -105,10 +123,11 @@ void Autonomous::StartAutonomousFromGameData()
 		opponentSwitchSide = Side::Right;
 	} */
 
+	double time = frc::SmartDashboard::GetNumber("Auton Straight Time", 4.0);
 	switch(m_chooser.GetSelected())
 	{
 	case AutoCommand::Default:
-		m_autonomousCommand = std::make_unique<DriveStraightCommand>(2.0);
+		m_autonomousCommand = std::make_unique<DriveStraightCommand>(time);
 		break;
 	case AutoCommand::PlaceInitialCubeOnSwitch:
 		m_autonomousCommand = std::make_unique<PlaceInitialCubeOnSwitchCommandGroup>(nearSwitchSide);
@@ -119,6 +138,9 @@ void Autonomous::StartAutonomousFromGameData()
 	case AutoCommand::FromOutsideWallPlaceCubeOnOurSide:
 		m_autonomousCommand = std::make_unique<FarLeftAndRightCommandGroup>(nearSwitchSide);
 		break;
+	case AutoCommand::NoVisionCenter:
+			m_autonomousCommand = std::make_unique<DeadReckoningCenterCommandGroup>(nearSwitchSide);
+			break;
 	}
 
 	if (m_autonomousCommand)
