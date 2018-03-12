@@ -104,6 +104,7 @@ void XDrive::Drive(double magnitude, double totalAngle, double rotation)
 	m_safetyHelper.Feed();
 }
 
+
 void XDrive::StopMotor()
 {
 	m_frontLeftMotor.StopMotor();

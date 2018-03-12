@@ -28,6 +28,7 @@ public:
 	// Total Angle is 0 .. 2 * Pi in radians for direction
 	// Rotation is -1 .. 1
 	void Drive(double magnitude, double totalAngle, double rotation);
+	void FieldCentricDrive(double magnitude, double totalAngle, double rotation);
 };
 
 #endif /* SRC_DRIVE_TRAIN_H_ */
