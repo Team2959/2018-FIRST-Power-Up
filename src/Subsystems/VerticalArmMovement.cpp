@@ -11,7 +11,8 @@
 #include <Commands/VerticalArmMovementFromCoPilot.h>
 
 VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentSubsystem"),
-	m_cubeLiftMotor {CUBE_VERTICAL_MOTOR_CAN}
+	m_cubeLiftMotor {CUBE_VERTICAL_MOTOR_CAN},
+	m_atBottomSwitch {AT_BOTTOM_LIMIT_SWITCH}
 {
 	m_cubeLiftMotor.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, 0, 0);
 	m_cubeLiftMotor.Config_kF(0, 0, 0);
@@ -20,7 +21,7 @@ VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentS
 //	m_cubeLiftMotor.Config_IntegralZone(0, 300, 0);
 	m_cubeLiftMotor.SetSensorPhase(false);
 	m_cubeLiftMotor.SetSelectedSensorPosition(0,0,0);
-	m_cubeLiftMotor.ConfigPeakOutputForward(0.5, 0);
+	m_cubeLiftMotor.ConfigPeakOutputForward(0.75, 0);
 	m_cubeLiftMotor.ConfigPeakOutputReverse(-0.3, 0);
 	m_cubeLiftMotor.ConfigAllowableClosedloopError(0, 128, 0);
 	m_cubeLiftMotor.ConfigClosedloopRamp(0.5, 0);
@@ -29,7 +30,7 @@ VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentS
 
 void VerticalArmMovement::InitDefaultCommand()
 {
-//	SetDefaultCommand(new VerticalArmMovementFromCoPilot());
+	SetDefaultCommand(new VerticalArmMovementFromCoPilot());
 }
 
 void VerticalArmMovement::MoveArm(CubeVerticalPlace target, double scaleHeight)
@@ -115,11 +116,22 @@ bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHei
 }
 
 bool VerticalArmMovement::IsAtSwitchOrHigher()
-{
 	return m_cubeLiftMotor.GetSelectedSensorPosition(0) > (SwitchPosition - 500);
 }
 
 void VerticalArmMovement::UpdateSmartDashboard()
 {
 	frc::SmartDashboard::PutNumber("Current Position", m_cubeLiftMotor.GetSelectedSensorPosition(0));
+	frc::SmartDashboard::PutBoolean("At Vert Bottom", AtBottom());
+}
+
+bool VerticalArmMovement::AtBottom()
+{
+	return !m_atBottomSwitch.Get();
+}
+
+void VerticalArmMovement::AtBottomReset()
+{
+	m_cubeLiftMotor.SetSelectedSensorPosition(0,0,0);
+	m_cubeLiftMotor.Set(ControlMode::Position, 0);
 }

@@ -35,6 +35,7 @@ constexpr int CLIMB_RIGHT_MOTOR = 6;
 constexpr int CLIMB_TOP_LIMIT_SWITCH = 9;
 constexpr int CLIMB_BOTTOM_LIMIT_SWITCH = 7;
 constexpr int CUBE_PRESENT_OPTICAL_SWITCH = 6;
+constexpr int AT_BOTTOM_LIMIT_SWITCH = 5;
 
 // Pneumatics Control Module (PCM) Solenoids
 constexpr int FOLD_CUBE_ARMS_SOLENOID = 1;

@@ -11,11 +11,13 @@
 #include <Commands/Subsystem.h>
 #include <ctre/Phoenix.h>
 #include "RobotMap.h"
+#include <DigitalInput.h>
 
 class VerticalArmMovement: public frc::Subsystem
 {
 private:
 	WPI_TalonSRX m_cubeLiftMotor;
+	frc::DigitalInput m_atBottomSwitch;
 
 	 // approximately 24" of travel with diameter of 1.08 for an encoder with 4096 ticks
 //	const double GearDiameter = Pi * 1.08;
@@ -23,16 +25,16 @@ private:
 
 	const double ScaleHeightMinimum = 4.0;	// in feet
 	const double ScaleHeightMaximum = 6.0;
-	const double ScalePositionMaximum = 38000;
-	const double ScalePositionMinimum = 35000;
+	const double ScalePositionMaximum = 30000;
+	const double ScalePositionMinimum = 27650;
 	const double ScaleConversionSlope = (ScalePositionMaximum-ScalePositionMinimum)/(ScaleHeightMaximum-ScaleHeightMinimum);
 
 	const double Level1Position = 0;
-	const double ExchangePosition = 1000;
-	const double Level2Position = 6000;
-	const double SwitchPosition = 14000;
-	const double PortalPosition = 12000;
-	const double Level3Position = 12000;
+	const double ExchangePosition = 750;
+	const double Level2Position = 4700;
+	const double SwitchPosition = 11000;
+	const double PortalPosition = 9450;
+	const double Level3Position = 9450;
 
 public:
 	enum CubeVerticalPlace
@@ -58,6 +60,9 @@ public:
 	bool IsAtPosition(CubeVerticalPlace target, double scaleHeight = 0.0);
 	bool IsAtSwitchOrHigher();
 	void UpdateSmartDashboard();
+
+	bool AtBottom();
+	void AtBottomReset();
 };
 
 #endif /* SRC_SUBSYSTEMS_VERTICALARMMOVEMENT_H_ */

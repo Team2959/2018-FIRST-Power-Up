@@ -12,6 +12,7 @@
 #include <Joystick.h>
 #include <Buttons/JoystickButton.h>
 #include <Triggers/CubePresentTrigger.h>
+#include <Triggers/VerticalBottomTrigger.h>
 
 class OI
 {
@@ -29,6 +30,7 @@ private:
 	std::shared_ptr<frc::JoystickButton> OpenOrCloseCubeArmsButton;
 
 	std::shared_ptr<CubePresentTrigger> IsCubePresentTrigger;
+	std::shared_ptr<VerticalBottomTrigger> AtBottomTrigger;
 
 public:
 	OI();

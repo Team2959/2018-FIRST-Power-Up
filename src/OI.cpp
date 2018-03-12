@@ -17,6 +17,7 @@
 #include <Commands/DeliverCubeCommand.h>
 #include <Commands/MoveToAbsoluteHeightCommand.h>
 #include <Commands/OpenOrCloseCubeArmsCommand.h>
+#include <Commands/StopVerticalCommand.h>
 
 OI::OI()
 {
@@ -39,6 +40,7 @@ OI::OI()
 
 	// Triggers
 	IsCubePresentTrigger.reset(new CubePresentTrigger());
+	AtBottomTrigger.reset(new VerticalBottomTrigger());
 
 	// Tie buttons to commands
 	OpenOrCloseCubeArmsButton->WhenPressed(new OpenOrCloseCubeArmsCommand());
@@ -51,6 +53,7 @@ OI::OI()
 	DeliverCubeButton->WhenPressed(new DeliverCubeCommand());
 
 	IsCubePresentTrigger->WhenActive(new StopArmWheelsCommand(0.5));
+	AtBottomTrigger->WhenActive(new StopVerticalCommand());
 
 	// example how to put a command on the dashboard. You can press start and execute it.
 	//frc::SmartDashboard::PutData("Raise Hooks Up", new RaiseHooksUpToRungCommand());

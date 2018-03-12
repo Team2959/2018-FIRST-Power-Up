@@ -29,7 +29,7 @@ PlaceCubeOurSideOnlyCommandGroup::PlaceCubeOurSideOnlyCommandGroup(Side nearSwit
 
 		AddSequential(new DriveStraightCommand(time));
 		AddSequential(new DeliverCubeCommand());
-		AddSequential(new TimedCommand(0.5));
+		AddSequential(new TimedCommand(2.5));
 		AddSequential(new StopArmWheelsCommand());
 	}
 	else
