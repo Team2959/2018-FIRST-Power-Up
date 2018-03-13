@@ -50,12 +50,13 @@ public:
 
     double GetAngle();
 
+	AHRS* m_navmxp;
+
 private:
 	frc::Timer m_time;
 
 	std::unordered_map<std::string, struct MotorTelemetry> m_motors;
 
-	AHRS* m_navmxp;
 
 	double m_Xdis = 0;
 	double m_Ydis = 0;

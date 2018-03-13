@@ -92,8 +92,23 @@ void Robot::StartCompetition()
 	// Our SignalRegistrations will now go out of scope, unregistering their handlers
 }
 
+static decltype(std::chrono::high_resolution_clock::now())	startTime;
+
+static void ResetStartTime()
+{
+	startTime = std::chrono::high_resolution_clock::now();
+}
+
+static int ElapsedMS()
+{
+	return static_cast<int>(1000.0 * std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - startTime).count());
+}
+
+
 void Robot::RobotPeriodic()
 {
+	if(periodicCount == 0)
+		ResetStartTime();
 	if ((periodicCount % 5) == 0)
 	{
 		CubeDeliverySubsystem->UpdateSmartDashboard();
@@ -101,9 +116,46 @@ void Robot::RobotPeriodic()
 		VerticalArmMovmentSubsystem->UpdateSmartDashboard();
 	}
 
-	if ((periodicCount % 100) == 0)
+	if ((periodicCount % 5) == 0)
 	{
-		//MotionTrackingSubsystem->PrintMotorTelemetries();
+//		MotionTrackingSubsystem->PrintMotorTelemetries();
+	}
+
+	if(MotionTrackingSubsystem.get() != nullptr)
+	{
+		static unsigned indexNumber{0};
+		auto&	navX{ *MotionTrackingSubsystem->m_navmxp };
+		auto	time { ElapsedMS() };
+		auto 	angle{ navX.GetAngle() };
+		auto	accelerationX{ navX.GetRawAccelX() };
+		auto	accelerationY{ navX.GetRawAccelY() };
+		auto	accelerationZ{ navX.GetRawAccelZ() };
+
+		navX.UpdateDisplacement(accelerationX, accelerationZ,50,true);
+
+		auto	velocityX{ navX.GetVelocityX() };
+		auto	velocityY{ navX.GetVelocityY() };
+		auto	velocityZ{ navX.GetVelocityZ() };
+		auto	displacementX{ navX.GetDisplacementX() };
+		auto	displacementY{ navX.GetDisplacementY() };
+		auto	displacementZ{ navX.GetDisplacementZ() };
+
+		while(angle >= 360.0)
+			angle -= 360.0;
+		while(angle < 0)
+			angle += 360.0;
+		std::cout << indexNumber++ << ',' <<
+			time << ',' <<
+			angle * Pi / 180.0 << ',' <<
+			accelerationX << ',' <<
+			accelerationY << ',' <<
+			accelerationZ << ',' <<
+			velocityX << ',' <<
+			velocityY << ',' <<
+			velocityZ << ',' <<
+			displacementX << ',' <<
+			displacementY << ',' <<
+			displacementZ << '\n';
 	}
 
 	++periodicCount;

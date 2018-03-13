@@ -102,6 +102,10 @@ double MotionTracking::GetAngle()
 	/* This angle is the direction the front of the robot is facing relative to the field */
 	double angle = fmod(m_navmxp->GetAngle() + 90, 360.0);
 
+	while(angle < 0.0)
+		angle += 360.0;
+	while(angle > 360.0)
+		angle -= 360.0;
 	return angle * (Pi / 180.0);
 }
 

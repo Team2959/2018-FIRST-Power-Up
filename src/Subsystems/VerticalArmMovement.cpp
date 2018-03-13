@@ -116,6 +116,7 @@ bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHei
 }
 
 bool VerticalArmMovement::IsAtSwitchOrHigher()
+{
 	return m_cubeLiftMotor.GetSelectedSensorPosition(0) > (SwitchPosition - 500);
 }
 

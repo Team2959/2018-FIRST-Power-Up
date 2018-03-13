@@ -33,7 +33,7 @@ void FCDeadReckoningCommand::Execute()
 void FCDeadReckoningCommand::End()
 {
 	Robot::DriveTrainSubsystem->FieldCentricDrive(0,0,0);
-	std::cout << "Field centric dead reckoning complete.\n"
+	std::cout << "Field centric dead reckoning complete.\n";
 }
 
 void FCDeadReckoningCommand::Interrupted()

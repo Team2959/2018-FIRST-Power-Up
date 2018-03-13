@@ -20,7 +20,3 @@ FCDRChainCommandGroup::FCDRChainCommandGroup(std::vector<FCDRObj> chain) : frc::
 	}
 }
 
-FCDRChainCommandGroup::~FCDRChainCommandGroup() {
-	// TODO Auto-generated destructor stub
-}
-
