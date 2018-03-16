@@ -99,16 +99,36 @@ static void ResetStartTime()
 	startTime = std::chrono::high_resolution_clock::now();
 }
 
-static int ElapsedMS()
+static double ElapsedMS()
 {
-	return static_cast<int>(1000.0 * std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - startTime).count());
+	return (std::chrono::high_resolution_clock::now() - startTime).count() / 1000000.0;
 }
 
+static double lastAccelerationX = 0.0;
+static double lastAccelerationY = 0.0;
+static double lastAccelerationZ = 0.0;
+static double lastVelocityX = 0.0;
+static double lastVelocityY = 0.0;
+static double lastVelocityZ = 0.0;
+static double lastDisplacementX = 0.0;
+static double lastDisplacementY = 0.0;
+static double lastDisplacementZ = 0.0;
+static frc::BuiltInAccelerometer	bia;
+static long lastSensorTimestamp = 0;
 
 void Robot::RobotPeriodic()
 {
+	auto&	navX{ *MotionTrackingSubsystem->m_navmxp };
 	if(periodicCount == 0)
+	{
 		ResetStartTime();
+/*		auto	accelerationX{ navX.GetRawAccelX() };
+		auto	accelerationY{ navX.GetRawAccelY() };
+		navX.UpdateDisplacement(accelerationX, accelerationY,50,false); */
+		navX.Reset();
+		navX.ResetDisplacement();
+		navX.ZeroYaw();
+	}
 	if ((periodicCount % 5) == 0)
 	{
 		CubeDeliverySubsystem->UpdateSmartDashboard();
@@ -124,30 +144,129 @@ void Robot::RobotPeriodic()
 	if(MotionTrackingSubsystem.get() != nullptr)
 	{
 		static unsigned indexNumber{0};
-		auto&	navX{ *MotionTrackingSubsystem->m_navmxp };
 		auto	time { ElapsedMS() };
 		auto 	angle{ navX.GetAngle() };
-		auto	accelerationX{ navX.GetRawAccelX() };
-		auto	accelerationY{ navX.GetRawAccelY() };
-		auto	accelerationZ{ navX.GetRawAccelZ() };
+		auto	isCalibrating{ navX.IsCalibrating() };
 
-		navX.UpdateDisplacement(accelerationX, accelerationZ,50,true);
+	/*	auto	accelerationX{ 9.8 * bia.GetX() };
+		auto	accelerationY{ 9.8 * bia.GetY() };
+		auto	accelerationZ{ 9.8 * bia.GetZ() }; */
+		auto	sensorTimestamp{navX.GetLastSensorTimestamp()};
+//		auto 	updateRate((int)(1.0 / timeDifference + 0.5));
+		auto	isMoving{ navX.IsMoving() };
 
-		auto	velocityX{ navX.GetVelocityX() };
+		long	timeDifferenceMs;
+
+		if(isCalibrating)
+		{
+			lastSensorTimestamp = 0;
+			timeDifferenceMs = 0;
+		}
+		else if(lastSensorTimestamp == 0)
+		{
+			lastSensorTimestamp = sensorTimestamp;
+			timeDifferenceMs = 0;
+		}
+		else
+		{
+			timeDifferenceMs = sensorTimestamp - lastSensorTimestamp;
+			lastSensorTimestamp = sensorTimestamp;
+		}
+
+		auto	timeDifferenceSec{ timeDifferenceMs / 1000.0};
+
+
+
+		double	accelerationX;
+		double	accelerationY;
+		double	accelerationZ;
+		double	velocityX;
+		double	velocityY;
+		double	velocityZ;
+		double	displacementX;
+		double	displacementY;
+		double	displacementZ;
+
+
+
+		if(timeDifferenceMs != 0)
+		{
+			accelerationX = 9.8 * navX.GetWorldLinearAccelX();
+			accelerationY = 9.8 * navX.GetWorldLinearAccelY();
+			accelerationZ = 9.8 * navX.GetWorldLinearAccelZ();
+		}
+		else
+		{
+			accelerationX = 0.0;
+			accelerationY = 0.0;
+			accelerationZ = 0.0;
+		}
+
+		auto	newVelocityX{ lastVelocityX + ((accelerationX + lastAccelerationX) / 2.0) * timeDifferenceSec };
+		auto	newVelocityY{ lastVelocityY + ((accelerationY + lastAccelerationY) / 2.0) * timeDifferenceSec };
+		auto	newVelocityZ{ lastVelocityZ + ((accelerationZ + lastAccelerationZ) / 2.0) * timeDifferenceSec };
+
+		auto	newDisplacementX{ lastDisplacementX + ((lastVelocityX + newVelocityX) / 2.0) * timeDifferenceSec };
+		auto	newDisplacementY{ lastDisplacementY + ((lastVelocityY + newVelocityY) / 2.0) * timeDifferenceSec };
+		auto	newDisplacementZ{ lastDisplacementZ + ((lastVelocityZ + newVelocityZ) / 2.0) * timeDifferenceSec };
+
+		lastAccelerationX = accelerationX;
+		lastAccelerationY = accelerationY;
+		lastAccelerationZ = accelerationZ;
+
+		lastVelocityX = newVelocityX;
+		lastVelocityY = newVelocityY;
+		lastVelocityZ = newVelocityZ;
+
+		lastDisplacementX = newDisplacementX;
+		lastDisplacementY = newDisplacementY;
+		lastDisplacementZ = newDisplacementZ;
+
+		velocityX = newVelocityX;
+		velocityY = newVelocityY;
+		velocityZ = newVelocityZ;
+
+		displacementX = newDisplacementX;
+		displacementY = newDisplacementY;
+		displacementZ = newDisplacementZ;
+
+		auto velocity = sqrt(velocityX * velocityX + velocityY * velocityY);
+		auto displacement = sqrt(displacementX * displacementX + displacementY * displacementY);
+
+
+		/* if(!isMoving)
+		{
+			accelerationX = 0.0;
+			accelerationY = 0.0;
+			accelerationZ = 0.0;
+			lastVelocityX = 0.0;
+			lastVelocityY = 0.0;
+			lastVelocityZ = 0.0;
+		} */
+
+		// navX.UpdateDisplacement(accelerationX, accelerationY,updateRate,isMoving);
+
+
+/*		auto	velocityX{ navX.GetVelocityX() };
 		auto	velocityY{ navX.GetVelocityY() };
 		auto	velocityZ{ navX.GetVelocityZ() };
 		auto	displacementX{ navX.GetDisplacementX() };
 		auto	displacementY{ navX.GetDisplacementY() };
-		auto	displacementZ{ navX.GetDisplacementZ() };
+		auto	displacementZ{ navX.GetDisplacementZ() }; */
 
+		if(isMoving||isCalibrating||((periodicCount% 200) == 0))
+		{
 		while(angle >= 360.0)
 			angle -= 360.0;
 		while(angle < 0)
 			angle += 360.0;
 		std::cout << indexNumber++ << ',' <<
 			time << ',' <<
-			angle * Pi / 180.0 << ',' <<
-			accelerationX << ',' <<
+			// timeDifferenceMs << ',' <<
+			// isMoving << ',' <<
+			// isCalibrating << ',' <<
+			// angle * Pi / 180.0 << ',' <<
+			/* accelerationX << ',' <<
 			accelerationY << ',' <<
 			accelerationZ << ',' <<
 			velocityX << ',' <<
@@ -155,7 +274,9 @@ void Robot::RobotPeriodic()
 			velocityZ << ',' <<
 			displacementX << ',' <<
 			displacementY << ',' <<
-			displacementZ << '\n';
+			displacementZ << '\n'; */
+			velocity << ',' << displacement << '\n';
+		}
 	}
 
 	++periodicCount;
