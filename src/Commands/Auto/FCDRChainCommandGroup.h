@@ -10,6 +10,7 @@
 
 #include <Commands/CommandGroup.h>
 #include <vector>
+#include <stdlib.h>
 
 typedef struct _FCDRObj {
 	frc::Command* cmd;
@@ -18,8 +19,10 @@ typedef struct _FCDRObj {
 
 class FCDRChainCommandGroup: public frc::CommandGroup {
 public:
-	FCDRChainCommandGroup(std::vector<FCDRObj>);
+	FCDRChainCommandGroup(std::string chain);
 
 };
+
+std::vector<std::string> split(std::string str, std::string delims);
 
 #endif /* SRC_COMMANDS_AUTO_FCDRCHAINCOMMANDGROUP_H_ */
