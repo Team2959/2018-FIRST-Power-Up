@@ -184,10 +184,10 @@ void Robot::RobotPeriodic()
 		double	accelerationZ;
 		double	velocityX;
 		double	velocityY;
-		double	velocityZ;
+		// double	velocityZ;
 		double	displacementX;
 		double	displacementY;
-		double	displacementZ;
+		// double	displacementZ;
 
 
 
@@ -226,11 +226,11 @@ void Robot::RobotPeriodic()
 
 		velocityX = newVelocityX;
 		velocityY = newVelocityY;
-		velocityZ = newVelocityZ;
+		// velocityZ = newVelocityZ;
 
 		displacementX = newDisplacementX;
 		displacementY = newDisplacementY;
-		displacementZ = newDisplacementZ;
+		// displacementZ = newDisplacementZ;
 
 		auto velocity = sqrt(velocityX * velocityX + velocityY * velocityY);
 		auto displacement = sqrt(displacementX * displacementX + displacementY * displacementY);
