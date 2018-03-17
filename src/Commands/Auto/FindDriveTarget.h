@@ -11,6 +11,7 @@
 #include <Commands/Command.h>
 #include "../../Autonomous.h"
 #include "../../RobotMap.h"
+#include <vector>
 
 class FindDriveTarget: public frc::Command
 {
