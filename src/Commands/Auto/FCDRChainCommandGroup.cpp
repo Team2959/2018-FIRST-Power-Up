@@ -30,8 +30,7 @@ FCDRChainCommandGroup::FCDRChainCommandGroup(std::string chain) : frc::CommandGr
 			continue;
 		for (unsigned j = 0; j < words.size(); j++)
 		{
-			switch (words[1]) {
-			case "DeadReckoning":
+			if (words[1] == "DeadReckoning") {
 				if (words.size() == (4 + 2)) {
 					// Check if there are enough parameters for the command being called. (number of arguments + 2)
 					std::vector<double> args;
@@ -45,9 +44,6 @@ FCDRChainCommandGroup::FCDRChainCommandGroup(std::string chain) : frc::CommandGr
 						AddSequential(new DeadReckoningCommand(args[0], args[1], args[2], args[3]));
 					}
 				}
-				break;
-			default:
-				break;
 			}
 		}
 	}
