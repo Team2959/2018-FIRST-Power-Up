@@ -28,4 +28,6 @@ private:
 	double m_angle;
 };
 
+std::vector<std::string> strSplitLines(std::string str);
+
 #endif /* SRC_COMMANDS_AUTO_FCDEADRECKONINGCOMMAND_H_ */
