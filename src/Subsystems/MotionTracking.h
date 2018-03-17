@@ -48,14 +48,14 @@ public:
     void ResetMotorTelemetry(std::string name);
     void ResetTelemetries();
 
+    std::unordered_map<std::string, struct MotorTelemetry> m_motors;
+
     double GetAngle();
 
 	AHRS* m_navmxp;
 
 private:
 	frc::Timer m_time;
-
-	std::unordered_map<std::string, struct MotorTelemetry> m_motors;
 
 
 	double m_Xdis = 0;

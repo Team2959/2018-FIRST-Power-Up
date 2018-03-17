@@ -19,7 +19,7 @@ typedef struct _FCDRObj {
 class FCDRChainCommandGroup: public frc::CommandGroup {
 public:
 	FCDRChainCommandGroup(std::vector<FCDRObj>);
-	virtual ~FCDRChainCommandGroup() override = default;
+
 };
 
 #endif /* SRC_COMMANDS_AUTO_FCDRCHAINCOMMANDGROUP_H_ */

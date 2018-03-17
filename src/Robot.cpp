@@ -57,7 +57,8 @@ void Robot::RobotInit()
 //	SmartDashboard::PutData(CubeDeliverySubsystem.get());
 //	frc::SmartDashboard::PutData(&m_pdp);
 
-//	CameraServer::GetInstance()->StartAutomaticCapture();
+//	cs::UsbCamera cam = CameraServer::GetInstance()->StartAutomaticCapture();
+//	cam.SetResolution(320,240);
 
 	periodicCount = 0;
 }
@@ -134,6 +135,7 @@ void Robot::RobotPeriodic()
 		CubeDeliverySubsystem->UpdateSmartDashboard();
 		ClimbSubsystem->UpdateSmartDashboard();
 		VerticalArmMovmentSubsystem->UpdateSmartDashboard();
+		MotionTrackingSubsystem->SendMotorNumberToDash();
 	}
 
 	if ((periodicCount % 5) == 0)
