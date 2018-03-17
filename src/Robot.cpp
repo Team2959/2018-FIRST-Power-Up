@@ -50,6 +50,8 @@ void Robot::RobotInit()
 	oi.reset(new OI());
 
 	m_autonomous.reset(new Autonomous());
+	SmartDashboard::PutNumber("Auton Angle", 45.0);
+	SmartDashboard::PutNumber("Auton Speed", 0.25);
 
 //	SmartDashboard::PutData(DriveTrainSubsystem.get());
 //	SmartDashboard::PutData(CubeArmsSubsystem.get());
@@ -100,6 +102,7 @@ static void ResetStartTime()
 	startTime = std::chrono::high_resolution_clock::now();
 }
 
+/*
 static double ElapsedMS()
 {
 	return (std::chrono::high_resolution_clock::now() - startTime).count() / 1000000.0;
@@ -115,7 +118,7 @@ static double lastDisplacementX = 0.0;
 static double lastDisplacementY = 0.0;
 static double lastDisplacementZ = 0.0;
 static frc::BuiltInAccelerometer	bia;
-static long lastSensorTimestamp = 0;
+static long lastSensorTimestamp = 0; */
 
 void Robot::RobotPeriodic()
 {
@@ -126,9 +129,18 @@ void Robot::RobotPeriodic()
 /*		auto	accelerationX{ navX.GetRawAccelX() };
 		auto	accelerationY{ navX.GetRawAccelY() };
 		navX.UpdateDisplacement(accelerationX, accelerationY,50,false); */
+
+		std::cout << navX.GetQuaternionX() << ',' <<
+				     navX.GetQuaternionY() << ',' <<
+					 navX.GetQuaternionY() << ',' <<
+					 navX.GetQuaternionZ() << '\n';
 		navX.Reset();
 		navX.ResetDisplacement();
 		navX.ZeroYaw();
+		std::cout << navX.GetQuaternionX() << ',' <<
+				     navX.GetQuaternionY() << ',' <<
+					 navX.GetQuaternionY() << ',' <<
+					 navX.GetQuaternionZ() << '\n';
 	}
 	if ((periodicCount % 5) == 0)
 	{
@@ -141,18 +153,28 @@ void Robot::RobotPeriodic()
 	if ((periodicCount % 5) == 0)
 	{
 //		MotionTrackingSubsystem->PrintMotorTelemetries();
+		std::cout << navX.GetYaw() << ',' <<
+					navX.GetPitch() << ',' <<
+					navX.GetRoll() << ',' <<
+					 navX.GetRawGyroX() << ','<<
+					 navX.GetRawGyroY() << ','<<
+					 navX.GetRawGyroZ() << '\n';
+		/* std::cout << "**" << navX.GetQuaternionX() << ',' <<
+				     navX.GetQuaternionY() << ',' <<
+					 navX.GetQuaternionY() << ',' <<
+					 navX.GetQuaternionZ() << '\n'; */
 	}
 
-	if(MotionTrackingSubsystem.get() != nullptr)
+/*	if(MotionTrackingSubsystem.get() != nullptr)
 	{
 		static unsigned indexNumber{0};
 		auto	time { ElapsedMS() };
 		auto 	angle{ navX.GetAngle() };
 		auto	isCalibrating{ navX.IsCalibrating() };
 
-	/*	auto	accelerationX{ 9.8 * bia.GetX() };
+		auto	accelerationX{ 9.8 * bia.GetX() };
 		auto	accelerationY{ 9.8 * bia.GetY() };
-		auto	accelerationZ{ 9.8 * bia.GetZ() }; */
+		auto	accelerationZ{ 9.8 * bia.GetZ() };
 		auto	sensorTimestamp{navX.GetLastSensorTimestamp()};
 //		auto 	updateRate((int)(1.0 / timeDifference + 0.5));
 		auto	isMoving{ navX.IsMoving() };
@@ -236,7 +258,7 @@ void Robot::RobotPeriodic()
 		auto displacement = sqrt(displacementX * displacementX + displacementY * displacementY);
 
 
-		/* if(!isMoving)
+		if(!isMoving)
 		{
 			accelerationX = 0.0;
 			accelerationY = 0.0;
@@ -244,17 +266,17 @@ void Robot::RobotPeriodic()
 			lastVelocityX = 0.0;
 			lastVelocityY = 0.0;
 			lastVelocityZ = 0.0;
-		} */
+		}
 
 		// navX.UpdateDisplacement(accelerationX, accelerationY,updateRate,isMoving);
 
 
-/*		auto	velocityX{ navX.GetVelocityX() };
+		auto	velocityX{ navX.GetVelocityX() };
 		auto	velocityY{ navX.GetVelocityY() };
 		auto	velocityZ{ navX.GetVelocityZ() };
 		auto	displacementX{ navX.GetDisplacementX() };
 		auto	displacementY{ navX.GetDisplacementY() };
-		auto	displacementZ{ navX.GetDisplacementZ() }; */
+		auto	displacementZ{ navX.GetDisplacementZ() };
 
 		if(isMoving||isCalibrating||((periodicCount% 200) == 0))
 		{
@@ -262,13 +284,13 @@ void Robot::RobotPeriodic()
 			angle -= 360.0;
 		while(angle < 0)
 			angle += 360.0;
-		std::cout << indexNumber++ << ',' <<
+	std::cout << indexNumber++ << ',' <<
 			time << ',' <<
 			// timeDifferenceMs << ',' <<
 			// isMoving << ',' <<
 			// isCalibrating << ',' <<
 			// angle * Pi / 180.0 << ',' <<
-			/* accelerationX << ',' <<
+			accelerationX << ',' <<
 			accelerationY << ',' <<
 			accelerationZ << ',' <<
 			velocityX << ',' <<
@@ -276,11 +298,11 @@ void Robot::RobotPeriodic()
 			velocityZ << ',' <<
 			displacementX << ',' <<
 			displacementY << ',' <<
-			displacementZ << '\n'; */
+			displacementZ << '\n';
 			velocity << ',' << displacement << '\n';
 		}
 	}
-
+*/
 	++periodicCount;
 }
 

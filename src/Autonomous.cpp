@@ -15,6 +15,7 @@
 #include "Commands/Auto/PlaceCubeOurSideOnlyCommandGroup.h"
 #include "Commands/Auto/FarLeftAndRightCommandGroup.h"
 #include <Commands/Auto/DeadReckoningCenterCommandGroup.h>
+#include <Commands/Auto/RotateRelativeAngleCommand.h>
 
 Autonomous::Autonomous()
 {
@@ -23,6 +24,7 @@ Autonomous::Autonomous()
 	m_chooser.AddObject("Left/Right-Place Cube On Our Side", AutoCommand::PlaceCubeOnOurSide);
 	m_chooser.AddObject("Side wall-Place Cube On Our Side", AutoCommand::FromOutsideWallPlaceCubeOnOurSide);
 	m_chooser.AddObject("No Vision Center", AutoCommand::NoVisionCenter);
+	m_chooser.AddObject("Rotate", AutoCommand::AutonRotate);
 	frc::SmartDashboard::PutData("Autonomous Command", &m_chooser);
 
 	frc::SmartDashboard::PutNumber("Auton Speed", 0.25);
@@ -125,6 +127,7 @@ void Autonomous::StartAutonomousFromGameData()
 		opponentSwitchSide = Side::Right;
 	} */
 
+	std::cout << "Autonomous::StartAutonomousFromGameData\n";
 	double time = frc::SmartDashboard::GetNumber("Auton Straight Time", 4.0);
 	switch(m_chooser.GetSelected())
 	{
@@ -141,8 +144,11 @@ void Autonomous::StartAutonomousFromGameData()
 		m_autonomousCommand = std::make_unique<FarLeftAndRightCommandGroup>(nearSwitchSide);
 		break;
 	case AutoCommand::NoVisionCenter:
-			m_autonomousCommand = std::make_unique<DeadReckoningCenterCommandGroup>(nearSwitchSide);
-			break;
+		m_autonomousCommand = std::make_unique<DeadReckoningCenterCommandGroup>(nearSwitchSide);
+		break;
+	case AutoCommand::AutonRotate:
+		m_autonomousCommand = std::make_unique<RotateRelativeAngleCommand>();
+		break;
 	}
 
 	if (m_autonomousCommand)
