@@ -26,7 +26,8 @@ private:
 		PlaceCubeOnOurSide,
 		FromOutsideWallPlaceCubeOnOurSide,
 		NoVisionCenter,
-		AutonRotate
+		AutonRotate,
+		ScriptAuton
 	};
 
 	frc::SendableChooser<AutoCommand>	m_chooser;

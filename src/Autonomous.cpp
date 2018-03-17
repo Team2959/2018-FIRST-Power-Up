@@ -16,6 +16,7 @@
 #include "Commands/Auto/FarLeftAndRightCommandGroup.h"
 #include <Commands/Auto/DeadReckoningCenterCommandGroup.h>
 #include <Commands/Auto/RotateRelativeAngleCommand.h>
+#include <Commands/Auto/FCDRChainCommandGroup.h>
 
 Autonomous::Autonomous()
 {
@@ -25,6 +26,8 @@ Autonomous::Autonomous()
 	m_chooser.AddObject("Side wall-Place Cube On Our Side", AutoCommand::FromOutsideWallPlaceCubeOnOurSide);
 	m_chooser.AddObject("No Vision Center", AutoCommand::NoVisionCenter);
 	m_chooser.AddObject("Rotate", AutoCommand::AutonRotate);
+	m_chooser.AddObject("ScriptAuton", AutoCommand::ScriptAuton);
+
 	frc::SmartDashboard::PutData("Autonomous Command", &m_chooser);
 
 	frc::SmartDashboard::PutNumber("Auton Speed", 0.25);
@@ -34,7 +37,7 @@ Autonomous::Autonomous()
 	frc::SmartDashboard::PutNumber("Auton Straight Time", 3.5);
 	frc::SmartDashboard::PutNumber("Auton Center Time", 3.5);
 	frc::SmartDashboard::PutNumber("Auton BD Dist", 10);
-
+	frc::SmartDashboard::PutString("Auton Script", "");
 
 	m_foundGameData = false;
 	m_cycleCount = 0;
@@ -148,6 +151,9 @@ void Autonomous::StartAutonomousFromGameData()
 		break;
 	case AutoCommand::AutonRotate:
 		m_autonomousCommand = std::make_unique<RotateRelativeAngleCommand>();
+		break;
+	case AutoCommand::ScriptAuton:
+		m_autonomousCommand = std::make_unique<FCDRChainCommandGroup>(frc::SmartDashboard::GetString("Auton Script", ""));
 		break;
 	}
 
