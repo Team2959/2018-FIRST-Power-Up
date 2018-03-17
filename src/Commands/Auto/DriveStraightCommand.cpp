@@ -25,7 +25,7 @@ void DriveStraightCommand::Initialize()
 
 void DriveStraightCommand::Execute()
 {
-	Robot::DriveTrainSubsystem->Drive(m_speed, HalfPi, 0);
+	Robot::DriveTrainSubsystem->Drive(m_speed, 3 * QuarterPi, 0);
 }
 
 void DriveStraightCommand::End()

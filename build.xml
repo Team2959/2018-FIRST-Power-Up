@@ -14,10 +14,10 @@
   <!-- <property name="version" value=""/> -->
 
   <!-- By default the system team number is used -->
-  <property name="team-number" value="2959"/>
+  <property name="team-number" value="1801"/>
 
   <!-- By default the target is set to 10.TE.AM.2 -->
-  <property name="target" value="10.29.59.2"/>
+  <property name="target" value="10.18.01.2"/>
 
   <property file="${user.home}/wpilib/wpilib.properties"/>
   <property file="build.properties"/>
