@@ -10,21 +10,44 @@
 #include "RobotMap.h"
 #include <SmartDashboard/SmartDashboard.h>
 #include <iostream>
+#include <cmath>
 
 DriveStraightCommand::DriveStraightCommand(double driveTime) : frc::TimedCommand("DriveStraight", driveTime)
 {
 	Requires(Robot::DriveTrainSubsystem.get());
-	m_speed = 0.5;
+	m_origSpeed = 0.5;
 }
 
 void DriveStraightCommand::Initialize()
 {
-	m_speed = frc::SmartDashboard::GetNumber("Auton Speed", 0.5);
+	m_origSpeed = frc::SmartDashboard::GetNumber("Auton Speed", 0.5);
+	m_dist = frc::SmartDashboard::GetNumber("Auton BD Dist", 10);
 	std::cout << "Drive Straight\n";
 }
 
 void DriveStraightCommand::Execute()
 {
+
+	double disp = ((-Robot::MotionTrackingSubsystem->m_motors["frontRight"].displacement+Robot::MotionTrackingSubsystem->m_motors["backLeft"].displacement)/2);
+
+	if (disp >= m_dist) {
+		m_speed = 0;
+	}
+
+	if (disp < 2)
+	{
+		m_speed = fmin(m_origSpeed, 0.25);
+	}
+	else if (disp < m_dist && m_dist - disp <= 2) {
+		m_speed = fmin(m_origSpeed, 0.25);
+	}
+	else if (disp >= m_dist) {
+		m_speed = 0;
+	}
+	else {
+		m_speed = m_origSpeed;
+	}
+
 	Robot::DriveTrainSubsystem->Drive(m_speed, 3 * QuarterPi, 0);
 }
 

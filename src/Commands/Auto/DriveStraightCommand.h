@@ -14,6 +14,8 @@ class DriveStraightCommand: public frc::TimedCommand
 {
 private:
 	double m_speed;
+	double m_origSpeed;
+	double m_dist;
 
 public:
 	DriveStraightCommand(double driveTime = 0);

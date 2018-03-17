@@ -31,6 +31,8 @@ Autonomous::Autonomous()
 	frc::SmartDashboard::PutBoolean("Is Auton Starting Left?", true);
 	frc::SmartDashboard::PutNumber("Auton Straight Time", 3.5);
 	frc::SmartDashboard::PutNumber("Auton Center Time", 3.5);
+	frc::SmartDashboard::PutNumber("Auton BD Dist", 10);
+
 
 	m_foundGameData = false;
 	m_cycleCount = 0;
