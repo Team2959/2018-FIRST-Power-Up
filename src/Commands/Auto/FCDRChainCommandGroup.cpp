@@ -14,13 +14,11 @@ FCDRChainCommandGroup::FCDRChainCommandGroup(std::vector<FCDRObj> chain) : frc::
 		if (chain[i].waitForCompletion)
 		{
 			AddSequential(chain[i].cmd);
-		} else {
+		}
+
+		else {
 			AddParallel(chain[i].cmd);
 		}
 	}
-}
-
-FCDRChainCommandGroup::~FCDRChainCommandGroup() {
-	// TODO Auto-generated destructor stub
 }
 
