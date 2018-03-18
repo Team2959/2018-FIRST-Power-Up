@@ -95,6 +95,15 @@ void XDrive::Drive(double magnitude, double totalAngle, double rotation)
 	//m_backRightMotor->Set(motorC);
 	//m_backLeftMotor->Set(motorD);
 
+	// To prevent PID loop from giving small values while motors aren't supposed to be moving
+	// the controllers are momentarily set to 0% out so the PID settles there.
+	if (magnitude == 0 && rotation == 0) {
+		m_frontLeftMotor.Set(ControlMode::PercentOutput, 0);
+		m_frontRightMotor.Set(ControlMode::PercentOutput, 0);
+		m_backRightMotor.Set(ControlMode::PercentOutput, 0);
+		m_backLeftMotor.Set(ControlMode::PercentOutput, 0);
+	}
+
 	// scaling to Units per 100ms and sending to the motors
 	m_frontLeftMotor.Set(ControlMode::Velocity, motorA * RawToVelocity);
 	m_frontRightMotor.Set(ControlMode::Velocity, motorB * RawToVelocity);

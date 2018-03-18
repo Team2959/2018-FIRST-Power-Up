@@ -14,7 +14,7 @@ constexpr double TWO_WHL_RAMP_DIST = 3;          // The distance over which to r
 constexpr double TWO_WHL_FULL_TURN_DIFF = 2;     // The amount of feet the wheel displacements would differ by the necessitate full turn correct
 constexpr double TWO_WHL_FULL_TURN_SPEED = 0.25; // The max speed of rotation correction
 constexpr double TWO_WHL_LOW_RAMP_SPEED = 0.25;  // The starting speed for ramping
-constexpr double TWO_WHL_MAX_ACCEPT_ROT = 0.5;     // Maximum distance of wheel difference before correction
+constexpr double TWO_WHL_MAX_ACCEPT_ROT = 0.5;   // Maximum distance of wheel difference before correction
 
 class TwoWheelDriveCommand: public frc::Command
 {

@@ -33,7 +33,8 @@ void TwoWheelDriveCommand::Execute()
 {
 
 	// The robot should drive until the average of the displacements of the driving wheels is greater than or equivalent to the distance provided.
-	// If the two wheels being monitored during the driving differ by to great of an amount an execution shall be added to compenate for the angular drift.
+	// This command will drive for the distance provided in the direction (sign) provided, negative distances will have no effect.
+	// If the two wheels being monitored during the driving differ by to great of an amount an execution shall be added to compensate for the angular drift.
 	double rotCorrection = 0;
 	// To reduce strafing drift this module shall implement a linearly ramping acceleration profile.
 
@@ -76,7 +77,7 @@ void TwoWheelDriveCommand::Interrupted()
 
 bool TwoWheelDriveCommand::IsFinished()
 {
-
+	return fabs(m_disp) >= fabs(m_dist);
 }
 
 TwoWheelDriveCommand::~TwoWheelDriveCommand() {
