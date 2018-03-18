@@ -17,6 +17,7 @@ DriveStraightCommand::DriveStraightCommand(double driveTime) : frc::TimedCommand
 	Requires(Robot::DriveTrainSubsystem.get());
 	m_origSpeed = 0.5;
 	m_speed = 0.0;
+	m_dist = 0.0;
 }
 
 void DriveStraightCommand::Initialize()
