@@ -12,16 +12,30 @@
 #include <iostream>
 #include <cmath>
 
-TwoWheelDriveCommand::TwoWheelDriveCommand(double dist, double speed) : frc::Command("TwoWheelTrive")
+TwoWheelDriveCommand::TwoWheelDriveCommand(double dist, double speed, bool frontLeftBackRight) : frc::Command("TwoWheelTrive")
 {
 	Requires(Robot::DriveTrainSubsystem.get());
 
 	m_speed = 0;
 	m_origSpeed = speed;
 	m_dist = dist;
-	m_startDist = ((-Robot::MotionTrackingSubsystem->m_motors["frontRight"].displacement+Robot::MotionTrackingSubsystem->m_motors["backLeft"].displacement)/2);
+	if(frontLeftBackRight)
+	{
+		m_motor1 = "frontLeft";
+		m_motor2 = "backRight";
+
+	}
+
+	else
+	{
+		m_motor1 = "frontRight";
+		m_motor2 = "backLeft";
+	}
+	m_startDist = ((-Robot::MotionTrackingSubsystem->m_motors[m_motor1].displacement+Robot::MotionTrackingSubsystem->m_motors[m_motor2].displacement)/2);
 	m_disp = 0;
 	m_wheelDiff = 0;
+
+
 }
 
 void TwoWheelDriveCommand::Initialize()
@@ -39,10 +53,12 @@ void TwoWheelDriveCommand::Execute()
 	// To reduce strafing drift this module shall implement a linearly ramping acceleration profile.
 
 	// The fist step of executing the command is to calculate the current total displacement since starting.
-	m_disp = ((-Robot::MotionTrackingSubsystem->m_motors["frontRight"].displacement + Robot::MotionTrackingSubsystem->m_motors["backLeft"].displacement)/2) - m_startDist;
+
+
+	m_disp = ((-Robot::MotionTrackingSubsystem->m_motors[m_motor1].displacement + Robot::MotionTrackingSubsystem->m_motors[m_motor2].displacement)/2) - m_startDist;
 
 	// The difference in displacement of the wheel should be calculated next.
-	m_wheelDiff = (-Robot::MotionTrackingSubsystem->m_motors["frontRight"].displacement - Robot::MotionTrackingSubsystem->m_motors["backLeft"].displacement);
+	m_wheelDiff = (-Robot::MotionTrackingSubsystem->m_motors[m_motor1].displacement - Robot::MotionTrackingSubsystem->m_motors[m_motor2].displacement);
 
 	if (fabs(m_disp) >= fabs(m_dist)) {
 		m_speed = 0;

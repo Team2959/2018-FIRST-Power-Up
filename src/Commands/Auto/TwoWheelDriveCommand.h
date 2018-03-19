@@ -26,9 +26,12 @@ private:
 	double m_startDist;
 	double m_wheelDiff;
 	double m_disp;
+	const char* m_motor1;
+	const char* m_motor2;
+
 
 public:
-	TwoWheelDriveCommand(double dist, double speed);
+	TwoWheelDriveCommand(double dist, double speed, bool FrontLeftBackRight);
 	virtual ~TwoWheelDriveCommand();
 
 	void Initialize();
