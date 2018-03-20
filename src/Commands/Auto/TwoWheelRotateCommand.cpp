@@ -26,7 +26,7 @@ void TwoWheelRotateCommand::Execute()
 }
 bool TwoWheelRotateCommand::IsFinished()
 {
-
+return true;
 }
 void TwoWheelRotateCommand::Interrupted()
 {
