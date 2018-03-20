@@ -30,18 +30,27 @@ FCDRChainCommandGroup::FCDRChainCommandGroup(std::string chain) : frc::CommandGr
 			continue;
 		for (unsigned j = 0; j < words.size(); j++)
 		{
-			if (words[1] == "DeadReckoning") {
-				if (words.size() == (4 + 2)) {
-					// Check if there are enough parameters for the command being called. (number of arguments + 2)
-					std::vector<double> args;
-					for (unsigned i = 2; i < (4 + 2); i++) {
-						args.push_back(strtod(words[i].c_str(), NULL));
-					}
+			std::vector<double> args;
+			for (unsigned i = 2; i < (4 + 2); i++) {
+				args.push_back(strtod(words[i].c_str(), NULL));
+			}
 
+			if (words[1] == "DeadReckoning") {
+				if (words.size() == (4 + 2)) {  // Check if there are enough parameters for the command being called. (number of arguments + 2)
 					if (words[0] == "parallel") {
 						AddParallel(new DeadReckoningCommand(args[0], args[1], args[2], args[3]));
 					} else {
 						AddSequential(new DeadReckoningCommand(args[0], args[1], args[2], args[3]));
+					}
+				}
+			}
+
+			else if (words[1] == "TwoWheelDrive") {
+				if (words.size() == (3 + 2)) {  // Check if there are enough parameters for the command being called. (number of arguments + 2)
+					if (words[0] == "parallel") {
+						AddParallel(new DeadReckoningCommand(args[0], args[1], args[2]));
+					} else {
+						AddSequential(new DeadReckoningCommand(args[0], args[1], args[2]));
 					}
 				}
 			}
