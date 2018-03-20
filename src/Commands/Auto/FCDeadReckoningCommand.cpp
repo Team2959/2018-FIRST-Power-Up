@@ -16,10 +16,6 @@ FCDeadReckoningCommand::FCDeadReckoningCommand(double duration, double magnitude
 	m_rotation = rotation;
 }
 
-FCDeadReckoningCommand::~FCDeadReckoningCommand() {
-
-}
-
 void FCDeadReckoningCommand::Initialize()
 {
 	std::cout << "Starting field centric dead reckoning: <" << m_magnitude << "," << m_angle << "," << m_rotation << ">\n";

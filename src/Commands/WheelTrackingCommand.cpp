@@ -13,10 +13,6 @@ WheelTrackingCommand::WheelTrackingCommand() : frc::Command("WheelTracking")
 	Requires(Robot::MotionTrackingSubsystem.get());
 }
 
-WheelTrackingCommand::~WheelTrackingCommand()
-{
-}
-
 void WheelTrackingCommand::Execute()
 {
 	Robot::MotionTrackingSubsystem->UpdateWheels();

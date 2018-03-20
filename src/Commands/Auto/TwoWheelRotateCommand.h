@@ -16,13 +16,11 @@ private:
 
 public:
 	TwoWheelRotateCommand();
-	virtual ~TwoWheelRotateCommand();
-
-	void Initialize();
-	void Execute();
-	void End();
-	void Interrupted();
-	bool IsFinished();
+	virtual void Initialize() override;
+	virtual void Execute() override;
+	virtual void End() override;
+	virtual void Interrupted() override;
+	virtual bool IsFinished() override;
 };
 
 #endif /* SRC_COMMANDS_AUTO_TWOWHEELROTATECOMMAND_H_ */

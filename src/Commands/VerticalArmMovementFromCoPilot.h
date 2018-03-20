@@ -14,10 +14,8 @@ class VerticalArmMovementFromCoPilot: public frc::Command
 {
 public:
 	VerticalArmMovementFromCoPilot();
-	~VerticalArmMovementFromCoPilot() override = default;
-
-	void Execute() override;
-	bool IsFinished() override;
+	virtual void Execute() override;
+	virtual bool IsFinished() override;
 };
 
 #endif /* SRC_COMMANDS_VERTICALARMMOVEMENTFROMCOPILOT_H_ */

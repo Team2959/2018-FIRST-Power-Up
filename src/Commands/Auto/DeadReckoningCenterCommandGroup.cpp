@@ -30,8 +30,3 @@ DeadReckoningCenterCommandGroup::DeadReckoningCenterCommandGroup(Side nearSwitch
 	AddSequential(new TimedCommand(0.5));
 	AddSequential(new StopArmWheelsCommand());
 }
-
-DeadReckoningCenterCommandGroup::~DeadReckoningCenterCommandGroup() {
-	// TODO Auto-generated destructor stub
-}
-

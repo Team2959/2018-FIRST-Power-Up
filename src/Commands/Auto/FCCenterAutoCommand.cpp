@@ -12,7 +12,3 @@ FCCenterAutoCommand::FCCenterAutoCommand() {
 
 }
 
-FCCenterAutoCommand::~FCCenterAutoCommand() {
-	// TODO Auto-generated destructor stub
-}
-

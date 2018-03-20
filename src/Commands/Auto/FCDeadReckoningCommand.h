@@ -15,19 +15,15 @@
 class FCDeadReckoningCommand: public frc::TimedCommand {
 public:
 	FCDeadReckoningCommand(double duration, double magnitude, double angle, double rotation);
-	virtual ~FCDeadReckoningCommand();
-
-	void Initialize() override;
-	void Execute() override;
-	void End() override;
-	void Interrupted() override;
+	virtual void Initialize() override;
+	virtual void Execute() override;
+	virtual void End() override;
+	virtual void Interrupted() override;
 
 private:
 	double m_magnitude;
 	double m_rotation;
 	double m_angle;
 };
-
-std::vector<std::string> strSplitLines(std::string str);
 
 #endif /* SRC_COMMANDS_AUTO_FCDEADRECKONINGCOMMAND_H_ */

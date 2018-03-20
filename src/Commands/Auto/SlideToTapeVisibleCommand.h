@@ -15,19 +15,18 @@ class SlideToTapeVisibleCommand: public frc::Command
 {
 public:
 	SlideToTapeVisibleCommand(Side nearSwitchSide);
-	~SlideToTapeVisibleCommand() override = default;
-
-	void Initialize() override;
-	void Execute() override;
-	bool IsFinished() override;
-	void End() override;
-	void Interrupted() override;
+	virtual void Initialize() override;
+	virtual void Execute() override;
+	virtual bool IsFinished() override;
+	virtual void End() override;
+	virtual void Interrupted() override;
 
 private:
-	bool m_isFinished = false;
-	double m_DriveAngle;
-	double m_autonSpeed;
 	bool IsTapeVisible();
+
+	double	m_DriveAngle;
+	double	m_autonSpeed;
+	bool	m_isFinished{ false };
 };
 
 #endif /* SRC_COMMANDS_AUTO_SLIDETOTAPEVISIBLECOMMAND_H_ */

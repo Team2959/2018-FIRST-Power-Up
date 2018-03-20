@@ -17,12 +17,11 @@ class FindDriveTarget: public frc::Command
 {
 public:
 	FindDriveTarget(Side nearSwitchSide);
-
-	void Initialize() override;
-	void Execute() override;
-	bool IsFinished() override;
-	void End() override;
-	void Interrupted() override;
+	virtual void Initialize() override;
+	virtual void Execute() override;
+	virtual bool IsFinished() override;
+	virtual void End() override;
+	virtual void Interrupted() override;
 
 private:
 	enum class Direction { ShimmyLeft, ShimmyRight, Straight, SlideLeft, SlideRight };

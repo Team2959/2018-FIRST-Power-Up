@@ -15,7 +15,6 @@ class PlaceCubeOurSideOnlyCommandGroup : public frc::CommandGroup
 {
 public:
 	PlaceCubeOurSideOnlyCommandGroup(Side nearSwitchSide);
-	~PlaceCubeOurSideOnlyCommandGroup() override = default;
 };
 
 #endif /* SRC_COMMANDS_AUTO_PLACECUBEOURSIDEONLY_H_ */

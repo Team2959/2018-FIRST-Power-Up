@@ -19,10 +19,8 @@ private:
 
 public:
 	DriveWithJoystick();
-	~DriveWithJoystick() override = default;
-
-	void Execute() override;
-	bool IsFinished() override;
+	virtual void Execute() override;
+	virtual bool IsFinished() override;
 };
 
 #endif /* SRC_DRIVE_WITH_JOYSTICK_H_ */

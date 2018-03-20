@@ -15,7 +15,6 @@ class PlaceInitialCubeOnSwitchCommandGroup : public frc::CommandGroup
 {
 public:
 	PlaceInitialCubeOnSwitchCommandGroup(Side nearSwitchSide);
-	~PlaceInitialCubeOnSwitchCommandGroup() override = default;
 };
 
 #endif /* SRC_PLACE_INITIAL_CUBE_ON_SWITCH_H_ */

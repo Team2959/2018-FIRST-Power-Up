@@ -12,10 +12,6 @@ TwoWheelRotateCommand::TwoWheelRotateCommand() : frc::Command("TwoWheelRotateCom
 
 }
 
-TwoWheelRotateCommand::~TwoWheelRotateCommand() {
-	// TODO Auto-generated destructor stub
-}
-
 void TwoWheelRotateCommand::Initialize()
 {
 

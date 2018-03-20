@@ -14,7 +14,6 @@ class MoveAroundSwitchCommandGroup: public frc::CommandGroup
 {
 public:
 	MoveAroundSwitchCommandGroup();
-	~MoveAroundSwitchCommandGroup() override = default;
 };
 
 #endif /* SRC_COMMANDS_AUTO_MOVEAROUNDSWITCHCOMMANDGROUP_H_ */

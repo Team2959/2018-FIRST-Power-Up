@@ -14,10 +14,8 @@ class FoldArmsDownCommand: public frc::Command
 {
 public:
 	FoldArmsDownCommand();
-	~FoldArmsDownCommand() override = default;
-
-	void Initialize() override;
-	bool IsFinished() override;
+	virtual void Initialize() override;
+	virtual bool IsFinished() override;
 };
 
 #endif /* SRC_COMMANDS_FOLDARMSDOWNCOMMAND_H_ */

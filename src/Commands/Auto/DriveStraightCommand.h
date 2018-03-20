@@ -19,12 +19,10 @@ private:
 
 public:
 	DriveStraightCommand(double driveTime = 0);
-	~DriveStraightCommand() override = default;
-
-	void Initialize() override;
-	void Execute() override;
-	void End() override;
-	void Interrupted() override;
+	virtual void Initialize() override;
+	virtual void Execute() override;
+	virtual void End() override;
+	virtual void Interrupted() override;
 };
 
 #endif /* SRC_DRIVE_STRAIGHT_COMMAND_H_ */

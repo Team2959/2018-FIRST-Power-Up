@@ -23,12 +23,11 @@ private:
 
 public:
 	RotateRelativeAngleCommand();
-
-	void Initialize() override;
-	void Execute() override;
-	void End() override;
-	void Interrupted() override;
-	bool IsFinished() override;
+	virtual void Initialize() override;
+	virtual void Execute() override;
+	virtual void End() override;
+	virtual void Interrupted() override;
+	virtual bool IsFinished() override;
 };
 
 #endif /* SRC_COMMANDS_AUTO_ROTATERELATIVEANGLECOMMAND_H_ */

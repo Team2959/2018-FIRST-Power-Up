@@ -10,7 +10,7 @@
 
 #include <Commands/TimedCommand.h>
 
-class  DeadReckoningCommand: public frc::TimedCommand
+class DeadReckoningCommand: public frc::TimedCommand
 {
 private:
 	double m_magnitude;
@@ -21,10 +21,10 @@ public:
 	DeadReckoningCommand(double driveTime = 0, double magnitude = 0, double angle = 0, double rotation = 0);
 	~DeadReckoningCommand() override = default;
 
-	void Initialize() override;
-	void Execute() override;
-	void End() override;
-	void Interrupted() override;
+	virtual void Initialize() override;
+	virtual void Execute() override;
+	virtual void End() override;
+	virtual void Interrupted() override;
 };
 
 #endif /* SRC_COMMANDS_AUTO_DEADRECKONINGCOMMAND_H_ */

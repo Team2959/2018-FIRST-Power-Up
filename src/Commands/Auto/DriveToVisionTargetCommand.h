@@ -16,13 +16,11 @@ class DriveToVisionTargetCommand: public frc::Command
 {
 public:
 	DriveToVisionTargetCommand();
-	~DriveToVisionTargetCommand() override = default;
-
-	void Initialize() override;
-	void Execute() override;
-	bool IsFinished() override;
-	void End() override;
-	void Interrupted() override;
+	virtual void Initialize() override;
+	virtual void Execute() override;
+	virtual bool IsFinished() override;
+	virtual void End() override;
+	virtual void Interrupted() override;
 
 private:
 	constexpr static double NoTarget = -1.0;
@@ -32,12 +30,10 @@ private:
 	double FindTarget();
 	void Drive(double angle);
 
-	std::vector<double> m_history;
-
-
-	bool		m_atTarget;
-	double		m_lastAngle;
-	double		m_speed;
+	std::vector<double>	m_history;
+	double				m_lastAngle;
+	double				m_speed;
+	bool				m_atTarget;
 };
 
 #endif /* SRC_COMMANDS_AUTO_DRIVETOVISIONTARGETCOMMAND_H_ */

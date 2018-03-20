@@ -14,7 +14,6 @@
 class DeadReckoningCenterCommandGroup: public frc::CommandGroup {
 public:
 	DeadReckoningCenterCommandGroup(Side nearSwitchSide);
-	virtual ~DeadReckoningCenterCommandGroup();
 };
 
 #endif /* SRC_COMMANDS_AUTO_DEADRECKONINGCENTERCOMMANDGROUP_H_ */

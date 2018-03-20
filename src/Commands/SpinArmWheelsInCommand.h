@@ -14,10 +14,8 @@ class SpinArmWheelsInCommand: public frc::Command
 {
 public:
 	SpinArmWheelsInCommand();
-	~SpinArmWheelsInCommand() override = default;
-
-	void Initialize() override;
-	bool IsFinished() override;
+	virtual void Initialize() override;
+	virtual bool IsFinished() override;
 };
 
 #endif /* SRC_COMMANDS_SPINARMWHEELSINCOMMAND_H_ */

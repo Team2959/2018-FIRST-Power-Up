@@ -10,19 +10,18 @@
 
 #include <Commands/Command.h>
 
-class DeliverCubeUntilNotPresentCommand: public frc::Command {
+class DeliverCubeUntilNotPresentCommand: public frc::Command
+{
 public:
 	DeliverCubeUntilNotPresentCommand();
-	virtual ~DeliverCubeUntilNotPresentCommand();
-
-	void Initialize() override;
-	void Execute() override;
-	void End() override;
-	void Interrupted() override;
-	bool IsFinished() override;
+	virtual void Initialize() override;
+	virtual void Execute() override;
+	virtual void End() override;
+	virtual void Interrupted() override;
+	virtual bool IsFinished() override;
 
 private:
-	int m_cubeNotpresentCount;
+	int	m_cubeNotpresentCount{ 0 };
 };
 
 #endif /* SRC_COMMANDS_AUTO_DELIVERCUBEUNTILNOTPRESENTCOMMAND_H_ */

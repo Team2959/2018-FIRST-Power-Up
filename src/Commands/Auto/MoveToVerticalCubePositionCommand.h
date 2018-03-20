@@ -18,10 +18,8 @@ private:
 
 public:
 	MoveToVerticalCubePositionCommand(VerticalArmMovement::CubeVerticalPlace target = VerticalArmMovement::Switch);
-	~MoveToVerticalCubePositionCommand() override = default;
-
-	void Execute() override;
-	bool IsFinished() override;
+	virtual void Execute() override;
+	virtual bool IsFinished() override;
 
 };
 

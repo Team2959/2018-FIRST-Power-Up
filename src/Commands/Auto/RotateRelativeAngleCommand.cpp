@@ -16,7 +16,6 @@ m_targetAngle{ 0.0 }, m_startAngle{0.0}, m_speed{ 0.25 }, m_lastSpeed{0.0}, m_re
 {
 	Requires(Robot::DriveTrainSubsystem.get());
 	Requires(Robot::MotionTrackingSubsystem.get());
-
 }
 
 void RotateRelativeAngleCommand::Initialize()
@@ -85,10 +84,10 @@ bool RotateRelativeAngleCommand::IsFinished()
 
 void RotateRelativeAngleCommand::End()
 {
-	Interrupted();
+	Robot::DriveTrainSubsystem->Drive(0.0, 0.0, 0.0);
 }
 
 void RotateRelativeAngleCommand::Interrupted()
 {
-	Robot::DriveTrainSubsystem->Drive(0.0, 0.0, 0.0);
+	End();
 }

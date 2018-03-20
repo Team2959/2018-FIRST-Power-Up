@@ -13,10 +13,6 @@ StopVerticalCommand::StopVerticalCommand()
 	Requires(Robot::VerticalArmMovmentSubsystem.get());
 }
 
-StopVerticalCommand::~StopVerticalCommand()
-{
-}
-
 void StopVerticalCommand::Execute()
 {
 	Robot::VerticalArmMovmentSubsystem->AtBottomReset();

@@ -14,10 +14,8 @@ class CloseCubeArmsCommand: public frc::Command
 {
 public:
 	CloseCubeArmsCommand();
-	~CloseCubeArmsCommand() override = default;
-
-	void Initialize() override;
-	bool IsFinished() override;
+	virtual void Initialize() override;
+	virtual bool IsFinished() override;
 };
 
 #endif /* SRC_COMMANDS_AUTO_CLOSECUBEARMSCOMMAND_H_ */

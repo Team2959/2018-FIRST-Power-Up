@@ -14,10 +14,8 @@ class FoldArmsUpCommand: public frc::Command
 {
 public:
 	FoldArmsUpCommand();
-	~FoldArmsUpCommand() override = default;
-
-	void Initialize() override;
-	bool IsFinished() override;
+	virtual void Initialize() override;
+	virtual bool IsFinished() override;
 };
 
 #endif /* SRC_FOLD_ARMS_UP_H_ */

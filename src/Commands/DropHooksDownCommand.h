@@ -14,12 +14,10 @@ class DropHooksDownCommand: public frc::Command
 {
 public:
 	DropHooksDownCommand();
-	~DropHooksDownCommand() override = default;
-
-	void Execute() override;
-	bool IsFinished() override;
-	void End() override;
-	void Interrupted() override;
+	virtual void Execute() override;
+	virtual bool IsFinished() override;
+	virtual void End() override;
+	virtual void Interrupted() override;
 };
 
 #endif /* SRC_COMMANDS_DROPHOOKSDOWNCOMMAND_H_ */

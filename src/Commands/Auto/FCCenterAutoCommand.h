@@ -13,7 +13,6 @@
 class FCCenterAutoCommand: public frc::Command {
 public:
 	FCCenterAutoCommand();
-	virtual ~FCCenterAutoCommand();
 };
 
 #endif /* SRC_COMMANDS_AUTO_FCCENTERAUTOCOMMAND_H_ */

@@ -14,9 +14,7 @@ class StopArmWheelsCommand: public frc::TimedCommand
 {
 public:
 	StopArmWheelsCommand(double time = 0.0);
-	~StopArmWheelsCommand() override = default;
-
-	void End() override;
+	virtual void End() override;
 };
 
 #endif /* SRC_COMMANDS_STOPARMWHEELSCOMMAND_H_ */
