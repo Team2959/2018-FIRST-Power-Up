@@ -18,44 +18,42 @@ m_targetAngle{ 0.0 }, m_startAngle{0.0}, m_speed{ 0.25 }, m_lastSpeed{0.0}, m_re
 	Requires(Robot::MotionTrackingSubsystem.get());
 }
 
+double NormalizeAngle(double angle)
+{
+	while(angle < 0.0)
+		angle += 2.0 * Pi;
+	while(angle >= 2.0 * Pi)
+		angle -= 2.0 * Pi;
+	return angle;
+}
+
 void RotateRelativeAngleCommand::Initialize()
 {
-	m_startAngle = Robot::MotionTrackingSubsystem->GetAngle();
-	auto angleDeg{frc::SmartDashboard::GetNumber("Auton Angle", 45.0)};
-	while(angleDeg > 180.0)
-		angleDeg -= 360.0;
-	while(angleDeg < -180.0)
-		angleDeg += 360.0;
-	m_targetAngle = (m_startAngle + angleDeg * Pi/180.0);
+	m_startAngle = NormalizeAngle(Robot::MotionTrackingSubsystem->GetAngle());
+	auto angleRad{NormalizeAngle(frc::SmartDashboard::GetNumber("Auton Angle", 45.0) * Pi / 180.0)};
+	m_targetAngle = m_startAngle + angleRad;
 	if(m_targetAngle > 2.0 * Pi)
 		m_readingOffset = 2.0 * Pi;
 	else if(m_targetAngle < 0)
 		m_readingOffset = -2.0 * Pi;
 	else
 		m_readingOffset = 0.0;
-	m_speed = frc::SmartDashboard::GetNumber("Auton Speed", 0.25);
-	if(angleDeg < 0)
-	{
-		m_speed = fabs(m_speed);
-	}
-	else
-	{
-		m_speed = -fabs(m_speed);
-	}
+	m_speed = fabs(frc::SmartDashboard::GetNumber("Auton Speed", 0.25));
+	if(angleRad > Pi)
+		m_speed = -m_speed;
 	m_atTarget = false;
-
-	std::cout << m_startAngle << ',' << m_targetAngle << ',' << m_readingOffset << ',' << m_speed << '\n';
+	std::cout << "RotateRelative - " << m_startAngle << ',' << m_targetAngle << ',' << m_readingOffset << ',' << m_speed << '\n';
 }
 
 void RotateRelativeAngleCommand::Execute()
 {
-	auto	currentAngle{Robot::MotionTrackingSubsystem->GetAngle() + m_readingOffset};
+	auto	currentAngle{NormalizeAngle(Robot::MotionTrackingSubsystem->GetAngle()) + m_readingOffset};
 	double	rotationSpeed;
 
 	std::cout << "**" << currentAngle << '\n';
 	if(m_speed > 0.0)	// If turning counterclockwise
 	{
-		if(currentAngle < m_targetAngle)
+		if(currentAngle > m_targetAngle)
 		{
 			rotationSpeed = 0.0;
 			m_atTarget = true;
@@ -65,7 +63,7 @@ void RotateRelativeAngleCommand::Execute()
 	}
 	else
 	{
-		if(currentAngle > m_targetAngle)
+		if(currentAngle < m_targetAngle)
 		{
 			rotationSpeed = 0.0;
 			m_atTarget = true;

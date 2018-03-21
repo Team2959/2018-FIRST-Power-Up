@@ -109,3 +109,4 @@ double MotionTracking::GetAngle()
 	return angle * (Pi / 180.0);
 }
 
+
