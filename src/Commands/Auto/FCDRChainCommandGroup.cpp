@@ -6,7 +6,9 @@
  */
 
 #include <Commands/Auto/FCDRChainCommandGroup.h>
-#include <COmmands/Auto/DeadReckoningCommand.h>
+#include <Commands/Auto/DeadReckoningCommand.h>
+#include <Commands/Auto/TwoWheelDriveCommand.h>
+#include <Commands/Auto/RotateRelativeAngleCommand.h>
 
 FCDRChainCommandGroup::FCDRChainCommandGroup(std::string chain) : frc::CommandGroup("FCDRChain")
 {
@@ -22,10 +24,10 @@ FCDRChainCommandGroup::FCDRChainCommandGroup(std::string chain) : frc::CommandGr
 		}
 	}*/
 
-	std::vector<std::string> lines = split(chain, "\n");
+	std::vector<std::string> lines = split(chain, ";");
 	for (unsigned i = 0; i < lines.size(); i++)
 	{
-		std::vector<std::string> words = split(lines[i], " \t");
+		std::vector<std::string> words = split(lines[i], ",");
 		if (words.size() < 2)
 			continue;
 		for (unsigned j = 0; j < words.size(); j++)
@@ -48,11 +50,24 @@ FCDRChainCommandGroup::FCDRChainCommandGroup(std::string chain) : frc::CommandGr
 			else if (words[1] == "TwoWheelDrive") {
 				if (words.size() == (3 + 2)) {  // Check if there are enough parameters for the command being called. (number of arguments + 2)
 					if (words[0] == "parallel") {
-						AddParallel(new DeadReckoningCommand(args[0], args[1], args[2]));
+						AddParallel(new TwoWheelDriveCommand(args[0], args[1], args[2]));
 					} else {
-						AddSequential(new DeadReckoningCommand(args[0], args[1], args[2]));
+						AddSequential(new TwoWheelDriveCommand(args[0], args[1], args[2]));
 					}
 				}
+			}
+
+			else if (words[1] == "RotateRelativeAngleCommand") {
+				if (words.size() == (2 + 2)) {
+					if (words[0] == "parallel") {
+						AddParallel(new RotateRelativeAngleCommand(args[0], args[1]));
+					} else {
+						AddSequential(new RotateRelativeAngleCommand(args[0], args[1]));
+					}
+				}
+			}
+			else {
+				std::cout << "Command Not Known\n";
 			}
 		}
 	}

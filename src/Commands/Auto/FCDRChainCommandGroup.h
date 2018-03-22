@@ -11,6 +11,7 @@
 #include <Commands/CommandGroup.h>
 #include <vector>
 #include <stdlib.h>
+#include <iostream>
 
 typedef struct _FCDRObj {
 	frc::Command* cmd;

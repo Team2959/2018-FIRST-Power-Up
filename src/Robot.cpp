@@ -153,12 +153,12 @@ void Robot::RobotPeriodic()
 	if ((periodicCount % 5) == 0)
 	{
 //		MotionTrackingSubsystem->PrintMotorTelemetries();
-		std::cout << navX.GetYaw() << ',' <<
+		/*std::cout << navX.GetYaw() << ',' <<
 					navX.GetPitch() << ',' <<
 					navX.GetRoll() << ',' <<
 					 navX.GetRawGyroX() << ','<<
 					 navX.GetRawGyroY() << ','<<
-					 navX.GetRawGyroZ() << '\n';
+					 navX.GetRawGyroZ() << '\n';*/
 		/* std::cout << "**" << navX.GetQuaternionX() << ',' <<
 				     navX.GetQuaternionY() << ',' <<
 					 navX.GetQuaternionY() << ',' <<

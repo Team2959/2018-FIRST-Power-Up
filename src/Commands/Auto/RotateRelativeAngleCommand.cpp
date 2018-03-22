@@ -11,11 +11,13 @@
 #include "Subsystems/MotionTracking.h"
 
 
-RotateRelativeAngleCommand::RotateRelativeAngleCommand() :
+RotateRelativeAngleCommand::RotateRelativeAngleCommand(double angle, double speed) :
 m_targetAngle{ 0.0 }, m_startAngle{0.0}, m_speed{ 0.25 }, m_lastSpeed{0.0}, m_readingOffset{0.0}, m_atTarget{false}
 {
 	Requires(Robot::DriveTrainSubsystem.get());
 	Requires(Robot::MotionTrackingSubsystem.get());
+	m_speed = fabs(speed);
+	m_inputAngle = angle;
 }
 
 double NormalizeAngle(double angle)
@@ -30,7 +32,7 @@ double NormalizeAngle(double angle)
 void RotateRelativeAngleCommand::Initialize()
 {
 	m_startAngle = NormalizeAngle(Robot::MotionTrackingSubsystem->GetAngle());
-	auto angleRad{NormalizeAngle(frc::SmartDashboard::GetNumber("Auton Angle", 45.0) * Pi / 180.0)};
+	auto angleRad{NormalizeAngle(m_inputAngle * Pi / 180.0)};
 	m_targetAngle = m_startAngle + angleRad;
 	if(m_targetAngle > 2.0 * Pi)
 		m_readingOffset = 2.0 * Pi;
@@ -38,7 +40,7 @@ void RotateRelativeAngleCommand::Initialize()
 		m_readingOffset = -2.0 * Pi;
 	else
 		m_readingOffset = 0.0;
-	m_speed = fabs(frc::SmartDashboard::GetNumber("Auton Speed", 0.25));
+	//m_speed = fabs(frc::SmartDashboard::GetNumber("Auton Speed", 0.25));
 	if(angleRad > Pi)
 		m_speed = -m_speed;
 	m_atTarget = false;

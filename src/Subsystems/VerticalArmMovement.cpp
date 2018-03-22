@@ -17,14 +17,18 @@ VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentS
 	m_cubeLiftMotor.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, 0, 0);
 	m_cubeLiftMotor.Config_kF(0, 0, 0);
 	m_cubeLiftMotor.Config_kP(0, 0.25, 0);
+	//m_cubeLiftMotor.Config_kI(0, 0.001, 0);            // Practice Bot
 //	m_cubeLiftMotor.Config_kI(0, 0.0045, 0);
 //	m_cubeLiftMotor.Config_IntegralZone(0, 300, 0);
 	m_cubeLiftMotor.SetSensorPhase(false);
 	m_cubeLiftMotor.SetSelectedSensorPosition(0,0,0);
-	m_cubeLiftMotor.ConfigPeakOutputForward(0.75, 0);
-	m_cubeLiftMotor.ConfigPeakOutputReverse(-0.3, 0);
+	//m_cubeLiftMotor.ConfigPeakOutputForward(0.75, 0);
+	//m_cubeLiftMotor.ConfigPeakOutputReverse(-0.3, 0);
+	m_cubeLiftMotor.ConfigPeakOutputForward(0.3, 0);   // Practice Bot
+	m_cubeLiftMotor.ConfigPeakOutputReverse(-0.5, 0);  // Practice Bot
 	m_cubeLiftMotor.ConfigAllowableClosedloopError(0, 128, 0);
-	m_cubeLiftMotor.ConfigClosedloopRamp(0.5, 0);
+	//m_cubeLiftMotor.ConfigClosedloopRamp(0.5, 0);
+	m_cubeLiftMotor.ConfigClosedloopRamp(0.5, 0);     // Practice Bot
 	m_cubeLiftMotor.Set(ControlMode::Position, 0);
 }
 

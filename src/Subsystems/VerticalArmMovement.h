@@ -25,16 +25,16 @@ private:
 
 	const double ScaleHeightMinimum = 4.0;	// in feet
 	const double ScaleHeightMaximum = 6.0;
-	const double ScalePositionMaximum = 30000;
-	const double ScalePositionMinimum = 27650;
+	const double ScalePositionMaximum = -30000;
+	const double ScalePositionMinimum = -27650;
 	const double ScaleConversionSlope = (ScalePositionMaximum-ScalePositionMinimum)/(ScaleHeightMaximum-ScaleHeightMinimum);
 
 	const double Level1Position = 0;
-	const double ExchangePosition = 750;
-	const double Level2Position = 4700;
-	const double SwitchPosition = 11000;
-	const double PortalPosition = 9450;
-	const double Level3Position = 9450;
+	const double ExchangePosition = -750;
+	const double Level2Position = -4700;
+	const double SwitchPosition = -11000;
+	const double PortalPosition = -9450;
+	const double Level3Position = -9450;
 
 public:
 	enum CubeVerticalPlace

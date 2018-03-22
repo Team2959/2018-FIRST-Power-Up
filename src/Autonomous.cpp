@@ -150,7 +150,7 @@ void Autonomous::StartAutonomousFromGameData()
 		m_autonomousCommand = std::make_unique<DeadReckoningCenterCommandGroup>(nearSwitchSide);
 		break;
 	case AutoCommand::AutonRotate:
-		m_autonomousCommand = std::make_unique<RotateRelativeAngleCommand>();
+		m_autonomousCommand = std::make_unique<RotateRelativeAngleCommand>(frc::SmartDashboard::GetNumber("Auton Angle", 45.0), frc::SmartDashboard::GetNumber("Auton Speed", 0.25));
 		break;
 	case AutoCommand::ScriptAuton:
 		m_autonomousCommand = std::make_unique<FCDRChainCommandGroup>(frc::SmartDashboard::GetString("Auton Script", ""));

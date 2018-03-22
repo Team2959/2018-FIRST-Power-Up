@@ -14,6 +14,7 @@ class RotateRelativeAngleCommand: public frc::Command
 {
 private:
 	static constexpr double	Acceleration{0.5};
+	double  m_inputAngle;
 	double 	m_targetAngle;
 	double 	m_startAngle;
 	double 	m_speed;
@@ -22,7 +23,7 @@ private:
 	bool 	m_atTarget;
 
 public:
-	RotateRelativeAngleCommand();
+	RotateRelativeAngleCommand(double angle, double speed);
 	virtual void Initialize() override;
 	virtual void Execute() override;
 	virtual void End() override;
