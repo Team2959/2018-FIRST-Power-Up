@@ -17,7 +17,7 @@ private:
 	double m_decrement;
 
 public:
-	VerticalButtonCommand();
+	VerticalButtonCommand(double time = 2.0);
 
 	virtual void Execute() override;
 	virtual bool IsFinished() override;

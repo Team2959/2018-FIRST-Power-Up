@@ -10,8 +10,8 @@
 
 // decrement is calculated based on 20 ms periodic calls, which is 50 calls per second
 // multiply 50 by the number of seconds you wish to take to lower the vertical system
-VerticalButtonCommand::VerticalButtonCommand() : frc::Command("Vertical Button"),
-	m_targetHeight{1.0}, m_decrement{1.0/(50.0 * 2.0)}
+VerticalButtonCommand::VerticalButtonCommand(double time) : frc::Command("Vertical Button"),
+	m_targetHeight{1.0}, m_decrement{1.0/(50.0 * time)}
 {
 	Requires(Robot::VerticalArmMovmentSubsystem.get());
 }

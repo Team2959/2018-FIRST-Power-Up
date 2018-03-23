@@ -52,7 +52,7 @@ OI::OI()
 	FoldCubeArmsDownButton->WhenPressed(new FoldArmsDownCommand());
 	SpinArmWheelsInButton->WhenPressed(new SpinArmWheelsInCommand());
 	DeliverCubeButton->WhenPressed(new DeliverCubeCommand());
-	VerticalButton->WhenPressed(new VerticalButtonCommand());
+	VerticalButton->WhenPressed(new VerticalButtonCommand(frc::SmartDashboard::GetNumber("Vertical Drop Time ", 2.0)));
 
 	IsCubePresentTrigger->WhenActive(new StopArmWheelsCommand(0.5));
 	AtBottomTrigger->WhenActive(new StopVerticalCommand());
@@ -66,6 +66,7 @@ OI::OI()
 	frc::SmartDashboard::PutData("Move To Portal ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Portal));
 	frc::SmartDashboard::PutNumber("Absolute Position", 0);
 	frc::SmartDashboard::PutData("Move To Absolute Height ", new MoveToAbsoluteHeightCommand());
+	frc::SmartDashboard::PutNumber("Vertical Drop Time ", 2.0);
 }
 
 std::shared_ptr<frc::Joystick> OI::GetDriverJoystick()
