@@ -2,7 +2,7 @@
  * VerticalButtonCommand.h
  *
  *  Created on: Mar 23, 2018
- *      Author: Kevin
+ *      Author:
  */
 
 #ifndef SRC_COMMANDS_VERTICALBUTTONCOMMAND_H_
@@ -12,9 +12,14 @@
 
 class VerticalButtonCommand: public frc::Command
 {
+private:
+	double m_targetHeight;
+	double m_decrement;
+
 public:
 	VerticalButtonCommand();
 
+	virtual void Execute() override;
 	virtual bool IsFinished() override;
 };
 
