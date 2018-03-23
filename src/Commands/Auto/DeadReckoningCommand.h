@@ -19,7 +19,6 @@ private:
 
 public:
 	DeadReckoningCommand(double driveTime = 0, double magnitude = 0, double angle = 0, double rotation = 0);
-	~DeadReckoningCommand() override = default;
 
 	virtual void Initialize() override;
 	virtual void Execute() override;

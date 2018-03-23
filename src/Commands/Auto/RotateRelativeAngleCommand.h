@@ -24,6 +24,7 @@ private:
 
 public:
 	RotateRelativeAngleCommand(double angle, double speed);
+
 	virtual void Initialize() override;
 	virtual void Execute() override;
 	virtual void End() override;

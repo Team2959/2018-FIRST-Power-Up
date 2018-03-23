@@ -15,6 +15,7 @@ class SlideToTapeVisibleCommand: public frc::Command
 {
 public:
 	SlideToTapeVisibleCommand(Side nearSwitchSide);
+
 	virtual void Initialize() override;
 	virtual void Execute() override;
 	virtual bool IsFinished() override;

@@ -28,6 +28,7 @@ private:
 	std::shared_ptr<frc::JoystickButton> SpinArmWheelsInButton;
 	std::shared_ptr<frc::JoystickButton> DeliverCubeButton;
 	std::shared_ptr<frc::JoystickButton> OpenOrCloseCubeArmsButton;
+	std::shared_ptr<frc::JoystickButton> VerticalButton;
 
 	std::shared_ptr<CubePresentTrigger> IsCubePresentTrigger;
 	std::shared_ptr<VerticalBottomTrigger> AtBottomTrigger;

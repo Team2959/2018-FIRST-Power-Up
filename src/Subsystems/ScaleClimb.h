@@ -22,7 +22,6 @@ private:
 
 public:
 	ScaleClimb();
-	~ScaleClimb() override = default;
 
 	void RaiseHooksUp();
 	void DropHooksDown();

@@ -14,6 +14,7 @@ class TwoWheelDriveCommand: public frc::Command
 {
 public:
 	TwoWheelDriveCommand(double dist, double speed, bool frontLeftBackRight);
+
 	virtual void Initialize() override;
 	virtual void Execute() override;
 	virtual void End() override;

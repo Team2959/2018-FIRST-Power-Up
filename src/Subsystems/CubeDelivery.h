@@ -26,7 +26,6 @@ private:
 
 public:
 	CubeDelivery();
-	~CubeDelivery() override = default;
 
 	void OpenArms();
 	void CloseArms();

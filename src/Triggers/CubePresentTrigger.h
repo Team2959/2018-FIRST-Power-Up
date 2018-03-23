@@ -14,7 +14,6 @@ class CubePresentTrigger: public frc::Trigger
 {
 public:
 	CubePresentTrigger();
-	~CubePresentTrigger() override = default;
 
 	bool Get() override;
 };

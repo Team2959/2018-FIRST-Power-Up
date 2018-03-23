@@ -11,7 +11,8 @@
 #include <Commands/CommandGroup.h>
 #include <Autonomous.h>
 
-class DeadReckoningCenterCommandGroup: public frc::CommandGroup {
+class DeadReckoningCenterCommandGroup: public frc::CommandGroup
+{
 public:
 	DeadReckoningCenterCommandGroup(Side nearSwitchSide);
 };

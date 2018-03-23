@@ -14,7 +14,6 @@ class VerticalBottomTrigger: public frc::Trigger
 {
 public:
 	VerticalBottomTrigger();
-	virtual ~VerticalBottomTrigger();
 
 	bool Get() override;
 };

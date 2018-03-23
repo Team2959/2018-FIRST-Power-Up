@@ -23,18 +23,23 @@ private:
 //	const double GearDiameter = Pi * 1.08;
 //	const double DistanceToTicksFactor = 4096 / GearDiameter;
 
-	const double ScaleHeightMinimum = 4.0;	// in feet
-	const double ScaleHeightMaximum = 6.0;
-	const double ScalePositionMaximum = -30000;
-	const double ScalePositionMinimum = -27650;
-	const double ScaleConversionSlope = (ScalePositionMaximum-ScalePositionMinimum)/(ScaleHeightMaximum-ScaleHeightMinimum);
+	// Competition robot
+//	const double DirectionMultiplier = 1.0;
+	// Practice robot
+	const double DirectionMultiplier = -1.0;
 
 	const double Level1Position = 0;
-	const double ExchangePosition = -750;
-	const double Level2Position = -4700;
-	const double SwitchPosition = -11000;
-	const double PortalPosition = -9450;
-	const double Level3Position = -9450;
+	const double ExchangePosition = 750 * DirectionMultiplier;
+	const double Level2Position = 4700 * DirectionMultiplier;
+	const double SwitchPosition = 11000 * DirectionMultiplier;
+	const double PortalPosition = 9450 * DirectionMultiplier;
+	const double Level3Position = 9450 * DirectionMultiplier;
+	const double ScalePositionMaximum = 30000 * DirectionMultiplier;
+	const double ScalePositionMinimum = 27650 * DirectionMultiplier;
+
+	const double ScaleHeightMinimum = 4.0;	// in feet
+	const double ScaleHeightMaximum = 6.0;
+	const double ScaleConversionSlope = (ScalePositionMaximum-ScalePositionMinimum)/(ScaleHeightMaximum-ScaleHeightMinimum);
 
 public:
 	enum CubeVerticalPlace
@@ -50,7 +55,6 @@ public:
 
 public:
 	VerticalArmMovement();
-	~VerticalArmMovement() override = default;
 
 	void InitDefaultCommand() override;
 

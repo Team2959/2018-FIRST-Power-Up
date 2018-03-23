@@ -13,15 +13,16 @@
 #include <stdlib.h>
 #include <iostream>
 
-typedef struct _FCDRObj {
+typedef struct _FCDRObj
+{
 	frc::Command* cmd;
 	bool waitForCompletion;
 } FCDRObj;
 
-class FCDRChainCommandGroup: public frc::CommandGroup {
+class FCDRChainCommandGroup: public frc::CommandGroup
+{
 public:
 	FCDRChainCommandGroup(std::string chain);
-
 };
 
 std::vector<std::string> split(std::string str, std::string delims);

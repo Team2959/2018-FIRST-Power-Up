@@ -19,7 +19,6 @@ private:
 
 public:
 	DriveTrain(std::shared_ptr<XDrive> xDriveSystem = nullptr);
-	~DriveTrain() override = default;
 
 	void InitDefaultCommand() override;
 

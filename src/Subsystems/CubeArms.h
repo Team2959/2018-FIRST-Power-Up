@@ -18,7 +18,6 @@ private:
 
 public:
 	CubeArms();
-	~CubeArms() override = default;
 
 	void FoldUp();
 	void FoldDown();

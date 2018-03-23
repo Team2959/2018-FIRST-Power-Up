@@ -27,7 +27,11 @@ private:
 		NoVisionCenter,
 		AutonStraight,
 		AutonRotate,
-		ScriptAuton
+		ScriptAuton,
+		TwoWheelSwitchCubeScale,
+		TwoWheelScaleCubeScale,
+		TwoWheelSwitchCubeScaleFromCenter,
+		TwoWheelScaleCubeSwitch
 	};
 
 	frc::SendableChooser<AutoCommand>	m_chooser;
@@ -36,7 +40,6 @@ private:
 	int m_cycleCount;
 
 	void StartAutonomousFromGameData();
-
 
 public:
 	Autonomous();

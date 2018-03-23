@@ -11,18 +11,17 @@
 #include <TimedRobot.h>
 #include <memory>
 #include <Commands/Command.h>
-// #include <SmartDashboard/SendableChooser.h>
 #include "OI.h"
 #include "Utilities/XDrive.h"
+#include <Autonomous.h>
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/CubeArms.h"
 #include "Subsystems/MotionTracking.h"
 #include "Subsystems/ScaleClimb.h"
 #include "Subsystems/CubeDelivery.h"
 #include "Subsystems/Vision.h"
-#include <Autonomous.h>
 #include <Subsystems/VerticalArmMovement.h>
-#include <PowerDistributionPanel.h>
+//#include <PowerDistributionPanel.h>
 
 class Robot : public frc::TimedRobot
 {

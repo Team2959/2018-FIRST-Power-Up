@@ -15,6 +15,7 @@
 class FCDeadReckoningCommand: public frc::TimedCommand {
 public:
 	FCDeadReckoningCommand(double duration, double magnitude, double angle, double rotation);
+
 	virtual void Initialize() override;
 	virtual void Execute() override;
 	virtual void End() override;

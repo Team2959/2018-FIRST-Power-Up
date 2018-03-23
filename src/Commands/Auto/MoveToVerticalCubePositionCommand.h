@@ -18,9 +18,9 @@ private:
 
 public:
 	MoveToVerticalCubePositionCommand(VerticalArmMovement::CubeVerticalPlace target = VerticalArmMovement::Switch);
+
 	virtual void Execute() override;
 	virtual bool IsFinished() override;
-
 };
 
 #endif /* SRC_COMMANDS_AUTO_MOVETOVERTICALCUBEPOSITIONCOMMAND_H_ */

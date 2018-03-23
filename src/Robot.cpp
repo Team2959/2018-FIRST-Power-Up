@@ -15,8 +15,6 @@
 #include "PixyCam/Camera.h"
 #include "PixyCam/I2CChannel.h"
 #include "SignalRegistration.h"
-#include <PowerDistributionPanel.h>
-
 
 // Create the unique static pointers for each subsystem
 std::unique_ptr<DriveTrain> Robot::DriveTrainSubsystem;
@@ -31,14 +29,15 @@ std::unique_ptr<OI> Robot::oi;
 
 void Robot::RobotInit()
 {
+	// Initialize before subsystems, since needed there!
 	m_xDrive.reset(new XDrive());
 
 	// Initialize subsystems!
 	DriveTrainSubsystem.reset(new DriveTrain(m_xDrive));
+	MotionTrackingSubsystem.reset(new MotionTracking(m_xDrive));
 	CubeArmsSubsystem.reset(new CubeArms());
 	ClimbSubsystem.reset(new ScaleClimb());
 	CubeDeliverySubsystem.reset(new CubeDelivery());
-	MotionTrackingSubsystem.reset(new MotionTracking(m_xDrive));
 	VerticalArmMovmentSubsystem.reset(new VerticalArmMovement());
 	VisionSubsystem = std::make_unique<Vision>();
 
@@ -50,8 +49,6 @@ void Robot::RobotInit()
 	oi.reset(new OI());
 
 	m_autonomous.reset(new Autonomous());
-	SmartDashboard::PutNumber("Auton Angle", 45.0);
-	SmartDashboard::PutNumber("Auton Speed", 0.25);
 
 //	SmartDashboard::PutData(DriveTrainSubsystem.get());
 //	SmartDashboard::PutData(CubeArmsSubsystem.get());
@@ -142,6 +139,7 @@ void Robot::RobotPeriodic()
 					 navX.GetQuaternionY() << ',' <<
 					 navX.GetQuaternionZ() << '\n';
 	}
+
 	if ((periodicCount % 5) == 0)
 	{
 		CubeDeliverySubsystem->UpdateSmartDashboard();
@@ -150,8 +148,8 @@ void Robot::RobotPeriodic()
 		MotionTrackingSubsystem->SendMotorNumberToDash();
 	}
 
-	if ((periodicCount % 5) == 0)
-	{
+//	if ((periodicCount % 5) == 0)
+//	{
 //		MotionTrackingSubsystem->PrintMotorTelemetries();
 		/*std::cout << navX.GetYaw() << ',' <<
 					navX.GetPitch() << ',' <<
@@ -163,7 +161,7 @@ void Robot::RobotPeriodic()
 				     navX.GetQuaternionY() << ',' <<
 					 navX.GetQuaternionY() << ',' <<
 					 navX.GetQuaternionZ() << '\n'; */
-	}
+//	}
 
 /*	if(MotionTrackingSubsystem.get() != nullptr)
 	{
@@ -327,8 +325,8 @@ void Robot::DisabledPeriodic()
 		std::vector<VisionObject>	cubeVisionObjects = Robot::VisionSubsystem->GetObjects(CubeColor);
 		frc::SmartDashboard::PutBoolean("Sees Cube(s)", !cubeVisionObjects.empty());
 
-		std::vector<VisionObject>	tapeVisionObjects = Robot::VisionSubsystem->GetObjects(TapeColor);
-		frc::SmartDashboard::PutBoolean("Sees Tape(s)", !tapeVisionObjects.empty());
+//		std::vector<VisionObject>	tapeVisionObjects = Robot::VisionSubsystem->GetObjects(TapeColor);
+//		frc::SmartDashboard::PutBoolean("Sees Tape(s)", !tapeVisionObjects.empty());
 	}
 }
 

@@ -18,6 +18,7 @@
 #include <Commands/MoveToAbsoluteHeightCommand.h>
 #include <Commands/OpenOrCloseCubeArmsCommand.h>
 #include <Commands/StopVerticalCommand.h>
+#include <Commands/VerticalButtonCommand.h>
 
 OI::OI()
 {
@@ -35,7 +36,7 @@ OI::OI()
 	DropHooksDownButton.reset(new frc::JoystickButton(ButtonBox.get(), 4));
 	FoldCubeArmsDownButton.reset(new frc::JoystickButton(ButtonBox.get(), 5));
 	FoldCubeArmsUpButton.reset(new frc::JoystickButton(ButtonBox.get(), 6));
-//	VerticalActivateButton.reset(new frc::JoystickButton(ButtonBox.get(), 7));
+	VerticalButton.reset(new frc::JoystickButton(ButtonBox.get(), 7));
 	DeliverCubeButton.reset(new frc::JoystickButton(ButtonBox.get(), 8));
 
 	// Triggers
@@ -51,12 +52,12 @@ OI::OI()
 	FoldCubeArmsDownButton->WhenPressed(new FoldArmsDownCommand());
 	SpinArmWheelsInButton->WhenPressed(new SpinArmWheelsInCommand());
 	DeliverCubeButton->WhenPressed(new DeliverCubeCommand());
+	VerticalButton->WhenPressed(new VerticalButtonCommand());
 
 	IsCubePresentTrigger->WhenActive(new StopArmWheelsCommand(0.5));
 	AtBottomTrigger->WhenActive(new StopVerticalCommand());
 
 	// example how to put a command on the dashboard. You can press start and execute it.
-	//frc::SmartDashboard::PutData("Raise Hooks Up", new RaiseHooksUpToRungCommand());
 	frc::SmartDashboard::PutData("Move To to switch ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Switch));
 	frc::SmartDashboard::PutData("Move To Level1 ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Level1));
 	frc::SmartDashboard::PutData("Move To exchange ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Exchange));

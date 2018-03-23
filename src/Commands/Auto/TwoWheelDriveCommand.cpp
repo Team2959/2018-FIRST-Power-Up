@@ -40,7 +40,6 @@ void TwoWheelDriveCommand::Initialize()
 
 void TwoWheelDriveCommand::Execute()
 {
-
 	// The robot should drive until the average of the displacements of the driving wheels is greater than or equivalent to the distance provided.
 	// This command will drive for the distance provided in the direction (sign) provided, negative distances will have no effect.
 	// If the two wheels being monitored during the driving differ by to great of an amount an execution shall be added to compensate for the angular drift.
@@ -56,25 +55,32 @@ void TwoWheelDriveCommand::Execute()
 	// The difference in displacement of the wheel should be calculated next.
 	m_wheelDiff = (-Robot::MotionTrackingSubsystem->m_motors[m_motor1].displacement - Robot::MotionTrackingSubsystem->m_motors[m_motor2].displacement);
 
-	if (fabs(m_disp) >= fabs(m_dist)) {
+	if (fabs(m_disp) >= fabs(m_dist))
+	{
 		speed = 0;
-	} else if (fabs(m_disp) <= TWO_WHL_RAMP_DIST) {
+	}
+	else if (fabs(m_disp) <= TWO_WHL_RAMP_DIST)
+	{
 		// Apply the linear ramp up
 		speed = ((m_speed - TWO_WHL_LOW_RAMP_SPEED) / TWO_WHL_RAMP_DIST) * m_disp + TWO_WHL_LOW_RAMP_SPEED;
-	} else if (fabs(m_dist - m_disp) <= TWO_WHL_RAMP_DIST) {
+	}
+	else if (fabs(m_dist - m_disp) <= TWO_WHL_RAMP_DIST)
+	{
 		// Apply the linear ramp down
 		speed = -((m_speed - TWO_WHL_LOW_RAMP_SPEED) / TWO_WHL_RAMP_DIST) * (m_disp - m_dist) + TWO_WHL_LOW_RAMP_SPEED;
-	} else {
+	}
+	else
+	{
 		speed = m_speed;
 	}
 
-	if (fabs(m_wheelDiff) > TWO_WHL_MAX_ACCEPT_ROT) {
+	if (fabs(m_wheelDiff) > TWO_WHL_MAX_ACCEPT_ROT)
+	{
 		rotCorrection = (TWO_WHL_FULL_TURN_SPEED / (TWO_WHL_FULL_TURN_DIFF - TWO_WHL_MAX_ACCEPT_ROT)) * (-m_wheelDiff - TWO_WHL_MAX_ACCEPT_ROT);
 	}
 
 	Robot::DriveTrainSubsystem->Drive(speed, m_driveAngle, rotCorrection);
 }
-
 
 void TwoWheelDriveCommand::End()
 {
@@ -91,4 +97,3 @@ bool TwoWheelDriveCommand::IsFinished()
 {
 	return fabs(m_disp) >= fabs(m_dist);
 }
-

@@ -30,43 +30,63 @@ FCDRChainCommandGroup::FCDRChainCommandGroup(std::string chain) : frc::CommandGr
 		std::vector<std::string> words = split(lines[i], ",");
 		if (words.size() < 2)
 			continue;
+
 		for (unsigned j = 0; j < words.size(); j++)
 		{
 			std::vector<double> args;
-			for (unsigned i = 2; i < (4 + 2); i++) {
+			for (unsigned i = 2; i < (4 + 2); i++)
+			{
 				args.push_back(strtod(words[i].c_str(), NULL));
 			}
 
-			if (words[1] == "DeadReckoning") {
-				if (words.size() == (4 + 2)) {  // Check if there are enough parameters for the command being called. (number of arguments + 2)
-					if (words[0] == "parallel") {
+			if (words[1] == "DeadReckoning")
+			{
+				if (words.size() == (4 + 2))
+				{
+					// Check if there are enough parameters for the command being called. (number of arguments + 2)
+					if (words[0] == "parallel")
+					{
 						AddParallel(new DeadReckoningCommand(args[0], args[1], args[2], args[3]));
-					} else {
+					}
+					else
+					{
 						AddSequential(new DeadReckoningCommand(args[0], args[1], args[2], args[3]));
 					}
 				}
 			}
 
-			else if (words[1] == "TwoWheelDrive") {
-				if (words.size() == (3 + 2)) {  // Check if there are enough parameters for the command being called. (number of arguments + 2)
-					if (words[0] == "parallel") {
+			else if (words[1] == "TwoWheelDrive")
+			{
+				if (words.size() == (3 + 2))
+				{
+					// Check if there are enough parameters for the command being called. (number of arguments + 2)
+					if (words[0] == "parallel")
+					{
 						AddParallel(new TwoWheelDriveCommand(args[0], args[1], args[2]));
-					} else {
+					}
+					else
+					{
 						AddSequential(new TwoWheelDriveCommand(args[0], args[1], args[2]));
 					}
 				}
 			}
 
-			else if (words[1] == "RotateRelativeAngleCommand") {
-				if (words.size() == (2 + 2)) {
-					if (words[0] == "parallel") {
+			else if (words[1] == "RotateRelativeAngleCommand")
+			{
+				if (words.size() == (2 + 2))
+				{
+					if (words[0] == "parallel")
+					{
 						AddParallel(new RotateRelativeAngleCommand(args[0], args[1]));
-					} else {
+					}
+					else
+					{
 						AddSequential(new RotateRelativeAngleCommand(args[0], args[1]));
 					}
 				}
 			}
-			else {
+			else
+			{
 				std::cout << "Command Not Known\n";
 			}
 		}
@@ -79,14 +99,19 @@ std::vector<std::string> split (std::string str, std::string delims)
 	bool inDelim = false;
 	unsigned start = 0;
 
-	for (unsigned i = 0; i < str.length(); i++) {
-		if (inDelim) {
+	for (unsigned i = 0; i < str.length(); i++)
+	{
+		if (inDelim)
+		{
 			// The last character was a delimiter
-			if (str.find(delims, i) != std::string::npos) {
+			if (str.find(delims, i) != std::string::npos)
+			{
 				// This character is not a delimiter.
 				start = i;
 			}
-		} else if (str.find(delims, i) == std::string::npos || i == str.length() - 1) {
+		}
+		else if (str.find(delims, i) == std::string::npos || i == str.length() - 1)
+		{
 			// The last character was not a delim and this one is
 			result.push_back(str.substr(start, i - start));
 			// The next substring can't start at the curretn delimiter

@@ -19,7 +19,8 @@
 
 #include "AHRS.h"
 
-struct MotorTelemetry {
+struct MotorTelemetry
+{
 	double displacement;
 	double instVelocity;
 	double instPercent;
@@ -56,7 +57,6 @@ public:
 
 private:
 	frc::Timer m_time;
-
 
 	double m_Xdis = 0;
 	double m_Ydis = 0;

@@ -14,6 +14,7 @@ class DeliverCubeUntilNotPresentCommand: public frc::Command
 {
 public:
 	DeliverCubeUntilNotPresentCommand();
+
 	virtual void Initialize() override;
 	virtual void Execute() override;
 	virtual void End() override;

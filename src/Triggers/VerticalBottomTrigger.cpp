@@ -12,10 +12,6 @@ VerticalBottomTrigger::VerticalBottomTrigger()
 {
 }
 
-VerticalBottomTrigger::~VerticalBottomTrigger()
-{
-}
-
 bool VerticalBottomTrigger::Get()
 {
 	return Robot::VerticalArmMovmentSubsystem->AtBottom();

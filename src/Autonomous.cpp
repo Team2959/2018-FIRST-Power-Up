@@ -13,7 +13,6 @@
 #include "Commands/Auto/DriveStraightCommand.h"
 #include "Commands/Auto/PlaceInitialCubeOnSwitchCommandGroup.h"
 #include "Commands/Auto/PlaceCubeOurSideOnlyCommandGroup.h"
-#include "Commands/Auto/FarLeftAndRightCommandGroup.h"
 #include <Commands/Auto/DeadReckoningCenterCommandGroup.h>
 #include <Commands/Auto/RotateRelativeAngleCommand.h>
 #include <Commands/Auto/FCDRChainCommandGroup.h>
@@ -28,17 +27,26 @@ Autonomous::Autonomous()
 	m_chooser.AddObject("Two Wheel Straight", AutoCommand::AutonStraight);
 	m_chooser.AddObject("Two Wheel Rotate", AutoCommand::AutonRotate);
 	m_chooser.AddObject("ScriptAuton", AutoCommand::ScriptAuton);
+	m_chooser.AddObject("TW: Switch and Scale", AutoCommand::TwoWheelSwitchCubeScale);
+	m_chooser.AddObject("TW: Scale and Scale", AutoCommand::TwoWheelScaleCubeScale);
+	m_chooser.AddObject("TW: Center: Switch and Scale", AutoCommand::TwoWheelSwitchCubeScaleFromCenter);
+	m_chooser.AddObject("TW: Scale and Switch", AutoCommand::TwoWheelScaleCubeSwitch);
 
 	frc::SmartDashboard::PutData("Autonomous Command", &m_chooser);
 
-	frc::SmartDashboard::PutNumber("Auton Speed", 0.25);
-	frc::SmartDashboard::PutNumber("Auton Shimmy Speed", 0.2);
-	frc::SmartDashboard::PutNumber("Auton Straight To Switch Time", 1.0);
+	frc::SmartDashboard::PutNumber("Auton Speed", 1.0);
 	frc::SmartDashboard::PutBoolean("Is Auton Starting Left?", true);
-	frc::SmartDashboard::PutNumber("Auton Straight Time", 3.5);
-	frc::SmartDashboard::PutNumber("Auton Center Time", 3.5);
+
+	// two wheel drive, encoder based
+	frc::SmartDashboard::PutNumber("Auton Angle", 45.0);
 	frc::SmartDashboard::PutNumber("Auton TW Dist", 10);
 	frc::SmartDashboard::PutString("Auton Script", "");
+
+	// more vision or dead reckoning based
+	frc::SmartDashboard::PutNumber("Auton Shimmy Speed", 0.2);
+	frc::SmartDashboard::PutNumber("Auton Straight To Switch Time", 1.0);
+	frc::SmartDashboard::PutNumber("Auton Straight Time", 3.5);
+	frc::SmartDashboard::PutNumber("Auton Center Time", 3.5);
 
 	m_foundGameData = false;
 	m_cycleCount = 0;
@@ -133,7 +141,7 @@ void Autonomous::StartAutonomousFromGameData()
 
 	std::cout << "Autonomous::StartAutonomousFromGameData\n";
 	double time = frc::SmartDashboard::GetNumber("Auton Straight Time", 4.0);
-	double speed = frc::SmartDashboard::GetNumber("Auton Speed", 0.25);
+	double speed = frc::SmartDashboard::GetNumber("Auton Speed", 1.0);
 	double distance = frc::SmartDashboard::GetNumber("Auton TW Dist", 10);
 	switch(m_chooser.GetSelected())
 	{
@@ -150,6 +158,10 @@ void Autonomous::StartAutonomousFromGameData()
 		m_autonomousCommand = std::make_unique<DeadReckoningCenterCommandGroup>(nearSwitchSide);
 		break;
 	case AutoCommand::AutonStraight:
+	case AutoCommand::TwoWheelSwitchCubeScale:
+	case AutoCommand::TwoWheelScaleCubeScale:
+	case AutoCommand::TwoWheelSwitchCubeScaleFromCenter:
+	case AutoCommand::TwoWheelScaleCubeSwitch:
 		m_autonomousCommand = std::make_unique<TwoWheelDriveCommand>(distance, speed, false);
 		break;
 	case AutoCommand::AutonRotate:

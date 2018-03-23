@@ -36,4 +36,3 @@ void FCDeadReckoningCommand::Interrupted()
 {
 	End();
 }
-

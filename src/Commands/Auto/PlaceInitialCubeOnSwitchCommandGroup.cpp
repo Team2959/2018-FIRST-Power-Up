@@ -27,6 +27,6 @@ PlaceInitialCubeOnSwitchCommandGroup::PlaceInitialCubeOnSwitchCommandGroup(Side 
 	//AddSequential(new FoldArmsDownCommand());
 	AddSequential(new DriveStraightCommand(duration));
 	AddSequential(new DeliverCubeCommand());
-	AddSequential(new TimedCommand(0.5));
+	AddSequential(new TimedCommand(1.5));
 	AddSequential(new StopArmWheelsCommand());
 }
