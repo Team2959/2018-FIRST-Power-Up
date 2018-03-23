@@ -20,13 +20,13 @@ TwoWheelDriveCommand::TwoWheelDriveCommand(double dist, double speed, bool front
 	{
 		m_motor1 = "frontLeft";
 		m_motor2 = "backRight";
-		m_driveAngle = 3.0 * QuarterPi;
+		m_driveAngle = QuarterPi;
 	}
 	else
 	{
 		m_motor1 = "frontRight";
 		m_motor2 = "backLeft";
-		m_driveAngle = QuarterPi;
+		m_driveAngle = 3.0 * QuarterPi;
 	}
 }
 
@@ -63,7 +63,7 @@ void TwoWheelDriveCommand::Execute()
 		speed = ((m_speed - TWO_WHL_LOW_RAMP_SPEED) / TWO_WHL_RAMP_DIST) * m_disp + TWO_WHL_LOW_RAMP_SPEED;
 	} else if (fabs(m_dist - m_disp) <= TWO_WHL_RAMP_DIST) {
 		// Apply the linear ramp down
-		speed = -((m_speed - TWO_WHL_LOW_RAMP_SPEED) / TWO_WHL_RAMP_DIST) * m_disp + TWO_WHL_LOW_RAMP_SPEED;
+		speed = -((m_speed - TWO_WHL_LOW_RAMP_SPEED) / TWO_WHL_RAMP_DIST) * (m_disp - m_dist) + TWO_WHL_LOW_RAMP_SPEED;
 	} else {
 		speed = m_speed;
 	}

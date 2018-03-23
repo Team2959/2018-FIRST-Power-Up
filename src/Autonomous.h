@@ -24,8 +24,8 @@ private:
 		Default,
 		PlaceInitialCubeOnSwitch,
 		PlaceCubeOnOurSide,
-		FromOutsideWallPlaceCubeOnOurSide,
 		NoVisionCenter,
+		AutonStraight,
 		AutonRotate,
 		ScriptAuton
 	};

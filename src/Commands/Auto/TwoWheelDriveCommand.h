@@ -25,7 +25,7 @@ private:
 	static constexpr double TWO_WHL_FULL_TURN_DIFF = 2;     // The amount of feet the wheel displacements would differ by the necessitate full turn correct
 	static constexpr double TWO_WHL_FULL_TURN_SPEED = 0.25; // The max speed of rotation correction
 	static constexpr double TWO_WHL_LOW_RAMP_SPEED = 0.25;  // The starting speed for ramping
-	static constexpr double TWO_WHL_MAX_ACCEPT_ROT = 0.5;   // Maximum distance of wheel difference before correction
+	static constexpr double TWO_WHL_MAX_ACCEPT_ROT = 200;   // Maximum distance of wheel difference before correction
 
 	double 		m_disp{ 0.0 };
 	double 		m_wheelDiff{ 0.0 };

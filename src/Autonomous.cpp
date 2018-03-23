@@ -17,15 +17,16 @@
 #include <Commands/Auto/DeadReckoningCenterCommandGroup.h>
 #include <Commands/Auto/RotateRelativeAngleCommand.h>
 #include <Commands/Auto/FCDRChainCommandGroup.h>
+#include <Commands/Auto/TwoWheelDriveCommand.h>
 
 Autonomous::Autonomous()
 {
 	m_chooser.AddDefault("Drive Straight", AutoCommand::Default);
-	m_chooser.AddObject("Center-Place Initial Cube On Switch", AutoCommand::PlaceInitialCubeOnSwitch);
-	m_chooser.AddObject("Left/Right-Place Cube On Our Side", AutoCommand::PlaceCubeOnOurSide);
-	m_chooser.AddObject("Side wall-Place Cube On Our Side", AutoCommand::FromOutsideWallPlaceCubeOnOurSide);
-	m_chooser.AddObject("No Vision Center", AutoCommand::NoVisionCenter);
-	m_chooser.AddObject("Rotate", AutoCommand::AutonRotate);
+//	m_chooser.AddObject("Center-Place Initial Cube On Switch", AutoCommand::PlaceInitialCubeOnSwitch);
+//	m_chooser.AddObject("Left/Right-Place Cube On Our Side", AutoCommand::PlaceCubeOnOurSide);
+//	m_chooser.AddObject("No Vision Center", AutoCommand::NoVisionCenter);
+	m_chooser.AddObject("Two Wheel Straight", AutoCommand::AutonStraight);
+	m_chooser.AddObject("Two Wheel Rotate", AutoCommand::AutonRotate);
 	m_chooser.AddObject("ScriptAuton", AutoCommand::ScriptAuton);
 
 	frc::SmartDashboard::PutData("Autonomous Command", &m_chooser);
@@ -36,7 +37,7 @@ Autonomous::Autonomous()
 	frc::SmartDashboard::PutBoolean("Is Auton Starting Left?", true);
 	frc::SmartDashboard::PutNumber("Auton Straight Time", 3.5);
 	frc::SmartDashboard::PutNumber("Auton Center Time", 3.5);
-	frc::SmartDashboard::PutNumber("Auton BD Dist", 10);
+	frc::SmartDashboard::PutNumber("Auton TW Dist", 10);
 	frc::SmartDashboard::PutString("Auton Script", "");
 
 	m_foundGameData = false;
@@ -132,6 +133,8 @@ void Autonomous::StartAutonomousFromGameData()
 
 	std::cout << "Autonomous::StartAutonomousFromGameData\n";
 	double time = frc::SmartDashboard::GetNumber("Auton Straight Time", 4.0);
+	double speed = frc::SmartDashboard::GetNumber("Auton Speed", 0.25);
+	double distance = frc::SmartDashboard::GetNumber("Auton TW Dist", 10);
 	switch(m_chooser.GetSelected())
 	{
 	case AutoCommand::Default:
@@ -143,14 +146,14 @@ void Autonomous::StartAutonomousFromGameData()
 	case AutoCommand::PlaceCubeOnOurSide:
 		m_autonomousCommand = std::make_unique<PlaceCubeOurSideOnlyCommandGroup>(nearSwitchSide);
 		break;
-	case AutoCommand::FromOutsideWallPlaceCubeOnOurSide:
-		m_autonomousCommand = std::make_unique<FarLeftAndRightCommandGroup>(nearSwitchSide);
-		break;
 	case AutoCommand::NoVisionCenter:
 		m_autonomousCommand = std::make_unique<DeadReckoningCenterCommandGroup>(nearSwitchSide);
 		break;
+	case AutoCommand::AutonStraight:
+		m_autonomousCommand = std::make_unique<TwoWheelDriveCommand>(distance, speed, false);
+		break;
 	case AutoCommand::AutonRotate:
-		m_autonomousCommand = std::make_unique<RotateRelativeAngleCommand>(frc::SmartDashboard::GetNumber("Auton Angle", 45.0), frc::SmartDashboard::GetNumber("Auton Speed", 0.25));
+		m_autonomousCommand = std::make_unique<RotateRelativeAngleCommand>(frc::SmartDashboard::GetNumber("Auton Angle", 45.0), speed);
 		break;
 	case AutoCommand::ScriptAuton:
 		m_autonomousCommand = std::make_unique<FCDRChainCommandGroup>(frc::SmartDashboard::GetString("Auton Script", ""));
