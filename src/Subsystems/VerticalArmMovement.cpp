@@ -28,12 +28,12 @@ VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentS
 	//m_cubeLiftMotor.ConfigPeakOutputForward(0.75, 0);	// Competition Bot
 	//m_cubeLiftMotor.ConfigPeakOutputReverse(-0.3, 0);	// Competition Bot
 	m_cubeLiftMotor.ConfigPeakOutputForward(0.3, 0);   // Practice Bot
-	m_cubeLiftMotor.ConfigPeakOutputReverse(-0.5, 0);  // Practice Bot
+	m_cubeLiftMotor.ConfigPeakOutputReverse(-1, 0);  // Practice Bot
 
 	m_cubeLiftMotor.ConfigAllowableClosedloopError(0, 128, 0);
 
 	//m_cubeLiftMotor.ConfigClosedloopRamp(0.5, 0);	// Competition Bot
-	m_cubeLiftMotor.ConfigClosedloopRamp(0.5, 0);     // Practice Bot
+	m_cubeLiftMotor.ConfigClosedloopRamp(1.5, 0);     // Practice Bot
 
 	m_cubeLiftMotor.Set(ControlMode::Position, 0);
 }
