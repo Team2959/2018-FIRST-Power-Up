@@ -30,7 +30,7 @@ double NormalizeAngle(double angle)
 void RotateRelativeAngleCommand::Initialize()
 {
 	m_startAngle = NormalizeAngle(Robot::MotionTrackingSubsystem->GetAngle());
-	auto angleRad{NormalizeAngle(m_inputAngle * Pi / 180.0)};
+	auto angleRad{NormalizeAngle(m_inputAngle)};
 	m_targetAngle = m_startAngle + angleRad;
 
 	if (m_targetAngle > 2.0 * Pi)

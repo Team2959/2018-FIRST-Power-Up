@@ -17,6 +17,8 @@
 #include <Commands/Auto/RotateRelativeAngleCommand.h>
 #include <Commands/Auto/FCDRChainCommandGroup.h>
 #include <Commands/Auto/TwoWheelDriveCommand.h>
+#include <Commands/Auto/TwCenterAutoCommandGroup.h>
+#include <Commands/Auto/TwSwitchCubeScaleCommandGroup.h>
 
 Autonomous::Autonomous()
 {
@@ -27,9 +29,9 @@ Autonomous::Autonomous()
 	m_chooser.AddObject("Two Wheel Straight", AutoCommand::AutonStraight);
 	m_chooser.AddObject("Two Wheel Rotate", AutoCommand::AutonRotate);
 	m_chooser.AddObject("ScriptAuton", AutoCommand::ScriptAuton);
-	m_chooser.AddObject("TW: Switch and Scale", AutoCommand::TwoWheelSwitchCubeScale);
-	m_chooser.AddObject("TW: Scale and Scale", AutoCommand::TwoWheelScaleCubeScale);
+	m_chooser.AddObject("TW: Lf/Rt : Switch and Scale", AutoCommand::TwoWheelSwitchCubeScale);
 	m_chooser.AddObject("TW: Center: Switch and Scale", AutoCommand::TwoWheelSwitchCubeScaleFromCenter);
+	m_chooser.AddObject("TW: Scale and Scale", AutoCommand::TwoWheelScaleCubeScale);
 	m_chooser.AddObject("TW: Scale and Switch", AutoCommand::TwoWheelScaleCubeSwitch);
 
 	frc::SmartDashboard::PutData("Autonomous Command", &m_chooser);
@@ -87,7 +89,7 @@ void Autonomous::CancelAutonomousCommand()
 void Autonomous::StartAutonomousFromGameData()
 {
 	Side	nearSwitchSide;
-//	Side	scaleSide;
+	Side	scaleSide;
 	// Side	opponentSwitchSide;
 	// Add code to read switch/scale state from Field Management System
 	// https://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/826278-2018-game-data-details
@@ -121,14 +123,14 @@ void Autonomous::StartAutonomousFromGameData()
 		nearSwitchSide = Side::Right;
 	}
 
-//	if (gameData[1] == 'L')
-//	{
-//		scaleSide = Side::Left;
-//	}
-//	else
-//	{
-//		scaleSide = Side::Right;
-//	}
+	if (gameData[1] == 'L')
+	{
+		scaleSide = Side::Left;
+	}
+	else
+	{
+		scaleSide = Side::Right;
+	}
 
 /*	if (gameData[2] == 'L')
 	{
@@ -143,6 +145,7 @@ void Autonomous::StartAutonomousFromGameData()
 	double time = frc::SmartDashboard::GetNumber("Auton Straight Time", 4.0);
 	double speed = frc::SmartDashboard::GetNumber("Auton Speed", 1.0);
 	double distance = frc::SmartDashboard::GetNumber("Auton TW Dist", 10);
+	bool startLeft = frc::SmartDashboard::GetBoolean("Is Auton Starting Left?", true);
 	switch(m_chooser.GetSelected())
 	{
 	case AutoCommand::Default:
@@ -157,15 +160,19 @@ void Autonomous::StartAutonomousFromGameData()
 	case AutoCommand::NoVisionCenter:
 		m_autonomousCommand = std::make_unique<DeadReckoningCenterCommandGroup>(nearSwitchSide);
 		break;
-	case AutoCommand::AutonStraight:
-	case AutoCommand::TwoWheelSwitchCubeScale:
-	case AutoCommand::TwoWheelScaleCubeScale:
 	case AutoCommand::TwoWheelSwitchCubeScaleFromCenter:
+		m_autonomousCommand = std::make_unique<TwCenterAutoCommandGroup>(nearSwitchSide, scaleSide);
+		break;
+	case AutoCommand::TwoWheelSwitchCubeScale:
+		m_autonomousCommand = std::make_unique<TwSwitchCubeScaleCommandGroup>(startLeft, nearSwitchSide, scaleSide);
+		break;
+	case AutoCommand::TwoWheelScaleCubeScale:
 	case AutoCommand::TwoWheelScaleCubeSwitch:
+	case AutoCommand::AutonStraight:
 		m_autonomousCommand = std::make_unique<TwoWheelDriveCommand>(distance, speed, false);
 		break;
 	case AutoCommand::AutonRotate:
-		m_autonomousCommand = std::make_unique<RotateRelativeAngleCommand>(frc::SmartDashboard::GetNumber("Auton Angle", 45.0), speed);
+		m_autonomousCommand = std::make_unique<RotateRelativeAngleCommand>(frc::SmartDashboard::GetNumber("Auton Angle", 45.0) * Pi / 180.0, speed);
 		break;
 	case AutoCommand::ScriptAuton:
 		m_autonomousCommand = std::make_unique<FCDRChainCommandGroup>(frc::SmartDashboard::GetString("Auton Script", ""));
