@@ -13,12 +13,13 @@
 class VerticalButtonCommand: public frc::Command
 {
 private:
-	double m_targetHeight;
-	double m_decrement;
+	double m_startHeight;
+	int m_count;
 
 public:
-	VerticalButtonCommand(double time = 2.0);
+	VerticalButtonCommand();
 
+	virtual void Initialize() override;
 	virtual void Execute() override;
 	virtual bool IsFinished() override;
 };

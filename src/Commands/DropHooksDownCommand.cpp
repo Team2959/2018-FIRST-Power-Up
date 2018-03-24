@@ -25,10 +25,10 @@ bool DropHooksDownCommand::IsFinished()
 
 void DropHooksDownCommand::End()
 {
-	Robot::ClimbSubsystem->StopHooks();
+	Robot::ClimbSubsystem->HoldHooks();
 }
 
 void DropHooksDownCommand::Interrupted()
 {
-	End();
+	Robot::ClimbSubsystem->StopHooks();
 }

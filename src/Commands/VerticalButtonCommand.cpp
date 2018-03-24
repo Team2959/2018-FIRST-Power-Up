@@ -7,22 +7,41 @@
 
 #include <Commands/VerticalButtonCommand.h>
 #include "Robot.h"
+#include <SmartDashboard/SmartDashboard.h>
 
 // decrement is calculated based on 20 ms periodic calls, which is 50 calls per second
 // multiply 50 by the number of seconds you wish to take to lower the vertical system
-VerticalButtonCommand::VerticalButtonCommand(double time) : frc::Command("Vertical Button"),
-	m_targetHeight{1.0}, m_decrement{1.0/(50.0 * time)}
+VerticalButtonCommand::VerticalButtonCommand() : frc::Command("Vertical Button")
 {
+	m_startHeight = 0;
+	m_count= 0;
 	Requires(Robot::VerticalArmMovmentSubsystem.get());
+}
+
+void VerticalButtonCommand::Initialize()
+{
+	m_startHeight = 0;
+	m_count = 0;
 }
 
 void VerticalButtonCommand::Execute()
 {
-	m_targetHeight = fmax(0.0, m_targetHeight - m_decrement);
-	Robot::VerticalArmMovmentSubsystem->MoveArmToHeight(m_targetHeight);
+	double target = Robot::VerticalArmMovmentSubsystem->MaxScaleHeight() * 0.75;
+	m_count++;
+	if (fabs(m_startHeight) < 7500)
+	{
+		if ((m_count % 5) == 0)
+		{
+			m_startHeight += 750 * Robot::VerticalArmMovmentSubsystem->MoveDirectionMultiplier();
+		}
+
+		target = m_startHeight;
+	}
+	frc::SmartDashboard::PutNumber("Target Height", target);
+	Robot::VerticalArmMovmentSubsystem->MoveToAbsoluteHeight(target);
 }
 
 bool VerticalButtonCommand::IsFinished()
 {
-	return m_targetHeight <= 0.0;
+	return Robot::VerticalArmMovmentSubsystem->IsAtPosition(VerticalArmMovement::Scale, 6);
 }

@@ -17,23 +17,20 @@ VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentS
 	m_cubeLiftMotor.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, 0, 0);
 	m_cubeLiftMotor.Config_kF(0, 0, 0);
 
-	m_cubeLiftMotor.Config_kP(0, 0.25, 0);			// Competition Bot
-	//m_cubeLiftMotor.Config_kI(0, 0.001, 0);       // Practice Bot
-//	m_cubeLiftMotor.Config_kI(0, 0.0045, 0);
-
+	m_cubeLiftMotor.Config_kP(0, 0.25, 0);
+	m_cubeLiftMotor.Config_kI(0, 0, 0);
 //	m_cubeLiftMotor.Config_IntegralZone(0, 300, 0);
 	m_cubeLiftMotor.SetSensorPhase(false);
 	m_cubeLiftMotor.SetSelectedSensorPosition(0,0,0);
 
 	//m_cubeLiftMotor.ConfigPeakOutputForward(0.75, 0);	// Competition Bot
 	//m_cubeLiftMotor.ConfigPeakOutputReverse(-0.3, 0);	// Competition Bot
-	m_cubeLiftMotor.ConfigPeakOutputForward(0.3, 0);   // Practice Bot
+	m_cubeLiftMotor.ConfigPeakOutputForward(0.6, 0);   // Practice Bot
 	m_cubeLiftMotor.ConfigPeakOutputReverse(-1, 0);  // Practice Bot
+	m_cubeLiftMotor.ConfigPeakCurrentLimit(5, 0);
 
 	m_cubeLiftMotor.ConfigAllowableClosedloopError(0, 128, 0);
-
-	//m_cubeLiftMotor.ConfigClosedloopRamp(0.5, 0);	// Competition Bot
-	m_cubeLiftMotor.ConfigClosedloopRamp(1.5, 0);     // Practice Bot
+	m_cubeLiftMotor.ConfigClosedloopRamp(0, 0);
 
 	m_cubeLiftMotor.Set(ControlMode::Position, 0);
 }
@@ -73,18 +70,19 @@ void VerticalArmMovement::MoveArm(CubeVerticalPlace target, double scaleHeight)
 	}
 
 	//std::cout << "Arm Position " << position << "\n";
-	m_cubeLiftMotor.Set(ControlMode::Position, position);
+	MoveToAbsoluteHeight(position);
 }
 
 void VerticalArmMovement::MoveArmToHeight(double height)
 {
 	height = fmax(0, height);
 	height = fmin(1, height);
-	m_cubeLiftMotor.Set(ControlMode::Position, height * ScalePositionMaximum);
+	MoveToAbsoluteHeight(height * ScalePositionMaximum);
 }
 
 void VerticalArmMovement::MoveToAbsoluteHeight(double height)
 {
+	frc::SmartDashboard::PutNumber("Talon Curent", m_cubeLiftMotor.GetOutputCurrent());
 	m_cubeLiftMotor.Set(ControlMode::Position, height);
 }
 
@@ -119,10 +117,7 @@ bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHei
 		break;
 	}
 
-	frc::SmartDashboard::PutNumber("Current Position", position);
-	frc::SmartDashboard::PutNumber("Target Position", targetPosition);
-
-	return fabs(position - targetPosition) < 50;
+	return fabs(position - targetPosition) < 500;
 }
 
 bool VerticalArmMovement::IsAtSwitchOrHigher()

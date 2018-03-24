@@ -52,7 +52,7 @@ OI::OI()
 	FoldCubeArmsDownButton->WhenPressed(new FoldArmsDownCommand());
 	SpinArmWheelsInButton->WhenPressed(new SpinArmWheelsInCommand());
 	DeliverCubeButton->WhenPressed(new DeliverCubeCommand());
-	VerticalButton->WhenPressed(new VerticalButtonCommand(frc::SmartDashboard::GetNumber("Vertical Drop Time ", 2.0)));
+//	VerticalButton->WhenPressed(new VerticalButtonCommand());
 
 	IsCubePresentTrigger->WhenActive(new StopArmWheelsCommand(0.5));
 	AtBottomTrigger->WhenActive(new StopVerticalCommand());

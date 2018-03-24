@@ -34,8 +34,8 @@ private:
 	const double SwitchPosition = 11000 * DirectionMultiplier;
 	const double PortalPosition = 9450 * DirectionMultiplier;
 	const double Level3Position = 9450 * DirectionMultiplier;
-	const double ScalePositionMaximum = 27000 * DirectionMultiplier;	// true max 30000
 	const double ScalePositionMinimum = 25000 * DirectionMultiplier;	// true scale min 27650
+	const double ScalePositionMaximum = 29000 * DirectionMultiplier;	// true max 30000
 
 	const double ScaleHeightMinimum = 4.0;	// in feet
 	const double ScaleHeightMaximum = 6.0;
@@ -52,6 +52,9 @@ public:
 		Switch = 5,
 		Scale = 6
 	};
+
+	double MoveDirectionMultiplier() {return DirectionMultiplier;}
+	double MaxScaleHeight() {return ScalePositionMaximum;}
 
 public:
 	VerticalArmMovement();
