@@ -41,6 +41,8 @@ private:
 	const double ScaleHeightMaximum = 6.0;
 	const double ScaleConversionSlope = (ScalePositionMaximum-ScalePositionMinimum)/(ScaleHeightMaximum-ScaleHeightMinimum);
 
+	bool m_isOperatorControlled;
+
 public:
 	enum CubeVerticalPlace
 	{
@@ -70,6 +72,9 @@ public:
 
 	bool AtBottom();
 	void AtBottomReset();
+
+	bool IsOperatorControlled() {return m_isOperatorControlled;}
+	void IsOperatorControlled(bool state) {m_isOperatorControlled = state;}
 };
 
 #endif /* SRC_SUBSYSTEMS_VERTICALARMMOVEMENT_H_ */

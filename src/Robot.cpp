@@ -315,6 +315,7 @@ void Robot::RobotPeriodic()
 void Robot::DisabledInit()
 {
 	MotionTrackingSubsystem->ResetTelemetries();
+	VerticalArmMovmentSubsystem->IsOperatorControlled(false);
 }
 
 void Robot::DisabledPeriodic()
@@ -347,6 +348,7 @@ void Robot::DisabledPeriodic()
  */
 void Robot::AutonomousInit()
 {
+	VerticalArmMovmentSubsystem->IsOperatorControlled(false);
 	m_autonomous->AutoInit();
 }
 
@@ -359,6 +361,7 @@ void Robot::AutonomousPeriodic()
 void Robot::TeleopInit()
 {
 	m_autonomous->CancelAutonomousCommand();
+	VerticalArmMovmentSubsystem->IsOperatorControlled(true);
 }
 
 void Robot::TeleopPeriodic()

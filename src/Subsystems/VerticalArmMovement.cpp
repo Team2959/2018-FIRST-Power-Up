@@ -12,7 +12,8 @@
 
 VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentSubsystem"),
 	m_cubeLiftMotor {CUBE_VERTICAL_MOTOR_CAN},
-	m_atBottomSwitch {AT_BOTTOM_LIMIT_SWITCH}
+	m_atBottomSwitch {AT_BOTTOM_LIMIT_SWITCH},
+	m_isOperatorControlled{false}
 {
 	m_cubeLiftMotor.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, 0, 0);
 	m_cubeLiftMotor.Config_kF(0, 0, 0);
