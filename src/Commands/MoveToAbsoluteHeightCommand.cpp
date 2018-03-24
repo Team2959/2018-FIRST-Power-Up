@@ -9,16 +9,15 @@
 #include "Robot.h"
 #include <SmartDashboard/SmartDashboard.h>
 
-MoveToAbsoluteHeightCommand::MoveToAbsoluteHeightCommand() : frc::Command("MoveToAbsoluteHeight")
+MoveToAbsoluteHeightCommand::MoveToAbsoluteHeightCommand(double height) : frc::Command("MoveToAbsoluteHeight"),
+	m_height{height}
 {
 	Requires(Robot::VerticalArmMovmentSubsystem.get());
 }
 
 void MoveToAbsoluteHeightCommand::Initialize()
 {
-	double height = frc::SmartDashboard::GetNumber("Absolute Position", 0);
-
-	Robot::VerticalArmMovmentSubsystem->MoveToAbsoluteHeight(height);
+	Robot::VerticalArmMovmentSubsystem->MoveToAbsoluteHeight(m_height);
 }
 
 bool MoveToAbsoluteHeightCommand::IsFinished()
