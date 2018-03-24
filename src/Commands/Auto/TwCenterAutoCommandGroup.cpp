@@ -24,9 +24,7 @@ TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide, Side scaleSi
 	{
 		// Drive to switch.
 		AddSequential(new RotateRelativeAngleCommand(-QuarterPi,0.5));
-		AddSequential(new TwoWheelDriveCommand(10, 1, false));
-		AddSequential(new RotateRelativeAngleCommand(QuarterPi,0.5));
-		AddSequential(new TwoWheelDriveCommand(4, 1, false));
+		AddSequential(new TwoWheelDriveCommand(11, 1, false));
 		AddSequential(new RotateRelativeAngleCommand(QuarterPi,0.5));
 		AddSequential(new TwoWheelDriveCommand(1, 1, false));
 		// Deliver cube into switch.
@@ -34,8 +32,8 @@ TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide, Side scaleSi
 		AddSequential(new TimedCommand(1.5));
 		AddParallel(new StopArmWheelsCommand());
 		//Back away from switch.
-		AddSequential(new TwoWheelDriveCommand(1, -1, false));
-		AddSequential(new RotateRelativeAngleCommand(-QuarterPi,0.5));
+		//AddSequential(new TwoWheelDriveCommand(1, -1, false));
+		//AddSequential(new RotateRelativeAngleCommand(-QuarterPi,0.5));
 
 		if(scaleSide == Side::Left)
 		{
