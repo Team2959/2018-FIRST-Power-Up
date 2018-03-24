@@ -23,10 +23,10 @@ TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide, Side scaleSi
 	if(switchSide == Side::Left)
 	{
 		// Drive to switch.
-		AddSequential(new RotateRelativeAngleCommand(-QuarterPi,0.5));
-		AddSequential(new TwoWheelDriveCommand(11, 1, false));
-		AddSequential(new RotateRelativeAngleCommand(QuarterPi,0.5));
-		AddSequential(new TwoWheelDriveCommand(1, 1, false));
+		AddSequential(new RotateRelativeAngleCommand(-QuarterPi,0.35));
+		AddSequential(new TwoWheelDriveCommand(12.5, 1, false));
+		AddSequential(new RotateRelativeAngleCommand(QuarterPi,0.35));
+		AddSequential(new TwoWheelDriveCommand(4, 1, false));
 		// Deliver cube into switch.
 		AddSequential(new DeliverCubeCommand());
 		AddSequential(new TimedCommand(1.5));
@@ -47,19 +47,19 @@ TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide, Side scaleSi
 	}
 	else if(switchSide == Side::Right)
 	{
-		AddSequential(new RotateRelativeAngleCommand(QuarterPi,0.5));
-		AddSequential(new TwoWheelDriveCommand(10, 1, false));
-		AddSequential(new RotateRelativeAngleCommand(-QuarterPi,0.5));
-		AddSequential(new TwoWheelDriveCommand(4, 1, false));
-		AddSequential(new RotateRelativeAngleCommand(-QuarterPi,0.5));
-		AddSequential(new TwoWheelDriveCommand(1, 1, false));
+		AddSequential(new RotateRelativeAngleCommand(QuarterPi,0.3));
+		AddSequential(new TwoWheelDriveCommand(10.5, 1, false));
+		AddSequential(new RotateRelativeAngleCommand(-HalfPi,0.35));
+		AddSequential(new TwoWheelDriveCommand(3.5, 1, false));
+		AddSequential(new RotateRelativeAngleCommand(-QuarterPi,0.35));
+		AddSequential(new TwoWheelDriveCommand(1.5, 1, false));
 		// Deliver cube into switch.
 		AddSequential(new DeliverCubeCommand());
 		AddSequential(new TimedCommand(1.5));
 		AddParallel(new StopArmWheelsCommand());
 		//Back away from switch.
-		AddSequential(new TwoWheelDriveCommand(1, -1, false));
-		AddSequential(new RotateRelativeAngleCommand(QuarterPi,0.5));
+		//AddSequential(new TwoWheelDriveCommand(1, -1, false));
+		//AddSequential(new RotateRelativeAngleCommand(QuarterPi,0.3));
 
 		if(scaleSide == Side::Left)
 				{
