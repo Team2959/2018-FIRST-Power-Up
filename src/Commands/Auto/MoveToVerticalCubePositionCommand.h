@@ -15,9 +15,10 @@ class MoveToVerticalCubePositionCommand: public frc::Command
 {
 private:
 	VerticalArmMovement::CubeVerticalPlace m_target;
+	double m_scale;
 
 public:
-	MoveToVerticalCubePositionCommand(VerticalArmMovement::CubeVerticalPlace target = VerticalArmMovement::Switch);
+	MoveToVerticalCubePositionCommand(VerticalArmMovement::CubeVerticalPlace target = VerticalArmMovement::Switch, double scale = 6);
 
 	virtual void Execute() override;
 	virtual bool IsFinished() override;

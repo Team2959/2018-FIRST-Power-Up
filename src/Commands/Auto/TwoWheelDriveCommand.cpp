@@ -28,6 +28,13 @@ TwoWheelDriveCommand::TwoWheelDriveCommand(double dist, double speed, bool front
 		m_motor2 = "backLeft";
 		m_driveAngle = 3.0 * QuarterPi;
 	}
+
+
+	if (speed < 0)
+	{
+		speed = fabs(speed);
+		m_driveAngle+= Pi;
+	}
 }
 
 void TwoWheelDriveCommand::Initialize()

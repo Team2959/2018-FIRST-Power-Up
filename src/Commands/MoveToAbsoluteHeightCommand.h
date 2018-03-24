@@ -12,8 +12,12 @@
 
 class MoveToAbsoluteHeightCommand: public frc::Command
 {
+private:
+	double m_height;
+
 public:
-	MoveToAbsoluteHeightCommand();
+	MoveToAbsoluteHeightCommand(double height = 0);
+
 	virtual void Initialize() override;
 	virtual bool IsFinished() override;
 };

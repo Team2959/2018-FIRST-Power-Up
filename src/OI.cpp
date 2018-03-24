@@ -65,7 +65,7 @@ OI::OI()
 	frc::SmartDashboard::PutData("Move To Level3 ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Level3));
 	frc::SmartDashboard::PutData("Move To Portal ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Portal));
 	frc::SmartDashboard::PutNumber("Absolute Position", 0);
-	frc::SmartDashboard::PutData("Move To Absolute Height ", new MoveToAbsoluteHeightCommand());
+	frc::SmartDashboard::PutData("Move To Absolute Height ", new MoveToAbsoluteHeightCommand(frc::SmartDashboard::GetNumber("Absolute Position", 0)));
 	frc::SmartDashboard::PutNumber("Vertical Drop Time ", 2.0);
 }
 
