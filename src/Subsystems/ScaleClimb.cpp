@@ -35,6 +35,12 @@ void ScaleClimb::StopHooks()
 	m_rightSpark.Set(0);
 }
 
+void ScaleClimb::HoldHooks()
+{
+	m_leftSpark.Set(-0.2);
+	m_rightSpark.Set(-0.2);
+}
+
 bool ScaleClimb::AtTop()
 {
 	return m_topLimitSwitch.Get() == true;

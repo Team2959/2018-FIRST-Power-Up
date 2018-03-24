@@ -26,6 +26,7 @@ public:
 	void RaiseHooksUp();
 	void DropHooksDown();
 	void StopHooks();
+	void HoldHooks();
 
 	bool AtTop();
 	bool AtBottom();

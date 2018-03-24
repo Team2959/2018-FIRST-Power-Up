@@ -54,6 +54,7 @@ void Robot::RobotInit()
 //	SmartDashboard::PutData(CubeArmsSubsystem.get());
 //	SmartDashboard::PutData(ClimbSubsystem.get());
 //	SmartDashboard::PutData(CubeDeliverySubsystem.get());
+//	SmartDashboard::PutData(VerticalArmMovmentSubsystem.get());
 //	frc::SmartDashboard::PutData(&m_pdp);
 
 //	cs::UsbCamera cam = CameraServer::GetInstance()->StartAutomaticCapture();
