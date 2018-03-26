@@ -18,7 +18,6 @@
 #include <Commands/MoveToAbsoluteHeightCommand.h>
 #include <Commands/OpenOrCloseCubeArmsCommand.h>
 #include <Commands/StopVerticalCommand.h>
-#include <Commands/VerticalButtonCommand.h>
 
 OI::OI()
 {
@@ -52,21 +51,20 @@ OI::OI()
 	FoldCubeArmsDownButton->WhenPressed(new FoldArmsDownCommand());
 	SpinArmWheelsInButton->WhenPressed(new SpinArmWheelsInCommand());
 	DeliverCubeButton->WhenPressed(new DeliverCubeCommand());
-//	VerticalButton->WhenPressed(new VerticalButtonCommand());
+//	VerticalButton->WhenPressed(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight() * 0.75));
 
 	IsCubePresentTrigger->WhenActive(new StopArmWheelsCommand(0.5));
 	AtBottomTrigger->WhenActive(new StopVerticalCommand());
 
 	// example how to put a command on the dashboard. You can press start and execute it.
-	frc::SmartDashboard::PutData("Move To to switch ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Switch));
-	frc::SmartDashboard::PutData("Move To Level1 ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Level1));
-	frc::SmartDashboard::PutData("Move To exchange ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Exchange));
-	frc::SmartDashboard::PutData("Move To Level2 ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Level2));
-	frc::SmartDashboard::PutData("Move To Level3 ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Level3));
-	frc::SmartDashboard::PutData("Move To Portal ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Portal));
+//	frc::SmartDashboard::PutData("Move To to switch ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Switch));
+//	frc::SmartDashboard::PutData("Move To Level1 ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Level1));
+//	frc::SmartDashboard::PutData("Move To exchange ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Exchange));
+//	frc::SmartDashboard::PutData("Move To Level2 ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Level2));
+//	frc::SmartDashboard::PutData("Move To Level3 ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Level3));
+//	frc::SmartDashboard::PutData("Move To Portal ", new MoveToVerticalCubePositionCommand(VerticalArmMovement::Portal));
 	frc::SmartDashboard::PutNumber("Absolute Position", 0);
 	frc::SmartDashboard::PutData("Move To Absolute Height ", new MoveToAbsoluteHeightCommand(frc::SmartDashboard::GetNumber("Absolute Position", 0)));
-	frc::SmartDashboard::PutNumber("Vertical Drop Time ", 2.0);
 }
 
 std::shared_ptr<frc::Joystick> OI::GetDriverJoystick()
