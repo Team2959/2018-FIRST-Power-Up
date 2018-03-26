@@ -19,6 +19,7 @@
 #include <Commands/Auto/TwoWheelDriveCommand.h>
 #include <Commands/Auto/TwCenterAutoCommandGroup.h>
 #include <Commands/Auto/TwSwitchCubeScaleCommandGroup.h>
+#include <Commands/Auto/TwScaleOnlyCommandGroup.h>
 
 Autonomous::Autonomous()
 {
@@ -33,6 +34,7 @@ Autonomous::Autonomous()
 	m_chooser.AddObject("TW: Center: Switch and Scale", AutoCommand::TwoWheelSwitchCubeScaleFromCenter);
 	m_chooser.AddObject("TW: Scale and Scale", AutoCommand::TwoWheelScaleCubeScale);
 	m_chooser.AddObject("TW: Scale and Switch", AutoCommand::TwoWheelScaleCubeSwitch);
+	m_chooser.AddObject("TW: Scale Only", AutoCommand::TwScaleOnlyCommandGroup);
 
 	frc::SmartDashboard::PutData("Autonomous Command", &m_chooser);
 
@@ -163,6 +165,9 @@ void Autonomous::StartAutonomousFromGameData()
 	case AutoCommand::TwoWheelSwitchCubeScaleFromCenter:
 		m_autonomousCommand = std::make_unique<TwCenterAutoCommandGroup>(nearSwitchSide, scaleSide);
 		break;
+	case AutoCommand::TwScaleOnlyCommandGroup:
+			m_autonomousCommand = std::make_unique<TwScaleOnlyCommandGroup>(startLeft, scaleSide);
+			break;
 	case AutoCommand::TwoWheelSwitchCubeScale:
 		m_autonomousCommand = std::make_unique<TwSwitchCubeScaleCommandGroup>(startLeft, nearSwitchSide, scaleSide);
 		break;

@@ -31,7 +31,8 @@ private:
 		TwoWheelSwitchCubeScale,
 		TwoWheelScaleCubeScale,
 		TwoWheelSwitchCubeScaleFromCenter,
-		TwoWheelScaleCubeSwitch
+		TwoWheelScaleCubeSwitch,
+		TwScaleOnlyCommandGroup
 	};
 
 	frc::SendableChooser<AutoCommand>	m_chooser;

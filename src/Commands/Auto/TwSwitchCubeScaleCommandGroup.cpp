@@ -21,7 +21,7 @@
 TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Side switchSide, Side scaleSide):
 	frc::CommandGroup("TwSwitchCubeScale")
 {
-	if(botOnLeft && switchSide== Side::Left)
+	if(botOnLeft && switchSide == Side::Left)
 	{
 		// drive to switch
 		AddSequential(new TwoWheelDriveCommand(9.5, 1, false));
@@ -120,13 +120,13 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 	}
 	else if (!botOnLeft && switchSide== Side::Right)
 	{
-		AddSequential(new TwoWheelDriveCommand(10, 1, false));
-		AddSequential(new RotateRelativeAngleCommand(-HalfPi,1));
-		AddSequential(new TwoWheelDriveCommand(2, 1, false));
-		// spit cube into switch
-		AddSequential(new DeliverCubeCommand());
-		AddSequential(new TimedCommand(1.5));
-		AddParallel(new StopArmWheelsCommand());
+//		AddSequential(new TwoWheelDriveCommand(9, 1, false));
+//		AddSequential(new RotateRelativeAngleCommand(-HalfPi, 0.3));
+//		AddSequential(new TwoWheelDriveCommand(2, 1, false));
+//		// spit cube into switch
+//		AddSequential(new DeliverCubeCommand());
+//		AddSequential(new TimedCommand(1.5));
+//		AddParallel(new StopArmWheelsCommand());
 		//Backwards from the switch
 		AddSequential(new TwoWheelDriveCommand(2, -1, false));
 		AddSequential(new RotateRelativeAngleCommand(HalfPi,-1));
@@ -139,22 +139,20 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 
 		if (scaleSide== Side::Left)
 		{
-			AddSequential(new TwoWheelDriveCommand(2, -1, false));
-			AddParallel(new FoldArmsUpCommand());
-			AddSequential(new RotateRelativeAngleCommand(3 * QuarterPi,1));
-			AddSequential(new TwoWheelDriveCommand(11, -1, false));
-			AddSequential(new RotateRelativeAngleCommand(HalfPi,1));
-			AddParallel(new MoveToVerticalCubePositionCommand(VerticalArmMovement::CubeVerticalPlace::Scale));
-			AddSequential(new TwoWheelDriveCommand(6, 1, false));
-			AddSequential(new RotateRelativeAngleCommand(QuarterPi,1));
-			AddSequential(new TwoWheelDriveCommand(0.5, 1, false));
-			// spit cube into scale
-			AddSequential(new DeliverCubeCommand());
-			AddSequential(new TimedCommand(1.5));
-			AddParallel(new StopArmWheelsCommand());
-
-		}
-
+//			AddSequential(new TwoWheelDriveCommand(2, -1, false));
+//			AddParallel(new FoldArmsUpCommand());
+//			AddSequential(new RotateRelativeAngleCommand(3 * QuarterPi,1));
+//			AddSequential(new TwoWheelDriveCommand(11, -1, false));
+//			AddSequential(new RotateRelativeAngleCommand(HalfPi,1));
+//			AddParallel(new MoveToVerticalCubePositionCommand(VerticalArmMovement::CubeVerticalPlace::Scale));
+//			AddSequential(new TwoWheelDriveCommand(6, 1, false));
+//			AddSequential(new RotateRelativeAngleCommand(QuarterPi,1));
+//			AddSequential(new TwoWheelDriveCommand(0.5, 1, false));
+//			// spit cube into scale
+//			AddSequential(new DeliverCubeCommand());
+//			AddSequential(new TimedCommand(1.5));
+//			AddParallel(new StopArmWheelsCommand());
+       	}
 		else
 		{
 			AddSequential(new RotateRelativeAngleCommand(-HalfPi,1));
@@ -167,7 +165,6 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 			AddSequential(new DeliverCubeCommand());
 			AddSequential(new TimedCommand(1.5));
 			AddParallel(new StopArmWheelsCommand());
-
 		}
 
 	}
