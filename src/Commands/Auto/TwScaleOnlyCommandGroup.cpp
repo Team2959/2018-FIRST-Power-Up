@@ -35,8 +35,8 @@ frc::CommandGroup("TwScaleOnly")
 	}
 	if(!botOnLeft && scaleSide == Side::Right)
 	{
-			AddSequential(new TwoWheelDriveCommand(25, 1, false));
-			AddSequential(new RotateRelativeAngleCommand(-QuarterPi*-3, 0.3));
+			AddSequential(new TwoWheelDriveCommand(27, 1, false));
+			AddSequential(new RotateRelativeAngleCommand(-3 * QuarterPi, 0.3));
 			AddParallel(new MoveToVerticalCubePositionCommand(VerticalArmMovement::CubeVerticalPlace::Scale));
 			// spit cube into scale
 			AddSequential(new DeliverCubeCommand());
