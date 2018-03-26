@@ -87,10 +87,13 @@ void VerticalArmMovement::MoveToAbsoluteHeight(double height)
 	m_cubeLiftMotor.Set(ControlMode::Position, height);
 }
 
+void VerticalArmMovement::StopAtHeight()
+{
+	MoveToAbsoluteHeight(m_cubeLiftMotor.GetSelectedSensorPosition(0));
+}
+
 bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHeight)
 {
-	auto position = m_cubeLiftMotor.GetSelectedSensorPosition(0);
-
 	double targetPosition = 0;
 
 	switch (target)
@@ -118,7 +121,12 @@ bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHei
 		break;
 	}
 
-	return fabs(position - targetPosition) < 500;
+	return IsAtHeight(targetPosition);
+}
+
+bool VerticalArmMovement::IsAtHeight(double height)
+{
+	return fabs(m_cubeLiftMotor.GetSelectedSensorPosition(0) - height) < 500;
 }
 
 bool VerticalArmMovement::IsAtSwitchOrHigher()

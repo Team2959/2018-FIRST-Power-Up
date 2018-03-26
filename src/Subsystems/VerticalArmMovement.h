@@ -66,7 +66,9 @@ public:
 	void MoveArm(CubeVerticalPlace target, double scaleHeight = 0.0);
 	void MoveArmToHeight(double height);
 	void MoveToAbsoluteHeight(double height);
+	void StopAtHeight();
 	bool IsAtPosition(CubeVerticalPlace target, double scaleHeight = 0.0);
+	bool IsAtHeight(double height);
 	bool IsAtSwitchOrHigher();
 	void UpdateSmartDashboard();
 
