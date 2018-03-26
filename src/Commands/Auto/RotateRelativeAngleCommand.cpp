@@ -29,57 +29,68 @@ double NormalizeAngle(double angle)
 
 void RotateRelativeAngleCommand::Initialize()
 {
-	m_startAngle = NormalizeAngle(Robot::MotionTrackingSubsystem->GetAngle());
-	auto angleRad{NormalizeAngle(m_inputAngle)};
-	m_targetAngle = m_startAngle + angleRad;
+//	m_startAngle = NormalizeAngle(Robot::MotionTrackingSubsystem->GetAngle());
+//	auto angleRad{NormalizeAngle(m_inputAngle)};
+	m_startAngle = Robot::MotionTrackingSubsystem->RawAngle() * (Pi/180.0);
+//	auto angleRad{m_inputAngle};
+//	m_targetAngle = m_startAngle + angleRad;
 
-	if (m_targetAngle > 2.0 * Pi)
-		m_readingOffset = 2.0 * Pi;
-	else if (m_targetAngle < 0)
-		m_readingOffset = -2.0 * Pi;
-	else
-		m_readingOffset = 0.0;
+//	if (m_targetAngle > 2.0 * Pi)
+//		m_readingOffset = 2.0 * Pi;
+//	else if (m_targetAngle < 0)
+//		m_readingOffset = -2.0 * Pi;
+//	else
+//		m_readingOffset = 0.0;
 
-	if(angleRad > Pi)
+//	if(m_targetAngle < m_startAngle)
+//		m_speed = -m_speed;
+	if (m_inputAngle < 0)
 		m_speed = -m_speed;
-
 	m_atTarget = false;
-	std::cout << "RotateRelative - " << m_startAngle << ',' << m_targetAngle << ',' << m_readingOffset << ',' << m_speed << '\n';
+//	std::cout << "RotateRelative - " << m_startAngle << ',' << m_targetAngle << ',' << m_readingOffset << ',' << m_speed << '\n';
 }
 
 void RotateRelativeAngleCommand::Execute()
 {
-	auto	currentAngle{NormalizeAngle(Robot::MotionTrackingSubsystem->GetAngle()) + m_readingOffset};
-	double	rotationSpeed;
-
-	std::cout << "**" << currentAngle << '\n';
-	if(m_speed > 0.0)	// If turning counterclockwise
-	{
-		if(currentAngle > m_targetAngle)
-		{
-			rotationSpeed = 0.0;
-			m_atTarget = true;
-		}
-		else
-			rotationSpeed = fmin(m_lastSpeed + Acceleration, m_speed);
+//	auto	currentAngle{NormalizeAngle(Robot::MotionTrackingSubsystem->GetAngle()) + m_readingOffset};
+//	auto	currentAngle{Robot::MotionTrackingSubsystem->GetAngle()};
+//	double	rotationSpeed;
+//
+//	std::cout << "**" << currentAngle << '\n';
+//	if(m_speed > 0.0)	// If turning counterclockwise
+//	{
+//		if(currentAngle > m_targetAngle)
+//		{
+//			rotationSpeed = 0.0;
+//			m_atTarget = true;
+//		}
+//		else
+//			rotationSpeed = fmin(m_lastSpeed + Acceleration, m_speed);
+//	}
+//	else
+//	{
+//		if(currentAngle < m_targetAngle)
+//		{
+//			rotationSpeed = 0.0;
+//			m_atTarget = true;
+//		}
+//		else
+//			rotationSpeed = fmax(m_lastSpeed - Acceleration, m_speed);
+//	}
+//	std::cout << "--" << rotationSpeed << '\n';
+	//Robot::DriveTrainSubsystem->Drive(0.0, 0.0, rotationSpeed);
+	if (!IsFinished()) {
+		Robot::DriveTrainSubsystem->Drive(0.0, 0.0, m_speed);
+	} else {
+		Robot::DriveTrainSubsystem->Drive(0.0, 0.0, 0);
 	}
-	else
-	{
-		if(currentAngle < m_targetAngle)
-		{
-			rotationSpeed = 0.0;
-			m_atTarget = true;
-		}
-		else
-			rotationSpeed = fmax(m_lastSpeed - Acceleration, m_speed);
-	}
-	std::cout << "--" << rotationSpeed << '\n';
-	Robot::DriveTrainSubsystem->Drive(0.0, 0.0, rotationSpeed);
 }
 
 bool RotateRelativeAngleCommand::IsFinished()
 {
-	return m_atTarget;
+	double currentAngle = Robot::MotionTrackingSubsystem->RawAngle() * (Pi/180);
+	return (m_inputAngle < 0.0 ? (currentAngle - m_startAngle) <= m_inputAngle : (currentAngle - m_startAngle) >= m_inputAngle);
+	//return m_atTarget;
 }
 
 void RotateRelativeAngleCommand::End()

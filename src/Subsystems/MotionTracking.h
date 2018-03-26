@@ -52,6 +52,7 @@ public:
     std::unordered_map<std::string, struct MotorTelemetry> m_motors;
 
     double GetAngle();
+    double RawAngle();
 
 	AHRS* m_navmxp;
 

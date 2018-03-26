@@ -108,3 +108,8 @@ double MotionTracking::GetAngle()
 		angle -= 360.0;
 	return angle * (Pi / 180.0);
 }
+
+double MotionTracking::RawAngle()
+{
+	return m_navmxp->GetAngle();
+}
