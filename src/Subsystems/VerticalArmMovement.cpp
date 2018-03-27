@@ -126,7 +126,7 @@ bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHei
 
 bool VerticalArmMovement::IsAtHeight(double height)
 {
-	return fabs(m_cubeLiftMotor.GetSelectedSensorPosition(0) - height) < 500;
+	return fabs(m_cubeLiftMotor.GetSelectedSensorPosition(0) - height) < 750;
 }
 
 bool VerticalArmMovement::IsAtSwitchOrHigher()

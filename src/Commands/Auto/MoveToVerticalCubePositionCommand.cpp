@@ -8,19 +8,28 @@
 #include <Commands/Auto/MoveToVerticalCubePositionCommand.h>
 #include <Robot.h>
 
-MoveToVerticalCubePositionCommand::MoveToVerticalCubePositionCommand(VerticalArmMovement::CubeVerticalPlace target, double scale) : frc::Command("MoveToVerticalCubePosition")
+MoveToVerticalCubePositionCommand::MoveToVerticalCubePositionCommand(double height) : frc::Command("MoveToVerticalCubePosition")
 {
-	m_target = target;
-	m_scale = scale;
+	m_height = height;
 	Requires(Robot::VerticalArmMovmentSubsystem.get());
 }
 
 void MoveToVerticalCubePositionCommand::Execute()
 {
-	Robot::VerticalArmMovmentSubsystem->MoveArm(m_target, m_scale);
+	Robot::VerticalArmMovmentSubsystem->MoveToAbsoluteHeight(m_height);
 }
 
 bool MoveToVerticalCubePositionCommand::IsFinished()
 {
-	return Robot::VerticalArmMovmentSubsystem->IsAtPosition(m_target);
+	return Robot::VerticalArmMovmentSubsystem->IsAtHeight(m_height);
+}
+
+void MoveToVerticalCubePositionCommand::Interrupted()
+{
+	End();
+}
+
+void MoveToVerticalCubePositionCommand::End()
+{
+	Robot::VerticalArmMovmentSubsystem->StopAtHeight();
 }

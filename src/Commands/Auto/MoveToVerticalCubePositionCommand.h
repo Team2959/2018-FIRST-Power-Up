@@ -14,14 +14,15 @@
 class MoveToVerticalCubePositionCommand: public frc::Command
 {
 private:
-	VerticalArmMovement::CubeVerticalPlace m_target;
-	double m_scale;
+	double m_height;
 
 public:
-	MoveToVerticalCubePositionCommand(VerticalArmMovement::CubeVerticalPlace target = VerticalArmMovement::Switch, double scale = 6);
+	MoveToVerticalCubePositionCommand(double height);
 
 	virtual void Execute() override;
 	virtual bool IsFinished() override;
+	virtual void End() override;
+	virtual void Interrupted() override;
 };
 
 #endif /* SRC_COMMANDS_AUTO_MOVETOVERTICALCUBEPOSITIONCOMMAND_H_ */
