@@ -20,65 +20,64 @@
 #include <Commands/FoldArmsDownCommand.h>
 
 TwScaleOnlyCommandGroup::TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide) :
-frc::CommandGroup("TwScaleOnly")
+	frc::CommandGroup("TwScaleOnly")
 {
-
-	if(botOnLeft && scaleSide == Side::Left)
-	{
-		AddParallel(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
-		AddSequential(new TwoWheelDriveCommand(25, 1, false));
-		AddSequential(new MoveToVerticalCubePositionCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
-		// spit cube into scale
-		AddSequential(new DeliverCubeCommand());
-		AddSequential(new TimedCommand(1.5));
-		AddParallel(new StopArmWheelsCommand());
-	}
-	if(botOnLeft && scaleSide == Side::Right)
-	{
-		AddSequential(new TwoWheelDriveCommand(19.5, 1, false));
-		AddSequential(new RotateRelativeAngleCommand(.90 * HalfPi, 0.3));
-		AddSequential(new TwoWheelDriveCommand(23.75, 1, false));
-		AddSequential(new RotateRelativeAngleCommand(-0.95 * HalfPi, 0.3));
-		AddParallel(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
-		AddSequential(new TwoWheelDriveCommand(8, 1, false));
-		AddParallel(new RotateRelativeAngleCommand(-3 * QuarterPi, 0.3));
-		AddSequential(new MoveToVerticalCubePositionCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
-		// spit cube into scale
-		AddSequential(new DeliverCubeCommand());
-		AddSequential(new TimedCommand(1.5));
-		AddParallel(new StopArmWheelsCommand());
-	}
-	if(!botOnLeft && scaleSide == Side::Left)
-	{
-		AddSequential(new TwoWheelDriveCommand(19.5, 1, false));
-				AddSequential(new RotateRelativeAngleCommand(-0.90 * HalfPi, 0.3));
-				AddSequential(new TwoWheelDriveCommand(21, 1, false));
-				AddSequential(new RotateRelativeAngleCommand(0.95 * HalfPi, 0.3));
-				AddParallel(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
-				AddSequential(new TwoWheelDriveCommand(8, 1, false));
-				AddParallel(new RotateRelativeAngleCommand(QuarterPi, 0.3));
-				AddSequential(new MoveToVerticalCubePositionCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
-				// spit cube into scale
-				AddSequential(new DeliverCubeCommand());
-				AddSequential(new TimedCommand(1.5));
-				AddParallel(new StopArmWheelsCommand());
-	}
+	bool driveWheels = true;
+	double rotateSpeed = 0.15;
 	if(!botOnLeft && scaleSide == Side::Right)
 	{
-		AddSequential(new TwoWheelDriveCommand(27, 1, false));
-		AddParallel(new RotateRelativeAngleCommand(-HalfPi, 0.3));
-		AddSequential(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
-		AddSequential(new TwoWheelDriveCommand(0.75, 1, false));
+		AddParallel(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
+		AddSequential(new TwoWheelDriveCommand(27, 1, driveWheels));
+		AddSequential(new MoveToVerticalCubePositionCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
 		// spit cube into scale
 		AddSequential(new DeliverCubeCommand());
 		AddSequential(new TimedCommand(1.5));
 		AddParallel(new StopArmWheelsCommand());
-
+	}
+	else if(!botOnLeft && scaleSide == Side::Left)
+	{
+		AddSequential(new TwoWheelDriveCommand(19.5, 1, driveWheels));
+		AddSequential(new RotateRelativeAngleCommand(-HalfPi, rotateSpeed));
+		AddSequential(new TwoWheelDriveCommand(23.75, 1, driveWheels));
+		AddSequential(new RotateRelativeAngleCommand(HalfPi, rotateSpeed));
+		AddParallel(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
+		AddSequential(new TwoWheelDriveCommand(8, 1, driveWheels));
+		AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
+		AddSequential(new MoveToVerticalCubePositionCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
+		// spit cube into scale
+		AddSequential(new DeliverCubeCommand());
+		AddSequential(new TimedCommand(1.5));
+		AddParallel(new StopArmWheelsCommand());
+	}
+	else if(botOnLeft && scaleSide == Side::Right)
+	{
+		AddSequential(new TwoWheelDriveCommand(19.5, 1, driveWheels));
+		AddSequential(new RotateRelativeAngleCommand(HalfPi, rotateSpeed));
+		AddSequential(new TwoWheelDriveCommand(21, 1, driveWheels));
+		AddSequential(new RotateRelativeAngleCommand(-HalfPi, rotateSpeed));
+		AddParallel(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
+		AddSequential(new TwoWheelDriveCommand(8, 1, driveWheels));
+		AddParallel(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
+		AddSequential(new MoveToVerticalCubePositionCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
+		// spit cube into scale
+		AddSequential(new DeliverCubeCommand());
+		AddSequential(new TimedCommand(1.5));
+		AddParallel(new StopArmWheelsCommand());
+	}
+	else if(botOnLeft && scaleSide == Side::Left)
+	{
+		AddParallel(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
+		AddSequential(new TwoWheelDriveCommand(27, 1, driveWheels));
+		AddSequential(new RotateRelativeAngleCommand(HalfPi, rotateSpeed));
+		AddSequential(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
+		AddSequential(new TwoWheelDriveCommand(0.75, 1, driveWheels));
+		// spit cube into scale
+		AddSequential(new DeliverCubeCommand());
+		AddSequential(new TimedCommand(1.5));
+		AddParallel(new StopArmWheelsCommand());
 	}
 }
 
 TwScaleOnlyCommandGroup::~TwScaleOnlyCommandGroup()
 {
-
 }
-

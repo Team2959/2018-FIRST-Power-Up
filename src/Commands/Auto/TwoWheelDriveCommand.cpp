@@ -18,8 +18,8 @@ TwoWheelDriveCommand::TwoWheelDriveCommand(double dist, double speed, bool front
 	Requires(Robot::DriveTrainSubsystem.get());
 	if( frontLeftBackRight )
 	{
-		m_motor1 = "frontLeft";
-		m_motor2 = "backRight";
+		m_motor2 = "frontLeft";
+		m_motor1 = "backRight";
 		m_driveAngle = QuarterPi;
 	}
 	else

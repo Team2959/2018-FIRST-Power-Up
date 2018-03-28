@@ -24,9 +24,11 @@ private:
 //	const double DistanceToTicksFactor = 4096 / GearDiameter;
 
 	// Competition robot
-//	const double DirectionMultiplier = 1.0;
+	const double DirectionMultiplier = 1.0;
+	const double ScalePositionMaximum = 41000 * DirectionMultiplier;	// true max 30000
 	// Practice robot
-	const double DirectionMultiplier = -1.0;
+//	const double DirectionMultiplier = -1.0;
+//	const double ScalePositionMaximum = 29000 * DirectionMultiplier;	// true max 30000
 
 	const double Level1Position = 0;
 	const double ExchangePosition = 750 * DirectionMultiplier;
@@ -35,7 +37,6 @@ private:
 	const double PortalPosition = 9450 * DirectionMultiplier;
 	const double Level3Position = 9450 * DirectionMultiplier;
 	const double ScalePositionMinimum = 25000 * DirectionMultiplier;	// true scale min 27650
-	const double ScalePositionMaximum = 29000 * DirectionMultiplier;	// true max 30000
 
 	const double ScaleHeightMinimum = 4.0;	// in feet
 	const double ScaleHeightMaximum = 6.0;

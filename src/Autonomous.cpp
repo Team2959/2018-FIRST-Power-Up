@@ -29,11 +29,11 @@ Autonomous::Autonomous()
 //	m_chooser.AddObject("No Vision Center", AutoCommand::NoVisionCenter);
 	m_chooser.AddObject("Two Wheel Straight", AutoCommand::AutonStraight);
 	m_chooser.AddObject("Two Wheel Rotate", AutoCommand::AutonRotate);
-	m_chooser.AddObject("ScriptAuton", AutoCommand::ScriptAuton);
+//	m_chooser.AddObject("ScriptAuton", AutoCommand::ScriptAuton);
 	m_chooser.AddObject("TW: Lf/Rt : Switch and Scale", AutoCommand::TwoWheelSwitchCubeScale);
 	m_chooser.AddObject("TW: Center: Switch and Scale", AutoCommand::TwoWheelSwitchCubeScaleFromCenter);
-	m_chooser.AddObject("TW: Scale and Scale", AutoCommand::TwoWheelScaleCubeScale);
-	m_chooser.AddObject("TW: Scale and Switch", AutoCommand::TwoWheelScaleCubeSwitch);
+//	m_chooser.AddObject("TW: Scale and Scale", AutoCommand::TwoWheelScaleCubeScale);
+//	m_chooser.AddObject("TW: Scale and Switch", AutoCommand::TwoWheelScaleCubeSwitch);
 	m_chooser.AddObject("TW: Scale Only", AutoCommand::TwScaleOnlyCommandGroup);
 
 	frc::SmartDashboard::PutData("Autonomous Command", &m_chooser);
@@ -47,10 +47,10 @@ Autonomous::Autonomous()
 	frc::SmartDashboard::PutString("Auton Script", "");
 
 	// more vision or dead reckoning based
-	frc::SmartDashboard::PutNumber("Auton Shimmy Speed", 0.2);
-	frc::SmartDashboard::PutNumber("Auton Straight To Switch Time", 1.0);
-	frc::SmartDashboard::PutNumber("Auton Straight Time", 3.5);
-	frc::SmartDashboard::PutNumber("Auton Center Time", 3.5);
+//	frc::SmartDashboard::PutNumber("Auton Shimmy Speed", 0.2);
+//	frc::SmartDashboard::PutNumber("Auton Straight To Switch Time", 1.0);
+//	frc::SmartDashboard::PutNumber("Auton Straight Time", 3.5);
+//	frc::SmartDashboard::PutNumber("Auton Center Time", 3.5);
 
 	m_foundGameData = false;
 	m_cycleCount = 0;
@@ -174,7 +174,7 @@ void Autonomous::StartAutonomousFromGameData()
 	case AutoCommand::TwoWheelScaleCubeScale:
 	case AutoCommand::TwoWheelScaleCubeSwitch:
 	case AutoCommand::AutonStraight:
-		m_autonomousCommand = std::make_unique<TwoWheelDriveCommand>(distance, speed, false);
+		m_autonomousCommand = std::make_unique<TwoWheelDriveCommand>(distance, speed, true);
 		break;
 	case AutoCommand::AutonRotate:
 		m_autonomousCommand = std::make_unique<RotateRelativeAngleCommand>(frc::SmartDashboard::GetNumber("Auton Angle", 45.0) * Pi / 180.0, speed);

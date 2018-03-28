@@ -15,7 +15,10 @@ DropHooksDownCommand::DropHooksDownCommand() : frc::Command("DropHooksDown")
 
 void DropHooksDownCommand::Execute()
 {
-	Robot::ClimbSubsystem->DropHooksDown();
+	if (!Robot::ClimbSubsystem->AtBottom())
+	{
+		Robot::ClimbSubsystem->DropHooksDown();
+	}
 }
 
 bool DropHooksDownCommand::IsFinished()
@@ -25,7 +28,14 @@ bool DropHooksDownCommand::IsFinished()
 
 void DropHooksDownCommand::End()
 {
-	Robot::ClimbSubsystem->HoldHooks();
+	if (Robot::ClimbSubsystem->AtBottom())
+	{
+		Robot::ClimbSubsystem->StopHooks();
+	}
+	else
+	{
+		Robot::ClimbSubsystem->HoldHooks();
+	}
 }
 
 void DropHooksDownCommand::Interrupted()

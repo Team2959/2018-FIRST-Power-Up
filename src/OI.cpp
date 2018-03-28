@@ -18,6 +18,7 @@
 #include <Commands/MoveToAbsoluteHeightCommand.h>
 #include <Commands/OpenOrCloseCubeArmsCommand.h>
 #include <Commands/StopVerticalCommand.h>
+#include "Robot.h"
 
 OI::OI()
 {
