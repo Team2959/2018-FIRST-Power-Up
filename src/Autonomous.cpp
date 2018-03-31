@@ -27,14 +27,14 @@ Autonomous::Autonomous()
 //	m_chooser.AddObject("Center-Place Initial Cube On Switch", AutoCommand::PlaceInitialCubeOnSwitch);
 //	m_chooser.AddObject("Left/Right-Place Cube On Our Side", AutoCommand::PlaceCubeOnOurSide);
 //	m_chooser.AddObject("No Vision Center", AutoCommand::NoVisionCenter);
-	m_chooser.AddObject("Two Wheel Straight", AutoCommand::AutonStraight);
-	m_chooser.AddObject("Two Wheel Rotate", AutoCommand::AutonRotate);
+//	m_chooser.AddObject("Two Wheel Straight", AutoCommand::AutonStraight);
+//	m_chooser.AddObject("Two Wheel Rotate", AutoCommand::AutonRotate);
 //	m_chooser.AddObject("ScriptAuton", AutoCommand::ScriptAuton);
 	m_chooser.AddObject("TW: Lf/Rt : Switch and Scale", AutoCommand::TwoWheelSwitchCubeScale);
 	m_chooser.AddObject("TW: Center: Switch and Scale", AutoCommand::TwoWheelSwitchCubeScaleFromCenter);
 //	m_chooser.AddObject("TW: Scale and Scale", AutoCommand::TwoWheelScaleCubeScale);
 //	m_chooser.AddObject("TW: Scale and Switch", AutoCommand::TwoWheelScaleCubeSwitch);
-	m_chooser.AddObject("TW: Scale Only", AutoCommand::TwScaleOnlyCommandGroup);
+//	m_chooser.AddObject("TW: Scale Only", AutoCommand::TwScaleOnlyCommandGroup);
 
 	frc::SmartDashboard::PutData("Autonomous Command", &m_chooser);
 
@@ -151,7 +151,7 @@ void Autonomous::StartAutonomousFromGameData()
 	switch(m_chooser.GetSelected())
 	{
 	case AutoCommand::Default:
-		m_autonomousCommand = std::make_unique<DriveStraightCommand>(time);
+		m_autonomousCommand = std::make_unique<DriveStraightCommand>(time, speed);
 		break;
 	case AutoCommand::PlaceInitialCubeOnSwitch:
 		m_autonomousCommand = std::make_unique<PlaceInitialCubeOnSwitchCommandGroup>(nearSwitchSide);

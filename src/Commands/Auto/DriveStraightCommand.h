@@ -18,7 +18,7 @@ private:
 	double m_dist;
 
 public:
-	DriveStraightCommand(double driveTime = 0);
+	DriveStraightCommand(double driveTime = 0, double speed = 0);
 	virtual void Initialize() override;
 	virtual void Execute() override;
 	virtual void End() override;

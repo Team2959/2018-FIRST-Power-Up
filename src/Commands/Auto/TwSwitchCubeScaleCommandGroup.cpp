@@ -37,9 +37,9 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 		// turn 45 left toward outside wall
 		AddSequential(new RotateRelativeAngleCommand(QuarterPi,1));
 		// drive toward outside wall
-		AddSequential(new TwoWheelDriveCommand(5, 1, driveWheels));
+//		AddSequential(new TwoWheelDriveCommand(5, 1, driveWheels));
 		// turn up field
-		AddSequential(new RotateRelativeAngleCommand(-QuarterPi,1));
+//		AddSequential(new RotateRelativeAngleCommand(-QuarterPi,1));
 		// drive beyond switch
 //		AddSequential(new TwoWheelDriveCommand(7, 1, driveWheels));
 //		// turn toward cubes behind switch
@@ -87,30 +87,31 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 	else if (!botOnLeft && switchSide == Side::Left)
 	{
 		std::cout << "Starting -- Left side switch from right \n";
-		AddSequential(new RotateRelativeAngleCommand(QuarterPi, rotateSpeed));
-		AddSequential(new TwoWheelDriveCommand(2, 1, driveWheels));
-		AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
+		AddSequential(new TwoWheelDriveCommand(9, 1, driveWheels));
+//		AddSequential(new RotateRelativeAngleCommand(QuarterPi, rotateSpeed));
+//		AddSequential(new TwoWheelDriveCommand(2, 1, driveWheels));
+//		AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
 
 		if (scaleSide== Side::Right)
 		{
-			AddSequential(new TwoWheelDriveCommand(23, 1, driveWheels));
-			AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
-			AddSequential(new TwoWheelDriveCommand(1, 1, driveWheels));
-			// spit cube into scale
-			AddSequential(new DeliverCubeCommand());
-			AddSequential(new TimedCommand(1.5));
-			AddParallel(new StopArmWheelsCommand());
+//			AddSequential(new TwoWheelDriveCommand(23, 1, driveWheels));
+//			AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
+//			AddSequential(new TwoWheelDriveCommand(1, 1, driveWheels));
+//			// spit cube into scale
+//			AddSequential(new DeliverCubeCommand());
+//			AddSequential(new TimedCommand(1.5));
+//			AddParallel(new StopArmWheelsCommand());
 		}
 		else
 		{
 			// drive to between platform and switch
-			AddSequential(new TwoWheelDriveCommand(15.5, 1, driveWheels));
-			// turn to right side
-			AddSequential(new RotateRelativeAngleCommand(-HalfPi, rotateSpeed));
-			// drive between platform and switch
-			AddSequential(new TwoWheelDriveCommand(20, 1, driveWheels));
-			// turn up field
-			AddSequential(new RotateRelativeAngleCommand(HalfPi, rotateSpeed));
+//			AddSequential(new TwoWheelDriveCommand(15.5, 1, driveWheels));
+//			// turn to right side
+//			AddSequential(new RotateRelativeAngleCommand(-HalfPi, rotateSpeed));
+//			// drive between platform and switch
+//			AddSequential(new TwoWheelDriveCommand(20, 1, driveWheels));
+//			// turn up field
+//			AddSequential(new RotateRelativeAngleCommand(HalfPi, rotateSpeed));
 			// drive toward center of scale
 //			AddSequential(new TwoWheelDriveCommand(8, 1, driveWheels));
 //			AddParallel(new MoveToVerticalCubePositionCommand(VerticalArmMovement::CubeVerticalPlace::Scale));

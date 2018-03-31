@@ -25,7 +25,7 @@ private:
 
 	// Competition robot
 	const double DirectionMultiplier = 1.0;
-	const double ScalePositionMaximum = 41000 * DirectionMultiplier;	// true max 30000
+	const double ScalePositionMaximum = 41500 * DirectionMultiplier;	// true max 30000
 	// Practice robot
 //	const double DirectionMultiplier = -1.0;
 //	const double ScalePositionMaximum = 29000 * DirectionMultiplier;	// true max 30000
@@ -68,6 +68,7 @@ public:
 	void MoveArmToHeight(double height);
 	void MoveToAbsoluteHeight(double height);
 	void StopAtHeight();
+	void AdjustAndSetHeight(double adjustment);
 	bool IsAtPosition(CubeVerticalPlace target, double scaleHeight = 0.0);
 	bool IsAtHeight(double height);
 	bool IsAtSwitchOrHigher();

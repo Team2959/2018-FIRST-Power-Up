@@ -29,6 +29,7 @@ TwScaleOnlyCommandGroup::TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide)
 		AddParallel(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
 		AddSequential(new TwoWheelDriveCommand(27, 1, driveWheels));
 		AddSequential(new MoveToVerticalCubePositionCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
+		AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
 		// spit cube into scale
 		AddSequential(new DeliverCubeCommand());
 		AddSequential(new TimedCommand(1.5));
@@ -69,7 +70,7 @@ TwScaleOnlyCommandGroup::TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide)
 		AddParallel(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
 		AddSequential(new TwoWheelDriveCommand(27, 1, driveWheels));
 		AddSequential(new RotateRelativeAngleCommand(HalfPi, rotateSpeed));
-		AddSequential(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
+		AddSequential(new MoveToVerticalCubePositionCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
 		AddSequential(new TwoWheelDriveCommand(0.75, 1, driveWheels));
 		// spit cube into scale
 		AddSequential(new DeliverCubeCommand());

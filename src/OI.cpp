@@ -18,6 +18,7 @@
 #include <Commands/MoveToAbsoluteHeightCommand.h>
 #include <Commands/OpenOrCloseCubeArmsCommand.h>
 #include <Commands/StopVerticalCommand.h>
+#include <Commands/VerticalInchDownCommand.h>
 #include "Robot.h"
 
 OI::OI()
@@ -53,6 +54,7 @@ OI::OI()
 	SpinArmWheelsInButton->WhenPressed(new SpinArmWheelsInCommand());
 	DeliverCubeButton->WhenPressed(new DeliverCubeCommand());
 //	VerticalButton->WhenPressed(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight() * 0.75));
+	VerticalButton->WhenPressed(new VerticalInchDownCommand());
 
 	IsCubePresentTrigger->WhenActive(new StopArmWheelsCommand(0.5));
 	AtBottomTrigger->WhenActive(new StopVerticalCommand());

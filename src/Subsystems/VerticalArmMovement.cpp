@@ -92,6 +92,13 @@ void VerticalArmMovement::StopAtHeight()
 	MoveToAbsoluteHeight(m_cubeLiftMotor.GetSelectedSensorPosition(0));
 }
 
+void VerticalArmMovement::AdjustAndSetHeight(double adjustment)
+{
+	double height = m_cubeLiftMotor.GetSelectedSensorPosition(0);
+	height += adjustment;
+	m_cubeLiftMotor.Set(ControlMode::Position, height);
+}
+
 bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHeight)
 {
 	double targetPosition = 0;

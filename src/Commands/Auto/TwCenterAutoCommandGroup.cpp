@@ -16,6 +16,7 @@
 #include <Commands/SpinArmWheelsInCommand.h>
 #include <Commands/FoldArmsUpCommand.h>
 #include <Commands/FoldArmsDownCommand.h>
+#include <Commands/Auto/DriveStraightCommand.h>
 
 TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide, Side scaleSide) :
 	frc::CommandGroup("TwCenterAuto")
@@ -26,16 +27,18 @@ TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide, Side scaleSi
 	{
 		// Drive to switch.
 		AddSequential(new RotateRelativeAngleCommand(QuarterPi, rotateSpeed));
-		AddSequential(new TwoWheelDriveCommand(12.5, 1, driveWheels));
-		AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
-		AddSequential(new TwoWheelDriveCommand(4, 1, driveWheels));
+		AddSequential(new TwoWheelDriveCommand(3.5, 1, driveWheels));
+		AddSequential(new DriveStraightCommand(4.0, 0.5));
+//		AddSequential(new TwoWheelDriveCommand(12.5, 1, driveWheels));
+//		AddSequential(new RotateRelativeAngleCommand(-HalfPi, rotateSpeed));
+//		AddSequential(new TwoWheelDriveCommand(5, 1, driveWheels));
 		// Deliver cube into switch.
 		AddSequential(new DeliverCubeCommand());
 		AddSequential(new TimedCommand(1.5));
 		AddParallel(new StopArmWheelsCommand());
 		//Back away from switch.
-		//AddSequential(new TwoWheelDriveCommand(1, -1, driveWheels));
-		//AddSequential(new RotateRelativeAngleCommand(QuarterPi, rotateSpeed));
+		AddSequential(new TwoWheelDriveCommand(1, -1, driveWheels));
+		AddSequential(new RotateRelativeAngleCommand(QuarterPi, rotateSpeed));
 
 		if(scaleSide == Side::Left)
 		{
@@ -49,15 +52,18 @@ TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide, Side scaleSi
 		AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
 		AddSequential(new TwoWheelDriveCommand(10.5, 1, driveWheels));
 		AddSequential(new RotateRelativeAngleCommand(HalfPi, rotateSpeed));
-		AddSequential(new TwoWheelDriveCommand(3.5, 1, driveWheels));
-		AddSequential(new RotateRelativeAngleCommand(QuarterPi, rotateSpeed));
-		AddSequential(new TwoWheelDriveCommand(1.5, 1, driveWheels));
+		AddSequential(new DriveStraightCommand(1.5, 0.5));
+//		AddSequential(new TwoWheelDriveCommand(10.5, 1, driveWheels));
+//		AddSequential(new RotateRelativeAngleCommand(HalfPi, rotateSpeed));
+//		AddSequential(new TwoWheelDriveCommand(3.5, 1, driveWheels));
+//		AddSequential(new RotateRelativeAngleCommand(QuarterPi, rotateSpeed));
+//		AddSequential(new TwoWheelDriveCommand(1.5, 1, driveWheels));
 		// Deliver cube into switch.
 		AddSequential(new DeliverCubeCommand());
 		AddSequential(new TimedCommand(1.5));
 		AddParallel(new StopArmWheelsCommand());
 		//Back away from switch.
-		//AddSequential(new TwoWheelDriveCommand(1, -1, driveWheels));
-		//AddSequential(new RotateRelativeAngleCommand(QuarterPi, rotateSpeed));
+		AddSequential(new TwoWheelDriveCommand(1, -1, driveWheels));
+		AddSequential(new RotateRelativeAngleCommand(QuarterPi, rotateSpeed));
 	}
 }
