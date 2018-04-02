@@ -36,6 +36,7 @@ private:
 	double		m_driveAngle;
 	const char* m_motor1;
 	const char* m_motor2;
+	double m_startAngle;
 };
 
 #endif /* SRC_COMMANDS_AUTO_TWOWHEELDRIVECOMMAND_H_ */

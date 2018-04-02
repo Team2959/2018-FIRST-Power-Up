@@ -14,11 +14,11 @@ class DriveStraightCommand: public frc::TimedCommand
 {
 private:
 	double m_speed;
-	double m_origSpeed;
-	double m_dist;
+	double m_startAngle;
 
 public:
 	DriveStraightCommand(double driveTime = 0, double speed = 0);
+
 	virtual void Initialize() override;
 	virtual void Execute() override;
 	virtual void End() override;

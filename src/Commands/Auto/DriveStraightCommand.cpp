@@ -15,41 +15,21 @@
 DriveStraightCommand::DriveStraightCommand(double driveTime, double speed) : frc::TimedCommand("DriveStraight", driveTime)
 {
 	Requires(Robot::DriveTrainSubsystem.get());
-	m_origSpeed = 0.5;
+	m_startAngle = 0.0;
 	m_speed = speed;
-	m_dist = 0.0;
 }
 
 void DriveStraightCommand::Initialize()
 {
-	m_origSpeed = frc::SmartDashboard::GetNumber("Auton Speed", 0.5);
-	m_dist = frc::SmartDashboard::GetNumber("Auton TW Dist", 10);
 	std::cout << "Drive Straight\n";
+	m_startAngle = Robot::MotionTrackingSubsystem->RawAngle();
 }
 
 void DriveStraightCommand::Execute()
 {
-//	double disp = ((-Robot::MotionTrackingSubsystem->m_motors["frontRight"].displacement+Robot::MotionTrackingSubsystem->m_motors["backLeft"].displacement)/2);
-//
-//	if (disp >= m_dist)
-//	{
-//		m_speed = 0;
-//	}
-//	else if (disp < 2)
-//	{
-//		m_speed = fmin(m_origSpeed, 0.25);
-//	}
-//	else if (disp < m_dist && m_dist - disp <= 2)
-//	{
-//		m_speed = fmin(m_origSpeed, 0.25);
-//	}
-//	else
-//	{
-//		m_speed = fmin(m_origSpeed, m_speed + 0.05);
-//	}
-//
-//	Robot::DriveTrainSubsystem->Drive(m_speed, 3 * QuarterPi, 0);
-	Robot::DriveTrainSubsystem->Drive(m_speed, HalfPi, 0);
+	double rotation = Robot::MotionTrackingSubsystem->RotationMagnitudeCorrection(m_startAngle);
+
+	Robot::DriveTrainSubsystem->Drive(m_speed, HalfPi, rotation);
 }
 
 void DriveStraightCommand::End()

@@ -39,10 +39,11 @@ TwoWheelDriveCommand::TwoWheelDriveCommand(double dist, double speed, bool front
 
 void TwoWheelDriveCommand::Initialize()
 {
-	std::cout << "Drive Straight\n";
+	std::cout << "TW: Drive Straight\n";
 	m_disp = 0.0;
 	m_wheelDiff = 0.0;
 	m_startDist = ((-Robot::MotionTrackingSubsystem->m_motors[m_motor1].displacement+Robot::MotionTrackingSubsystem->m_motors[m_motor2].displacement)/2);
+	m_startAngle = Robot::MotionTrackingSubsystem->RawAngle();
 }
 
 void TwoWheelDriveCommand::Execute()
@@ -81,10 +82,11 @@ void TwoWheelDriveCommand::Execute()
 		speed = m_speed;
 	}
 
-	if (fabs(m_wheelDiff) > TWO_WHL_MAX_ACCEPT_ROT)
-	{
-		rotCorrection = (TWO_WHL_FULL_TURN_SPEED / (TWO_WHL_FULL_TURN_DIFF - TWO_WHL_MAX_ACCEPT_ROT)) * (-m_wheelDiff - TWO_WHL_MAX_ACCEPT_ROT);
-	}
+//	if (fabs(m_wheelDiff) > TWO_WHL_MAX_ACCEPT_ROT)
+//	{
+//		rotCorrection = (TWO_WHL_FULL_TURN_SPEED / (TWO_WHL_FULL_TURN_DIFF - TWO_WHL_MAX_ACCEPT_ROT)) * (-m_wheelDiff - TWO_WHL_MAX_ACCEPT_ROT);
+//	}
+	rotCorrection = Robot::MotionTrackingSubsystem->RotationMagnitudeCorrection(m_startAngle);
 
 	Robot::DriveTrainSubsystem->Drive(speed, m_driveAngle, rotCorrection);
 }
@@ -92,7 +94,7 @@ void TwoWheelDriveCommand::Execute()
 void TwoWheelDriveCommand::End()
 {
 	Robot::DriveTrainSubsystem->Drive(0.0, 0.0, 0.0);
-	std::cout << "Drive Straight Finished\n";
+	std::cout << "TW: Drive Straight Finished\n";
 }
 
 void TwoWheelDriveCommand::Interrupted()
