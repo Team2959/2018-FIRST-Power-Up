@@ -24,6 +24,7 @@ TwScaleOnlyCommandGroup::TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide)
 {
 	bool driveWheels = true;
 	double rotateSpeed = 0.15;
+	double deliverCubeDelayTime = 1.0;
 	if(!botOnLeft && scaleSide == Side::Right)
 	{
 		AddParallel(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
@@ -32,14 +33,14 @@ TwScaleOnlyCommandGroup::TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide)
 		AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
 		// spit cube into scale
 		AddSequential(new DeliverCubeCommand());
-		AddSequential(new TimedCommand(1.5));
+		AddSequential(new TimedCommand(deliverCubeDelayTime));
 		AddParallel(new StopArmWheelsCommand());
 	}
 	else if(!botOnLeft && scaleSide == Side::Left)
 	{
 		AddSequential(new TwoWheelDriveCommand(19.5, 1, driveWheels));
 		AddSequential(new RotateRelativeAngleCommand(-HalfPi, rotateSpeed));
-		AddSequential(new TwoWheelDriveCommand(23.75, 1, driveWheels));
+		AddSequential(new TwoWheelDriveCommand(20.0, 1, driveWheels));
 		AddSequential(new RotateRelativeAngleCommand(HalfPi, rotateSpeed));
 		AddParallel(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
 		AddSequential(new TwoWheelDriveCommand(8, 1, driveWheels));
@@ -47,7 +48,7 @@ TwScaleOnlyCommandGroup::TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide)
 		AddSequential(new MoveToVerticalCubePositionCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
 		// spit cube into scale
 		AddSequential(new DeliverCubeCommand());
-		AddSequential(new TimedCommand(1.5));
+		AddSequential(new TimedCommand(deliverCubeDelayTime));
 		AddParallel(new StopArmWheelsCommand());
 	}
 	else if(botOnLeft && scaleSide == Side::Right)
@@ -62,7 +63,7 @@ TwScaleOnlyCommandGroup::TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide)
 		AddSequential(new MoveToVerticalCubePositionCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
 		// spit cube into scale
 		AddSequential(new DeliverCubeCommand());
-		AddSequential(new TimedCommand(1.5));
+		AddSequential(new TimedCommand(deliverCubeDelayTime));
 		AddParallel(new StopArmWheelsCommand());
 	}
 	else if(botOnLeft && scaleSide == Side::Left)
@@ -74,7 +75,7 @@ TwScaleOnlyCommandGroup::TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide)
 		AddSequential(new TwoWheelDriveCommand(0.75, 1, driveWheels));
 		// spit cube into scale
 		AddSequential(new DeliverCubeCommand());
-		AddSequential(new TimedCommand(1.5));
+		AddSequential(new TimedCommand(deliverCubeDelayTime));
 		AddParallel(new StopArmWheelsCommand());
 	}
 }
