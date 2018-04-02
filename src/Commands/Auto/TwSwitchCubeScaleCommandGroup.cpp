@@ -23,6 +23,7 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 {
 	bool driveWheels = true;
 	double rotateSpeed = 0.15;
+	double deliverCubeDelayTime = 1.0;
 	if(!botOnLeft && switchSide == Side::Right)
 	{
 		std::cout << "Starting -- Right side switch from right \n";
@@ -30,7 +31,7 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 		AddSequential(new TwoWheelDriveCommand(9.5, 1, driveWheels));
 		// spit cube into switch
 		AddSequential(new DeliverCubeCommand());
-		AddSequential(new TimedCommand(1.5));
+		AddSequential(new TimedCommand(deliverCubeDelayTime));
 		AddParallel(new StopArmWheelsCommand());
 		// back away from switch
 		AddSequential(new TwoWheelDriveCommand(1, -1, driveWheels));
@@ -60,7 +61,7 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 			//AddSequential(new TwoWheelDriveCommand(5, 1, driveWheels));
 			// spit cube into scale
 			//AddSequential(new DeliverCubeCommand());
-			//AddSequential(new TimedCommand(1.5));
+			//AddSequential(new TimedCommand(deliverCubeDelayTime));
 			//AddParallel(new StopArmWheelsCommand());
 		}
 		else
@@ -80,7 +81,7 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 			//AddSequential(new TwoWheelDriveCommand(2, 1, driveWheels));
 			// spit cube into scale
 			//AddSequential(new DeliverCubeCommand());
-			//AddSequential(new TimedCommand(1.5));
+			//AddSequential(new TimedCommand(deliverCubeDelayTime));
 			//AddParallel(new StopArmWheelsCommand());
 		}
 	}
@@ -99,7 +100,7 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 //			AddSequential(new TwoWheelDriveCommand(1, 1, driveWheels));
 //			// spit cube into scale
 //			AddSequential(new DeliverCubeCommand());
-//			AddSequential(new TimedCommand(1.5));
+//			AddSequential(new TimedCommand(deliverCubeDelayTime));
 //			AddParallel(new StopArmWheelsCommand());
 		}
 		else
@@ -119,7 +120,7 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 //			AddSequential(new TwoWheelDriveCommand(2, 1, driveWheels));
 			// spit cube into scale
 //			AddSequential(new DeliverCubeCommand());
-//			AddSequential(new TimedCommand(1.5));
+//			AddSequential(new TimedCommand(deliverCubeDelayTime));
 //			AddParallel(new StopArmWheelsCommand());
 		}
 	}
@@ -131,7 +132,7 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 		AddSequential(new TwoWheelDriveCommand(2, 1, driveWheels));
 		// spit cube into switch
 		AddSequential(new DeliverCubeCommand());
-		AddSequential(new TimedCommand(1.5));
+		AddSequential(new TimedCommand(deliverCubeDelayTime));
 		AddParallel(new StopArmWheelsCommand());
 		//Backwards from the switch
 		AddSequential(new TwoWheelDriveCommand(2, -1, driveWheels));
@@ -156,7 +157,7 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 //			AddSequential(new TwoWheelDriveCommand(0.5, 1, driveWheels));
 //			// spit cube into scale
 //			AddSequential(new DeliverCubeCommand());
-//			AddSequential(new TimedCommand(1.5));
+//			AddSequential(new TimedCommand(deliverCubeDelayTime));
 //			AddParallel(new StopArmWheelsCommand());
        	}
 		else
@@ -169,7 +170,7 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 //			AddSequential(new TwoWheelDriveCommand(3, 1, driveWheels));
 //			// spit cube into scale
 //			AddSequential(new DeliverCubeCommand());
-//			AddSequential(new TimedCommand(1.5));
+//			AddSequential(new TimedCommand(deliverCubeDelayTime));
 //			AddParallel(new StopArmWheelsCommand());
 		}
 	}
@@ -181,7 +182,6 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 		{
 
 		}
-
 		else
 		{
 
