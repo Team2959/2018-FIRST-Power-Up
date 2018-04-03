@@ -119,7 +119,7 @@ double MotionTracking::RotationMagnitudeCorrection(double startAngle) const
 	double angleDifference = RawAngle() - startAngle;
 	double absoluteDifference = fabs(angleDifference);
 	double rotation = 0.0;
-	if (absoluteDifference > 1.0)
+	if (absoluteDifference > 2.0)
 	{
 		rotation += 0.05;
 		if (absoluteDifference > 5.0)
@@ -131,7 +131,7 @@ double MotionTracking::RotationMagnitudeCorrection(double startAngle) const
 			rotation += 0.1;
 		}
 
-		if (angleDifference < 0)
+		if (angleDifference > 0)
 		{
 			rotation *= -1.0;
 		}

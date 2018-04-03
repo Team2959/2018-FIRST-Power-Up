@@ -27,7 +27,7 @@ Autonomous::Autonomous()
 //	m_chooser.AddObject("Center-Place Initial Cube On Switch", AutoCommand::PlaceInitialCubeOnSwitch);
 //	m_chooser.AddObject("Left/Right-Place Cube On Our Side", AutoCommand::PlaceCubeOnOurSide);
 //	m_chooser.AddObject("No Vision Center", AutoCommand::NoVisionCenter);
-//	m_chooser.AddObject("Two Wheel Straight", AutoCommand::AutonStraight);
+	m_chooser.AddObject("Two Wheel Straight", AutoCommand::AutonStraight);
 	m_chooser.AddObject("Two Wheel Rotate", AutoCommand::AutonRotate);
 //	m_chooser.AddObject("ScriptAuton", AutoCommand::ScriptAuton);
 	m_chooser.AddObject("TW: Lf/Rt : Switch and Scale", AutoCommand::TwoWheelSwitchCubeScale);
@@ -49,7 +49,7 @@ Autonomous::Autonomous()
 	// more vision or dead reckoning based
 //	frc::SmartDashboard::PutNumber("Auton Shimmy Speed", 0.2);
 //	frc::SmartDashboard::PutNumber("Auton Straight To Switch Time", 1.0);
-//	frc::SmartDashboard::PutNumber("Auton Straight Time", 3.5);
+	frc::SmartDashboard::PutNumber("Auton Straight Time", 3.5);
 //	frc::SmartDashboard::PutNumber("Auton Center Time", 3.5);
 
 	m_foundGameData = false;
