@@ -90,15 +90,15 @@ void VerticalArmMovement::MoveToAbsoluteHeight(double height)
 void VerticalArmMovement::SafeMoveToAbsoluteHeight(double newTarget)
 {
 	// The intent of this function is to facilitate slow acceleration and deceleration
-	// from a continuous strema of new commands and without having knowledge of previous commands.
+	// from a continuous stream of new commands and without having knowledge of previous commands.
 	// This will function only work with a continuous stream of intended heights 
 	// calling only once will not provide the intended result.  
 	
 	// Velocity is set in encoder ticks per 100ms. 
 	// Max speed of our motor + gearbox is 180 RPM (1228.8 ticks/100ms)
 	// The estimate thresholds set here will be 10% of max or ~130ticks/100ms
-	double upVelocityThreshold   = 130.0
-	double downVelocityThreshold = -130.0
+	double upVelocityThreshold   = 130.0;
+	double downVelocityThreshold = -130.0;
 	// Position thresholds are set to 5% of total height
 	double upPositionThreshold   = 0.05 * ScalePositionMaximum;
 	double downPositionThreshold = 0.05 * ScalePositionMaximum;
@@ -153,7 +153,7 @@ void VerticalArmMovement::AdjustAndSetHeight(double adjustment)
 	m_cubeLiftMotor.Set(ControlMode::Position, height);
 }
 
-double VerticalArmMovement::CurrentPosition() const
+double VerticalArmMovement::CurrentPosition()
 {
 	return m_cubeLiftMotor.GetSelectedSensorPosition(0);
 }

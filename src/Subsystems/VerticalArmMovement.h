@@ -70,7 +70,7 @@ public:
 	void SafeMoveToAbsoluteHeight(double newTarget);
 	void StopAtHeight();
 	void AdjustAndSetHeight(double adjustment);
-	double CurrentPosition() const;
+	double CurrentPosition();
 	
 	bool IsAtPosition(CubeVerticalPlace target, double scaleHeight = 0.0);
 	bool IsAtHeight(double height);
