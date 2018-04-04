@@ -20,6 +20,8 @@
 #include <Commands/FoldArmsDownCommand.h>
 #include <Commands/Auto/DriveStraightCommand.h>
 #include <Commands/Auto/DeliverCubeUntilNotPresentCommand.h>
+#include <Commands/Auto/DriveToVisionTargetCommand.h>
+
 
 TwScaleOnlyCommandGroup::TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide) :
 	frc::CommandGroup("TwScaleOnly")
@@ -42,6 +44,13 @@ TwScaleOnlyCommandGroup::TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide)
 //		AddParallel(new StopArmWheelsCommand());
 		// move vertical system to bottom
 		AddSequential(new MoveToVerticalCubePositionCommand(0));
+		// get another cube
+		AddParallel(new FoldArmsDownCommand());
+		AddSequential(new TwoWheelDriveCommand(3.0, -1, driveWheels));
+		AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
+		AddParallel(new SpinArmWheelsInCommand());
+		AddSequential(new DriveToVisionTargetCommand());
+		AddParallel(new FoldArmsUpCommand());
 	}
 	else if (!botOnLeft && scaleSide == Side::Left)
 	{

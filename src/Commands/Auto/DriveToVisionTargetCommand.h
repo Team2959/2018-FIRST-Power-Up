@@ -26,7 +26,6 @@ public:
 private:
 	constexpr static double NoTarget = -1.0;
 	constexpr static double AtTarget = -2.0;
-	constexpr static double TargetSize = 0.6;
 
 	double FindTarget();
 	void Drive(double angle);
@@ -36,6 +35,7 @@ private:
 	double				m_speed;
 	bool				m_atTarget;
 	int					m_targetSignature;
+	double 				m_targetSize;
 };
 
 #endif /* SRC_COMMANDS_AUTO_DRIVETOVISIONTARGETCOMMAND_H_ */

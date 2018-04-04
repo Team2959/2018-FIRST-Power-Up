@@ -41,7 +41,7 @@ void MoveToAbsoluteHeightCommand::Execute()
 
 bool MoveToAbsoluteHeightCommand::IsFinished()
 {
-	if (fabs(m_height) < 2000 && Robot::VerticalArmMovmentSubsystem->AtBottom())
+	if (fabs(m_targetHeight) < 2000 && Robot::VerticalArmMovmentSubsystem->AtBottom())
 	{
 		return true;
 	}
@@ -55,7 +55,7 @@ void MoveToAbsoluteHeightCommand::Interrupted()
 
 void MoveToAbsoluteHeightCommand::End()
 {
-	if (fabs(m_height) < 2000 && Robot::VerticalArmMovmentSubsystem->AtBottom())
+	if (fabs(m_targetHeight) < 2000 && Robot::VerticalArmMovmentSubsystem->AtBottom())
 	{
 		Robot::VerticalArmMovmentSubsystem->AtBottomReset();
 	}

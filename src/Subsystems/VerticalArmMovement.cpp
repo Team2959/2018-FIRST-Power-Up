@@ -13,7 +13,8 @@
 VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentSubsystem"),
 	m_cubeLiftMotor {CUBE_VERTICAL_MOTOR_CAN},
 	m_atBottomSwitch {AT_BOTTOM_LIMIT_SWITCH},
-	m_isOperatorControlled{false}
+	m_isOperatorControlled{false},
+	m_count{0}
 {
 	m_cubeLiftMotor.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Absolute, 0, 0);
 	m_cubeLiftMotor.Config_kF(0, 0, 0);
@@ -78,7 +79,8 @@ void VerticalArmMovement::MoveArmToHeight(double height)
 {
 	height = fmax(0, height);
 	height = fmin(1, height);
-	MoveToAbsoluteHeight(height * ScalePositionMaximum);
+	SafeMoveToAbsoluteHeight(height * ScalePositionMaximum);
+//	MoveToAbsoluteHeight(height * ScalePositionMaximum);
 }
 
 void VerticalArmMovement::MoveToAbsoluteHeight(double height)
@@ -89,6 +91,13 @@ void VerticalArmMovement::MoveToAbsoluteHeight(double height)
 
 void VerticalArmMovement::SafeMoveToAbsoluteHeight(double newTarget)
 {
+	m_count++;
+
+	if ((m_count % 5) != 0)
+	{
+		return;
+	}
+
 	// The intent of this function is to facilitate slow acceleration and deceleration
 	// from a continuous stream of new commands and without having knowledge of previous commands.
 	// This will function only work with a continuous stream of intended heights 
@@ -121,7 +130,8 @@ void VerticalArmMovement::SafeMoveToAbsoluteHeight(double newTarget)
 			// Target is set to only 20% of the way to intended target
 			// As the mast moves this set point will travel upward slowly,
 			// once the mast is moving though, it will be set to the intended target
-			target = ((newTarget - currentPosition) * 0.2) + currentPosition; 
+			target = currentPosition + 750;
+//			target = ((newTarget - currentPosition) * 0.2) + currentPosition;
 		}
 	} else {
 		// Asking to move DOWN

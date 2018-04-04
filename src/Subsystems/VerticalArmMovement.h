@@ -43,6 +43,7 @@ private:
 	const double ScaleConversionSlope = (ScalePositionMaximum-ScalePositionMinimum)/(ScaleHeightMaximum-ScaleHeightMinimum);
 
 	bool m_isOperatorControlled;
+	int m_count;
 
 public:
 	enum CubeVerticalPlace

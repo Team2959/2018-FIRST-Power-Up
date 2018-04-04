@@ -12,12 +12,13 @@
 #include <numeric>
 
 DriveToVisionTargetCommand::DriveToVisionTargetCommand(bool cube) :
-	m_lastAngle{HalfPi}, m_speed{ 0.25 }, m_atTarget{ false }, m_targetSignature{ CubeColor }
+	m_lastAngle{HalfPi}, m_speed{ 0.25 }, m_atTarget{ false }, m_targetSignature{ CubeColor }, m_targetSize{0.7}
 {
 	Requires(Robot::DriveTrainSubsystem.get());
 	if (!cube)
 	{
 		m_targetSignature = TapeColor;
+		m_targetSize = 0.6;
 	}
 }
 
@@ -89,7 +90,7 @@ double DriveToVisionTargetCommand::FindTarget()
 
 	if(visionObjects.size()==1)
 	{
-		if (biggestObject.Height() >= TargetSize)
+		if (biggestObject.Height() >= m_targetSize)
 		{
 			return AtTarget;
 		}
