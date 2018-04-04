@@ -25,7 +25,7 @@ VerticalArmMovement::VerticalArmMovement() : frc::Subsystem("VerticalArmMovmentS
 	m_cubeLiftMotor.SetSelectedSensorPosition(0,0,0);
 
 	m_cubeLiftMotor.ConfigPeakOutputForward(1.00, 0);	// Competition Bot
-	m_cubeLiftMotor.ConfigPeakOutputReverse(-0.75, 0);	// Competition Bot
+	m_cubeLiftMotor.ConfigPeakOutputReverse(-1.00, 0);	// Competition Bot
 //	m_cubeLiftMotor.ConfigPeakOutputForward(0.6, 0);   // Practice Bot
 //	m_cubeLiftMotor.ConfigPeakOutputReverse(-1, 0);  // Practice Bot
 	m_cubeLiftMotor.ConfigPeakCurrentLimit(5, 0);
