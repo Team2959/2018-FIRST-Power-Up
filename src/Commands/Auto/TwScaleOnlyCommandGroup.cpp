@@ -46,7 +46,7 @@ TwScaleOnlyCommandGroup::TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide)
 		AddParallel(new MoveToAbsoluteHeightCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
 		AddSequential(new RotateRelativeAngleCommand(3 * QuarterPi, rotateSpeed));
 		AddSequential(new MoveToVerticalCubePositionCommand(Robot::VerticalArmMovmentSubsystem->MaxScaleHeight()));
-		AddSequential(new DriveStraightCommand(2.0, 0.25));
+		AddSequential(new DriveStraightCommand(1.5, 0.25));
 		// spit cube into scale
 		AddSequential(new DeliverCubeCommand());
 		AddSequential(new TimedCommand(deliverCubeDelayTime));
