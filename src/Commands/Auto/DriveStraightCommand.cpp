@@ -28,9 +28,8 @@ void DriveStraightCommand::Initialize()
 void DriveStraightCommand::Execute()
 {
 	double rotation = Robot::MotionTrackingSubsystem->RotationMagnitudeCorrection(m_startAngle);
-	double angleCorrection = -10.0 * Pi / 180.0;
 
-	Robot::DriveTrainSubsystem->Drive(m_speed, HalfPi + angleCorrection, rotation);
+	Robot::DriveTrainSubsystem->Drive(m_speed, HalfPi, rotation);
 }
 
 void DriveStraightCommand::End()

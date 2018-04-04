@@ -14,5 +14,8 @@ CubePresentTrigger::CubePresentTrigger()
 
 bool CubePresentTrigger::Get()
 {
+	if (!Robot::VerticalArmMovmentSubsystem->IsOperatorControlled())
+		return false;
+
 	return Robot::CubeDeliverySubsystem->CubePresent();
 }

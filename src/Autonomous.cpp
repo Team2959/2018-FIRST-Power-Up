@@ -30,10 +30,8 @@ Autonomous::Autonomous()
 	m_chooser.AddObject("Two Wheel Straight", AutoCommand::AutonStraight);
 	m_chooser.AddObject("Two Wheel Rotate", AutoCommand::AutonRotate);
 //	m_chooser.AddObject("ScriptAuton", AutoCommand::ScriptAuton);
-	m_chooser.AddObject("TW: Lf/Rt : Switch and Scale", AutoCommand::TwoWheelSwitchCubeScale);
-	m_chooser.AddObject("TW: Center: Switch and Scale", AutoCommand::TwoWheelSwitchCubeScaleFromCenter);
-//	m_chooser.AddObject("TW: Scale and Scale", AutoCommand::TwoWheelScaleCubeScale);
-//	m_chooser.AddObject("TW: Scale and Switch", AutoCommand::TwoWheelScaleCubeSwitch);
+	m_chooser.AddObject("TW: Lf/Rt : Switch and Scale", AutoCommand::TwoWheeLLeftRightSwitch);
+	m_chooser.AddObject("TW: Center: Switch and Scale", AutoCommand::TwoWheelSwitchAndPyramidFromCenter);
 	m_chooser.AddObject("TW: Scale Only", AutoCommand::TwScaleOnlyCommandGroup);
 
 	frc::SmartDashboard::PutData("Autonomous Command", &m_chooser);
@@ -44,7 +42,7 @@ Autonomous::Autonomous()
 	// two wheel drive, encoder based
 	frc::SmartDashboard::PutNumber("Auton Angle", 45.0);
 	frc::SmartDashboard::PutNumber("Auton TW Dist", 10);
-	frc::SmartDashboard::PutString("Auton Script", "");
+//	frc::SmartDashboard::PutString("Auton Script", "");
 
 	// more vision or dead reckoning based
 //	frc::SmartDashboard::PutNumber("Auton Shimmy Speed", 0.2);
@@ -92,7 +90,7 @@ void Autonomous::StartAutonomousFromGameData()
 {
 	Side	nearSwitchSide;
 	Side	scaleSide;
-	// Side	opponentSwitchSide;
+
 	// Add code to read switch/scale state from Field Management System
 	// https://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/826278-2018-game-data-details
 	auto gameData{frc::DriverStation::GetInstance().GetGameSpecificMessage()};
@@ -134,15 +132,6 @@ void Autonomous::StartAutonomousFromGameData()
 		scaleSide = Side::Right;
 	}
 
-/*	if (gameData[2] == 'L')
-	{
-		opponentSwitchSide = Side::Left;
-	}
-	else
-	{
-		opponentSwitchSide = Side::Right;
-	} */
-
 	std::cout << "Autonomous::StartAutonomousFromGameData\n";
 	double time = frc::SmartDashboard::GetNumber("Auton Straight Time", 4.0);
 	double speed = frc::SmartDashboard::GetNumber("Auton Speed", 1.0);
@@ -162,17 +151,15 @@ void Autonomous::StartAutonomousFromGameData()
 	case AutoCommand::NoVisionCenter:
 		m_autonomousCommand = std::make_unique<DeadReckoningCenterCommandGroup>(nearSwitchSide);
 		break;
-	case AutoCommand::TwoWheelSwitchCubeScaleFromCenter:
+	case AutoCommand::TwoWheelSwitchAndPyramidFromCenter:
 		m_autonomousCommand = std::make_unique<TwCenterAutoCommandGroup>(nearSwitchSide, scaleSide);
 		break;
 	case AutoCommand::TwScaleOnlyCommandGroup:
 			m_autonomousCommand = std::make_unique<TwScaleOnlyCommandGroup>(startLeft, scaleSide);
 			break;
-	case AutoCommand::TwoWheelSwitchCubeScale:
+	case AutoCommand::TwoWheeLLeftRightSwitch:
 		m_autonomousCommand = std::make_unique<TwSwitchCubeScaleCommandGroup>(startLeft, nearSwitchSide, scaleSide);
 		break;
-	case AutoCommand::TwoWheelScaleCubeScale:
-	case AutoCommand::TwoWheelScaleCubeSwitch:
 	case AutoCommand::AutonStraight:
 		m_autonomousCommand = std::make_unique<TwoWheelDriveCommand>(distance, speed, true);
 		break;

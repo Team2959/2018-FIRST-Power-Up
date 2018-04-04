@@ -28,10 +28,8 @@ private:
 		AutonStraight,
 		AutonRotate,
 		ScriptAuton,
-		TwoWheelSwitchCubeScale,
-		TwoWheelScaleCubeScale,
-		TwoWheelSwitchCubeScaleFromCenter,
-		TwoWheelScaleCubeSwitch,
+		TwoWheeLLeftRightSwitch,
+		TwoWheelSwitchAndPyramidFromCenter,
 		TwScaleOnlyCommandGroup
 	};
 
