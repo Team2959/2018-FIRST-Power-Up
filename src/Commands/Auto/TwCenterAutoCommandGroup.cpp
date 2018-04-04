@@ -43,7 +43,7 @@ TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide, Side scaleSi
 		AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
 		AddParallel(new FoldArmsDownCommand());
 		AddParallel(new SpinArmWheelsInCommand());
-		AddSequential(new TimedCommand(1.25));
+		AddSequential(new AutoStopWheelSpinCommand());
 		AddSequential(new DriveStraightCommand(1.5, 0.25));
 
 		// Deliver cube into switch.
