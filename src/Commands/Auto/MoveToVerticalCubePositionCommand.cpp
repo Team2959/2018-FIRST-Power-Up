@@ -21,6 +21,10 @@ void MoveToVerticalCubePositionCommand::Execute()
 
 bool MoveToVerticalCubePositionCommand::IsFinished()
 {
+	if (fabs(m_height) < 2000 && Robot::VerticalArmMovmentSubsystem->AtBottom())
+	{
+		return true;
+	}
 	return Robot::VerticalArmMovmentSubsystem->IsAtHeight(m_height);
 }
 
@@ -31,5 +35,12 @@ void MoveToVerticalCubePositionCommand::Interrupted()
 
 void MoveToVerticalCubePositionCommand::End()
 {
-	Robot::VerticalArmMovmentSubsystem->StopAtHeight();
+	if (fabs(m_height) < 2000 && Robot::VerticalArmMovmentSubsystem->AtBottom())
+	{
+		Robot::VerticalArmMovmentSubsystem->AtBottomReset();
+	}
+	else
+	{
+		Robot::VerticalArmMovmentSubsystem->StopAtHeight();
+	}
 }
