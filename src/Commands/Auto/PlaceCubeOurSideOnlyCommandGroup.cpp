@@ -15,6 +15,7 @@
 #include <SmartDashboard/SmartDashboard.h>
 #include "RobotMap.h"
 #include <Commands/StopArmWheelsCommand.h>
+#include <Commands/Auto/DeliverCubeUntilNotPresentCommand.h>
 
 PlaceCubeOurSideOnlyCommandGroup::PlaceCubeOurSideOnlyCommandGroup(Side nearSwitchSide):
 	frc::CommandGroup("PlaceCubeOurSideOnly")
@@ -28,9 +29,10 @@ PlaceCubeOurSideOnlyCommandGroup::PlaceCubeOurSideOnlyCommandGroup(Side nearSwit
 		double time = frc::SmartDashboard::GetNumber("Auton Straight Time", 4.0);
 
 		AddSequential(new DriveStraightCommand(time));
-		AddSequential(new DeliverCubeCommand());
-		AddSequential(new TimedCommand(2.5));
-		AddSequential(new StopArmWheelsCommand());
+		AddSequential(new DeliverCubeUntilNotPresentCommand(), 2.5);
+//		AddParallel(new DeliverCubeCommand());
+//		AddSequential(new TimedCommand(2.5));
+//		AddParallel(new StopArmWheelsCommand());
 	}
 	else
 	{

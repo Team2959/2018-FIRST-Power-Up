@@ -29,10 +29,8 @@ TwoWheelDriveCommand::TwoWheelDriveCommand(double dist, double speed, bool front
 		m_driveAngle = 3.0 * QuarterPi;
 	}
 
-
 	if (speed < 0)
 	{
-		speed = fabs(speed);
 		m_driveAngle+= Pi;
 	}
 }
@@ -86,7 +84,7 @@ void TwoWheelDriveCommand::Execute()
 //	{
 //		rotCorrection = (TWO_WHL_FULL_TURN_SPEED / (TWO_WHL_FULL_TURN_DIFF - TWO_WHL_MAX_ACCEPT_ROT)) * (-m_wheelDiff - TWO_WHL_MAX_ACCEPT_ROT);
 //	}
-	rotCorrection = Robot::MotionTrackingSubsystem->RotationMagnitudeCorrection(m_startAngle);
+	rotCorrection = Robot::MotionTrackingSubsystem->RotationMagnitudeCorrection(m_startAngle, m_speed >= 0.0);
 
 	Robot::DriveTrainSubsystem->Drive(speed, m_driveAngle, rotCorrection);
 }

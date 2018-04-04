@@ -10,14 +10,15 @@
 #include <SmartDashboard/SmartDashboard.h>
 
 MoveToAbsoluteHeightCommand::MoveToAbsoluteHeightCommand(double height) : frc::Command("MoveToAbsoluteHeight"),
-	m_startHeight{0}, m_targetHeight{height}, m_count{0}
+	m_startHeight{0}, m_targetSteppingHeight{0}, m_targetHeight{height}, m_count{0}
 {
 	Requires(Robot::VerticalArmMovmentSubsystem.get());
 }
 
 void MoveToAbsoluteHeightCommand::Initialize()
 {
-	m_startHeight = 0;
+	m_startHeight = Robot::VerticalArmMovmentSubsystem->CurrentPosition();
+	m_targetSteppingHeight = fabs(m_startHeight) + 7500;
 	m_count = 0;
 }
 
@@ -25,7 +26,7 @@ void MoveToAbsoluteHeightCommand::Execute()
 {
 	double target = m_targetHeight;
 	m_count++;
-	if (fabs(m_startHeight) < 7500)
+	if (fabs(m_startHeight) < m_targetSteppingHeight)
 	{
 		if ((m_count % 5) == 0)
 		{

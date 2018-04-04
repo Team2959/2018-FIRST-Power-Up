@@ -54,7 +54,7 @@ public:
     double GetAngle();
     double RawAngle() const;
 
-    double RotationMagnitudeCorrection(double startAngle) const;
+    double RotationMagnitudeCorrection(double startAngle, bool movingForward) const;
 
 	AHRS* m_navmxp;
 

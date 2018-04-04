@@ -143,14 +143,19 @@ void VerticalArmMovement::SafeMoveToAbsoluteHeight(double newTarget)
 
 void VerticalArmMovement::StopAtHeight()
 {
-	MoveToAbsoluteHeight(m_cubeLiftMotor.GetSelectedSensorPosition(0));
+	MoveToAbsoluteHeight(CurrentPosition());
 }
 
 void VerticalArmMovement::AdjustAndSetHeight(double adjustment)
 {
-	double height = m_cubeLiftMotor.GetSelectedSensorPosition(0);
+	double height = CurrentPosition();
 	height += adjustment;
 	m_cubeLiftMotor.Set(ControlMode::Position, height);
+}
+
+double VerticalArmMovement::CurrentPosition() const
+{
+	return m_cubeLiftMotor.GetSelectedSensorPosition(0);
 }
 
 bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHeight)
@@ -187,17 +192,17 @@ bool VerticalArmMovement::IsAtPosition(CubeVerticalPlace target, double scaleHei
 
 bool VerticalArmMovement::IsAtHeight(double height)
 {
-	return fabs(m_cubeLiftMotor.GetSelectedSensorPosition(0) - height) < 750;
+	return fabs(CurrentPosition() - height) < 750;
 }
 
 bool VerticalArmMovement::IsAtSwitchOrHigher()
 {
-	return m_cubeLiftMotor.GetSelectedSensorPosition(0) > (SwitchPosition - 500);
+	return CurrentPosition() > (SwitchPosition - 500);
 }
 
 void VerticalArmMovement::UpdateSmartDashboard()
 {
-	frc::SmartDashboard::PutNumber("Current Position", m_cubeLiftMotor.GetSelectedSensorPosition(0));
+	frc::SmartDashboard::PutNumber("Current Position", CurrentPosition());
 	frc::SmartDashboard::PutBoolean("At Vert Bottom", AtBottom());
 }
 

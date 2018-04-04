@@ -11,11 +11,14 @@
 #include <iostream>
 #include <numeric>
 
-DriveToVisionTargetCommand::DriveToVisionTargetCommand() :
-	m_lastAngle{HalfPi}, m_speed{ 0.25 }, m_atTarget{ false }
+DriveToVisionTargetCommand::DriveToVisionTargetCommand(bool cube) :
+	m_lastAngle{HalfPi}, m_speed{ 0.25 }, m_atTarget{ false }, m_targetSignature{ CubeColor }
 {
-	Requires(Robot::VisionSubsystem.get());
 	Requires(Robot::DriveTrainSubsystem.get());
+	if (!cube)
+	{
+		m_targetSignature = TapeColor;
+	}
 }
 
 void DriveToVisionTargetCommand::Initialize()
@@ -52,10 +55,10 @@ void DriveToVisionTargetCommand::Execute()
 		angle = HalfPi;
 
 	m_history.push_back(angle);
-		while(m_history.size()>5)
-			m_history.erase(m_history.begin());
+	while(m_history.size()>5)
+		m_history.erase(m_history.begin());
 
-		angle = std::accumulate(std::begin(m_history), std::end(m_history),0.0)/m_history.size();
+	angle = std::accumulate(std::begin(m_history), std::end(m_history),0.0)/m_history.size();
 
 	std::cout << "Drive to Vision Target - angle " << angle << ".\n";
 	Drive(angle);
@@ -78,7 +81,7 @@ void DriveToVisionTargetCommand::Interrupted()
 
 double DriveToVisionTargetCommand::FindTarget()
 {
-	std::vector<VisionObject>	visionObjects = Robot::VisionSubsystem->GetObjects(TapeColor);
+	std::vector<VisionObject>	visionObjects = Robot::VisionSubsystem->GetObjects(m_targetSignature);
 	if (visionObjects.empty())
 		return NoTarget;
 
@@ -90,6 +93,11 @@ double DriveToVisionTargetCommand::FindTarget()
 		{
 			return AtTarget;
 		}
+		return biggestObject.CenterX();
+	}
+	
+	if (m_targetSignature == CubeColor)
+	{
 		return biggestObject.CenterX();
 	}
 

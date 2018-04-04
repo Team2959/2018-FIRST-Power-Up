@@ -15,7 +15,8 @@
 class DriveToVisionTargetCommand: public frc::Command
 {
 public:
-	DriveToVisionTargetCommand();
+	DriveToVisionTargetCommand(bool cube = true);
+	
 	virtual void Initialize() override;
 	virtual void Execute() override;
 	virtual bool IsFinished() override;
@@ -34,6 +35,7 @@ private:
 	double				m_lastAngle;
 	double				m_speed;
 	bool				m_atTarget;
+	int					m_targetSignature;
 };
 
 #endif /* SRC_COMMANDS_AUTO_DRIVETOVISIONTARGETCOMMAND_H_ */

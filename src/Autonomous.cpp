@@ -30,14 +30,14 @@ Autonomous::Autonomous()
 	m_chooser.AddObject("Two Wheel Straight", AutoCommand::AutonStraight);
 	m_chooser.AddObject("Two Wheel Rotate", AutoCommand::AutonRotate);
 //	m_chooser.AddObject("ScriptAuton", AutoCommand::ScriptAuton);
-	m_chooser.AddObject("TW: Lf/Rt : Switch and Scale", AutoCommand::TwoWheeLLeftRightSwitch);
+	m_chooser.AddObject("TW: Lf/Rt : Switch and Scale", AutoCommand::TwoWheelLeftRightSwitch);
 	m_chooser.AddObject("TW: Center: Switch and Scale", AutoCommand::TwoWheelSwitchAndPyramidFromCenter);
 	m_chooser.AddObject("TW: Scale Only", AutoCommand::TwScaleOnlyCommandGroup);
 
 	frc::SmartDashboard::PutData("Autonomous Command", &m_chooser);
 
 	frc::SmartDashboard::PutNumber("Auton Speed", 1.0);
-	frc::SmartDashboard::PutBoolean("Is Auton Starting Left?", true);
+	frc::SmartDashboard::PutBoolean("Is Auton Starting Left?", false);
 
 	// two wheel drive, encoder based
 	frc::SmartDashboard::PutNumber("Auton Angle", 45.0);
@@ -136,7 +136,7 @@ void Autonomous::StartAutonomousFromGameData()
 	double time = frc::SmartDashboard::GetNumber("Auton Straight Time", 4.0);
 	double speed = frc::SmartDashboard::GetNumber("Auton Speed", 1.0);
 	double distance = frc::SmartDashboard::GetNumber("Auton TW Dist", 10);
-	bool startLeft = frc::SmartDashboard::GetBoolean("Is Auton Starting Left?", true);
+	bool startLeft = frc::SmartDashboard::GetBoolean("Is Auton Starting Left?", false);
 	switch(m_chooser.GetSelected())
 	{
 	case AutoCommand::Default:
@@ -152,12 +152,12 @@ void Autonomous::StartAutonomousFromGameData()
 		m_autonomousCommand = std::make_unique<DeadReckoningCenterCommandGroup>(nearSwitchSide);
 		break;
 	case AutoCommand::TwoWheelSwitchAndPyramidFromCenter:
-		m_autonomousCommand = std::make_unique<TwCenterAutoCommandGroup>(nearSwitchSide, scaleSide);
+		m_autonomousCommand = std::make_unique<TwCenterAutoCommandGroup>(nearSwitchSide);
 		break;
 	case AutoCommand::TwScaleOnlyCommandGroup:
 			m_autonomousCommand = std::make_unique<TwScaleOnlyCommandGroup>(startLeft, scaleSide);
 			break;
-	case AutoCommand::TwoWheeLLeftRightSwitch:
+	case AutoCommand::TwoWheelLeftRightSwitch:
 		m_autonomousCommand = std::make_unique<TwSwitchCubeScaleCommandGroup>(startLeft, nearSwitchSide, scaleSide);
 		break;
 	case AutoCommand::AutonStraight:

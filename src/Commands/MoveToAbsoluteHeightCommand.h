@@ -14,6 +14,7 @@ class MoveToAbsoluteHeightCommand: public frc::Command
 {
 private:
 	double m_startHeight;
+	double m_targetSteppingHeight;
 	double m_targetHeight;
 	int m_count;
 

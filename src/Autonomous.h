@@ -28,7 +28,7 @@ private:
 		AutonStraight,
 		AutonRotate,
 		ScriptAuton,
-		TwoWheeLLeftRightSwitch,
+		TwoWheelLeftRightSwitch,
 		TwoWheelSwitchAndPyramidFromCenter,
 		TwScaleOnlyCommandGroup
 	};

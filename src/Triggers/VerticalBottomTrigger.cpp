@@ -14,5 +14,8 @@ VerticalBottomTrigger::VerticalBottomTrigger()
 
 bool VerticalBottomTrigger::Get()
 {
+	if (!Robot::VerticalArmMovmentSubsystem->IsOperatorControlled())
+		return false;
+
 	return Robot::VerticalArmMovmentSubsystem->AtBottom();
 }

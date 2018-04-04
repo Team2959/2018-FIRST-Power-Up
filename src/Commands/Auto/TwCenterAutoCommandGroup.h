@@ -14,7 +14,7 @@
 class TwCenterAutoCommandGroup: public frc::CommandGroup
 {
 public:
-	TwCenterAutoCommandGroup(Side switchSide, Side scaleSide);
+	TwCenterAutoCommandGroup(Side switchSide);
 };
 
 #endif /* SRC_COMMANDS_AUTO_TWCENTERAUTOCOMMANDGROUP_H_ */

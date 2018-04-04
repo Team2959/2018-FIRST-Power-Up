@@ -11,10 +11,10 @@
 #include <Commands/CommandGroup.h>
 #include <Autonomous.h>
 
-class TwScaleOnlyCommandGroup: public frc::CommandGroup {
+class TwScaleOnlyCommandGroup: public frc::CommandGroup
+{
 public:
 	TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide);
-	virtual ~TwScaleOnlyCommandGroup();
 };
 
 #endif /* SRC_COMMANDS_AUTO_TWSCALEONLYCOMMANDGROUP_H_ */

@@ -114,7 +114,7 @@ double MotionTracking::RawAngle() const
 	return m_navmxp->GetAngle();
 }
 
-double MotionTracking::RotationMagnitudeCorrection(double startAngle) const
+double MotionTracking::RotationMagnitudeCorrection(double startAngle, bool movingForward) const
 {
 	double angleDifference = RawAngle() - startAngle;
 	double absoluteDifference = fabs(angleDifference);
@@ -131,7 +131,8 @@ double MotionTracking::RotationMagnitudeCorrection(double startAngle) const
 			rotation += 0.1;
 		}
 
-		if (angleDifference > 0)
+		if ((angleDifference > 0 && movingForward) ||
+			(angleDifference < 0 && !movingForward))
 		{
 			rotation *= -1.0;
 		}
