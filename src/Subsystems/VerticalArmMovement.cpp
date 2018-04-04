@@ -87,6 +87,60 @@ void VerticalArmMovement::MoveToAbsoluteHeight(double height)
 	m_cubeLiftMotor.Set(ControlMode::Position, height);
 }
 
+void VerticalArmMovement::SafeMoveToAbsoluteHeight(double newTarget)
+{
+	// The intent of this function is to facilitate slow acceleration and deceleration
+	// from a continuous strema of new commands and without having knowledge of previous commands.
+	// This will function only work with a continuous stream of intended heights 
+	// calling only once will not provide the intended result.  
+	
+	// Velocity is set in encoder ticks per 100ms. 
+	// Max speed of our motor + gearbox is 180 RPM (1228.8 ticks/100ms)
+	// The estimate thresholds set here will be 10% of max or ~130ticks/100ms
+	double upVelocityThreshold   = 130.0
+	double downVelocityThreshold = -130.0
+	// Position thresholds are set to 5% of total height
+	double upPositionThreshold   = 0.05 * ScalePositionMaximum;
+	double downPositionThreshold = 0.05 * ScalePositionMaximum;
+
+	double currentVelocity = m_cubeLiftMotor.GetSelectedSensorVelocity(0);
+	double currentPosition = m_cubeLiftMotor.GetSelectedSensorPosition(0);
+
+	double target = currentPosition; // A safe initial value
+
+	// Is target asking to move up or down
+	if (newTarget >= currentPosition) {
+		// Asking to move UP
+		if ((newTarget - currentPosition) < upPositionThreshold || currentVelocity > upVelocityThreshold) {
+			// The mast is moving fast enough or is close enough to set the full target
+			target = newTarget;
+		} else if (currentVelocity < 0) {
+			// If the mast is moving down it should be stopped before being moved up
+			target = currentPosition;
+		} else {
+			// Target is set to only 20% of the way to intended target
+			// As the mast moves this set point will travel upward slowly,
+			// once the mast is moving though, it will be set to the intended target
+			target = ((newTarget - currentPosition) * 0.2) + currentPosition; 
+		}
+	} else {
+		// Asking to move DOWN
+		if (currentVelocity > 0) {
+			// If the mast is moving up it should stop before being moved back down
+			target = currentPosition;
+		} else if ((currentPosition - newTarget) < downPositionThreshold && currentVelocity > downVelocityThreshold) {
+			target = newTarget;
+		} else {
+			// Target is set to 80% of the way to the intended target,
+			// this should allow the PID to slow the mast down significantly before
+			// target is set to the intended target
+			target = newTarget + (0.2 * (currentPosition - newTarget));
+		}
+	}
+
+	m_cubeLiftMotor.Set(ControlMode::Position, target);
+}
+
 void VerticalArmMovement::StopAtHeight()
 {
 	MoveToAbsoluteHeight(m_cubeLiftMotor.GetSelectedSensorPosition(0));
