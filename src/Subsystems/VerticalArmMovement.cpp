@@ -93,11 +93,6 @@ void VerticalArmMovement::SafeMoveToAbsoluteHeight(double newTarget)
 {
 	m_count++;
 
-	if ((m_count % 5) != 0)
-	{
-		return;
-	}
-
 	// The intent of this function is to facilitate slow acceleration and deceleration
 	// from a continuous stream of new commands and without having knowledge of previous commands.
 	// This will function only work with a continuous stream of intended heights 
@@ -118,29 +113,52 @@ void VerticalArmMovement::SafeMoveToAbsoluteHeight(double newTarget)
 	double target = currentPosition; // A safe initial value
 
 	// Is target asking to move up or down
-	if (newTarget >= currentPosition) {
+	if (newTarget >= currentPosition)
+	{
 		// Asking to move UP
-		if ((newTarget - currentPosition) < upPositionThreshold || currentVelocity > upVelocityThreshold) {
+		if ((newTarget - currentPosition) < upPositionThreshold || currentVelocity > upVelocityThreshold)
+		{
 			// The mast is moving fast enough or is close enough to set the full target
 			target = newTarget;
-		} else if (currentVelocity < 0) {
+		}
+		else if (currentVelocity < 0)
+		{
 			// If the mast is moving down it should be stopped before being moved up
 			target = currentPosition;
-		} else {
+		}
+		else
+		{
+			if ((m_count % 5) != 0)
+			{
+				return;
+			}
+
 			// Target is set to only 20% of the way to intended target
 			// As the mast moves this set point will travel upward slowly,
 			// once the mast is moving though, it will be set to the intended target
 			target = currentPosition + 750;
 //			target = ((newTarget - currentPosition) * 0.2) + currentPosition;
 		}
-	} else {
+	}
+	else
+	{
 		// Asking to move DOWN
-		if (currentVelocity > 0) {
+		if (currentVelocity > 0)
+		{
 			// If the mast is moving up it should stop before being moved back down
 			target = currentPosition;
-		} else if ((currentPosition - newTarget) < downPositionThreshold && currentVelocity > downVelocityThreshold) {
+		}
+		else if ((currentPosition - newTarget) < downPositionThreshold && currentVelocity > downVelocityThreshold)
+		{
 			target = newTarget;
-		} else {
+		}
+		else
+		{
+			if ((m_count % 5) != 0)
+			{
+				return;
+			}
+
 			// Target is set to 80% of the way to the intended target,
 			// this should allow the PID to slow the mast down significantly before
 			// target is set to the intended target

@@ -48,9 +48,9 @@ TwScaleOnlyCommandGroup::TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide)
 		AddParallel(new FoldArmsDownCommand());
 		AddSequential(new TwoWheelDriveCommand(3.0, -1, driveWheels));
 		AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
-		AddParallel(new SpinArmWheelsInCommand());
-		AddSequential(new DriveToVisionTargetCommand());
-		AddParallel(new FoldArmsUpCommand());
+//		AddParallel(new SpinArmWheelsInCommand());
+//		AddSequential(new DriveToVisionTargetCommand());
+//		AddParallel(new FoldArmsUpCommand());
 	}
 	else if (!botOnLeft && scaleSide == Side::Left)
 	{
