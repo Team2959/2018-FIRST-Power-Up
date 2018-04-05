@@ -31,10 +31,10 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 		// drive to switch
 		AddSequential(new TwoWheelDriveCommand(9.5, 1, driveWheels));
 		// spit cube into switch
-		AddSequential(new DeliverCubeUntilNotPresentCommand(), deliverCubeDelayTime);
-//		AddParallel(new DeliverCubeCommand());
-//		AddSequential(new TimedCommand(deliverCubeDelayTime));
-//		AddParallel(new StopArmWheelsCommand());
+//		AddSequential(new DeliverCubeUntilNotPresentCommand(), deliverCubeDelayTime);
+		AddParallel(new DeliverCubeCommand());
+		AddSequential(new TimedCommand(deliverCubeDelayTime));
+		AddParallel(new StopArmWheelsCommand());
 		// back away from switch
 		AddSequential(new TwoWheelDriveCommand(1, -1, driveWheels));
 		// turn 45 left toward outside wall
@@ -133,10 +133,10 @@ TwSwitchCubeScaleCommandGroup::TwSwitchCubeScaleCommandGroup(bool botOnLeft, Sid
 		AddSequential(new RotateRelativeAngleCommand(HalfPi, rotateSpeed));
 		AddSequential(new TwoWheelDriveCommand(2, 1, driveWheels));
 		// spit cube into switch
-		AddSequential(new DeliverCubeUntilNotPresentCommand(), deliverCubeDelayTime);
-//		AddParallel(new DeliverCubeCommand());
-//		AddSequential(new TimedCommand(deliverCubeDelayTime));
-//		AddParallel(new StopArmWheelsCommand());
+//		AddSequential(new DeliverCubeUntilNotPresentCommand(), deliverCubeDelayTime);
+		AddParallel(new DeliverCubeCommand());
+		AddSequential(new TimedCommand(deliverCubeDelayTime));
+		AddParallel(new StopArmWheelsCommand());
 		//Backwards from the switch
 		AddSequential(new TwoWheelDriveCommand(2, -1, driveWheels));
 		AddSequential(new RotateRelativeAngleCommand(-HalfPi, rotateSpeed));
