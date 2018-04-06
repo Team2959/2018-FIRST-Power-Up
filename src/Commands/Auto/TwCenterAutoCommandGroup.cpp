@@ -20,7 +20,6 @@
 #include "Commands/FoldArmsDownCommand.h"
 #include "Commands/FoldArmsUpCommand.h"
 #include <Commands/Auto/AutoStopWheelSpinCommand.h>
-#include <Commands/Auto/DeliverCubeUntilNotPresentCommand.h>
 
 TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide) :
 	frc::CommandGroup("TwCenterAuto")
@@ -36,7 +35,6 @@ TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide) :
 		AddSequential(new TwoWheelDriveCommand(3.0, 1.0, driveWheels));
 		AddSequential(new DriveStraightCommand(2.25, 0.3));
 		// Deliver cube into switch.
-//		AddSequential(new DeliverCubeUntilNotPresentCommand(), deliverCubeDelayTime);
 		AddParallel(new DeliverCubeCommand());
 		AddSequential(new TimedCommand(deliverCubeDelayTime));
 		AddParallel(new StopArmWheelsCommand());
@@ -55,7 +53,6 @@ TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide) :
 		AddSequential(new RotateRelativeAngleCommand(QuarterPi, rotateSpeed));
 		AddSequential(new DriveStraightCommand(1.5, 0.3));
 		// Deliver cube into switch.
-//		AddSequential(new DeliverCubeUntilNotPresentCommand(), deliverCubeDelayTime);
 		AddParallel(new DeliverCubeCommand());
 		AddSequential(new TimedCommand(deliverCubeDelayTime));
 		AddParallel(new StopArmWheelsCommand());
@@ -68,7 +65,6 @@ TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide) :
 		AddSequential(new RotateRelativeAngleCommand(HalfPi, rotateSpeed));
 		AddSequential(new DriveStraightCommand(1.5, 0.25));
 		// Deliver cube into switch.
-//		AddSequential(new DeliverCubeUntilNotPresentCommand(), deliverCubeDelayTime);
 		AddParallel(new DeliverCubeCommand());
 		AddSequential(new TimedCommand(deliverCubeDelayTime));
 		AddParallel(new StopArmWheelsCommand());
@@ -87,7 +83,6 @@ TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide) :
 		AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
 		AddSequential(new TwoWheelDriveCommand(1.75, 1, driveWheels));
 		// Deliver cube into switch.
-//		AddSequential(new DeliverCubeUntilNotPresentCommand(), deliverCubeDelayTime);
 		AddParallel(new DeliverCubeCommand());
 		AddSequential(new TimedCommand(deliverCubeDelayTime));
 		AddParallel(new StopArmWheelsCommand());

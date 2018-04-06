@@ -14,7 +14,7 @@
 class TwScaleOnlyCommandGroup: public frc::CommandGroup
 {
 public:
-	TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide);
+	TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide, Side switchSide);
 };
 
 #endif /* SRC_COMMANDS_AUTO_TWSCALEONLYCOMMANDGROUP_H_ */
