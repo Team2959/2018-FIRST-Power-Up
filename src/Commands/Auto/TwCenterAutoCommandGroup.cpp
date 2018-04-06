@@ -85,7 +85,7 @@ TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide) :
 		AddParallel(new FoldArmsUpCommand());
 		AddSequential(new TimedCommand(foldArmsTime));
 		AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
-		AddSequential(new TwoWheelDriveCommand(1.5, 1, driveWheels));
+		AddSequential(new TwoWheelDriveCommand(1.75, 1, driveWheels));
 		// Deliver cube into switch.
 //		AddSequential(new DeliverCubeUntilNotPresentCommand(), deliverCubeDelayTime);
 		AddParallel(new DeliverCubeCommand());
