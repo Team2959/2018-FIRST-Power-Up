@@ -28,6 +28,7 @@ OI::OI()
 	ButtonBox.reset(new frc::Joystick(1));
 
 	// map driver buttons
+	DriverDeliverCubeButton.reset(new frc::JoystickButton(DriverJoystick.get(), 1));
 	OpenOrCloseCubeArmsButton.reset(new frc::JoystickButton(DriverJoystick.get(), 2));
 
 	// map co-pilot buttons
@@ -46,6 +47,7 @@ OI::OI()
 
 	// Tie buttons to commands
 	OpenOrCloseCubeArmsButton->WhenPressed(new OpenOrCloseCubeArmsCommand());
+	DriverDeliverCubeButton->WhenPressed(new DeliverCubeCommand());
 	RaiseHooksUpButton->WhenPressed(new RaiseHooksUpToRungCommand());
 	DropHooksDownButton->WhileHeld(new DropHooksDownCommand());
 	StopArmWheelsButton->WhenPressed(new StopArmWheelsCommand());

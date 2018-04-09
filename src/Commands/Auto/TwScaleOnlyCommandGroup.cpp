@@ -55,7 +55,7 @@ TwScaleOnlyCommandGroup::TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide,
 		if (switchSide == Side::Right)
 		{
 			// drive to switch
-			AddSequential(new TwoWheelDriveCommand(10, 1, driveWheels));
+			AddSequential(new TwoWheelDriveCommand(11.5, 1, driveWheels));
 			AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
 			AddSequential(new DriveStraightCommand(2.0, 0.3));
 			//Deliver Cube to Switch
@@ -75,7 +75,7 @@ TwScaleOnlyCommandGroup::TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide,
 		if (switchSide == Side::Left)
 		{
 			// drive to switch
-			AddSequential(new TwoWheelDriveCommand(10, 1, driveWheels));
+			AddSequential(new TwoWheelDriveCommand(11.5, 1, driveWheels));
 			AddSequential(new RotateRelativeAngleCommand(QuarterPi, rotateSpeed));
 			AddSequential(new DriveStraightCommand(2.0, 0.3));
 			//Deliver Cube to Switch

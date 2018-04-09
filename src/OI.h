@@ -20,6 +20,11 @@ private:
 	std::shared_ptr<frc::Joystick> DriverJoystick;
 	std::shared_ptr<frc::Joystick> ButtonBox;
 
+	// driver buttons
+	std::shared_ptr<frc::JoystickButton> DriverDeliverCubeButton;
+	std::shared_ptr<frc::JoystickButton> OpenOrCloseCubeArmsButton;
+
+	// co-pilot buttons
 	std::shared_ptr<frc::JoystickButton> RaiseHooksUpButton;
 	std::shared_ptr<frc::JoystickButton> DropHooksDownButton;
 	std::shared_ptr<frc::JoystickButton> StopArmWheelsButton;
@@ -27,7 +32,6 @@ private:
 	std::shared_ptr<frc::JoystickButton> FoldCubeArmsDownButton;
 	std::shared_ptr<frc::JoystickButton> SpinArmWheelsInButton;
 	std::shared_ptr<frc::JoystickButton> DeliverCubeButton;
-	std::shared_ptr<frc::JoystickButton> OpenOrCloseCubeArmsButton;
 	std::shared_ptr<frc::JoystickButton> VerticalButton;
 
 	std::shared_ptr<CubePresentTrigger> IsCubePresentTrigger;
