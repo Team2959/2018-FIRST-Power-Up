@@ -101,6 +101,7 @@ TwScaleOnlyCommandGroup::TwScaleOnlyCommandGroup(bool botOnLeft, Side scaleSide,
 		AddParallel(new DeliverCubeCommand());
 		AddSequential(new TimedCommand(deliverCubeDelayTime));
 		AddParallel(new StopArmWheelsCommand());
+		// move vertical system to bottom
 		AddSequential(new MoveToVerticalCubePositionCommand(0));
 	}
 }
