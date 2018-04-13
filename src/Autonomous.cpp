@@ -155,7 +155,7 @@ void Autonomous::StartAutonomousFromGameData()
 		m_autonomousCommand = std::make_unique<TwCenterAutoCommandGroup>(nearSwitchSide);
 		break;
 	case AutoCommand::TwScaleOnlyCommandGroup:
-			m_autonomousCommand = std::make_unique<TwScaleOnlyCommandGroup>(startLeft, scaleSide);
+			m_autonomousCommand = std::make_unique<TwScaleOnlyCommandGroup>(startLeft, scaleSide, nearSwitchSide);
 			break;
 	case AutoCommand::TwoWheelLeftRightSwitch:
 		m_autonomousCommand = std::make_unique<TwSwitchCubeScaleCommandGroup>(startLeft, nearSwitchSide, scaleSide);

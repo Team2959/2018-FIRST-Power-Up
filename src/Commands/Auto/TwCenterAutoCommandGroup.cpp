@@ -20,7 +20,6 @@
 #include "Commands/FoldArmsDownCommand.h"
 #include "Commands/FoldArmsUpCommand.h"
 #include <Commands/Auto/AutoStopWheelSpinCommand.h>
-#include <Commands/Auto/DeliverCubeUntilNotPresentCommand.h>
 
 TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide) :
 	frc::CommandGroup("TwCenterAuto")
@@ -34,28 +33,26 @@ TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide) :
 		// Drive to right switch from center.
 		AddSequential(new RotateRelativeAngleCommand(QuarterPi, rotateSpeed));
 		AddSequential(new TwoWheelDriveCommand(3.0, 1.0, driveWheels));
-		AddSequential(new DriveStraightCommand(2.25, 0.3));
+		AddSequential(new DriveStraightCommand(2.5, 0.3));
 		// Deliver cube into switch.
-//		AddSequential(new DeliverCubeUntilNotPresentCommand(), deliverCubeDelayTime);
 		AddParallel(new DeliverCubeCommand());
 		AddSequential(new TimedCommand(deliverCubeDelayTime));
 		AddParallel(new StopArmWheelsCommand());
 		//Back away from switch and go to cube pyramid.
-		AddSequential(new DriveStraightCommand(1.5, -0.3));
-		AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
+		AddSequential(new TwoWheelDriveCommand(1.5, -1.0, driveWheels));
+		AddSequential(new RotateRelativeAngleCommand(-1.5 * QuarterPi, rotateSpeed));
 		AddParallel(new FoldArmsDownCommand());
 		AddSequential(new TimedCommand(foldArmsTime));
 		AddParallel(new SpinArmWheelsInCommand());
-		AddSequential(new DriveStraightCommand(1.5, 0.25));
+		AddSequential(new DriveStraightCommand(0.5, 0.25));
 		AddSequential(new AutoStopWheelSpinCommand());
 		// reverse drive back to switch
-		AddSequential(new DriveStraightCommand(1.5, -0.25));
+		AddSequential(new DriveStraightCommand(1.25, -0.25));
 		AddParallel(new FoldArmsUpCommand());
 		AddSequential(new TimedCommand(foldArmsTime));
-		AddSequential(new RotateRelativeAngleCommand(QuarterPi, rotateSpeed));
+//		AddSequential(new RotateRelativeAngleCommand(QuarterPi, rotateSpeed));
 		AddSequential(new DriveStraightCommand(1.5, 0.3));
 		// Deliver cube into switch.
-//		AddSequential(new DeliverCubeUntilNotPresentCommand(), deliverCubeDelayTime);
 		AddParallel(new DeliverCubeCommand());
 		AddSequential(new TimedCommand(deliverCubeDelayTime));
 		AddParallel(new StopArmWheelsCommand());
@@ -68,7 +65,6 @@ TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide) :
 		AddSequential(new RotateRelativeAngleCommand(HalfPi, rotateSpeed));
 		AddSequential(new DriveStraightCommand(1.5, 0.25));
 		// Deliver cube into switch.
-//		AddSequential(new DeliverCubeUntilNotPresentCommand(), deliverCubeDelayTime);
 		AddParallel(new DeliverCubeCommand());
 		AddSequential(new TimedCommand(deliverCubeDelayTime));
 		AddParallel(new StopArmWheelsCommand());
@@ -87,7 +83,6 @@ TwCenterAutoCommandGroup::TwCenterAutoCommandGroup(Side switchSide) :
 		AddSequential(new RotateRelativeAngleCommand(-QuarterPi, rotateSpeed));
 		AddSequential(new TwoWheelDriveCommand(1.75, 1, driveWheels));
 		// Deliver cube into switch.
-//		AddSequential(new DeliverCubeUntilNotPresentCommand(), deliverCubeDelayTime);
 		AddParallel(new DeliverCubeCommand());
 		AddSequential(new TimedCommand(deliverCubeDelayTime));
 		AddParallel(new StopArmWheelsCommand());
